@@ -1,0 +1,2261 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>601 Hafta 6 Çalışma Defteri</title>
+<meta name="description" content="KBM 601, 6. hafta: matris temsilinden konum ve momentum temsillerine. 18 tahta, lise seviyesinde örnekler ve 45 kontrol sorusu.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<style>
+:root {
+  /* Düzen: açık tema beyaz tahta, koyu tema kara tahta. Her adımda solda yapışkan tahta fotoğrafı, sağda defter sayfası. */
+  --bg: #f1f4f2;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --ink-2: #4b5864;
+  --line: #d4dce0;
+  --marker: #1f46a3;
+  --marker-ink: #ffffff;
+  --marker-soft: #e5ecf9;
+  --red: #b3322a;
+  --red-soft: #fbebe9;
+  --green: #276646;
+  --green-soft: #e6f1ea;
+  --grid: rgba(39, 102, 70, .14);
+  --scrim: rgba(8, 12, 10, .92);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(22, 32, 42, .05), 0 6px 18px rgba(22, 32, 42, .07);
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111d17;
+    --surface: #18271f;
+    --ink: #e6ede8;
+    --ink-2: #a1b1a7;
+    --line: #2a3d33;
+    --marker: #95b8ff;
+    --marker-ink: #0c1611;
+    --marker-soft: rgba(149, 184, 255, .13);
+    --red: #ff9384;
+    --red-soft: rgba(255, 147, 132, .12);
+    --green: #9bd7b2;
+    --green-soft: rgba(155, 215, 178, .09);
+    --grid: rgba(230, 237, 232, .07);
+    --scrim: rgba(3, 7, 5, .94);
+    --scrim-ink: #f3f6f4;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111d17;
+  --surface: #18271f;
+  --ink: #e6ede8;
+  --ink-2: #a1b1a7;
+  --line: #2a3d33;
+  --marker: #95b8ff;
+  --marker-ink: #0c1611;
+  --marker-soft: rgba(149, 184, 255, .13);
+  --red: #ff9384;
+  --red-soft: rgba(255, 147, 132, .12);
+  --green: #9bd7b2;
+  --green-soft: rgba(155, 215, 178, .09);
+  --grid: rgba(230, 237, 232, .07);
+  --scrim: rgba(3, 7, 5, .94);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.crumbs { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); margin-bottom: 16px; }
+.crumbs a { color: var(--marker); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 40;
+  background: var(--bg);
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-body); line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--marker); text-underline-offset: 3px; }
+strong { font-weight: 650; }
+:focus-visible { outline: 2.5px solid var(--marker); outline-offset: 2px; border-radius: 6px; }
+.k {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Giriş */
+.hero { padding-block: 44px 6px; }
+.eyebrow { font-family: var(--font-hand); font-size: 28px; color: var(--red); line-height: 1; }
+.hero h1 { font-size: clamp(32px, 5.2vw, 50px); font-weight: 700; letter-spacing: -.015em; margin: 10px 0 14px; max-width: 18ch; }
+.lead { font-size: 19px; color: var(--ink-2); max-width: 62ch; }
+.intro { padding-block: 26px 30px; display: grid; gap: 20px; }
+@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; } }
+.howto { font-family: var(--font-ui); font-size: 15px; line-height: 1.55; }
+.howto ol { margin: 10px 0 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.remind { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; }
+.tag { font-family: var(--font-hand); font-size: 25px; line-height: 1; display: block; }
+.remind .tag { color: var(--red); }
+
+/* Harita */
+.map { display: grid; gap: 18px 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); padding-block: 4px 26px; }
+.map-g h2 { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+.map ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.map a { display: flex; align-items: center; gap: 10px; padding: 5px 8px; border-radius: 8px; color: var(--ink); text-decoration: none; font-family: var(--font-ui); font-size: 14.5px; }
+.map a:hover { background: var(--surface); }
+.mn { font-family: var(--font-hand); font-size: 22px; color: var(--marker); width: 1.3em; text-align: right; line-height: 1; flex: none; }
+.lk { margin-left: auto; font-size: 12px; color: var(--ink-2); }
+.dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink-2); flex: none; opacity: .7; }
+[data-s="doing"] .dot { border-color: var(--marker); background: linear-gradient(90deg, var(--marker) 50%, transparent 50%); opacity: 1; }
+[data-s="done"] .dot { border-color: var(--green); background: var(--green); opacity: 1; }
+[data-s="weak"] .dot { border-color: var(--red); background: var(--red); opacity: 1; }
+.legend { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* İlerleme çubuğu */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); border-block: 1px solid var(--line); }
+.bar-in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-block: 10px; }
+.meter { flex: 1 1 140px; min-width: 100px; height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: var(--marker); transition: width .35s ease; }
+.count { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.count strong { color: var(--ink); }
+.bar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--marker);
+  background: var(--marker);
+  color: var(--marker-ink);
+  cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--marker); }
+.btn:hover:not(:disabled) { filter: brightness(1.08); }
+.btn:disabled { opacity: .45; cursor: default; }
+.linkbtn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--marker);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+/* Bölümler ve adımlar */
+.part { padding-block: 60px 4px; scroll-margin-top: 110px; }
+.part h2 { font-size: clamp(26px, 3.6vw, 34px); font-weight: 700; margin: 6px 0 8px; }
+.part .sub { color: var(--ink-2); max-width: 62ch; }
+.step { margin-top: 44px; scroll-margin-top: 96px; }
+.step-h { border-top: 2px solid var(--ink); padding-top: 12px; margin-bottom: 18px; }
+.step-k { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.hand { font-family: var(--font-hand); font-size: 31px; color: var(--marker); line-height: 1; }
+.code { font-family: var(--font-hand); font-size: 22px; color: var(--red); line-height: 1; }
+.st { margin-left: auto; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.step[data-s="done"] .st { color: var(--green); }
+.step[data-s="weak"] .st { color: var(--red); }
+.step h3 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 650; margin-top: 4px; }
+.step-grid { display: grid; gap: 22px 36px; }
+@media (min-width: 1000px) {
+  .step-grid { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); align-items: start; }
+  .board { position: sticky; top: 92px; }
+}
+.board { margin: 0; }
+.zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.zoom img { display: block; width: 100%; height: auto; }
+.board figcaption { font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+.step-body { min-width: 0; max-width: 72ch; display: grid; gap: 14px; }
+.step-body ul, .step-body ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.gist { font-size: 18.5px; line-height: 1.55; padding: 12px 16px; border-radius: 10px; background: var(--marker-soft); }
+.gist .k { display: block; margin-bottom: 2px; }
+.eq { overflow-x: auto; overflow-y: hidden; min-width: 0; }
+.eq mjx-container[display="true"] { margin: .2em 0 !important; }
+mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.lise {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px 16px;
+  display: grid;
+  gap: 8px;
+  background-color: var(--green-soft);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.lise .tag { color: var(--green); }
+.fix { border: 1.5px dashed var(--red); background: var(--red-soft); border-radius: 12px; padding: 12px 16px; display: grid; gap: 6px; }
+.fix .tag { color: var(--red); }
+details { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+summary { cursor: pointer; padding: 10px 14px; font-family: var(--font-ui); font-size: 14.5px; font-weight: 600; color: var(--marker); list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-block; width: 1.2em; }
+details[open] > summary::before { content: "−"; }
+.d-body { padding: 0 14px 14px; display: grid; gap: 8px; }
+
+/* Sorular */
+.checks { display: grid; gap: 14px; margin-top: 6px; }
+.checks-h { font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 10px; }
+.checks-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: grid; gap: 12px; scroll-margin-top: 110px; }
+.q-n { display: inline-block; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600; color: var(--marker); letter-spacing: .05em; text-transform: uppercase; margin-right: 8px; }
+.opts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: opt; }
+.opts li { counter-increment: opt; display: grid; gap: 6px; }
+.opt {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.opt::before {
+  content: counter(opt, upper-alpha);
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+.opt .t { min-width: 0; overflow-x: auto; }
+.opt:hover:not(:disabled) { border-color: var(--marker); }
+.opt:disabled { cursor: default; }
+.opt.is-right { border-color: var(--green); background: var(--green-soft); }
+.opt.is-right::before { content: "✓"; background: var(--green); border-color: var(--green); color: var(--bg); }
+.opt.is-wrong { border-color: var(--red); background: var(--red-soft); color: var(--ink-2); }
+.opt.is-wrong::before { content: "✗"; background: var(--red); border-color: var(--red); color: var(--bg); }
+.why { font-size: 15px; color: var(--ink-2); padding-left: 50px; }
+.why::before { content: "Neden olmaz: "; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; color: var(--red); }
+.hint { padding-left: 0; }
+.hint::before { content: "İpucu: "; color: var(--marker); }
+.num-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.num-row input {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  width: 10em;
+  max-width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.num-row input.is-wrong { border-color: var(--red); }
+.num-row input.is-right { border-color: var(--green); background: var(--green-soft); }
+.msg { font-family: var(--font-ui); font-size: 14px; font-weight: 600; }
+.msg:empty { display: none; }
+.msg[data-k="good"] { color: var(--green); }
+.msg[data-k="bad"] { color: var(--red); }
+.msg[data-k="info"] { color: var(--ink-2); }
+.explain { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 16px; }
+.explain::before { content: "Açıklama"; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+
+/* Kilit */
+.lock { border: 1.5px dashed var(--line); border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-family: var(--font-ui); font-size: 14.5px; color: var(--ink-2); }
+.lock p { flex: 1 1 260px; }
+
+/* Etkileşimli çizimler */
+.widget { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; display: grid; gap: 10px; }
+.predict { font-size: 15.5px; }
+.wsvg { width: 100%; height: auto; display: block; }
+.w-row { display: grid; gap: 12px; }
+@media (min-width: 640px) { .w-row.two { grid-template-columns: 1fr 1fr; } }
+.w-cap { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.ctrl { display: flex; align-items: center; gap: 12px; font-family: var(--font-ui); font-size: 14px; }
+.ctrl label { font-weight: 600; white-space: nowrap; }
+.ctrl input[type="range"] { flex: 1; min-width: 0; accent-color: var(--marker); }
+.ro { font-family: var(--font-ui); font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ro b { color: var(--ink); font-weight: 600; }
+.wsvg .ax { stroke: var(--ink-2); stroke-width: 1; }
+.wsvg .grid { stroke: var(--line); stroke-width: 1; }
+.wsvg .tick { fill: var(--ink-2); font-family: var(--font-ui); font-size: 11px; }
+.wsvg .axl { fill: var(--ink-2); font-family: var(--font-body); font-style: italic; font-size: 13px; }
+.wsvg .lbl { fill: var(--marker); font-weight: 600; }
+.wsvg .box { fill: var(--marker-soft); stroke: var(--marker); stroke-width: 2; }
+.wsvg .area { fill: var(--marker-soft); stroke: none; }
+.wsvg .curve { fill: none; stroke: var(--marker); stroke-width: 2.25; }
+.wsvg .curve-alt { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.wsvg .curve-red { fill: none; stroke: var(--red); stroke-width: 2; }
+.wsvg .mark { stroke: var(--red); stroke-width: 1.25; stroke-dasharray: 3 3; }
+.wsvg .dot-b { fill: var(--marker); }
+.wsvg .dot-r { fill: var(--surface); stroke: var(--red); stroke-width: 2; }
+.wsvg .cell-on { fill: var(--marker); }
+.wsvg .cell-off { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+
+/* Tablolar */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 15px; }
+.tbl th, .tbl td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl th { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; background: var(--bg); white-space: nowrap; }
+.tbl td.num { font-family: var(--font-ui); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Son bölümler */
+.end { padding-block: 64px 0; display: grid; gap: 14px; scroll-margin-top: 96px; }
+.end h2 { font-size: clamp(24px, 3.2vw, 30px); font-weight: 700; }
+.end > p { max-width: 68ch; }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px; max-width: 80ch; }
+.report ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.why-tag { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.foot { padding-block: 40px 56px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+
+/* Fotoğraf görüntüleyici */
+.lb { position: fixed; inset: 0; z-index: 60; background: var(--scrim); display: flex; align-items: center; justify-content: center; padding: max(56px, calc(env(safe-area-inset-top, 0px) + 56px)) max(16px, env(safe-area-inset-right, 0px)) max(44px, calc(env(safe-area-inset-bottom, 0px) + 44px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lb img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; cursor: zoom-in; }
+.lb.full { display: block; overflow: auto; }
+.lb.full img { max-width: none; max-height: none; width: 1600px; cursor: zoom-out; }
+.lb-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); font-family: var(--font-ui); font-weight: 600; font-size: 14px; color: var(--scrim-ink); background: transparent; border: 1.5px solid var(--scrim-ink); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.lb-hint { position: fixed; left: 0; right: 0; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--font-ui); font-size: 13px; color: var(--scrim-ink); opacity: .8; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { padding-block: 28px 4px; }
+  .lead { font-size: 17.5px; }
+  .gist { font-size: 17px; }
+  .q { padding: 14px; }
+  .why { padding-left: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="wrap hero">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">601</a> › Hafta 6</nav>
+  <p class="eyebrow">601 · 6. hafta · 30 Ekim dersi</p>
+  <h1>Matristen dalga fonksiyonuna</h1>
+  <p class="lead">Bu haftanın tek fikri şu: geçen hafta sonlu boyutta kurduğumuz matris dili, konum ve momentum gibi sürekli büyüklüklere olduğu gibi taşınıyor. Toplamlar integrale, tablolar fonksiyonlara dönüşüyor. Dersin sonunda da momentum operatörünün nereden geldiğini görüyoruz.</p>
+</header>
+
+<section class="wrap intro" aria-label="Nasıl çalışılır">
+  <div class="howto">
+    <p class="k">Nasıl çalışılır</p>
+    <ol>
+      <li>Her adım tahtadaki bir fotoğraf; 18 tahtanın hepsi burada, derste yazıldığı sırayla. Fotoğrafa dokunursan büyür.</li>
+      <li>Önce “Tek cümlede” kutusunu, sonra anlatımı ve lise örneğini oku.</li>
+      <li>Adımın sonundaki soruları çöz. Yanlış şık seçersen neden yanlış olduğunu görür, tekrar denersin.</li>
+      <li>Adım adım mod açıkken bir sonraki tahta, öncekinin soruları bitince açılır. En sondaki rapor neyi tekrar etmen gerektiğini gösterir.</li>
+    </ol>
+  </div>
+  <aside class="remind">
+    <span class="tag">5. haftadan tek hatırlatma</span>
+    <div class="eq">\[ \sum_n|n\rangle\langle n|=\hat I \]</div>
+    <p>Bir şeyi 1 ile çarpmak hiçbir şeyi değiştirmez, ama bu 1 açılınca her şey bileşenlerine ayrılır. Bu haftaki türetmelerin neredeyse hepsi aynı hile, sadece \(\sum\) yerine \(\int\) geliyor. Takıldığında kendine sor: araya hangi 1'i koyarsam açılır?</p>
+  </aside>
+</section>
+
+<nav class="wrap map" aria-label="Tahtalar">
+  <div class="map-g">
+    <h2>A · Matris dili</h2>
+    <ol>
+      <li><a href="#t1" data-step="t1"><span class="mn">1</span><span class="dot"></span>Ket liste, operatör tablo<span class="lk"></span></a></li>
+      <li><a href="#t2" data-step="t2"><span class="mn">2</span><span class="dot"></span>Hermitsel ve üniter<span class="lk"></span></a></li>
+      <li><a href="#t3" data-step="t3"><span class="mn">3</span><span class="dot"></span>Baz değişimi<span class="lk"></span></a></li>
+      <li><a href="#t4" data-step="t4"><span class="mn">4</span><span class="dot"></span>Operatörün fonksiyonu<span class="lk"></span></a></li>
+      <li><a href="#t5" data-step="t5"><span class="mn">5</span><span class="dot"></span>Taylor serisi ve köşegenlik<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>B · Konum temsili</h2>
+    <ol>
+      <li><a href="#t6" data-step="t6"><span class="mn">6</span><span class="dot"></span>Sürekli baz<span class="lk"></span></a></li>
+      <li><a href="#t7" data-step="t7"><span class="mn">7</span><span class="dot"></span>Dirac deltası<span class="lk"></span></a></li>
+      <li><a href="#t8" data-step="t8"><span class="mn">8</span><span class="dot"></span>Tamlık ve dalga fonksiyonu<span class="lk"></span></a></li>
+      <li><a href="#t9" data-step="t9"><span class="mn">9</span><span class="dot"></span>Çekirdek<span class="lk"></span></a></li>
+      <li><a href="#t10" data-step="t10"><span class="mn">10</span><span class="dot"></span>Yerel potansiyel<span class="lk"></span></a></li>
+      <li><a href="#t11" data-step="t11"><span class="mn">11</span><span class="dot"></span>Yerel olmayan potansiyel<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>C · Momentum temsili</h2>
+    <ol>
+      <li><a href="#t12" data-step="t12"><span class="mn">12</span><span class="dot"></span>Momentum bazı<span class="lk"></span></a></li>
+      <li><a href="#t13" data-step="t13"><span class="mn">13</span><span class="dot"></span>Dönen dalga ⟨x|p⟩<span class="lk"></span></a></li>
+      <li><a href="#t14" data-step="t14"><span class="mn">14</span><span class="dot"></span>Fourier dönüşümü<span class="lk"></span></a></li>
+      <li><a href="#t15" data-step="t15"><span class="mn">15</span><span class="dot"></span>Birim kontrolü<span class="lk"></span></a></li>
+      <li><a href="#t16" data-step="t16"><span class="mn">16</span><span class="dot"></span>Roller yer değiştirir<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>D · Öteleme</h2>
+    <ol>
+      <li><a href="#t17" data-step="t17"><span class="mn">17</span><span class="dot"></span>Öteleme operatörü<span class="lk"></span></a></li>
+      <li><a href="#t18" data-step="t18"><span class="mn">18</span><span class="dot"></span>Momentum, ötelemenin üreteci<span class="lk"></span></a></li>
+    </ol>
+    <h2 style="margin-top:16px">Sonda</h2>
+    <ol>
+      <li><a href="#sozluk"><span class="mn">·</span>Haftanın sözlüğü</a></li>
+      <li><a href="#rapor"><span class="mn">·</span>Durum raporu</a></li>
+    </ol>
+  </div>
+  <p class="legend"><span><span class="dot"></span>başlanmadı</span><span data-s="doing"><span class="dot"></span>yarıda</span><span data-s="done"><span class="dot"></span>ilk denemede tamam</span><span data-s="weak"><span class="dot"></span>tekrar bak</span></p>
+</nav>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div class="meter" aria-hidden="true"><span id="fill"></span></div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="bar-actions">
+      <button type="button" class="btn ghost" id="strict" aria-pressed="true">Adım adım: açık</button>
+      <button type="button" class="btn" id="next">Sıradaki soru</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ===================== BÖLÜM A ===================== -->
+<header class="part" id="bolum-a">
+  <p class="k">Bölüm A · Tahta 1–5</p>
+  <h2>Matris dili</h2>
+  <p class="sub">İlk üç tahta geçen haftanın hızlı tekrarı, sonraki ikisi yeni: bir operatörün fonksiyonu nasıl hesaplanır. Sonsuz boyuta geçmeden önce kurallar burada oturuyor.</p>
+</header>
+
+<!-- TAHTA 1 -->
+<section class="step" id="t1" data-n="1">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 1</span><span class="code" title="Tahtanın sol üst köşesindeki kod">241473</span><span class="st"></span></p>
+    <h3>Ket bir liste, operatör bir tablo</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 1 fotoğrafını büyüt"><img src="boards/t01.jpg" width="1600" height="899" alt="Beyaz tahta: geçen haftanın Dirac notasyonundan matris temsiline geçiş, |ψ⟩ = Σ cₙ|eₙ⟩, cₙ = ⟨eₙ|ψ⟩, Aₘₙ = ⟨eₘ|Â|eₙ⟩ ve A c = d."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Bir baz seçtiğin anda soyut ket bir sayı listesine, operatör de bir sayı tablosuna dönüşür; \(\hat A|\psi\rangle=|\phi\rangle\) bildiğin matris çarpımı olur.</p>
+      <p>Geçen hafta \(|\psi\rangle\) gibi soyut ketlerle çalıştık. Soyut şeyle hesap yapılmaz, sayı lazım. Sayıya geçmenin yolu bir baz seçmek; tahtadaki “finite dimensional (N-dimensional) orthonormal basis” bu: \(\{|e_n\rangle\}\), \(n=1,2,\dots,N\). Ortonormal demek, her yönün boyu 1 ve yönler birbirine dik: \(\langle e_m|e_n\rangle=\delta_{mn}\).</p>
+      <p>Sonra her ketin bu yönlerden ne kadar içerdiğini yazıyoruz:</p>
+      <div class="eq">\[ |\psi\rangle=\sum_n c_n|e_n\rangle,\qquad c_n=\langle e_n|\psi\rangle \]</div>
+      <p>\(c_n\)'yi bulmak, \(|\psi\rangle\)'nin n'inci yön üzerindeki gölgesini almak. Bu sayılar alt alta yazılınca sütun vektörü \(\vec c_e\) olur; tahtadaki “rows of \(\vec c_e\) vector” notu bu. Alt indisteki e, “e bazında yazıldı” demek.</p>
+      <p>Operatör de bir tabloya dönüşüyor: \(A_{mn}=\langle e_m|\hat A|e_n\rangle\). Bra'daki indis satır, ket'teki indis sütun. Böylece:</p>
+      <div class="eq">\[ \hat A|\psi\rangle=|\phi\rangle\;\Longrightarrow\;\overleftrightarrow{A}\,\vec c=\vec d,\qquad d_m=\sum_n A_{mn}\,c_n \]</div>
+      <p>N×N tablo çarpı N×1 liste, sonuç yine N×1 liste. Hocanın okları: \(\vec c\) sağa ok, sütun (N×1); \(\overleftarrow{c}\) sola ok, satır (1×N); \(\overleftrightarrow{A}\) çift ok, tablo (N×N).</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Okuldan çıktın, 3 blok doğuya, 4 blok kuzeye yürüdün. “Doğu” ve “kuzey” senin bazın, (3, 4) da bileşenlerin. Şimdi bir işlem düşün: “doğu adımlarını ikiye katla, kuzeyi olduğu gibi bırak”. Bu işlemin tablosu ve etkisi:</p>
+        <div class="eq">\[ \begin{pmatrix}2&amp;0\\0&amp;1\end{pmatrix}\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}2\cdot3+0\cdot4\\0\cdot3+1\cdot4\end{pmatrix}=\begin{pmatrix}6\\4\end{pmatrix} \]</div>
+        <p>Kuantumda ket bu konumun, operatör de bu işlemin karşılığı. Tek fark, sayıların kompleks olabilmesi.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-1a" data-q="1a" data-type="mc" data-topic="bileşeni izdüşümle bulmak">
+          <p><span class="q-n">Soru 1.1</span>\(|\psi\rangle=3|e_1\rangle+4|e_2\rangle\) ise \(c_2=\langle e_2|\psi\rangle\) kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">3</span></button><p class="why tex-later" hidden>Bu \(c_1\). \(\langle e_2|\) sadece \(e_2\) yönündeki parçayı süzer.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">4</span></button></li>
+            <li><button type="button" class="opt"><span class="t">5</span></button><p class="why tex-later" hidden>5 vektörün boyu, \(\sqrt{3^2+4^2}\). Bileşen değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">7</span></button><p class="why tex-later" hidden>Bileşenler toplanmaz. \(\langle e_2|e_1\rangle=0\) olduğu için 3'lü terim düşer.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\langle e_2|\psi\rangle=3\langle e_2|e_1\rangle+4\langle e_2|e_2\rangle=3\cdot0+4\cdot1=4\). İşi ortonormallik yapıyor.</p></div>
+        </div>
+        <div class="q" id="q-1b" data-q="1b" data-type="mc" data-topic="matris çarpımı">
+          <p><span class="q-n">Soru 1.2</span>\(A=\begin{pmatrix}1&amp;2\\0&amp;3\end{pmatrix}\) ve \(\vec c=\begin{pmatrix}1\\1\end{pmatrix}\) ise \(\vec d=A\vec c\) ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">(3, 3)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">(1, 5)</span></button><p class="why tex-later" hidden>Satırları değil sütunları toplamışsın. \(d_m=\sum_n A_{mn}c_n\): m'inci satır boyunca gez.</p></li>
+            <li><button type="button" class="opt"><span class="t">(1, 3)</span></button><p class="why tex-later" hidden>Sadece köşegeni kullandın. Köşegen dışındaki 2 de \(d_1\)'e katkı verir.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(d_1=1\cdot1+2\cdot1=3\), \(d_2=0\cdot1+3\cdot1=3\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 2 -->
+<section class="step" id="t2" data-n="2">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 2</span><span class="st"></span></p>
+    <h3>Hermitsel: aynalı tablo. Üniter: boy koruyan dönme</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 fotoğrafını büyüt"><img src="boards/t02.jpg" width="1600" height="984" loading="lazy" decoding="async" alt="Kara tahta: Hermitsel operatörlerde Aₘₙ = Aₙₘ*, özbazda diag(a₁, …, a_N), üniter dönüşümün iç çarpımı koruması."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Hermitsel operatörün tablosu köşegene göre “ayna ve eşlenik” simetrik ve kendi özbazında sadece köşegen kalır; üniter dönüşüm iç çarpımı, yani uzunlukları ve olasılıkları korur.</p>
+      <p>Önce kompleks eşlenik: \(3+2i\)'nin eşleniği \(3-2i\), yani i'nin işaretini çevirirsin. Hermitsel operatör \(\hat A=\hat A^\dagger\) demek ve tabloda şöyle görünür:</p>
+      <div class="eq">\[ A_{mn}=A_{nm}^{*} \]</div>
+      <p>(m, n) kutusundaki sayı, ayna kutusundaki (n, m) sayısının eşleniği. Tahtadaki iki not bu iki işlemi gösteriyor: “complex conjugate” yıldızı, “notice the transpose mn→nm” de indislerin yer değiştirmesi. Köşegende m = n olduğu için \(A_{nn}=A_{nn}^*\), yani köşegen hep reel. Ölçüm sonuçları (özdeğerler) da hep reel çıkar; ölçülebilir her büyüklüğün Hermitsel olmasının sebebi bu.</p>
+      <p>Hermitsel operatörün özvektörleri bir baz kurar ve o bazda tablo köşegen olur:</p>
+      <div class="eq">\[ \hat A=\sum_{n=1}^{N}a_n|a_n\rangle\langle a_n|\;\Longleftrightarrow\;\overleftrightarrow{A}=\mathrm{diag}(a_1,a_2,\dots,a_N) \]</div>
+      <p>\(|a_n\rangle\langle a_n|\), n'inci yöne izdüşüm. \(\hat A\) her yönü kendi özdeğeriyle çarpar, yönler birbirine karışmaz.</p>
+      <p>Madde 3, üniter dönüşüm: \(\hat U^\dagger\hat U=\hat I\). \(\langle U\phi|\) bra'sı \(\langle\phi|\hat U^\dagger\) demek, bu yüzden:</p>
+      <div class="eq">\[ \langle U\phi|U\psi\rangle=\langle\phi|\hat U^\dagger\hat U|\psi\rangle=\langle\phi|\psi\rangle \]</div>
+      <p>İç çarpım korununca uzunluklar, açılar ve olasılıklar da korunur.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Şehirler arası mesafe tablosu: Ankara–İstanbul 450 km ise İstanbul–Ankara da 450 km. Tablo köşegene göre simetrik. Hermitsel tablo bunun kompleks hali:</p>
+        <div class="eq">\[ \begin{pmatrix}2&amp;1+i\\1-i&amp;3\end{pmatrix} \]</div>
+        <p>Sağ üstte \(1+i\), ayna kutuda onun eşleniği \(1-i\), köşegende reel 2 ve 3. Üniter dönüşüm için de kâğıttaki bir üçgeni döndür: köşelerin koordinatları değişir, kenar uzunlukları ve açılar aynı kalır.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-2a" data-q="2a" data-type="mc" data-topic="Hermitsel tablo şartı">
+          <p><span class="q-n">Soru 2.1</span>Hangisi Hermitsel?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\begin{pmatrix}1&amp;2i\\2i&amp;1\end{pmatrix}\)</span></button><p class="why tex-later" hidden>\(A_{12}=2i\) ise \(A_{21}\) onun eşleniği, yani \(-2i\) olmalıydı. Bu tablo simetrik ama eşlenik değil.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\begin{pmatrix}1&amp;2i\\-2i&amp;1\end{pmatrix}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\begin{pmatrix}i&amp;0\\0&amp;1\end{pmatrix}\)</span></button><p class="why tex-later" hidden>Köşegende i var. Hermitsel tabloda köşegen reel olmak zorunda.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(A_{21}=-2i=(2i)^*=A_{12}^*\) ve köşegen reel. İki şart da tamam.</p></div>
+        </div>
+        <div class="q" id="q-2b" data-q="2b" data-type="mc" data-topic="özdeğer ve ölçüm sonucu">
+          <p><span class="q-n">Soru 2.2</span>Bir Hermitsel operatörün özbazındaki tablosu \(\mathrm{diag}(2,-1)\). Bu büyüklüğü ölçünce hangi sonuçlar çıkabilir?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Sadece 2</span></button><p class="why tex-later" hidden>−1 de bir özdeğer; o da çıkabilir.</p></li>
+            <li><button type="button" class="opt"><span class="t">Sadece 1, yani iki sayının toplamı</span></button><p class="why tex-later" hidden>Ölçüm özdeğerlerden birini verir, toplamlarını değil. Ortalama ayrı bir soru (beklenen değer).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">2 ya da −1</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Herhangi bir reel sayı</span></button><p class="why tex-later" hidden>Ölçüm sonucu her zaman özdeğerlerden biridir.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Köşegendeki sayılar özdeğerler; tek bir ölçüm bunlardan birini verir.</p></div>
+        </div>
+        <div class="q" id="q-2c" data-q="2c" data-type="mc" data-topic="üniter dönüşüm neyi korur">
+          <p><span class="q-n">Soru 2.3</span>Bir kete üniter dönüşüm uygularsan hangisi DEĞİŞEBİLİR?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">İki ketin iç çarpımı</span></button><p class="why tex-later" hidden>Tahtadaki formül tam bunun korunduğunu söylüyor.</p></li>
+            <li><button type="button" class="opt"><span class="t">Ketin boyu</span></button><p class="why tex-later" hidden>Boy, ketin kendisiyle iç çarpımı; o da korunur.</p></li>
+            <li><button type="button" class="opt"><span class="t">Toplam olasılık</span></button><p class="why tex-later" hidden>Toplam olasılık boyun karesi; korunur.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Ketin bileşenleri, yani sayıları</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Dönen üçgenin köşe koordinatları değişir, kenarları değişmez. Sayılar değişir; iç çarpım ve olasılıklar değişmez.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 3 -->
+<section class="step" id="t3" data-n="3">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 3</span><span class="code" title="Tahtanın sol üst köşesindeki kod">241473</span><span class="st"></span></p>
+    <h3>Baz değişince sayılar değişir, fizik değişmez</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 3 fotoğrafını büyüt"><img src="boards/t03.jpg" width="1600" height="915" loading="lazy" decoding="async" alt="Beyaz tahta: baz değişimi fiziksel tahminleri korur, Uₘₙ, c_f = U c_e, A_f = U A_e U† ve beklenen değerin iki bazda aynı olması."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Baz değiştirmek, aynı oka başka eksenlerden bakmak: bileşenler U ile dönüşür, beklenen değer \(\langle A\rangle\) aynı kalır.</p>
+      <p>Aynı \(|\psi\rangle\)'yi iki bazda yazabilirsin: eski \(\{|e_n\rangle\}\), yeni \(\{|f_m\rangle\}\). Geçiş tablosu U ve dönüşüm kuralları:</p>
+      <div class="eq">\[ U_{mn}=\langle f_m|e_n\rangle,\qquad \vec c_f=\overleftrightarrow{U}\,\vec c_e,\qquad \overleftrightarrow{A}_f=\overleftrightarrow{U}\,\overleftrightarrow{A}_e\,\overleftrightarrow{U}^{\dagger} \]</div>
+      <p>\(U_{mn}\), yeni m'inci yönle eski n'inci yönün ne kadar örtüştüğü. Bileşen listesi U ile çarpılarak, operatör tablosu da iki yandan U ve \(U^\dagger\) ile sarılarak taşınır.</p>
+      <p>Hocanın asıl mesajı: beklenen değer \(\langle A\rangle=\langle\psi|\hat A|\psi\rangle\) baza bağlı değil. Matris dilinde \(\langle A\rangle=\vec c^{\,\dagger}A\,\vec c\). Tahtadaki \(\vec c_f^{\,\dagger}=\overleftarrow{c}_f^{\,*}\) notu şunu söylüyor: sütunun hançeri (dagger), elemanları eşleniklenmiş satır. Yerine koyunca:</p>
+      <div class="eq">\[ \vec c_f^{\,\dagger}A_f\,\vec c_f=(U\vec c_e)^\dagger(UA_eU^\dagger)(U\vec c_e)=\vec c_e^{\,\dagger}\underbrace{U^\dagger U}_{I}A_e\underbrace{U^\dagger U}_{I}\vec c_e=\vec c_e^{\,\dagger}A_e\,\vec c_e \]</div>
+      <p>Aradaki \(U^\dagger U\)'lar 1'e döner ve kaybolur. Ölçüm tahmini, defterine çizdiğin eksenlere bağlı olamaz.</p>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>Tahtada \(U_{mn}=\langle f_m|\hat U|e_n\rangle\) yazıyor. Tahtadaki formüllerin tutması için \(U_{mn}=\langle f_m|e_n\rangle\) diye oku; araya \(\hat U\) koyma.</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Masadaki bir kalemin fotoğrafını çek. Telefon düz dururken kalemin ucu (3, 4) noktasında. Telefonu kalem boyunca çevirip tekrar çekince uç (5, 0) noktasında. Sayılar değişti ama kalemin boyu iki fotoğrafta da 5:</p>
+        <div class="eq">\[ \sqrt{3^2+4^2}=\sqrt{5^2+0^2}=5 \]</div>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-3a" data-q="3a" data-type="mc" data-topic="boy baza bağlı değil">
+          <p><span class="q-n">Soru 3.1</span>Eski bazda \(\vec c=(3,4)\), yeni bazda \(\vec c=(5,0)\). \(\langle\psi|\psi\rangle=\vec c^{\,\dagger}\vec c\) hangi bazda daha büyük?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Eski bazda, çünkü 3 + 4 = 7</span></button><p class="why tex-later" hidden>\(\vec c^{\,\dagger}\vec c\) karelerin toplamı, düz toplam değil: 9 + 16 = 25.</p></li>
+            <li><button type="button" class="opt"><span class="t">Yeni bazda, çünkü 5, 4'ten büyük</span></button><p class="why tex-later" hidden>Tek bileşene bakma; karelerin toplamını al: 25 + 0 = 25.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">İkisinde de 25</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>9 + 16 = 25 = 25 + 0. Boy baza bağlı değil; U üniter olduğu için korunuyor.</p></div>
+        </div>
+        <div class="q" id="q-3b" data-q="3b" data-type="mc" data-topic="benzer matrislerin özdeğerleri">
+          <p><span class="q-n">Soru 3.2</span>\(A_f=UA_eU^\dagger\) için hangisi doğru?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">İki tablo aynı sayılardan oluşur</span></button><p class="why tex-later" hidden>Sayılar genelde değişir; değişmeyen şey özdeğerler.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">İkisinin özdeğerleri aynı</span></button></li>
+            <li><button type="button" class="opt"><span class="t">İkisi de her zaman köşegen</span></button><p class="why tex-later" hidden>Sadece özbazda köşegen. Başka bazda köşegen dışı terimler olur.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Aynı operatörün iki farklı fotoğrafı. Özdeğerler, yani ölçüm sonuçları, ikisinde de aynı.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 4 -->
+<section class="step" id="t4" data-n="4">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 4</span><span class="st"></span></p>
+    <h3>Operatörün fonksiyonu: önce kolay eksenlere geç</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 4 fotoğrafını büyüt"><img src="boards/t04.jpg" width="1600" height="952" loading="lazy" decoding="async" alt="Kara tahta: 6.6 operatör ve matris fonksiyonları, A = U diag(aₙ) U†, f(A) = U diag(f(aₙ)) U† ve e üzeri A örneği."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(f(\hat A)\)'yı hesaplamanın yolu: özbaza geç, f'yi her özdeğere ayrı ayrı uygula, geri dön.</p>
+      <p>6.6'nın başlığı “Functions of operators and matrices”. Spektral ayrışımla başlıyor:</p>
+      <div class="eq">\[ \overleftrightarrow{A}=\overleftrightarrow{U}\,\mathrm{diag}(a_n)\,\overleftrightarrow{U}^{\dagger} \]</div>
+      <p>Sağdaki not: U, üniter dönüşüm \(\hat U\)'nun N×N tablosu; sütunları A'nın özvektörleri. Sağdan sola oku: \(U^\dagger\) ile özbaza geç, \(\mathrm{diag}(a_n)\) ile her yönü kendi özdeğeriyle çarp, U ile geri dön.</p>
+      <p>Köşegen bir tabloya fonksiyon uygulamak çok kolay, her sayıya ayrı uygularsın:</p>
+      <div class="eq">\[ \mathrm{diag}(2,3)^2=\mathrm{diag}(4,9),\qquad e^{\mathrm{diag}(2,3)}=\mathrm{diag}(e^2,e^3) \]</div>
+      <p>Köşegen olmayan tabloda ise kare alırken her şey birbirine karışır. Çözüm hep aynı:</p>
+      <div class="eq">\[ f(\hat A)=\overleftrightarrow{U}\,\mathrm{diag}\big(f(a_n)\big)\,\overleftrightarrow{U}^{\dagger},\qquad e^{\hat A}=\overleftrightarrow{U}\,\mathrm{diag}\big(e^{a_n}\big)\,\overleftrightarrow{U}^{\dagger} \]</div>
+      <p>Neden doğru? Kare alınca aradaki \(U^\dagger U\) kaybolur: \(A^2=UDU^\dagger\,UDU^\dagger=UD^2U^\dagger\). Her kuvvet için aynısı geçerli, \(e^{A}\) de kuvvetlerin toplamı.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Eğik düzlemde kayan kutu. Eksenleri yatay ve dikey seçersen hem ağırlığı hem normal kuvveti hem sürtünmeyi parçalara ayırman gerekir, hesap karışır. Eksenleri eğim boyunca ve eğime dik seçince sadece ağırlığı bir kez ayırırsın, gerisi tek boyutlu hareket. Özbaz, operatörün “eğim boyunca” eksenleri: orada her yön kendi işini yapar.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-4a" data-q="4a" data-type="mc" data-topic="köşegen tablonun karesi">
+          <p><span class="q-n">Soru 4.1</span>\(A=\mathrm{diag}(1,-1)\) ise \(A^2\) ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{diag}(1,1)\), yani birim tablo</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(1,-1)\)</span></button><p class="why tex-later" hidden>\((-1)^2=1\); işaret kaybolur.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(2,-2)\)</span></button><p class="why tex-later" hidden>Kare almak 2 ile çarpmak değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Köşegende her sayının karesi: \(1^2=1\), \((-1)^2=1\).</p></div>
+        </div>
+        <div class="q" id="q-4b" data-q="4b" data-type="mc" data-topic="köşegen tablonun üsteli">
+          <p><span class="q-n">Soru 4.2</span>\(A=\mathrm{diag}(0,2)\) ise \(e^{A}\) ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(0,e^2)\)</span></button><p class="why tex-later" hidden>\(e^0=1\), sıfır değil. Köşegendeki 0 bile \(e^{A}\)'da 1 olur.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(1,2e)\)</span></button><p class="why tex-later" hidden>\(e^2\approx7{,}39\), \(2e\approx5{,}44\). Üs almak çarpmak değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(1,3)\)</span></button><p class="why tex-later" hidden>Bu, serinin sadece ilk iki terimi: \(I+A\).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{diag}(1,e^2)\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Her köşegen elemana ayrı ayrı: \(e^0=1\) ve \(e^2\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 5 -->
+<section class="step" id="t5" data-n="5">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 5</span><span class="code" title="Tahtanın sol üst köşesindeki kod">241473</span><span class="st"></span></p>
+    <h3>Aynı sonucu Taylor serisiyle bulmak</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 5 fotoğrafını büyüt"><img src="boards/t05.jpg" width="1600" height="935" loading="lazy" decoding="async" alt="Beyaz tahta: e üzeri Â'nın Taylor serisi, özbazda terim terim matris elemanları ve sonucun köşegen olduğu, kırmızı daire içinde eigenbasis for Â notu."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(e^{\hat A}\)'yı seriye açıp özbazda terim terim bakınca her terim köşegen çıkar; toplamları \(e^{a_n}\delta_{mn}\).</p>
+      <p>Maclaurin serisi, sıfır etrafındaki Taylor serisi demek. Lisedeki \(e^x=1+x+x^2/2!+\dots\) açılımını operatöre yazıyoruz:</p>
+      <div class="eq">\[ e^{\hat A}=\hat I+\frac{\hat A}{1!}+\frac{\hat A^2}{2!}+\frac{\hat A^3}{3!}+O(\hat A^4) \]</div>
+      <p>Tahtadaki kırmızı daire işin anahtarı: seriyi \(\hat A\)'nın özbazında, \(\langle a_m|\) ile \(|a_n\rangle\) arasına koyuyoruz. Terim terim:</p>
+      <ul>
+        <li>\(\hat I\) terimi: \(\langle a_m|a_n\rangle=\delta_{mn}\). Tahtadaki ok \(\delta_{mn}\leftrightarrow I\): birim tablo.</li>
+        <li>\(\hat A\) terimi: \(\hat A|a_n\rangle=a_n|a_n\rangle\) olduğu için \(\langle a_m|\hat A|a_n\rangle=a_n\delta_{mn}\).</li>
+        <li>\(\hat A^2\) terimi, tahtanın sağ üstü: iki \(\hat A\)'nın arasına \(\sum_k|a_k\rangle\langle a_k|=\hat I\) koy.</li>
+      </ul>
+      <div class="eq">\[ \langle a_m|\hat A^2|a_n\rangle=\sum_k\underbrace{\langle a_m|\hat A|a_k\rangle}_{a_k\delta_{mk}}\,\underbrace{\langle a_k|\hat A|a_n\rangle}_{a_n\delta_{kn}}=\sum_k a_ka_n\,\delta_{mk}\delta_{kn}=a_n^2\,\delta_{mn} \]</div>
+      <p>\(\delta_{kn}\) toplamda yalnızca \(k=n\) terimini bırakır, geriye \(\delta_{mn}\) kalır. Her terimde \(\delta_{mn}\) var, ortak paranteze al:</p>
+      <div class="eq">\[ \big(e^{\hat A}\big)_{mn}=\delta_{mn}+a_n\delta_{mn}+\frac{a_n^2}{2!}\delta_{mn}+O(a_n^3)=\delta_{mn}\Big(1+a_n+\frac{a_n^2}{2!}+O(a_n^3)\Big)=e^{a_n}\,\delta_{mn} \]</div>
+      <p>Parantezin içi tam \(e^{a_n}\)'nin serisi; tahtanın son notu “\(e^{\hat A}\) is diagonal”. Hocanın sözlü uyarısı: bu köşegenlik özbazı seçtiğimiz için. Genel bir bazda köşegen dışı terimler de olur, onları önceki adımdaki \(U\,\mathrm{diag}(e^{a_n})\,U^\dagger\) üretir. Bir de köprü cümlesi kurdu: buraya kadar sonlu boyuttu, sonsuz boyutta bu tablolar fonksiyonlara dönüşecek.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Hesap makinesiyle e'yi seriden bul. Her terim bir öncekine çok az şey ekliyor:</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Terim</th><th>Değeri</th><th>Toplam</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="num">1</td><td class="num">1</td></tr>
+            <tr><td>1/1!</td><td class="num">1</td><td class="num">2</td></tr>
+            <tr><td>1/2!</td><td class="num">0,5</td><td class="num">2,5</td></tr>
+            <tr><td>1/3!</td><td class="num">0,1667</td><td class="num">2,6667</td></tr>
+            <tr><td>1/4!</td><td class="num">0,0417</td><td class="num">2,7083</td></tr>
+            <tr><td>1/5!</td><td class="num">0,0083</td><td class="num">2,7167</td></tr>
+            <tr><td>1/6!</td><td class="num">0,0014</td><td class="num">2,7181</td></tr>
+          </tbody>
+        </table></div>
+        <p>Gerçek değer e = 2,71828… Yedi terimde dördüncü ondalığa kadar geldin. Kronecker deltası \(\delta_{mn}\) de bir yoklama listesi: senin adın okunursa (m = n) 1, başkasının adı okunursa 0.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-5a" data-q="5a" data-type="mc" data-topic="Kronecker deltasıyla süzme">
+          <p><span class="q-n">Soru 5.1</span>\(\sum_{k=1}^{3}\delta_{2k}\,x_k\) neye eşit?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(x_1+x_2+x_3\)</span></button><p class="why tex-later" hidden>\(\delta_{2k}\), \(k\neq2\) olan terimleri sıfırla çarpar.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(x_2\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">2</span></button><p class="why tex-later" hidden>δ bir indis seçer; sonuç o indisteki x değeridir, indisin kendisi değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">0</span></button><p class="why tex-later" hidden>k = 2 terimi hayatta kalır, çünkü \(\delta_{22}=1\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Süzme hilesi: δ toplamın içinden tek bir terimi seçer. Bu haftanın geri kalanında bunun sürekli hali olan \(\int f(x')\,\delta(x-x')\,dx'=f(x)\) her yerde karşına çıkacak.</p></div>
+        </div>
+        <div class="q" id="q-5b" data-q="5b" data-type="num" data-answer="7" data-tol="0.02" data-show="7,00" data-topic="e'nin serisi">
+          <p><span class="q-n">Soru 5.2</span>Seriden \(e^2\)'yi tahmin et: \(1+2+\frac{2^2}{2!}+\frac{2^3}{3!}+\frac{2^4}{4!}\) kaç? İki ondalık yeter.</p>
+          <div class="num-row"><label class="sr" for="in-5b">Cevabın</label><input id="in-5b" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>Terimleri tek tek hesapla: 1, 2, 4/2, 8/6, 16/24.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>1 + 2 + 2 + 1,33 + 0,67 = 7,00. Gerçek değer \(e^2\approx7{,}39\); terim ekledikçe yaklaşır.</p></div>
+        </div>
+        <div class="q" id="q-5c" data-q="5c" data-type="mc" data-topic="özbazda köşegen dışı terimler">
+          <p><span class="q-n">Soru 5.3</span>Özbazda \(\big(e^{\hat A}\big)_{12}\), yani köşegen dışı bir eleman kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">0</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{a_1}\)</span></button><p class="why tex-later" hidden>Bu \(\big(e^{\hat A}\big)_{11}\), köşegen eleman.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{a_1+a_2}\)</span></button><p class="why tex-later" hidden>Özbazda yönler karışmaz; \(\delta_{12}=0\) her terimi sıfırlar.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Serinin her teriminde \(\delta_{12}=0\) çarpanı var. Özbazda köşegen dışı her şey sıfır.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM B ===================== -->
+<header class="part" id="bolum-b">
+  <p class="k">Bölüm B · Tahta 6–11</p>
+  <h2>Konum temsili</h2>
+  <p class="sub">Sonsuz boyuta geçiş: liste sonsuz uzun, indis sürekli. Toplam integrale, Kronecker deltası Dirac deltasına, tablo da “çekirdek” denen bir fonksiyona dönüşüyor.</p>
+</header>
+
+<!-- TAHTA 6 -->
+<section class="step" id="t6" data-n="6">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 6</span><span class="st"></span></p>
+    <h3>Sürekli baz ve Dirac deltası</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 6 fotoğrafını büyüt"><img src="boards/t06.jpg" width="1600" height="969" loading="lazy" decoding="async" alt="Kara tahta: 7 Konum ve momentum temsilleri, 7.1 konum temsili, x̂|x⟩ = x|x⟩, ⟨x′|x⟩ = δ(x − x′), Dirac deltası aslında bir dağılım."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Konum sürekli olduğu için baz vektörleri \(|x\rangle\) sayılamayacak kadar çok; diklik Kronecker deltası yerine Dirac deltasıyla yazılır.</p>
+      <p>Bölüm 7'nin başlığı “Position and Momentum Representations”, ilk alt başlık 7.1 konum temsili. Şimdiye kadar baz vektörlerini sayabiliyorduk: 1, 2, …, N. Konumda bu bitiyor; 0,50 m ile 0,51 m arasında bile sonsuz nokta var. Her konum değeri x için bir ket \(|x\rangle\) var:</p>
+      <div class="eq">\[ \hat x|x\rangle=x|x\rangle,\qquad \langle x'|x\rangle=\delta(x-x') \]</div>
+      <p>Soldaki \(\hat x\) ölçüm makinesi (operatör), sağdaki x makinenin verdiği sayı (özdeğer). İç çarpımda \(\delta_{mn}\) yerine \(\delta(x-x')\) geliyor. Neden? Sürekli durumda “tek bir noktada 1, başka her yerde 0” işe yaramaz, çünkü integral alınca tek bir noktanın alanı sıfır. Tek noktada yaşayıp integrali 1 olan bir şey lazım: δ. Tahtadaki parantez de bunu söylüyor; matematiksel olarak δ sıradan bir fonksiyon değil, bir dağılım (distribution), ancak integral içinde ne yaptığıyla tanımlı.</p>
+      <p>Bunun bir bedeli var: \(\langle x|x\rangle=\delta(0)\) sonsuz. Yani \(|x\rangle\)'in boyu 1 değil; tek başına gerçek bir durum değil, “tam bu noktada” idealizasyonu. Gerçek durumlar bunların karışımı.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Sınıfın boy dağılımı. 10 cm'lik kutularla sayarsın: 150–160 cm arası 4 kişi, 160–170 arası 9 kişi. Kutuları daralttıkça (1 cm, 1 mm) her kutuya düşen kişi azalır; “tam olarak 165,000… cm boyunda kaç kişi var?” sorusunun cevabı sonunda sıfır olur. Anlamlı soru “santimetre başına kaç kişi?” olur, yani yoğunluk. Sürekli konumda da tek tek noktayla değil yoğunlukla konuşuyoruz; δ bu dilde “her şey tek bir noktada toplanmış” demek.</p>
+      </aside>
+      <details class="self">
+        <summary>Kendi cümlenle anlat, sonra açıp karşılaştır: sürekli bazda Kronecker deltası neden yetmiyor?</summary>
+        <div class="d-body tex-later"><p>Tamlık bağıntısı \(\int dx\,|x\rangle\langle x|x'\rangle=|x'\rangle\) olmalı. \(\langle x|x'\rangle\) sadece x = x′ noktasında 1 olsaydı, integral sıfır genişlikli tek bir noktayı toplardı ve sonuç sıfır çıkardı. Alanı 1 olan, tek noktaya sıkışmış bir nesne gerekiyor.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-6a" data-q="6a" data-type="mc" data-topic="operatör ve özdeğer farkı">
+          <p><span class="q-n">Soru 6.1</span>\(\hat x|x\rangle=x|x\rangle\) denkleminde \(\hat x\) ile x'in farkı ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Fark yok, şapka süs</span></button><p class="why tex-later" hidden>Şapka operatör demek. Operatör kete etki eder, sayı ise sadece çarpar.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\hat x\) sayı, x operatör</span></button><p class="why tex-later" hidden>Tersi. Kete etki eden, şapkalı olan.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\hat x\) operatör (ölçüm makinesi), x sayı (sonuç)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Özdeğer denklemi: makine \(\hat x\), \(|x\rangle\)'e etki edince aynı keti x sayısıyla çarpılmış olarak verir.</p></div>
+        </div>
+        <div class="q" id="q-6b" data-q="6b" data-type="mc" data-topic="neden Dirac deltası gerekiyor">
+          <p><span class="q-n">Soru 6.2</span>Sürekli bazda \(\langle x'|x\rangle\) neden “x = x′ ise 1, değilse 0” olamaz?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Çünkü x negatif olabilir</span></button><p class="why tex-later" hidden>İşaretin önemi yok; sorun tek noktanın sıfır genişliği.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">İntegralde tek bir noktanın alanı sıfır; tamlık bozulur</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Çünkü konum kompleks bir sayı</span></button><p class="why tex-later" hidden>Konum reel. Sorun genişlik: tek noktanın integrali sıfır.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Yüksekliği 1, genişliği sıfır olan bir çubuğun alanı sıfır. Alanı 1'de tutmak için yükseklik sonsuza gitmeli; δ bu.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 7 -->
+<section class="step" id="t7" data-n="7">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 7</span><span class="code" title="Tahtanın sol üst köşesindeki kod">892213</span><span class="st"></span></p>
+    <h3>Dirac deltası: alanı hep 1 kalan kutu</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 7 fotoğrafını büyüt"><img src="boards/t07.jpg" width="1600" height="913" loading="lazy" decoding="async" alt="Beyaz tahta: δ(x)'in tanımı, alanı 1 olan kutu çizimi, kutunun integral hesabı ve δ(x − x′)'in dört özelliği."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>δ'yı, alanı hep 1 kalarak incelen bir kutunun limiti olarak düşün; integral içinde bir fonksiyonun tek bir noktadaki değerini seçer ve birimi 1/uzunluk.</p>
+      <p>Tahtada iki tanım var. Kaba olanı: \(x\neq0\)'da 0, \(x=0\)'da sonsuz, öyle ki toplam alan 1. Somut olanı bir kutunun limiti:</p>
+      <div class="eq">\[ \delta(x)=\lim_{\epsilon\to0}\begin{cases}\dfrac{1}{2\epsilon}, &amp; -\epsilon\lt x\lt\epsilon\\[6pt] 0, &amp; \text{aksi halde}\end{cases} \]</div>
+      <p>Kutunun genişliği \(2\epsilon\), yüksekliği \(1/2\epsilon\). Alan = genişlik × yükseklik = 1, ε ne olursa olsun. Tahtadaki kırmızı taralı “Area = 1” bu; sağdaki hesap aynı şeyi integralle yapıyor:</p>
+      <div class="eq">\[ \int_{-\infty}^{\infty}\delta(x)\,dx=\int_{-\epsilon}^{\epsilon}\frac{1}{2\epsilon}\,dx=\frac{1}{2\epsilon}\Big[x\Big]_{-\epsilon}^{\epsilon}=1 \]</div>
+      <div class="widget" id="w-delta">
+        <p class="predict"><strong>Önce tahmin et:</strong> ε'u küçültünce kutunun yüksekliğine ve alanına ne olur? Sonra kaydırıcıyı sola çek.</p>
+        <svg class="wsvg" viewBox="0 0 360 210" role="img" aria-label="Genişliği 2ε, yüksekliği 1/(2ε) olan kutu"></svg>
+        <div class="ctrl"><label for="eps">ε</label><input id="eps" type="range" min="0.05" max="1" step="0.01" value="0.5"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Son satır süzme özelliği: kutu, \(f(x)=x^2\)'nin x = 3 çevresindeki ortalamasını alıyor. ε küçüldükçe ortalama \(f(3)=9\)'a gidiyor.</p>
+      </div>
+      <p>Tahtanın sol yarısındaki dört özellik:</p>
+      <ol>
+        <li>\(\int\delta(x-x')\,dx'=1\). Tepeyi x'e kaydırmak alanı değiştirmez. Tahtadaki uzun ok, bunun yukarıdaki tanımdan geldiğini gösteriyor.</li>
+        <li>\(\int f(x')\,\delta(x-x')\,dx'=f(x)\). Süzme (sifting) özelliği: δ, f'nin sadece x noktasındaki değerini seçer. Kutuyla düşün: integral, f'nin dar aralıktaki ortalaması; aralık daraldıkça bu ortalama f(x)'e gider. Transkriptte “skating property” diye geçen şey bu.</li>
+        <li>\(\langle x'|x\rangle=\langle x|x'\rangle^*\), iç çarpımın eşlenik simetrisi. Buradan \(\delta(x-x')=\delta(x'-x)\): δ reel (“Dirac-delta dist. is real”) ve çift (“evenness”). Kutu da sıfıra göre simetrik.</li>
+        <li>\([\delta(x-x')]=1/\text{uzunluk}\). \(\int dx\,\delta(x)=1\) birimsiz, dx ise metre; çarpım birimsiz olsun diye δ 1/metre olmalı. Derste hoca tam bunu sordu, cevap “one over meter”. Genel kural: δ'nın birimi, içindeki değişkenin biriminin tersi.</li>
+      </ol>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Çekiç darbesi. Lisede itme = kuvvet × süre (\(I=F\,\Delta t\)). Çekiç çiviye çok kısa sürede çok büyük kuvvet uygular. Süre yarıya inerse kuvvet iki katına çıkar ama itme aynı kalır. Kuvvet-zaman grafiğinin altındaki alan itmedir; δ bu grafiğin “süre sıfıra gider, alan 1 kalır” hali. Zamana göre yazılan bir δ'nın birimi de aynı mantıkla 1/saniye çıkar.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-7a" data-q="7a" data-type="num" data-answer="50" data-tol="0.01" data-show="50" data-topic="δ kutusunun yüksekliği">
+          <p><span class="q-n">Soru 7.1</span>\(\epsilon=0{,}01\) ise kutunun yüksekliği \(1/2\epsilon\) kaç?</p>
+          <div class="num-row"><label class="sr" for="in-7a">Cevabın</label><input id="in-7a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(2\epsilon=0{,}02\). 1'i 0,02'ye böl.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(1/0{,}02=50\). Genişlik 0,02 × yükseklik 50 = 1.</p></div>
+        </div>
+        <div class="q" id="q-7b" data-q="7b" data-type="mc" data-topic="süzme özelliği">
+          <p><span class="q-n">Soru 7.2</span>\(\int x^2\,\delta(x-3)\,dx\) kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">3</span></button><p class="why tex-later" hidden>δ, x = 3 noktasını seçer; ama sonra \(f(3)=3^2\) hesaplanır.</p></li>
+            <li><button type="button" class="opt"><span class="t">1</span></button><p class="why tex-later" hidden>Bu, f = 1 olsaydı doğruydu (1. özellik).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">9</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(x^2\)</span></button><p class="why tex-later" hidden>İntegral alındı, x kalmaz. Sonuç bir sayı: f'nin 3'teki değeri.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Süzme: \(\int f(x)\,\delta(x-3)\,dx=f(3)=9\). Kaydırıcıda da gördün: ortalama \(9+\epsilon^2/3\) ve ε küçüldükçe 9'a gidiyor.</p></div>
+        </div>
+        <div class="q" id="q-7c" data-q="7c" data-type="mc" data-topic="δ'nın birimi">
+          <p><span class="q-n">Soru 7.3</span>x metre cinsindense \(\delta(x)\)'in birimi ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Birimsiz</span></button><p class="why tex-later" hidden>O zaman \(\int\delta\,dx\) metre çıkardı, 1 değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">metre</span></button><p class="why tex-later" hidden>Bu durumda integral metrekare olurdu.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">1/metre</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\([\delta]\cdot[dx]=\frac{1}{\text{m}}\cdot\text{m}=1\): integral birimsiz çıkıyor.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 8 -->
+<section class="step" id="t8" data-n="8">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 8</span><span class="st"></span></p>
+    <h3>Tamlık: araya akıllıca bir 1 koymak</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 8 fotoğrafını büyüt"><img src="boards/t08.jpg" width="1600" height="957" loading="lazy" decoding="async" alt="Kara tahta: tamlık bağıntısı Î = ∫dx |x⟩⟨x|, ketlerin birimi 1/L^(1/2), ψ(x) = ⟨x|ψ⟩ türetmesi ve kutu içinde sonuç."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(\hat I=\int dx\,|x\rangle\langle x|\); bu 1'i araya koyunca dalga fonksiyonu \(\psi(x)=\langle x|\psi\rangle\) çıkar, yani \(|\psi\rangle\)'nin x'inci bileşeni.</p>
+      <p>Sonlu boyutta \(\sum_n|e_n\rangle\langle e_n|=\hat I\) idi. Sürekli halde toplam integrale döner (completeness relation ya da resolution of identity):</p>
+      <div class="eq">\[ \hat I=\int dx\,|x\rangle\langle x| \]</div>
+      <p>Sağdaki birim analizi: \(\hat I\) birimsiz, dx metre, o halde \(|x\rangle\langle x|\) 1/metre olmalı. \(|x\rangle\) ile \(\langle x|\) birbirinin eşleniği, yükü eşit paylaşırlar: ikisi de \(1/\sqrt{\text{metre}}\), tahtadaki \(1/L^{1/2}\). Kontrol: \(\langle x'|x\rangle=\delta\)'nın birimi \(L^{-1/2}\cdot L^{-1/2}=1/L\). Tutuyor.</p>
+      <p>Dalga fonksiyonunun tanımı \(\psi(x)=\langle x|\psi\rangle\): \(|\psi\rangle\)'nin x yönündeki bileşeni, yani \(c_n=\langle e_n|\psi\rangle\)'nin sürekli hali. Dalga fonksiyonu, indisi sürekli olan sonsuz uzunlukta bir liste.</p>
+      <p>Tahtanın alt satırı bu tanımın tutarlı olduğunu gösteriyor. \(\hat I|\psi\rangle=|\psi\rangle\)'ye soldan \(\langle x|\) uygula ve 1'i aç:</p>
+      <div class="eq">\[ \langle x|\psi\rangle=\langle x|\hat I|\psi\rangle=\int dx'\,\underbrace{\langle x|x'\rangle}_{\delta(x'-x)}\,\psi(x')=\psi(x) \]</div>
+      <p>Son adım süzme (prop. 2); sonuç kutulu formül \(\psi(x)=\langle x|\psi\rangle\). Açık söyleyeyim: bu yeni bir şey türetmiyor, tanımların birbiriyle çelişmediğini gösteriyor.</p>
+      <p>Tahtada olmayan ama önemli bir sonuç: \(\int|\psi(x)|^2dx=1\). ψ'nin birimi \(1/\sqrt{\text{metre}}\) olduğu için \(|\psi|^2\) 1/metre: metre başına olasılık, yani olasılık yoğunluğu (Born kuralı).</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Birim çevirme. 5 m'yi santimetreye çevirirken \(5\text{ m}\times\frac{100\text{ cm}}{1\text{ m}}\) yazarsın. Kesrin değeri 1, sonucu değiştirmiyor ama şeklini değiştiriyor. \(\hat I=\int dx\,|x\rangle\langle x|\) de böyle bir 1: \(|\psi\rangle\)'yi değiştirmeden konum bileşenlerine açıyor.</p>
+        <p>İkinci örnek: bir boncuk 0–2 m arasında her yerde eşit olasılıkla bulunuyor. Yoğunluk \(|\psi|^2=\tfrac12\) (metre başına), toplam \(2\times\tfrac12=1\). 0 ile 0,5 m arasında bulma olasılığı \(0{,}5\times\tfrac12=0{,}25\).</p>
+      </aside>
+      <details class="self">
+        <summary>Kendi cümlenle anlat, sonra açıp karşılaştır: \(|\psi(x)|^2\) neden “olasılık” değil de “olasılık yoğunluğu”?</summary>
+        <div class="d-body tex-later"><p>Birimi 1/metre. Olasılık birimsiz bir sayı olmalı; onu elde etmek için bir aralık uzunluğuyla çarpmak, yani \(\int_a^b|\psi|^2dx\) almak gerekir. Tek bir noktada bulunma olasılığı sıfır, bir aralıkta bulunma olasılığı anlamlı.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-8a" data-q="8a" data-type="mc" data-topic="|x⟩'in birimi">
+          <p><span class="q-n">Soru 8.1</span>\(\hat I\) birimsiz, dx metre. \(|x\rangle\)'in birimi ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Birimsiz</span></button><p class="why tex-later" hidden>O zaman \(\int dx\,|x\rangle\langle x|\) metre çıkardı.</p></li>
+            <li><button type="button" class="opt"><span class="t">metre</span></button><p class="why tex-later" hidden>Ters yönde. Çarpım birimsiz olsun diye ket metrenin tersini taşımalı.</p></li>
+            <li><button type="button" class="opt"><span class="t">1/metre</span></button><p class="why tex-later" hidden>Bu, \(|x\rangle\langle x|\) çiftinin birimi. Tek kete yarısı düşer.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(1/\sqrt{\text{metre}}\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(|x\rangle\langle x|\sim1/\text{m}\) ve iki eşit parçaya bölünür: \(\text{m}^{-1/2}\cdot\text{m}^{-1/2}\).</p></div>
+        </div>
+        <div class="q" id="q-8b" data-q="8b" data-type="num" data-answer="0.25" data-tol="0.005" data-show="0,25" data-topic="olasılık yoğunluğu">
+          <p><span class="q-n">Soru 8.2</span>Bir parçacık 0 ile 4 m arasında her yerde eşit olasılıkla bulunuyor. 1 m ile 2 m arasında bulunma olasılığı kaç?</p>
+          <div class="num-row"><label class="sr" for="in-8b">Cevabın</label><input id="in-8b" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>Önce yoğunluğu bul: toplam olasılık 1, uzunluk 4 m. Sonra aralığın uzunluğuyla çarp.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(|\psi|^2=\tfrac14\) (metre başına), aralık 1 m: \(1\times\tfrac14=0{,}25\).</p></div>
+        </div>
+        <div class="q" id="q-8c" data-q="8c" data-type="mc" data-topic="ψ(x)'in sonlu boyuttaki karşılığı">
+          <p><span class="q-n">Soru 8.3</span>\(\psi(x)=\langle x|\psi\rangle\)'nin sonlu boyuttaki karşılığı hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(A_{mn}=\langle e_m|\hat A|e_n\rangle\)</span></button><p class="why tex-later" hidden>Bu bir operatörün tablosu; ψ ise durumun bileşenleri.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\delta_{mn}\)</span></button><p class="why tex-later" hidden>Bu, baz vektörlerinin iç çarpımı. Karşılığı \(\langle x'|x\rangle\).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(c_n=\langle e_n|\psi\rangle\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>İkisi de “durumun bir baz yönündeki bileşeni”. n yerine x, liste yerine fonksiyon.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 9 -->
+<section class="step" id="t9" data-n="9">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 9</span><span class="code" title="Tahtanın sol üst köşesindeki kod">892213</span><span class="st"></span></p>
+    <h3>Çekirdek: sürekli bir tablo</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 9 fotoğrafını büyüt"><img src="boards/t09.jpg" width="1600" height="906" loading="lazy" decoding="async" alt="Beyaz tahta: operatör çekirdeğinin tanımı ⟨x′|Â|x⟩ = A(x′, x) ve (Âψ)(x) = ∫dx′ A(x, x′) ψ(x′) türetmesi."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Operatörün konum bazındaki tablosu \(A(x,x')\) bir fonksiyon (kernel, çekirdek); \(\hat A\psi\) hesabı matris çarpımının integral hali.</p>
+      <p>Matris elemanı \(A_{mn}=\langle e_m|\hat A|e_n\rangle\) idi. Konum bazında aynı tanım, adı “operator kernel”:</p>
+      <div class="eq">\[ \langle x'|\hat A|x\rangle=A(x',x) \]</div>
+      <p>İlk argüman bra (satır), ikinci ket (sütun). Tahta önce \(A(x',x)\) yazıp aşağıda \(A(x,x')\) kullanıyor; sadece harfler yer değiştirmiş, kural aynı. Operatörün etkisi, tahtanın “since” satırları, yine 1'i araya koyarak:</p>
+      <div class="eq">\[ (\hat A\psi)(x)\equiv\langle x|\hat A|\psi\rangle=\langle x|\hat A\int dx'\,|x'\rangle\langle x'|\psi\rangle=\int dx'\,A(x,x')\,\psi(x') \]</div>
+      <p>Yan yana koy: \(d_m=\sum_nA_{mn}c_n\). Toplam integral oldu, tablo fonksiyon oldu, liste dalga fonksiyonu oldu. Anlamı: x noktasındaki sonuç, ψ'nin bütün noktalardaki değerlerinin ağırlıklı toplamı; ağırlıkları \(A(x,x')\) veriyor.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Üç günlük ortalama sıcaklık. Hava durumu grafiğini yumuşatmak için her günü kendisi ve iki komşusunun ortalamasıyla değiştir: yeni(gün) = (dün + bugün + yarın)/3. Bu bir çekirdek: kendine ve iki komşuna 1/3 ağırlık, uzak günlere 0. Telefonundaki “bulanıklaştır” filtresi aynı şeyi piksellerle yapar.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-9a" data-q="9a" data-type="num" data-answer="15" data-tol="0.01" data-show="15" data-topic="çekirdek, ağırlıklı ortalama">
+          <p><span class="q-n">Soru 9.1</span>Sıcaklıklar Pazartesi 12°, Salı 18°, Çarşamba 15°. Salı'nın üç günlük ortalaması kaç derece?</p>
+          <div class="num-row"><label class="sr" for="in-9a">Cevabın</label><input id="in-9a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>(dün + bugün + yarın)/3.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>(12 + 18 + 15)/3 = 45/3 = 15. Ağırlıklar 1/3, 1/3, 1/3; çekirdeğin Salı satırı bu.</p></div>
+        </div>
+        <div class="q" id="q-9b" data-q="9b" data-type="mc" data-topic="çekirdek ve matris çarpımı">
+          <p><span class="q-n">Soru 9.2</span>\((\hat A\psi)(x)=\int dx'\,A(x,x')\,\psi(x')\) ifadesinin sonlu boyuttaki karşılığı hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(A_{mn}=A_{nm}^*\)</span></button><p class="why tex-later" hidden>Bu Hermitsellik şartı, operatörün etkisi değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(U^\dagger U=I\)</span></button><p class="why tex-later" hidden>Bu üniterlik şartı.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(d_m=\sum_nA_{mn}c_n\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Satırdaki her ağırlığı sütundaki elemanla çarpıp topla. İntegral, sürekli bir toplam.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 10 -->
+<section class="step" id="t10" data-n="10">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 10</span><span class="st"></span></p>
+    <h3>Yerel potansiyel: sadece kendi noktana bak</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 10 fotoğrafını büyüt"><img src="boards/t10.jpg" width="1600" height="971" loading="lazy" decoding="async" alt="Kara tahta: yerel potansiyelin çekirdeği V(x)δ(x − x′), konum temsilinde ⟨x|V̂|ψ⟩ = V(x)ψ(x) ve süzme özelliğiyle türetmesi."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Yerel potansiyelin çekirdeği \(V(x)\,\delta(x-x')\); konum temsilinde ψ'yi noktadan noktaya çarpar: \((\hat V\psi)(x)=V(x)\,\psi(x)\).</p>
+      <p>Potansiyel konumun bir fonksiyonu: \(\hat V=V(\hat x)\). Tahta 4–5'teki kuralı hatırla: bir operatörün fonksiyonu, o operatörün özbazında köşegen. \(\hat x\)'in özbazı \(|x\rangle\), o halde \(\hat V\) da bu bazda köşegen:</p>
+      <div class="eq">\[ \langle x'|\hat V|x\rangle=V(x',x)=V(x)\,\delta(x-x') \]</div>
+      <p>Bu, \(\mathrm{diag}(V)\)'nin sürekli hali: tablo sadece köşegende (x′ = x) dolu. Hocanın sözlü vurgusu da bu: yerel potansiyel Dirac deltasıyla orantılı. Etkisini hesapla:</p>
+      <div class="eq">\[ \langle x|\hat V|\psi\rangle=(\hat V\psi)(x)=\int dx'\,V(x)\,\delta(x-x')\,\psi(x')=V(x)\int dx'\,\delta(x-x')\,\psi(x')=V(x)\,\psi(x) \]</div>
+      <p>V(x), integralin değişkeni olan x′'ye bağlı değil, dışarı çıkar; kalan integral süzme özelliğiyle ψ(x) olur (tahtadaki “ψ(x) from prop. 2”). Sonuç: konum dilinde potansiyel, dalga fonksiyonunu her noktada o noktadaki V değeriyle çarpar.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Fotoğraf filtresi “parlaklık × 2”: her piksel kendi değerini ikiyle çarpar, komşusuna bakmaz. Bu yereldir. Hesap örneği: \(V(x)=2x\) ve \(\psi(x)=x+1\) ise x = 3'te \((\hat V\psi)(3)=V(3)\,\psi(3)=6\times4=24\).</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-10a" data-q="10a" data-type="num" data-answer="12" data-tol="0.01" data-show="12" data-topic="yerel potansiyelin etkisi">
+          <p><span class="q-n">Soru 10.1</span>\(V(x)=x^2\) ve \(\psi(x)=5-x\). \((\hat V\psi)(2)\) kaç?</p>
+          <div class="num-row"><label class="sr" for="in-10a">Cevabın</label><input id="in-10a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>Yerel: sadece x = 2'deki değerler önemli. \(V(2)\) ile \(\psi(2)\)'yi çarp.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(V(2)=4\), \(\psi(2)=3\), çarpım 12.</p></div>
+        </div>
+        <div class="q" id="q-10b" data-q="10b" data-type="mc" data-topic="yerel çekirdek = köşegen">
+          <p><span class="q-n">Soru 10.2</span>Yerel potansiyelin çekirdeği \(V(x)\,\delta(x-x')\), sonlu boyutta neye karşılık gelir?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Köşegen bir tabloya</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Her kutusu dolu bir tabloya</span></button><p class="why tex-later" hidden>δ, x ≠ x′ olan her yeri sıfırlar; köşegen dışı boş.</p></li>
+            <li><button type="button" class="opt"><span class="t">Sıfır tabloya</span></button><p class="why tex-later" hidden>Köşegen dolu; değerleri V(x).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(a_n\delta_{mn}\)'nin sürekli hali \(V(x)\,\delta(x-x')\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 11 -->
+<section class="step" id="t11" data-n="11">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 11</span><span class="code" title="Tahtanın sol üst köşesindeki kod">892213</span><span class="st"></span></p>
+    <h3>Yerel olmayan potansiyel ve en sık yanılgı</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 11 fotoğrafını büyüt"><img src="boards/t11.jpg" width="1600" height="911" loading="lazy" decoding="async" alt="Beyaz tahta: çekirdeğin sonlu boyutla benzetmesi, yerel olmayan potansiyel integrali, parabol çizimi ve yerelliğin küçük bölge demek olmadığı notu."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Yerel olmayan operatörde x'teki sonuç ψ'nin başka noktalardaki değerlerine de bağlı; yerellik, potansiyelin dar bir bölgede olması demek değil.</p>
+      <p>Tahtanın ilk satırı benzetmeyi kuruyor: \(V(x',x)\) çekirdeği, sonlu boyutta \(\hat A\)'nın özbazındaki köşegen tablonun karşılığı.</p>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>Tahtada \(\langle m|A|n\rangle=a_nA_{mn}\) yazıyor; doğrusu \(a_n\delta_{mn}\). Ayrıca yerel olmayan formülün sol tarafında φ, sağında ψ yazılmış; ikisi aynı fonksiyon, ψ diye oku.</p>
+      </aside>
+      <p>Yerel olmayan (nonlocal) potansiyel, x'ten başka bir konuma da bağlı olan potansiyel. Çekirdeği köşegen dışında da dolu:</p>
+      <div class="eq">\[ (\hat V\psi)(x)=\int_{-\infty}^{\infty}dx'\,V(x,x')\,\psi(x') \]</div>
+      <p>Bu sefer integral kaybolmuyor: x'teki sonuç ψ'nin başka noktalardaki değerlerine de bağlı. Önceki adımdaki üç günlük ortalama tam olarak böyle bir işlem.</p>
+      <div class="widget">
+        <svg class="wsvg" id="w-kernel" viewBox="0 0 340 190" role="img" aria-label="Solda sadece köşegeni dolu yerel çekirdek, sağda köşegen çevresinde bant olan yerel olmayan çekirdek"></svg>
+        <p class="w-cap">Çekirdeği bir tablo gibi çizersek: satır x, sütun x′. Solda yerel çekirdek sadece köşegende dolu; sağda yerel olmayan bir çekirdek (üç günlük ortalama gibi) köşegenin çevresine de taşıyor.</p>
+      </div>
+      <p>Tahtanın en önemli uyarısı alt satırda: <strong>yerellik, potansiyelin küçük bir bölgede olması demek DEĞİL.</strong> Örnek harmonik osilatör, \(V(x)=\tfrac12m\omega^2x^2\). Sağdaki parabol ve “parabolically expands to all x” notu bunu anlatıyor: bu potansiyel bütün x'lere yayılıyor ve sınırsız büyüyor. Yine de yerel, çünkü her noktada sadece o noktadaki ψ'ye bakıyor. Sağ alttaki not: “depends only one position ⇒ is local”. Yerel mi değil mi sorusu, potansiyelin şekline ya da genişliğine değil, çekirdeğin köşegen olup olmamasına bakar.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>İki sınıf düşün. A sınıfında herkesin notu sadece kendi sınav puanından hesaplanıyor: yerel. B sınıfında notlar çan eğrisiyle, sınıf ortalamasına göre veriliyor: senin notun başkalarının puanına da bağlı, yerel değil.</p>
+        <p>Lise fiziğindeki yay da iyi bir örnek: potansiyel enerji \(\tfrac12kx^2\) her konumda tanımlı ve uzaklaştıkça büyüyor, ama her noktadaki enerji sadece o noktanın konumuna bağlı. Yani yerel.</p>
+      </aside>
+      <details class="self">
+        <summary>Kendi cümlenle anlat, sonra açıp karşılaştır: \(V(x)=\tfrac12m\omega^2x^2\) bütün uzaya yayıldığı halde neden yerel?</summary>
+        <div class="d-body tex-later"><p>Yerellik çekirdeğin şekliyle ilgili: \(\langle x'|\hat V|x\rangle=V(x)\,\delta(x-x')\), yani x noktasındaki sonuç sadece \(\psi(x)\)'e bağlı. V'nin her yerde sıfırdan farklı ve büyük olması bunu değiştirmez.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-11a" data-q="11a" data-type="mc" data-topic="yerellik yanılgısı">
+          <p><span class="q-n">Soru 11.1</span>Doğru mu, yanlış mı: “\(V(x)=\tfrac12kx^2\) bütün uzaya yayıldığı ve sınırsız büyüdüğü için yerel değildir.”</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Doğru</span></button><p class="why tex-later" hidden>Tahtanın uyardığı yanılgı bu. Yerellik genişlikle değil, her noktada sadece o noktaya bakmakla ilgili.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Yanlış</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\((\hat V\psi)(x)=\tfrac12kx^2\,\psi(x)\): x'teki sonuç sadece \(\psi(x)\)'e bağlı. Yerel.</p></div>
+        </div>
+        <div class="q" id="q-11b" data-q="11b" data-type="mc" data-topic="yerel olmayan işlem">
+          <p><span class="q-n">Soru 11.2</span>Hangisi yerel OLMAYAN bir işlem?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Her pikselin parlaklığını 2 ile çarpmak</span></button><p class="why tex-later" hidden>Her piksel sadece kendine bakıyor: yerel.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Her noktayı komşularının ortalamasıyla değiştirmek</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\psi(x)\)'i \(x^2\) ile çarpmak</span></button><p class="why tex-later" hidden>Noktadan noktaya çarpma: yerel.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Sonuç başka noktaların değerlerine de bağlı; çekirdek köşegen dışında da dolu.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM C ===================== -->
+<header class="part" id="bolum-c">
+  <p class="k">Bölüm C · Tahta 12–16</p>
+  <h2>Momentum temsili</h2>
+  <p class="sub">Aynı yapı, başka bir baz. Momentum özdurumunun konumda neye benzediğini bulacağız; sonunda iki temsilin bir Fourier dönüşümüyle bağlı olduğu ortaya çıkıyor.</p>
+</header>
+
+<!-- TAHTA 12 -->
+<section class="step" id="t12" data-n="12">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 12</span><span class="st"></span></p>
+    <h3>Momentum bazı: aynı yapı, farklı birim</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 12 fotoğrafını büyüt"><img src="boards/t12.jpg" width="1600" height="943" loading="lazy" decoding="async" alt="Kara tahta: 7.2 momentum temsili, p̂|p⟩ = p|p⟩, ⟨p′|p⟩ = δ(p − p′), tamlık ve [p] = ML/T ile ketlerin birim analizi."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(|p\rangle\)'ler de sürekli bir baz; her formül konumdakiyle aynı, sadece birimler momentumun birimine göre değişiyor.</p>
+      <p>7.2 momentum temsili. Konumda ne yaptıysak momentumda da aynısı:</p>
+      <div class="eq">\[ \hat p|p\rangle=p|p\rangle,\qquad \langle p'|p\rangle=\delta(p-p'),\qquad \hat I=\int dp\,|p\rangle\langle p| \]</div>
+      <p>Momentum \(p=mv\), birimi kg·m/s. Tahtada boyut dilinde \([p]=ML/T\): M kütle, L uzunluk, T zaman (tahtadaki oklar). \(\hat I\) yine birimsiz (“dimensionless” oku), dp'nin birimi [p]; o halde \(|p\rangle\langle p|\) 1/[p] taşır ve her biri yarısını alır:</p>
+      <div class="eq">\[ [\,|p\rangle\,]=[\,\langle p|\,]=\frac{1}{[p]^{1/2}}=\frac{T^{1/2}}{M^{1/2}L^{1/2}}=T^{1/2}M^{-1/2}L^{-1/2} \]</div>
+      <p>Kontrol: \([\delta(p-p')]=1/[p]\). Tahta 7'deki genel kural: δ'nın birimi, içindeki değişkenin biriminin tersi.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>0,5 kg'lık top 4 m/s hızla gidiyor: \(p=0{,}5\times4=2\) kg·m/s. Konum bazında her şey “metre” cinsindendi; momentum bazında aynı formüller “kg·m/s” cinsinden. Tamlık, δ ve süzme aynen geçerli, sadece etiket değişti.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-12a" data-q="12a" data-type="mc" data-topic="δ(p − p′)'nin birimi">
+          <p><span class="q-n">Soru 12.1</span>\(\delta(p-p')\)'nin birimi ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">kg·m/s</span></button><p class="why tex-later" hidden>Ters çevir: δ'nın birimi içindeki değişkenin biriminin tersi.</p></li>
+            <li><button type="button" class="opt"><span class="t">1/m</span></button><p class="why tex-later" hidden>Bu, konumdaki δ'nın birimi. Burada içteki değişken momentum.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">s/(kg·m)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\int\delta(p)\,dp=1\) birimsiz, dp kg·m/s, o halde δ s/(kg·m).</p></div>
+        </div>
+        <div class="q" id="q-12b" data-q="12b" data-type="mc" data-topic="momentum tamlığının birimi">
+          <p><span class="q-n">Soru 12.2</span>\(\hat I=\int dp\,|p\rangle\langle p|\) birimsiz olsun diye \(|p\rangle\langle p|\)'nin birimi ne olmalı?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">1/(kg·m/s)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">kg·m/s</span></button><p class="why tex-later" hidden>dp ile çarpınca birim kareye çıkar, birimsiz olmaz.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\sqrt{\text{kg·m/s}}\)</span></button><p class="why tex-later" hidden>Bu, tek bir ketin biriminin tersi. Çift olarak 1/[p] lazım.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\([dp]\cdot[\,|p\rangle\langle p|\,]=1\Rightarrow[\,|p\rangle\langle p|\,]=1/[p]\); her kete \([p]^{-1/2}\) düşer.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 13 -->
+<section class="step" id="t13" data-n="13">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 13</span><span class="code" title="Tahtanın sol üst köşesindeki kod">811622</span><span class="st"></span></p>
+    <h3>Momentum özdurumu konumda: dönen bir dalga</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 13 fotoğrafını büyüt"><img src="boards/t13.jpg" width="1600" height="916" loading="lazy" decoding="async" alt="Beyaz tahta: |p⟩'nin konum temsili ⟨x|p⟩, birinci mertebe diferansiyel denklemin çözümü ve momentum dalga fonksiyonu φ(p) = ⟨p|ψ⟩."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(\langle x|p\rangle\) basit bir diferansiyel denklemin çözümü: \(e^{ixp/\hbar}\), yani her yerde aynı büyüklükte, dönen bir dalga.</p>
+      <p>Tahtanın sorusu: kesin momentumlu bir parçacık konum uzayında neye benziyor, yani \(\langle x|p\rangle\) ne? \(\hat p|p\rangle=p|p\rangle\)'ye soldan \(\langle x|\) uygula:</p>
+      <div class="eq">\[ \langle x|\hat p|p\rangle=p\,\langle x|p\rangle \]</div>
+      <p>Tahtadaki oklar: \(\hat p\) momentum operatörü, p momentum özdeğeri ve reel bir sayı (“real number”). Sayı olduğu için dışarı çıkabiliyor. Konum dilinde \(\hat p=-i\hbar\,\frac{d}{dx}\) kabul ediliyor; bunun nedenini dersin sonunda, Tahta 17–18'de göreceğiz:</p>
+      <div class="eq">\[ -i\hbar\,\frac{d}{dx}\langle x|p\rangle=p\,\langle x|p\rangle \]</div>
+      <p>İki tarafı \(i/\hbar\) ile çarp. Sol taraftaki katsayı \(\frac{i}{\hbar}\cdot(-i\hbar)=-i^2=1\) olur; tahtada \(i^2\)'nin üstüne yazılan −1 bu:</p>
+      <div class="eq">\[ \frac{d}{dx}\langle x|p\rangle=\frac{ip}{\hbar}\,\langle x|p\rangle \]</div>
+      <p>Türevi kendisiyle orantılı bir fonksiyon; çözüm üstel. Tahtadaki çözüm, değişkenlere ayırarak:</p>
+      <div class="eq">\[ \int\frac{d\langle x|p\rangle}{\langle x|p\rangle}=\int\frac{i}{\hbar}\,p\,dx\;\Longrightarrow\;\ln\langle x|p\rangle=\frac{i}{\hbar}\,xp\;\Longrightarrow\;\langle x|p\rangle=e^{ixp/\hbar} \]</div>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>İntegral sabiti atılmış. Doğrusu \(\langle x|p\rangle=N\,e^{ixp/\hbar}\); sabit N'yi bir sonraki tahta belirliyor.</p>
+      </aside>
+      <p>Üstteki i her şeyi değiştiriyor. \(e^{i\theta}=\cos\theta+i\sin\theta\) büyümez, birim çemberde döner: \(|e^{i\theta}|=1\). Yani \(|\langle x|p\rangle|^2\) her yerde aynı; kesin momentumlu parçacık her yerde eşit olasılıkla bulunur. Dalga boyu: faz \(xp/\hbar\) bir dalga boyunda \(2\pi\) artar, buradan \(\lambda=2\pi\hbar/p=h/p\) (de Broglie).</p>
+      <div class="widget">
+        <svg class="wsvg" id="w-plane" viewBox="0 0 360 180" role="img" aria-label="Düzlem dalganın gerçek kısmı kosinüs, sanal kısmı sinüs, büyüklüğünün karesi her yerde sabit"></svg>
+        <p class="w-cap">Mavi: gerçek kısım \(\cos(px/\hbar)\). Kesikli: sanal kısım \(\sin(px/\hbar)\). Kırmızı: \(|\langle x|p\rangle|^2\), ön çarpanı saymazsak her yerde 1.</p>
+      </div>
+      <p>Tahtanın alt satırı momentum dalga fonksiyonunu tanımlıyor, aynı 1 hilesiyle:</p>
+      <div class="eq">\[ \phi(p)\equiv\langle p|\psi\rangle=\langle p|\int dx\,|x\rangle\langle x|\psi\rangle=\int dx\,\langle p|x\rangle\,\psi(x) \]</div>
+      <p>\(\phi(p)\), aynı \(|\psi\rangle\)'nin momentum bazındaki bileşenleri.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Bakteri çoğalması: artış hızı bakteri sayısıyla orantılıysa (\(dN/dt=kN\)) çözüm \(N=N_0e^{kt}\), üstel büyüme. k yerine sanal bir sayı gelince büyüme dönmeye dönüşür: \(e^{ikx}\) birim çemberde dönen bir nokta, gölgesi \(\cos kx\) dalgası.</p>
+        <p>de Broglie ile ölçek: 0,1 kg'lık top 10 m/s ile giderse \(\lambda=\frac{6{,}6\times10^{-34}}{0{,}1\times10}\approx6{,}6\times10^{-34}\) m. Atomdan milyarlarca kat küçük; top dalga gibi davranmaz. Elektron \(10^6\) m/s'de: \(\lambda\approx0{,}7\) nm, atom boyutunda. Elektronlar kristallerden kırınıma uğrar.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-13a" data-q="13a" data-type="mc" data-topic="üstel çözüm">
+          <p><span class="q-n">Soru 13.1</span>\(\frac{dy}{dx}=3y\) ve \(y(0)=1\) ise \(y(x)\) ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(3x\)</span></button><p class="why tex-later" hidden>Türevi 3, \(3y\) değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(3e^{x}\)</span></button><p class="why tex-later" hidden>Türevi \(3e^x=y\); yani dy/dx = y olur, 3y değil. Üstelik y(0) = 3.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(e^{3x}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(x^3\)</span></button><p class="why tex-later" hidden>Türevi \(3x^2\); bu \(3y=3x^3\) değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\frac{d}{dx}e^{3x}=3e^{3x}=3y\) ve \(e^0=1\). Tahta 13'te 3'ün yerinde \(ip/\hbar\) var.</p></div>
+        </div>
+        <div class="q" id="q-13b" data-q="13b" data-type="mc" data-topic="düzlem dalga ve özdeğer denklemi">
+          <p><span class="q-n">Soru 13.2</span>\(-i\hbar\,\frac{d}{dx}\,e^{ikx}\) neye eşit?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\hbar k\,e^{ikx}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-\hbar k\,e^{ikx}\)</span></button><p class="why tex-later" hidden>\(-i\cdot i=-i^2=+1\); işaret artı çıkar.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(ik\,e^{ikx}\)</span></button><p class="why tex-later" hidden>Bu sadece türev. Önündeki \(-i\hbar\)'ı unutma.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\frac{d}{dx}e^{ikx}=ik\,e^{ikx}\) ve \(-i\hbar\cdot ik=\hbar k\). \(k=p/\hbar\) koyunca sonuç \(p\,e^{ixp/\hbar}\): özdeğer denklemi tutuyor.</p></div>
+        </div>
+        <div class="q" id="q-13c" data-q="13c" data-type="mc" data-topic="düzlem dalganın büyüklüğü">
+          <p><span class="q-n">Soru 13.3</span>\(|e^{ixp/\hbar}|^2\), x'e göre nasıl davranır?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">x büyüdükçe üstel olarak büyür</span></button><p class="why tex-later" hidden>Üstte i var. \(e^{i\theta}\) büyümez, döner.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Her yerde 1, sabit</span></button></li>
+            <li><button type="button" class="opt"><span class="t">x = 0'da 1, uzakta sıfıra iner</span></button><p class="why tex-later" hidden>Bu, bir dalga paketinin davranışı olurdu. Düzlem dalganın büyüklüğü her yerde aynı.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(|e^{i\theta}|^2=\cos^2\theta+\sin^2\theta=1\). Kesin momentum, konumda tamamen yayılmış olmak demek.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 14 -->
+<section class="step" id="t14" data-n="14">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 14</span><span class="st"></span></p>
+    <h3>Normalizasyon ve Fourier dönüşümü</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 14 fotoğrafını büyüt"><img src="boards/t14.jpg" width="1600" height="953" loading="lazy" decoding="async" alt="Kara tahta: delta normalize ⟨x|p⟩ = e^(ixp/ħ)/√(2πħ), eşleniği ⟨p|x⟩, φ(p) Fourier dönüşümü ve ψ(x) ters Fourier dönüşümü."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Doğru ön çarpanla \(\langle x|p\rangle=e^{ixp/\hbar}/\sqrt{2\pi\hbar}\); bununla \(\phi(p)\) ile \(\psi(x)\) birbirinin Fourier dönüşümü oluyor.</p>
+      <p>Sabit N'yi \(\langle p'|p\rangle=\delta(p-p')\) şartı belirliyor (“delta normalized form”). Tahtadaki sonuç:</p>
+      <div class="eq">\[ \langle x|p\rangle=\frac{1}{\sqrt{2\pi\hbar}}\,e^{ixp/\hbar}\quad\Longrightarrow\quad\langle p|x\rangle=\langle x|p\rangle^{*}=\frac{1}{\sqrt{2\pi\hbar}}\,e^{-ixp/\hbar} \]</div>
+      <p>Okun altındaki not \(\langle x|p\rangle=\langle p|x\rangle^*\): eşleniği alınca i'nin işareti döner, \(\langle p|x\rangle\)'te eksi var.</p>
+      <details class="more">
+        <summary>1/√(2πħ) nereden geliyor? (Tahtada yok.)</summary>
+        <div class="d-body tex-later">
+          <div class="eq">\[ \langle p'|p\rangle=\int dx\,\langle p'|x\rangle\langle x|p\rangle=|N|^2\int dx\,e^{i(p-p')x/\hbar}=|N|^2\,2\pi\hbar\,\delta(p-p') \]</div>
+          <p>Son adımda iki bilgi var: \(\int dx\,e^{ikx}=2\pi\,\delta(k)\) ve \(\delta(u/\hbar)=\hbar\,\delta(u)\). δ'nın önünde 1 kalsın diye \(|N|^2=1/2\pi\hbar\).</p>
+        </div>
+      </details>
+      <p>Bunu Tahta 13'ün son satırına koyunca:</p>
+      <div class="eq">\[ \phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}dx\,e^{-ixp/\hbar}\,\psi(x) \]</div>
+      <p>\(\phi(p)\), \(\psi(x)\)'in Fourier dönüşümü. Ters yönde \(\psi(x)\), \(\phi(p)\)'nin ters Fourier dönüşümü:</p>
+      <div class="eq">\[ \psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}dp\,e^{+ixp/\hbar}\,\phi(p) \]</div>
+      <p>İşaret kuralı: ileri dönüşümün içinde \(\langle p|x\rangle\) var, işaret eksi; geri dönüşümün içinde \(\langle x|p\rangle\) var, işaret artı. Derste bir arkadaşın takıldığı yer tam burasıydı.</p>
+      <div class="widget" id="w-fourier">
+        <p class="predict"><strong>Önce tahmin et:</strong> konumdaki dalga paketini daraltırsan (σ küçülür) momentumdaki dağılım ne olur? Sonra kaydır.</p>
+        <div class="w-row two">
+          <div><svg class="wsvg sx" viewBox="0 0 300 180" role="img" aria-label="Konumda olasılık yoğunluğu"></svg><p class="w-cap">Konumda \(|\psi(x)|^2\)</p></div>
+          <div><svg class="wsvg sp" viewBox="0 0 300 180" role="img" aria-label="Momentumda olasılık yoğunluğu"></svg><p class="w-cap">Momentumda \(|\phi(p)|^2\)</p></div>
+        </div>
+        <div class="ctrl"><label for="sig">Konumdaki genişlik σ</label><input id="sig" type="range" min="0.25" max="2" step="0.01" value="1"></div>
+        <p class="ro" aria-live="polite"></p>
+      </div>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Müzik. Bir akorun ses dalgası zamana göre karmaşık bir çizgi ama aslında birkaç notanın toplamı. Telefonundaki ekolayzer o dalgayı notalarına, yani frekanslarına ayırır: Fourier dönüşümü bu. Kuantumda \(\psi(x)\) dalganın kendisi, \(\phi(p)\) hangi “notalardan” (momentumlardan) oluştuğu. Davul vuruşu gibi kısa bir ses birçok frekans içerir, uzun bir flüt notası tek frekansa yakındır; kaydırıcıda gördüğün de bu.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-14a" data-q="14a" data-type="mc" data-topic="kompleks eşlenik">
+          <p><span class="q-n">Soru 14.1</span>\(e^{i\theta}\)'nın kompleks eşleniği ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(-e^{i\theta}\)</span></button><p class="why tex-later" hidden>Eşlenik i'nin işaretini çevirir, bütün sayının değil.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(e^{-i\theta}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{i\theta}\)</span></button><p class="why tex-later" hidden>Bu ancak θ = 0 iken doğru; genelde i'nin işareti döner.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\((\cos\theta+i\sin\theta)^*=\cos\theta-i\sin\theta=e^{-i\theta}\).</p></div>
+        </div>
+        <div class="q" id="q-14b" data-q="14b" data-type="mc" data-topic="Fourier işaret kuralı">
+          <p><span class="q-n">Soru 14.2</span>\(\phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int dx\,e^{\,?\,ixp/\hbar}\,\psi(x)\) ifadesinde soru işaretinin yerine hangi işaret gelir?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Eksi</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Artı</span></button><p class="why tex-later" hidden>Artı, ters dönüşümde. Burada içte \(\langle p|x\rangle\) var ve o \(\langle x|p\rangle\)'nin eşleniği.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\phi(p)=\int dx\,\langle p|x\rangle\,\psi(x)\) ve \(\langle p|x\rangle\propto e^{-ixp/\hbar}\).</p></div>
+        </div>
+        <div class="q" id="q-14c" data-q="14c" data-type="mc" data-topic="Δx ile Δp ilişkisi">
+          <p><span class="q-n">Soru 14.3</span>Kaydırıcıda konumdaki paketi daraltınca momentum dağılımına ne oluyor?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">O da daralıyor</span></button><p class="why tex-later" hidden>Kaydırıcıya tekrar bak: Δx·Δp sabit kalıyor, biri küçülünce öteki büyüyor.</p></li>
+            <li><button type="button" class="opt"><span class="t">Değişmiyor</span></button><p class="why tex-later" hidden>Değişiyor: Δp = ħ/(2Δx).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Genişliyor</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Gauss paket için \(\Delta x\,\Delta p=\hbar/2\). Belirsizlik ilkesinin ilk görünüşü; ileride ayrıca gelecek.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 15 -->
+<section class="step" id="t15" data-n="15">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 15</span><span class="code" title="Tahtanın sol üst köşesindeki kod">811622</span><span class="st"></span></p>
+    <h3>Birim kontrolü: üstteki şey birimsiz olmalı</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 15 fotoğrafını büyüt"><img src="boards/t15.jpg" width="1600" height="929" loading="lazy" decoding="async" alt="Beyaz tahta: e üzeri x serisi, ψ(x)'in momentum tamlığıyla türetmesi, ⟨x|p⟩ ve ħ için birim analizi."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(e^{ixp/\hbar}\)'nın üssü birimsiz olmalı, bu yüzden orada ħ var; \(\langle x|p\rangle\)'nin bütün birimini \(1/\sqrt{\hbar}\) ön çarpanı taşıyor.</p>
+      <p>Üst satır ters dönüşümün türetmesi, bu sefer momentum tamlığıyla:</p>
+      <div class="eq">\[ \psi(x)=\langle x|\psi\rangle=\langle x|\int dp\,|p\rangle\langle p|\psi\rangle=\int dp\,\langle x|p\rangle\,\phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int dp\,e^{ixp/\hbar}\,\phi(p) \]</div>
+      <p>Tahtadaki alt notlar: \(\langle p|\psi\rangle=\phi_p\) ve \(\langle x|p\rangle\)'nin normalize hali.</p>
+      <p>Sol üstteki \(e^x=1+x+x^2/2+\dots\) süs değil. x'in birimi olsaydı “1 + metre + metre²” gibi elma ile armut toplanırdı. Bu yüzden üstteki \(xp/\hbar\) birimsiz olmalı:</p>
+      <div class="eq">\[ [xp]=L\cdot\frac{ML}{T}=\frac{ML^2}{T}=[\hbar] \]</div>
+      <p>ħ'nin birimi tahtanın alt satırında: enerji × zaman. Enerji iş demek, iş de kuvvet × yol (tahtadaki \(\Delta K=W=\vec F\cdot\vec l\), iş-enerji teoremi):</p>
+      <div class="eq">\[ [\hbar]=[E][t]=[N][l][t]=\frac{ML}{T^2}\cdot L\cdot T=\frac{ML^2}{T} \]</div>
+      <p>Şimdi \(\langle x|p\rangle\)'nin birimi, Tahta 8 ve 12'deki ket birimlerinden:</p>
+      <div class="eq">\[ [\langle x|p\rangle]=[\,\langle x|\,]\,[\,|p\rangle\,]=\frac{1}{L^{1/2}}\cdot\frac{T^{1/2}}{M^{1/2}L^{1/2}}=\frac{T^{1/2}}{M^{1/2}L}=\frac{1}{[\hbar]^{1/2}} \]</div>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>Tahtadaki ara adımda paydada \(L^{1/2}\) kalmış gibi duruyor. İki \(L^{-1/2}\) çarpılınca \(L^{-1}\) olur; L olarak düzelt, yoksa ħ ile karşılaştırma (tahtadaki “compare”) tutmaz.</p>
+        <p>Transkriptte “energy multiplied with frequency” geçiyor gibi; doğrusu enerji × zaman, yani J·s.</p>
+      </aside>
+      <p>Sonuç, tahtadaki “requires the normalization”: üstel kısım birimsiz olduğuna göre \(1/\sqrt{\hbar}\) birimini ön çarpan taşımak zorunda. \(2\pi\) ise birimden değil, Fourier dönüşümünün kendi kuralından geliyor; hocanın Türkçe açıklaması da bu yöndeydi.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Birim analiziyle formül avlamak. Sarkacın periyodu neye bağlı? İp uzunluğu L ve yerçekimi g'den saniye elde etmenin tek yolu \(\sqrt{L/g}\): \(\sqrt{\text{m}/(\text{m/s}^2)}=\text{s}\). Formülü bilmeden şeklini bulmuş oldun; geriye \(2\pi\) gibi birimsiz bir sayı kalıyor. Burada da aynısı: \(\langle x|p\rangle\)'nin birimi \(1/\sqrt{\text{J·s}}\) olmalı ve ħ'den başka bu birimi verecek bir şey yok.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-15a" data-q="15a" data-type="mc" data-topic="ħ'nin birimi">
+          <p><span class="q-n">Soru 15.1</span>ħ'nin birimi ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">J/s</span></button><p class="why tex-later" hidden>Bu güç birimi (watt).</p></li>
+            <li><button type="button" class="opt"><span class="t">J·Hz</span></button><p class="why tex-later" hidden>Hz = 1/s, yani J·Hz = J/s. Transkriptteki “energy × frequency” buraya götürür ama yanlış.</p></li>
+            <li><button type="button" class="opt"><span class="t">kg·m/s</span></button><p class="why tex-later" hidden>Bu momentum birimi; ħ'de bir metre fazlası var.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">J·s</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\([\hbar]=\text{J·s}=\text{kg·m}^2/\text{s}\).</p></div>
+        </div>
+        <div class="q" id="q-15b" data-q="15b" data-type="mc" data-topic="üssün birimsiz olması">
+          <p><span class="q-n">Soru 15.2</span>\(e^{ax}\) ifadesinde x metre ise a'nın birimi ne olmalı?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">m</span></button><p class="why tex-later" hidden>O zaman üs metrekare olurdu.</p></li>
+            <li><button type="button" class="opt"><span class="t">Birimsiz</span></button><p class="why tex-later" hidden>O zaman üs metre olurdu; e'nin üssü birimsiz olmalı.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">1/m</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>ax birimsiz olmalı, yani \([a]=1/\text{m}\). Tahtada \(a=ip/\hbar\) ve gerçekten \([p/\hbar]=1/\text{m}\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 16 -->
+<section class="step" id="t16" data-n="16">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 16</span><span class="st"></span></p>
+    <h3>Momentum dilinde roller yer değiştirir</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 16 fotoğrafını büyüt"><img src="boards/t16.jpg" width="1600" height="949" loading="lazy" decoding="async" alt="Kara tahta: momentum temsilinde ⟨p|p̂|ψ⟩ = pφ(p), ⟨p|x̂|ψ⟩ = iħ dφ/dp, x̂ = iħ ∂/∂p ve iki temsilin üniter Fourier dönüşümüyle bağlı olduğu."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Momentum temsilinde \(\hat p\) sadece p ile çarpar, \(\hat x\) ise \(i\hbar\,\partial/\partial p\) olur; iki temsil üniter bir Fourier dönüşümüyle bağlı.</p>
+      <p>Momentum temsilinde \(\hat p\) kendi bazında olduğu için sadece çarpar:</p>
+      <div class="eq">\[ \langle p|\hat p|\psi\rangle=p\,\langle p|\psi\rangle=p\,\phi(p) \]</div>
+      <p>Konumda \(\hat V\) neyse momentumda \(\hat p\) o: köşegen, noktadan noktaya çarpma. Yine Tahta 4–5'teki kural. \(\hat x\) ise türeve dönüşüyor:</p>
+      <div class="eq">\[ \langle p|\hat x|\psi\rangle=i\hbar\,\frac{d\phi(p)}{dp}\qquad\Longrightarrow\qquad\hat x=i\hbar\,\frac{\partial}{\partial p} \]</div>
+      <details class="more">
+        <summary>Türetmesi (tahtada yok)</summary>
+        <div class="d-body tex-later">
+          <div class="eq">\[ \langle p|\hat x|\psi\rangle=\int dx\,\langle p|x\rangle\,x\,\psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int dx\,x\,e^{-ixp/\hbar}\,\psi(x) \]</div>
+          <p>Püf noktası: \(x\,e^{-ixp/\hbar}=i\hbar\,\frac{\partial}{\partial p}e^{-ixp/\hbar}\). Kontrol: \(i\hbar\cdot(-ix/\hbar)=x\). Türevi integralin dışına çekince geriye \(i\hbar\,d\phi/dp\) kalır.</p>
+        </div>
+      </details>
+      <div class="tbl"><table>
+        <thead><tr><th>Operatör</th><th>Konum temsilinde</th><th>Momentum temsilinde</th></tr></thead>
+        <tbody>
+          <tr><td>\(\hat x\)</td><td>x ile çarp</td><td>\(i\hbar\,\partial/\partial p\)</td></tr>
+          <tr><td>\(\hat p\)</td><td>\(-i\hbar\,\partial/\partial x\)</td><td>p ile çarp</td></tr>
+        </tbody>
+      </table></div>
+      <p>İşaretlerin ters olması tesadüf değil: \(\hat x\hat p-\hat p\hat x=i\hbar\) iki dilde de aynı çıksın diye. Tahtadaki “but if” notu: φ sadece p'ye bağlıysa \(\partial/\partial p\) ile \(d/dp\) aynı şey; ∂ yazılmasının sebebi φ'nin zamana da bağlı olabilmesi.</p>
+      <p>Son cümle haftanın özü: konum ve momentum temsilleri üniter bir Fourier dönüşümüyle bağlı. Tahta 3'teki baz değişimiyle birebir: \(U_{mn}=\langle f_m|e_n\rangle\) burada \(\langle p|x\rangle\) oluyor, \(\vec c_f=U\vec c_e\) de \(\phi(p)=\int dx\,\langle p|x\rangle\,\psi(x)\). Üniter olduğu için toplam olasılık korunur: \(\int|\psi|^2dx=\int|\phi|^2dp\).</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>İki dil. Türkçede tek kelimeyle söylediğin bir şeyi (“gurbet”) İngilizcede bir cümleyle anlatman gerekir; başka bir şey için tersi olur. Konum dilinde x tek kelime (çarpma), p uzun bir açıklama (türev). Momentum dilinde tam tersi. Fourier dönüşümü sözlük; çeviride anlam, yani toplam olasılık, kaybolmuyor.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-16a" data-q="16a" data-type="mc" data-topic="momentum temsilinde p̂">
+          <p><span class="q-n">Soru 16.1</span>Momentum temsilinde \(\hat p\), \(\phi(p)\)'ye ne yapar?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(-i\hbar\,d/dp\) türevini alır</span></button><p class="why tex-later" hidden>Türev, p̂'nin konum temsilindeki hali (d/dx ile). Kendi bazında p̂ sadece çarpar.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">p ile çarpar</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Fourier dönüşümünü alır</span></button><p class="why tex-later" hidden>Fourier dönüşümü baz değiştirir; operatörün kendisi değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\langle p|\hat p=p\,\langle p|\): özbazda operatör köşegen.</p></div>
+        </div>
+        <div class="q" id="q-16b" data-q="16b" data-type="mc" data-topic="momentum temsilinde x̂">
+          <p><span class="q-n">Soru 16.2</span>Momentum temsilinde \(\hat x\) ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(i\hbar\,\partial/\partial p\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-i\hbar\,\partial/\partial p\)</span></button><p class="why tex-later" hidden>İşaret, konumdaki \(\hat p\)'nin tersi: artı.</p></li>
+            <li><button type="button" class="opt"><span class="t">x ile çarpma</span></button><p class="why tex-later" hidden>Bu, konum temsilindeki hali.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Roller ve işaret yer değiştiriyor: konumda \(\hat p=-i\hbar\,\partial_x\), momentumda \(\hat x=+i\hbar\,\partial_p\).</p></div>
+        </div>
+        <div class="q" id="q-16c" data-q="16c" data-type="mc" data-topic="Fourier dönüşümü olasılığı korur">
+          <p><span class="q-n">Soru 16.3</span>\(\int|\psi(x)|^2dx=1\) ise \(\int|\phi(p)|^2dp\) kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(2\pi\hbar\)</span></button><p class="why tex-later" hidden>\(1/\sqrt{2\pi\hbar}\) ön çarpanı tam bu fazlalığı yok etmek için orada.</p></li>
+            <li><button type="button" class="opt"><span class="t">Baza göre değişir</span></button><p class="why tex-later" hidden>Üniter dönüşüm boyu korur (Tahta 2, madde 3).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">1</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Fourier dönüşümü üniter; toplam olasılık iki dilde de 1 (Parseval).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM D ===================== -->
+<header class="part" id="bolum-d">
+  <p class="k">Bölüm D · Tahta 17–18</p>
+  <h2>Öteleme</h2>
+  <p class="sub">Tahta 13'te hazır kabul ettiğimiz \(\hat p=-i\hbar\,d/dx\) nereden geliyor? Cevap: kaydırma işleminden.</p>
+</header>
+
+<!-- TAHTA 17 -->
+<section class="step" id="t17" data-n="17">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 17</span><span class="code" title="Tahtanın sol üst köşesindeki kod">811622</span><span class="st"></span></p>
+    <h3>Öteleme operatörü: grafiği kaydırmak</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 17 fotoğrafını büyüt"><img src="boards/t17.jpg" width="1600" height="875" loading="lazy" decoding="async" alt="Beyaz tahta: 7.3 momentum operatörünün ötelemelerden türetilmesi, T̂(a)ψ(x) = ψ(x − a), küçük a için açılım ve Hermitsel üreteç Ĝ."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(\hat T(a)\) dalga fonksiyonunu a kadar sağa kaydırır, \(\psi(x)\to\psi(x-a)\); küçük a için türevle açılır ve içinde bir “üreteç” \(\hat G\) taşır.</p>
+      <p>7.3'ün başlığı “Deriving the momentum operator from translations”. Öteleme operatörünün (translation operator) tanımı:</p>
+      <div class="eq">\[ \big(\hat T(a)\psi\big)(x)=\langle x|\hat T(a)|\psi\rangle=\psi(x-a) \]</div>
+      <p>Eksi işareti seni şaşırtmasın: \(\psi(x-a)\) grafiği a kadar SAĞA kaydırır. Yeni grafik \(x_0+a\) noktasında, eski grafiğin \(x_0\)'daki değerini alır.</p>
+      <p>Küçük (infinitesimal) a için Taylor açılımı, yani teğet doğrusu yaklaşımı:</p>
+      <div class="eq">\[ \big(\hat T(a)\psi\big)(x)=\psi(x-a)=\psi(x)-a\,\frac{d\psi}{dx}+O(a^2)\qquad(*) \]</div>
+      <div class="widget" id="w-shift">
+        <p class="predict"><strong>Önce tahmin et:</strong> a büyüdükçe teğet yaklaşımı (kırmızı halka) gerçek değere (mavi nokta) yakın kalır mı? Sonra kaydır.</p>
+        <svg class="wsvg" viewBox="0 0 360 210" role="img" aria-label="ψ(x) ve a kadar kaydırılmış ψ(x − a) grafikleri, x₀ = 0,5 noktasında gerçek değer ve teğet yaklaşımı"></svg>
+        <div class="ctrl"><label for="shift-a">Kaydırma a</label><input id="shift-a" type="range" min="0" max="1.5" step="0.05" value="0.3"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Kesikli eğri \(\psi(x)=e^{-x^2}\), düz eğri \(\psi(x-a)\). Dikey çizgi \(x_0=0{,}5\).</p>
+      </div>
+      <p>\(\hat T(a)\)'nın özellikleri: kaydırmak toplam olasılığı değiştirmez (üniter), a'ya sürekli bağlı, \(\hat T(0)=\hat I\) ve iki kaydırma toplanır: \(\hat T(a)\hat T(b)=\hat T(a+b)\). Böyle sürekli üniter aileler üstel olarak yazılabilir:</p>
+      <div class="eq">\[ \hat T(a)=e^{-ia\hat G/\hbar}=\hat I-a\,\frac{i}{\hbar}\,\hat G+O(a^2) \]</div>
+      <p>\(\hat G\)'ye üreteç (generator) deniyor. Tahtada “Hermitian” tırnak içinde, çünkü bu bir varsayım değil, sonuç: üniterlikten \(\hat G^\dagger=\hat G\) çıkıyor. Üstteki i, \(\hat G\) gözlenebilir (Hermitsel) çıksın diye orada; \(1/\hbar\) ise birim için. \(a\hat G/\hbar\) birimsiz olmalı, yani \([\hat G]=[\hbar]/\text{m}=\text{kg·m/s}\). Daha hiçbir şey hesaplamadan \(\hat G\)'nin momentum biriminde olduğunu biliyoruz.</p>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>Tahtadaki üstelde eksi görünmüyor, \(e^{(i/\hbar)a\hat G}\) yazıyor; açılımda ise eksi var. Tutarlı olan eksili hali. Artıyla başlasan sonunda \(\hat G=-\hat p\) çıkardı. Hoca da bu kalıbın birkaç hafta içinde (dönmeler ve zaman evrimiyle aynı yapı tekrar gelince) netleşeceğini söyledi.</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Lisede gördün: \(y=f(x-2)\) grafiği \(y=f(x)\)'i 2 birim sağa kaydırır. Teğet yaklaşımı da tanıdık: \(f(x-a)\approx f(x)-a\,f'(x)\). Örnek: \(f(x)=x^2\), x = 3, a = 0,1. Gerçek değer \(f(2{,}9)=8{,}41\); yaklaşık değer \(9-0{,}1\times6=8{,}40\). Neredeyse aynı. Kaydırıcıda a büyüdükçe yaklaşımın nasıl bozulduğunu gördün.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-17a" data-q="17a" data-type="mc" data-topic="grafik kaydırma yönü">
+          <p><span class="q-n">Soru 17.1</span>\(y=(x-2)^2\) grafiği, \(y=x^2\)'ye göre nereye kayar?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">2 birim sola</span></button><p class="why tex-later" hidden>Tepe noktası x − 2 = 0 için, yani x = 2'de: sağda.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">2 birim sağa</span></button></li>
+            <li><button type="button" class="opt"><span class="t">2 birim yukarı</span></button><p class="why tex-later" hidden>Yukarı kaydırma \(x^2+2\) olurdu.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Tepe x = 0'dan x = 2'ye taşındı. \(\psi(x-a)\) de a kadar sağa kayar.</p></div>
+        </div>
+        <div class="q" id="q-17b" data-q="17b" data-type="num" data-answer="7.88" data-tol="0.002" data-show="7,88" data-topic="teğet yaklaşımı">
+          <p><span class="q-n">Soru 17.2</span>\(f(x)=x^3\), x = 2, a = 0,01. Teğet yaklaşımıyla \(f(x-a)\approx f(x)-a\,f'(x)\) kaç?</p>
+          <div class="num-row"><label class="sr" for="in-17b">Cevabın</label><input id="in-17b" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(f'(x)=3x^2\), x = 2'de 12. \(f(2)=8\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(8-0{,}01\times12=7{,}88\). Gerçek değer \(1{,}99^3=7{,}8806\); fark \(a^2\) mertebesinde.</p></div>
+        </div>
+        <div class="q" id="q-17c" data-q="17c" data-type="mc" data-topic="üretecin birimi">
+          <p><span class="q-n">Soru 17.3</span>\(\hat G\)'nin biriminin kg·m/s olması gerektiğini nereden biliyoruz?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\hat G\) Hermitsel olduğu için</span></button><p class="why tex-later" hidden>Hermitsellik birim söylemez; özdeğerlerin reel olduğunu söyler.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\hat T\) üniter olduğu için</span></button><p class="why tex-later" hidden>Üniterlik Hermitselliği getirir, birimi değil.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(a\hat G/\hbar\) üstte duruyor, birimsiz olmalı</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\([\hat G]=[\hbar]/[a]=(\text{kg·m}^2/\text{s})/\text{m}=\text{kg·m/s}\): momentum birimi.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 18 -->
+<section class="step" id="t18" data-n="18">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Tahta 18</span><span class="st"></span></p>
+    <h3>Momentum, ötelemenin üreteci</h3>
+  </header>
+  <div class="lock" hidden><p>Bu tahta şimdilik kilitli. Açmak için önce şu tahtanın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 18 fotoğrafını büyüt"><img src="boards/t18.jpg" width="1600" height="962" loading="lazy" decoding="async" alt="Kara tahta: T̂(a) açılımının ⟨x|T̂(a)|ψ⟩ içinde kullanılması, (∗) ile (∗∗)'nin karşılaştırılması, ⟨x|Ĝ|ψ⟩ = −iħ dψ/dx ve Ĝ = p̂ sonucu."></button>
+      <figcaption>Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Aynı şeyin iki açılımını karşılaştırınca \(\hat G\)'nin konumdaki etkisi \(-i\hbar\,d/dx\) çıkıyor; yani \(\hat G=\hat p\), momentum ötelemenin üreteci.</p>
+      <p>Üstel açılımı \(\langle x|\) ile \(|\psi\rangle\) arasına koy:</p>
+      <div class="eq">\[ \big(\hat T(a)\psi\big)(x)=\langle x|\,\hat I-a\,\tfrac{i}{\hbar}\,\hat G+O(a^2)\,|\psi\rangle=\psi(x)-a\,\frac{i}{\hbar}\,\langle x|\hat G|\psi\rangle+O(a^2)\qquad(**) \]</div>
+      <p>Elimizde aynı şeyin iki açılımı var, (∗) ve (∗∗). Her küçük a için eşit olmaları gerekiyor, o halde a'nın katsayıları eşit:</p>
+      <div class="eq">\[ \frac{d\psi(x)}{dx}=\frac{i}{\hbar}\,\langle x|\hat G|\psi\rangle\quad\Longrightarrow\quad\langle x|\hat G|\psi\rangle=\frac{\hbar}{i}\,\frac{d\psi}{dx}=-i\hbar\,\frac{d\psi}{dx} \]</div>
+      <p>Son adımda \(1/i=-i\). Bu, konum temsilindeki \(\hat p\)'nin ta kendisi. Tahtanın son satırı: “So Ĝ is nothing but p̂ and p̂ is the generator of translations!”</p>
+      <p>Tahta 13'te \(\hat p=-i\hbar\,d/dx\)'i hazır kabul etmiştik; burada nereden geldiğini gördük. Derste bir arkadaşın “bunu neden postüla gibi kullanıyoruz?” sorusunun cevabı bu: “momentum ötelemenin üretecidir” ilkesi o formülü üretiyor. Dürüst olmak gerekirse varsayım tamamen yok olmuyor, yer değiştiriyor: üreteci fiziksel momentumla özdeşleştirmek klasik fizikten ve deneyden geliyor.</p>
+      <p>Neden “üreteç”? Çok sayıda minicik kaydırma, büyük bir kaydırma yapar:</p>
+      <div class="eq">\[ \hat T(a)=\Big[\hat T\big(\tfrac{a}{n}\big)\Big]^n\approx\Big(\hat I-\tfrac{a}{n}\,\tfrac{i}{\hbar}\,\hat p\Big)^n\;\xrightarrow{\;n\to\infty\;}\;e^{-ia\hat p/\hbar} \]</div>
+      <details class="more">
+        <summary>Üç sağlama (tahtada yok)</summary>
+        <div class="d-body tex-later">
+          <ol>
+            <li>Sonlu öteleme: \(-ia\hat p/\hbar=-a\,d/dx\) olduğu için \(e^{-a\,d/dx}\psi(x)=\sum_n\frac{(-a)^n}{n!}\psi^{(n)}(x)=\psi(x-a)\). Düpedüz Taylor serisi.</li>
+            <li>Momentum bazında: \(\hat T\), \(\hat p\)'nin bir fonksiyonu, bu yüzden bu bazda köşegen: \(\hat T(a)|p\rangle=e^{-iap/\hbar}|p\rangle\).</li>
+            <li>Konum bazındaki çekirdek: \(\langle x|\hat T(a)|x'\rangle=\delta(x-a-x')\). Köşegenin a kadar kaymış hali; Tahta 11'deki yerel olmayan operatörün en temiz örneği.</li>
+          </ol>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Katsayı karşılaştırma: “her a için \(3+5a=3+ka\)” ise k = 5. Polinom eşitliğinde aynı dereceli terimlerin katsayıları eşit olur; burada da a'nın katsayılarını eşitledik.</p>
+        <p>Bileşik faiz de “üreteç” fikrinin lise hali. Yıllık %100 faiz yılda bir eklenirse paran 2 katına çıkar, ayda bir eklenirse \((1+\tfrac{1}{12})^{12}\approx2{,}613\) katına, her an eklenirse \(e\approx2{,}718\) katına. Minicik adımlar üst üste binince üstel çıkar.</p>
+      </aside>
+      <details class="self">
+        <summary>Kendi cümlenle anlat, sonra açıp karşılaştır: “momentum ötelemenin üretecidir” ne demek?</summary>
+        <div class="d-body tex-later"><p>Küçük bir a kadar kaydırma \(\hat I-a\,(i/\hbar)\,\hat p\) gibi davranır; büyük kaydırma bu küçük adımların üst üste binmesi, \(e^{-ia\hat p/\hbar}\). Yani kaydırmayı \(\hat p\) “üretiyor”. Konum dilinde bu, \(\hat p\)'nin türev almasına, yani “x biraz değişince ψ ne kadar değişir” sorusuna karşılık geliyor.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-18a" data-q="18a" data-type="mc" data-topic="1/i">
+          <p><span class="q-n">Soru 18.1</span>\(1/i\) kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(i\)</span></button><p class="why tex-later" hidden>\(i\cdot i=-1\), 1 değil.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(-i\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-1\)</span></button><p class="why tex-later" hidden>\(i\cdot(-1)=-i\), 1 değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\frac1i=\frac{i}{i^2}=\frac{i}{-1}=-i\). Kontrol: \(i\cdot(-i)=-i^2=1\).</p></div>
+        </div>
+        <div class="q" id="q-18b" data-q="18b" data-type="mc" data-topic="katsayı karşılaştırma">
+          <p><span class="q-n">Soru 18.2</span>(∗) ile (∗∗)'yi karşılaştırırken neyi eşitliyoruz?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(a^2\)'nin katsayılarını</span></button><p class="why tex-later" hidden>Onlar \(O(a^2)\) içinde; birinci derece yeterli.</p></li>
+            <li><button type="button" class="opt"><span class="t">Sabit terimleri</span></button><p class="why tex-later" hidden>Sabit terim ikisinde de zaten \(\psi(x)\); yeni bilgi vermiyor.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">a'nın katsayılarını</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(-a\,\psi'(x)=-a\,\frac{i}{\hbar}\langle x|\hat G|\psi\rangle\). Her küçük a için tutması için katsayılar eşit olmalı.</p></div>
+        </div>
+        <div class="q" id="q-18c" data-q="18c" data-type="mc" data-topic="öteleme simetrisi ve korunum">
+          <p><span class="q-n">Soru 18.3</span>Bir sistemin enerjisi her yere kaydırıldığında değişmiyorsa (uzay her yerde aynıysa) ne korunur?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Momentum</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Konum</span></button><p class="why tex-later" hidden>Konum değişebilir; korunan, kaydırmanın üreteci.</p></li>
+            <li><button type="button" class="opt"><span class="t">Hiçbir şey</span></button><p class="why tex-later" hidden>Böyle bir simetri her zaman bir korunum getirir (Noether).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Ötelemenin üreteci \(\hat p\). Hamiltonyen ötelemeye karşı değişmezse \(\hat H\) ile \(\hat p\) sıra değiştirir ve momentum korunur. Lisedeki momentumun korunumunun derindeki sebebi bu.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SON ===================== -->
+<section class="end" id="sozluk">
+  <p class="k">Tek sayfada hafta</p>
+  <h2>Haftanın sözlüğü</h2>
+  <p>Sonlu boyuttaki her şeyin sürekli boyutta bir karşılığı var. Sağdaki sütun, sayfadaki lise örneklerini aynı satıra bağlıyor.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Sonlu boyut</th><th>Sürekli boyut</th><th>Lise karşılığı</th></tr></thead>
+    <tbody>
+      <tr><td>\(\langle e_m|e_n\rangle=\delta_{mn}\)</td><td>\(\langle x'|x\rangle=\delta(x-x')\)</td><td>Yoklama listesi, çekiç darbesi</td></tr>
+      <tr><td>\(\sum_n|e_n\rangle\langle e_n|=\hat I\)</td><td>\(\int dx\,|x\rangle\langle x|=\hat I\)</td><td>Birim çevirmedeki 1</td></tr>
+      <tr><td>\(c_n=\langle e_n|\psi\rangle\)</td><td>\(\psi(x)=\langle x|\psi\rangle\)</td><td>Haritadaki koordinat</td></tr>
+      <tr><td>\(d_m=\sum_nA_{mn}c_n\)</td><td>\(\int dx'\,A(x,x')\,\psi(x')\)</td><td>Üç günlük ortalama</td></tr>
+      <tr><td>Köşegen: \(a_n\delta_{mn}\)</td><td>Yerel: \(V(x)\,\delta(x-x')\)</td><td>Parlaklık filtresi</td></tr>
+      <tr><td>\(U_{mn}=\langle f_m|e_n\rangle\)</td><td>\(\langle p|x\rangle=e^{-ixp/\hbar}/\sqrt{2\pi\hbar}\)</td><td>Ekolayzer, iki dil arası sözlük</td></tr>
+      <tr><td>\(U^\dagger U=I\)</td><td>\(\int|\psi|^2dx=\int|\phi|^2dp\)</td><td>Dönen üçgenin kenarları</td></tr>
+      <tr><td>\(e^{A}=U\,\mathrm{diag}(e^{a_n})\,U^\dagger\)</td><td>\(\hat T(a)=e^{-ia\hat p/\hbar}\)</td><td>Grafik kaydırma, bileşik faiz</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="rapor">
+  <p class="k">Anladın mı?</p>
+  <h2>Durum raporu</h2>
+  <div class="report" id="rapor-icerik" aria-live="polite"></div>
+</section>
+
+<section class="end" id="ders-disi">
+  <p class="k">Ders dışı</p>
+  <h2>Ödev gecikme kuralı</h2>
+  <p>Ders sonunda hoca gecikme kuralını duyurdu (transkript bozuk, anlaşılan şu): ilk beş ödevde gecikme cezası yok. Altıncı ödevden itibaren gecikilen her gün için 1 puan kesiliyor, en fazla 5 puan; beşinci günden sonra kesinti 5 puanda sabit kalıyor.</p>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <p><a href="../">← 601'in diğer haftaları</a> · İlerlemen sadece bu tarayıcıda saklanıyor; başka bir cihazda baştan başlar.</p>
+  <button type="button" class="btn ghost" id="reset">İlerlemeyi sıfırla</button>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Tahta fotoğrafı">
+  <button type="button" class="lb-close">Kapat</button>
+  <img alt="">
+  <p class="lb-hint">Görsele dokun: tam boyut ya da ekrana sığdır</p>
+</div>
+
+<script>
+document.documentElement.lang = 'tr';
+(function () {
+  'use strict';
+
+  /* ---------- Kayıt ---------- */
+  var KEY = 'kbm-601-hafta6-v1';
+  var state = { ans: {}, strict: true };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (saved.ans && typeof saved.ans === 'object') state.ans = saved.ans;
+        if (typeof saved.strict === 'boolean') state.strict = saved.strict;
+      }
+    }
+  } catch (e) { /* depolama yoksa sayfa yine çalışır */ }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
+
+  /* ---------- MathJax: sonradan görünen parçaları sırayla dizgile ---------- */
+  var mjReady = false;
+  var pending = [];
+  var chain = Promise.resolve();
+  function typeset(list) {
+    var mj = window.MathJax;
+    if (!list.length || !mj || typeof mj.typesetPromise !== 'function') return;
+    chain = chain.then(function () { return mj.typesetPromise(list); }).catch(function () {});
+  }
+  function tex(node) {
+    if (!node) return;
+    node.classList.remove('tex-later');
+    if (mjReady) typeset([node]); else pending.push(node);
+  }
+  window.addEventListener('mathjax-ready', function () {
+    mjReady = true;
+    var list = pending;
+    pending = [];
+    typeset(list);
+  });
+
+  function fmt(v, d) { return v.toLocaleString('tr-TR', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var qs = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var total = qs.length;
+  var links = {};
+  each('.map a[data-step]', function (a) { links[a.getAttribute('data-step')] = a; });
+
+  /* ---------- Sorular ---------- */
+  var MSG = {
+    first: 'Doğru, ilk denemede.',
+    retry: 'Doğru, ama ilk denemede değil. Rapor bu soruyu tekrar bakılacaklara ekledi.',
+    shown: 'Cevap gösterildi. Rapor bu soruyu tekrar bakılacaklara ekledi.'
+  };
+  function setMsg(q, text, kind) {
+    var m = q.querySelector('.msg');
+    m.textContent = text;
+    m.setAttribute('data-k', kind);
+  }
+
+  function resolve(q, status, restoring) {
+    if (q.classList.contains('done')) return;
+    q.classList.add('done');
+    q.setAttribute('data-status', status);
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (b) {
+        b.disabled = true;
+        if (b.hasAttribute('data-ok')) b.classList.add('is-right');
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      inp.disabled = true;
+      inp.classList.remove('is-wrong');
+      inp.classList.add('is-right');
+      if (status === 'shown' || !inp.value.trim()) inp.value = q.getAttribute('data-show');
+      q.querySelector('.check').disabled = true;
+    }
+    q.querySelector('.reveal').hidden = true;
+    var ex = q.querySelector('.explain');
+    ex.hidden = false;
+    tex(ex);
+    setMsg(q, MSG[status], status === 'shown' ? 'bad' : 'good');
+    state.ans[q.getAttribute('data-q')] = status;
+    if (!restoring) { save(); refresh(); }
+  }
+
+  function parseNum(str) {
+    var s = String(str || '').trim().replace(/\s+/g, '').replace(/,/g, '.').replace(/−/g, '-');
+    var frac = s.match(/^([-+]?(?:\d+\.?\d*|\.\d+))\/([-+]?(?:\d+\.?\d*|\.\d+))$/);
+    if (frac) {
+      var b = parseFloat(frac[2]);
+      return b === 0 ? NaN : parseFloat(frac[1]) / b;
+    }
+    if (!/^[-+]?(?:\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+    return parseFloat(s);
+  }
+
+  qs.forEach(function (q) {
+    q._tries = 0;
+    var reveal = q.querySelector('.reveal');
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (btn) {
+        btn.addEventListener('click', function () {
+          if (q.classList.contains('done') || btn.disabled) return;
+          if (btn.hasAttribute('data-ok')) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+          q._tries++;
+          btn.classList.add('is-wrong');
+          btn.disabled = true;
+          var why = btn.parentNode.querySelector('.why');
+          if (why) { why.hidden = false; tex(why); }
+          setMsg(q, 'Olmadı. Şıkkın altındaki nota bak, sonra başka bir şık dene.', 'bad');
+          reveal.hidden = false;
+        });
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      var check = function () {
+        if (q.classList.contains('done')) return;
+        var v = parseNum(inp.value);
+        if (isNaN(v)) {
+          setMsg(q, 'Bir sayı yaz. Ondalık için virgül de nokta da olur.', 'info');
+          inp.focus();
+          return;
+        }
+        var ans = parseFloat(q.getAttribute('data-answer'));
+        var tol = parseFloat(q.getAttribute('data-tol') || '0.001');
+        if (Math.abs(v - ans) <= tol + 1e-9) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+        q._tries++;
+        inp.classList.add('is-wrong');
+        var hint = q.querySelector('.hint');
+        if (hint) { hint.hidden = false; tex(hint); }
+        setMsg(q, 'Olmadı, cevap ' + v.toLocaleString('tr-TR', { maximumFractionDigits: 4 }) + ' değil. İpucuna bak, tekrar dene.', 'bad');
+        reveal.hidden = false;
+      };
+      q.querySelector('.check').addEventListener('click', check);
+      inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+      inp.addEventListener('input', function () { inp.classList.remove('is-wrong'); });
+    }
+    reveal.addEventListener('click', function () { resolve(q, 'shown'); });
+    var s = state.ans[q.getAttribute('data-q')];
+    if (s === 'first' || s === 'retry' || s === 'shown') resolve(q, s, true);
+  });
+
+  /* ---------- İlerleme, kilitler, rapor ---------- */
+  function stats(st) {
+    var r = { total: 0, done: 0, weak: 0 };
+    each('.q', function (q) {
+      r.total++;
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { r.done++; if (s !== 'first') r.weak++; }
+    }, st);
+    return r;
+  }
+
+  var fill = document.getElementById('fill');
+  var count = document.getElementById('count');
+  var strictBtn = document.getElementById('strict');
+
+  function setLocked(st, locked, blocker) {
+    var grid = st.querySelector('.step-grid');
+    var lock = st.querySelector('.lock');
+    if (locked) {
+      if (!grid.hidden) {
+        grid.hidden = true;
+        if (!mjReady) grid.classList.add('tex-later');
+      }
+      lock.hidden = false;
+      lock.querySelector('.lock-n').textContent = 'Tahta ' + blocker.getAttribute('data-n');
+      lock.querySelector('.golock').setAttribute('data-target', blocker.id);
+      st.classList.add('is-locked');
+    } else {
+      lock.hidden = true;
+      st.classList.remove('is-locked');
+      if (grid.hidden) { grid.hidden = false; tex(grid); }
+    }
+  }
+
+  function renderReport() {
+    var box = document.getElementById('rapor-icerik');
+    var done = 0, first = 0, weak = [], solid = [];
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (!s) return;
+      done++;
+      if (s === 'first') first++; else weak.push({ q: q, s: s });
+    });
+    steps.forEach(function (st) {
+      var r = stats(st);
+      if (r.done === r.total && !r.weak) solid.push(st.getAttribute('data-n'));
+    });
+    if (!done) {
+      box.innerHTML = `<p>Henüz soru çözmedin. <a href="#t1">Tahta 1</a>'den başla; rapor sen çözdükçe dolacak.</p>`;
+      return;
+    }
+    var h = `<p><strong>${total}</strong> sorudan <strong>${done}</strong> tanesini çözdün, <strong>${first}</strong> tanesini ilk denemede bildin.</p>`;
+    if (weak.length) {
+      h += `<p>Tekrar bakman gerekenler:</p><ul>` + weak.map(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        var why = w.s === 'shown' ? 'cevabı gördün' : 'ilk denemede olmadı';
+        return `<li><a href="#${w.q.id}">Tahta ${n} · ${esc(w.q.getAttribute('data-topic'))}</a> <span class="why-tag">(${why})</span></li>`;
+      }).join('') + `</ul>`;
+      var base = weak.some(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        return n === '7' || n === '8';
+      });
+      if (base) h += `<p>Tahta 7 ve 8 (δ ve tamlık) bu haftanın temeli; 9–18 bunların üstüne kuruluyor. Önce o ikisini sağlamlaştır.</p>`;
+    }
+    if (solid.length) h += `<p>Sorunsuz geçtiğin tahtalar: ${solid.join(', ')}.</p>`;
+    if (done === total && !weak.length) h += `<p>Hepsini ilk denemede bildin. Bu hafta oturmuş; sonraki derse hazırsın.</p>`;
+    else if (done === total) h += `<p>Bütün soruları bitirdin. Yukarıdaki listeye birkaç gün sonra tekrar dön; ikinci bakışta oturanlar kalıcı olur.</p>`;
+    box.innerHTML = h;
+  }
+
+  function refresh() {
+    var done = 0, first = 0;
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { done++; if (s === 'first') first++; }
+    });
+    fill.style.width = (total ? 100 * done / total : 0) + '%';
+    count.innerHTML = '<strong>' + done + '/' + total + '</strong> soru · ilk denemede ' + first;
+    var blocker = null;
+    steps.forEach(function (st) {
+      var r = stats(st);
+      var s = r.weak ? 'weak' : (r.done === r.total ? 'done' : (r.done ? 'doing' : 'todo'));
+      st.setAttribute('data-s', s);
+      st.querySelector('.st').textContent = r.done + '/' + r.total + ' soru';
+      var locked = state.strict && blocker !== null;
+      setLocked(st, locked, blocker);
+      var a = links[st.id];
+      if (a) {
+        a.setAttribute('data-s', s);
+        a.querySelector('.lk').textContent = locked ? 'kilitli' : '';
+      }
+      if (blocker === null && r.done < r.total) blocker = st;
+    });
+    strictBtn.setAttribute('aria-pressed', state.strict ? 'true' : 'false');
+    strictBtn.textContent = state.strict ? 'Adım adım: açık' : 'Adım adım: kapalı';
+    renderReport();
+  }
+
+  /* ---------- Gezinme ---------- */
+  function firstOpen(scope) {
+    var list = scope ? Array.prototype.slice.call(scope.querySelectorAll('.q')) : qs;
+    for (var i = 0; i < list.length; i++) {
+      var q = list[i];
+      if (!q.classList.contains('done') && !q.closest('.step').querySelector('.step-grid').hidden) return q;
+    }
+    return null;
+  }
+  function goTo(q) {
+    q.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    var f = q.querySelector('.opt:not(:disabled), input:not(:disabled)');
+    if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (e) {} }, reduce ? 0 : 450);
+  }
+  document.getElementById('next').addEventListener('click', function () {
+    var q = firstOpen();
+    if (q) goTo(q);
+    else document.getElementById('rapor').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
+  strictBtn.addEventListener('click', function () { state.strict = !state.strict; save(); refresh(); });
+  each('.golock', function (b) {
+    b.addEventListener('click', function () {
+      var st = document.getElementById(b.getAttribute('data-target'));
+      if (!st) return;
+      var q = firstOpen(st);
+      if (q) goTo(q); else st.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  each('.unlock-all', function (b) {
+    b.addEventListener('click', function () { state.strict = false; save(); refresh(); });
+  });
+
+  var resetBtn = document.getElementById('reset');
+  var armed = null;
+  resetBtn.addEventListener('click', function () {
+    if (!armed) {
+      resetBtn.textContent = 'Emin misin? Bir kez daha bas';
+      armed = setTimeout(function () { armed = null; resetBtn.textContent = 'İlerlemeyi sıfırla'; }, 4000);
+      return;
+    }
+    clearTimeout(armed);
+    armed = null;
+    resetBtn.textContent = 'İlerlemeyi sıfırla';
+    state.ans = {};
+    save();
+    qs.forEach(function (q) {
+      q.classList.remove('done');
+      q.removeAttribute('data-status');
+      q._tries = 0;
+      each('.opt', function (b) { b.disabled = false; b.classList.remove('is-right', 'is-wrong'); }, q);
+      each('.why', function (w) { w.hidden = true; }, q);
+      var inp = q.querySelector('input');
+      if (inp) {
+        inp.disabled = false;
+        inp.value = '';
+        inp.classList.remove('is-right', 'is-wrong');
+        q.querySelector('.check').disabled = false;
+      }
+      q.querySelector('.explain').hidden = true;
+      q.querySelector('.reveal').hidden = true;
+      setMsg(q, '', 'info');
+    });
+    refresh();
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  each('details', function (d) {
+    d.addEventListener('toggle', function () { if (d.open) tex(d.querySelector('.d-body')); });
+  });
+
+  /* ---------- Fotoğraf görüntüleyici ---------- */
+  var lb = document.getElementById('lb');
+  var lbImg = lb.querySelector('img');
+  var lbClose = lb.querySelector('.lb-close');
+  var lastFocus = null;
+  function closeLB() {
+    lb.hidden = true;
+    lb.classList.remove('full');
+    document.documentElement.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  each('.zoom', function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lb.classList.remove('full');
+      lb.hidden = false;
+      lastFocus = btn;
+      document.documentElement.style.overflow = 'hidden';
+      lbClose.focus();
+    });
+  });
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLB(); });
+  lbImg.addEventListener('click', function () { lb.classList.toggle('full'); lb.scrollTop = 0; lb.scrollLeft = 0; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLB(); });
+
+  /* ---------- Çizimler ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function tickText(t) {
+    if (typeof t === 'object') return t.s;
+    return String(t).replace('.', ',').replace('-', '−');
+  }
+  function axes(svg, o) {
+    var X = function (x) { return o.l + (x - o.x0) / (o.x1 - o.x0) * (o.W - o.l - o.r); };
+    var Y = function (y) { return o.H - o.b - (y - o.y0) / (o.y1 - o.y0) * (o.H - o.t - o.b); };
+    (o.yt || []).forEach(function (v) {
+      el('line', { x1: o.l, x2: o.W - o.r, y1: Y(v), y2: Y(v), 'class': 'grid' }, svg);
+      el('text', { x: o.l - 6, y: Y(v) + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = tickText(v);
+    });
+    el('line', { x1: o.l, x2: o.W - o.r, y1: Y(o.y0), y2: Y(o.y0), 'class': 'ax' }, svg);
+    (o.xt || []).forEach(function (t) {
+      var v = typeof t === 'object' ? t.v : t;
+      el('line', { x1: X(v), x2: X(v), y1: Y(o.y0), y2: Y(o.y0) + 4, 'class': 'ax' }, svg);
+      el('text', { x: X(v), y: Y(o.y0) + 17, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = tickText(t);
+    });
+    if (o.xl) el('text', { x: o.W - o.r, y: o.H - 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = o.xl;
+    return { X: X, Y: Y };
+  }
+  function curve(f, a, b, X, Y, n) {
+    n = n || 240;
+    var d = '';
+    for (var i = 0; i <= n; i++) {
+      var x = a + (b - a) * i / n;
+      d += (i ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(f(x)).toFixed(1);
+    }
+    return d;
+  }
+  function area(f, a, b, X, Y) {
+    return curve(f, a, b, X, Y) + 'L' + X(b).toFixed(1) + ',' + Y(0).toFixed(1) + 'L' + X(a).toFixed(1) + ',' + Y(0).toFixed(1) + 'Z';
+  }
+
+  /* Tahta 7: δ kutusu */
+  (function () {
+    var root = document.getElementById('w-delta');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 210, l: 34, r: 14, t: 12, b: 28, x0: -1.25, x1: 1.25, y0: 0, y1: 10.6, xt: [-1, -0.5, 0, 0.5, 1], yt: [0, 2, 4, 6, 8, 10], xl: 'x' };
+    var m = axes(svg, o);
+    var rect = el('rect', { 'class': 'box' }, svg);
+    var lab = el('text', { 'class': 'tick lbl', 'text-anchor': 'middle' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var e = parseFloat(inp.value);
+      var h = 1 / (2 * e);
+      rect.setAttribute('x', m.X(-e));
+      rect.setAttribute('width', m.X(e) - m.X(-e));
+      rect.setAttribute('y', m.Y(h));
+      rect.setAttribute('height', m.Y(0) - m.Y(h));
+      lab.setAttribute('x', m.X(0));
+      lab.setAttribute('y', Math.max(m.Y(h) - 7, 12));
+      lab.textContent = 'alan = 1';
+      ro.innerHTML = `<span>ε = <b>${fmt(e, 2)}</b></span><span>genişlik 2ε = <b>${fmt(2 * e, 2)}</b></span><span>yükseklik 1/(2ε) = <b>${fmt(h, 2)}</b></span><span>alan = <b>1,00</b></span><span>x²'nin [3 − ε, 3 + ε] ortalaması = <b>${fmt(9 + e * e / 3, 4)}</b></span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Tahta 11: yerel ve yerel olmayan çekirdek */
+  (function () {
+    var svg = document.getElementById('w-kernel');
+    if (!svg) return;
+    var n = 8, c = 17, g = 2;
+    [{ ox: 22, band: 0, t: 'yerel' }, { ox: 186, band: 2, t: 'yerel değil' }].forEach(function (p) {
+      el('text', { x: p.ox + (n * (c + g)) / 2, y: 14, 'text-anchor': 'middle', 'class': 'tick lbl' }, svg).textContent = p.t;
+      for (var i = 0; i < n; i++) {
+        for (var j = 0; j < n; j++) {
+          var d = Math.abs(i - j);
+          var on = d <= p.band;
+          var r = el('rect', { x: p.ox + j * (c + g), y: 22 + i * (c + g), width: c, height: c, rx: 2, 'class': on ? 'cell-on' : 'cell-off' }, svg);
+          if (on) r.setAttribute('opacity', d === 0 ? '1' : (d === 1 ? '.55' : '.25'));
+        }
+      }
+      el('text', { x: p.ox, y: 22 + n * (c + g) + 14, 'class': 'tick' }, svg).textContent = 'satır x, sütun x′';
+    });
+  })();
+
+  /* Tahta 13: düzlem dalga */
+  (function () {
+    var svg = document.getElementById('w-plane');
+    if (!svg) return;
+    var P = Math.PI;
+    var o = { W: 360, H: 180, l: 34, r: 14, t: 10, b: 28, x0: 0, x1: 4 * P, y0: -1.3, y1: 1.3, xt: [{ v: 0, s: '0' }, { v: 2 * P, s: 'λ' }, { v: 4 * P, s: '2λ' }], yt: [-1, 0, 1], xl: 'x' };
+    var m = axes(svg, o);
+    el('path', { d: curve(function () { return 1; }, 0, 4 * P, m.X, m.Y, 2), 'class': 'curve-red' }, svg);
+    el('path', { d: curve(Math.sin, 0, 4 * P, m.X, m.Y), 'class': 'curve-alt' }, svg);
+    el('path', { d: curve(Math.cos, 0, 4 * P, m.X, m.Y), 'class': 'curve' }, svg);
+  })();
+
+  /* Tahta 14: konumda dar, momentumda geniş */
+  (function () {
+    var root = document.getElementById('w-fourier');
+    if (!root) return;
+    function gauss(x, s) { return Math.exp(-x * x / (2 * s * s)) / (Math.sqrt(2 * Math.PI) * s); }
+    function panel(svg, label) {
+      var o = { W: 300, H: 180, l: 30, r: 10, t: 10, b: 28, x0: -4, x1: 4, y0: 0, y1: 1.7, xt: [-4, -2, 0, 2, 4], yt: [0, 0.5, 1, 1.5], xl: label };
+      var m = axes(svg, o);
+      return { m: m, a: el('path', { 'class': 'area' }, svg), c: el('path', { 'class': 'curve' }, svg) };
+    }
+    var px = panel(root.querySelector('.sx'), 'x');
+    var pp = panel(root.querySelector('.sp'), 'p');
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var s = parseFloat(inp.value);
+      var sp = 1 / (2 * s);
+      var fx = function (x) { return gauss(x, s); };
+      var fp = function (p) { return gauss(p, sp); };
+      px.a.setAttribute('d', area(fx, -4, 4, px.m.X, px.m.Y));
+      px.c.setAttribute('d', curve(fx, -4, 4, px.m.X, px.m.Y));
+      pp.a.setAttribute('d', area(fp, -4, 4, pp.m.X, pp.m.Y));
+      pp.c.setAttribute('d', curve(fp, -4, 4, pp.m.X, pp.m.Y));
+      ro.innerHTML = `<span>Δx = σ = <b>${fmt(s, 2)}</b></span><span>Δp = ħ/(2σ) = <b>${fmt(sp, 2)}</b></span><span>Δx · Δp = <b>0,50 ħ</b></span><span>(ħ = 1 alındı)</span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Tahta 17: grafik kaydırma ve teğet yaklaşımı */
+  (function () {
+    var root = document.getElementById('w-shift');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 210, l: 34, r: 14, t: 12, b: 28, x0: -3, x1: 4, y0: 0, y1: 2.1, xt: [-2, 0, 2, 4], yt: [0, 1, 2], xl: 'x' };
+    var m = axes(svg, o);
+    var psi = function (x) { return Math.exp(-x * x); };
+    var x0 = 0.5;
+    el('line', { x1: m.X(x0), x2: m.X(x0), y1: m.Y(0), y2: m.Y(2.1), 'class': 'mark' }, svg);
+    el('path', { d: curve(psi, -3, 4, m.X, m.Y), 'class': 'curve-alt' }, svg);
+    var shifted = el('path', { 'class': 'curve' }, svg);
+    var exact = el('circle', { r: 4.5, 'class': 'dot-b' }, svg);
+    var approx = el('circle', { r: 5, 'class': 'dot-r' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    var p0 = psi(x0);
+    var d0 = -2 * x0 * p0;
+    function draw() {
+      var a = parseFloat(inp.value);
+      shifted.setAttribute('d', curve(function (x) { return psi(x - a); }, -3, 4, m.X, m.Y));
+      var ex = psi(x0 - a);
+      var ap = p0 - a * d0;
+      exact.setAttribute('cx', m.X(x0));
+      exact.setAttribute('cy', m.Y(ex));
+      approx.setAttribute('cx', m.X(x0));
+      approx.setAttribute('cy', m.Y(Math.min(ap, 2.1)));
+      ro.innerHTML = `<span>a = <b>${fmt(a, 2)}</b></span><span>gerçek ψ(x₀ − a) = <b>${fmt(ex, 3)}</b></span><span>teğet yaklaşımı ψ(x₀) − aψ′(x₀) = <b>${fmt(ap, 3)}</b></span><span>fark = <b>${fmt(Math.abs(ap - ex), 3)}</b></span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  refresh();
+})();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { ignoreHtmlClass: 'tex-later', enableMenu: false },
+  startup: {
+    pageReady: function () {
+      return MathJax.startup.defaultPageReady().then(function () {
+        window.dispatchEvent(new Event('mathjax-ready'));
+      });
+    }
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</body>
+</html>
