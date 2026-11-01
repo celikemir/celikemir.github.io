@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Işık ve Elektron Gazı</title>
+<meta name="description" content="Dersin tahtadaki sırasıyla, sıfırdan ve soru soru. Her bölümü okuyabilir ya da cihazının Türkçe sesiyle dinleyebilirsin. Grafiklerdeki kaydırıcıları…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: tek sütun ders notu, bölümler tahtadaki sırayla; şekiller sütun içinde ayrı paneller; altta sabit dinleme çubuğu */
+:root{
+  --bg:#EEF2F5; --panel:#FAFBFC; --ink:#14202B; --ink-2:#4A5866; --rule:#D3DBE2; --soft:#E2E9EF;
+  --copper:#A6512A; --wave:#2460B4;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0E141B; --panel:#151D26; --ink:#E1E7ED; --ink-2:#9AA8B6; --rule:#2A3541; --soft:#1C2632; --copper:#E38D58; --wave:#71A8F3; color-scheme:dark }
+}
+:root[data-theme="dark"]{ --bg:#0E141B; --panel:#151D26; --ink:#E1E7ED; --ink-2:#9AA8B6; --rule:#2A3541; --soft:#1C2632; --copper:#E38D58; --wave:#71A8F3; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.62;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 9rem}
+.wrap{max-width:44rem;margin-inline:auto}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+a{color:var(--wave)}
+
+header.top{padding-block:clamp(2rem,7vw,4.5rem) 1.25rem}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--copper);margin:0 0 .8rem}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(2.3rem,8vw,3.6rem);line-height:1;letter-spacing:-.025em;margin:0 0 1rem;text-wrap:balance}
+.lede{font-size:1.14rem;color:var(--ink-2);margin:0 0 1.6rem;max-width:36rem}
+.loop{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin:0 0 .5rem;padding:0;list-style:none}
+.loop li{font-family:var(--f-mono);font-size:.78rem;padding:.28rem .55rem;border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+.loop li.arr{border:0;background:none;padding:0;color:var(--copper)}
+.loop-note{font-size:.95rem;color:var(--ink-2);margin:0 0 2rem}
+
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));column-gap:1.5rem}
+nav.toc a{display:flex;gap:.7rem;align-items:baseline;padding:.55rem 0;border-top:1px solid var(--rule);color:var(--ink);text-decoration:none}
+nav.toc a:hover span:last-child{color:var(--copper)}
+.n{font-family:var(--f-mono);font-size:.8rem;color:var(--copper);min-width:1.3rem}
+
+.sec{padding-block:2.75rem 1rem;scroll-margin-top:1rem}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .9rem;padding-top:1.25rem;border-top:2px solid var(--ink)}
+.sec-head .n{font-size:.85rem}
+h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.55rem,5vw,2.1rem);line-height:1.12;letter-spacing:-.015em;margin:0;flex:1 1 15rem;text-wrap:balance}
+.listen{font-family:var(--f-mono);font-size:.78rem;display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .8rem;border-radius:999px;border:1px solid var(--rule);background:var(--panel);color:var(--ink);cursor:pointer}
+.listen:hover{border-color:var(--copper)}
+.listen[aria-pressed="true"]{border-color:var(--copper);color:var(--copper)}
+.sec.speaking .sec-head{border-top-color:var(--copper)}
+
+h3.q{font-family:var(--f-display);font-weight:500;font-size:1.22rem;line-height:1.3;margin:2.1rem 0 .55rem;text-wrap:balance}
+p{margin:0 0 .9rem}
+.wrap{overflow-wrap:break-word}
+.katex-display{display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;margin:1rem 0;padding-block:.3rem}
+.katex-display > .katex{display:block;text-align:center}
+math{font-size:1.08em}
+.fix{font-size:.95rem;background:var(--soft);padding:.65rem .85rem;border-radius:4px}
+.tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--copper);margin-right:.45rem}
+
+.fig{margin:1.6rem 0;padding:1rem 1rem .9rem;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+.fig-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.4rem 1rem;margin-bottom:.6rem}
+.fig-label{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-family:var(--f-mono);font-size:.74rem;color:var(--ink-2)}
+.sw{display:inline-block;width:16px;height:0;border-top:2.5px solid;vertical-align:middle;margin-right:.35rem}
+.sw.wave{border-color:var(--wave)} .sw.cu{border-color:var(--copper)} .sw.dash{border-top-style:dashed}
+.plot-box{width:100%}
+canvas.plot{display:block;width:100%}
+.ctrl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.75rem;align-items:center;margin-top:.7rem}
+.ctrl label{font-family:var(--f-mono);font-size:.8rem}
+.ctrl output{font-family:var(--f-mono);font-size:.8rem;font-variant-numeric:tabular-nums;min-width:3.2rem;text-align:right}
+input[type=range]{width:100%;accent-color:var(--copper)}
+.readout{font-family:var(--f-mono);font-size:.77rem;line-height:1.5;color:var(--ink-2);margin:.55rem 0 0;font-variant-numeric:tabular-nums}
+.try{font-size:.97rem;margin:.8rem 0 0;padding-top:.7rem;border-top:1px solid var(--rule)}
+.try b{font-family:var(--f-display);font-weight:500;color:var(--copper)}
+.mini{font-family:var(--f-mono);font-size:.75rem;padding:.25rem .65rem;border-radius:999px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);cursor:pointer}
+
+.hw{border:1px dashed var(--copper);border-radius:6px;padding:.9rem 1rem .3rem;margin:1.4rem 0}
+.hw h4{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--copper);margin:0 0 .5rem;font-weight:500}
+.tbl{overflow-x:auto;margin:1rem 0 1.2rem}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);font-weight:500}
+td:first-child{padding-left:0} th:first-child{padding-left:0}
+
+details{border-top:1px solid var(--rule);padding:.8rem 0}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+summary{cursor:pointer;font-family:var(--f-display);font-weight:500;font-size:1.06rem;line-height:1.35;list-style:none;display:flex;gap:.7rem}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";font-family:var(--f-mono);color:var(--copper);flex:none;width:1rem}
+details[open] summary::before{content:"\2212"}
+details > div{padding:.6rem 0 0 1.7rem}
+
+footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2.5rem 1rem;border-top:1px solid var(--rule);margin-top:2.5rem}
+
+.player{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--panel);border-top:1px solid var(--rule);
+  padding:.55rem max(16px,env(safe-area-inset-right,0px)) calc(.55rem + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.p-row{max-width:44rem;margin-inline:auto;display:flex;align-items:center;gap:.45rem}
+.pbtn{flex:none;width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--rule);background:var(--bg);color:var(--ink);display:grid;place-items:center;cursor:pointer;padding:0}
+.pbtn.main{width:2.8rem;height:2.8rem;background:var(--copper);border-color:var(--copper);color:var(--panel)}
+.pbtn:disabled{opacity:.4;cursor:default}
+.now{flex:1;min-width:0;font-family:var(--f-mono);font-size:.74rem;line-height:1.35;color:var(--ink-2)}
+.now b{display:block;color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.setbtn{flex:none;font-family:var(--f-mono);font-size:.74rem;padding:.4rem .7rem;border-radius:999px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);cursor:pointer}
+.p-set{max-width:44rem;margin:0 auto .6rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.6rem 1rem;font-family:var(--f-mono);font-size:.76rem}
+.p-set label{display:grid;gap:.25rem;color:var(--ink-2)}
+.p-set select{font:inherit;font-size:.85rem;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:4px;padding:.35rem .4rem;width:100%}
+.p-set p{grid-column:1/-1;margin:0;color:var(--ink-2);font-family:var(--f-body);font-size:.88rem;line-height:1.45}
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto!important} }
+</style>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header class="top">
+  <nav class="kbm-crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">602</a> › Hafta 5</nav>
+    <p class="eyebrow">Ders notu · Lorentz ve Drude modelleri, ışık darbeleri</p>
+  <h1>Işık ve elektron gazı</h1>
+  <p class="lede">Dersin tahtadaki sırasıyla, sıfırdan ve soru soru. Her bölümü okuyabilir ya da cihazının Türkçe sesiyle dinleyebilirsin. Grafiklerdeki kaydırıcıları oynatmadan önce ne olacağını tahmin et.</p>
+  <ol class="loop" aria-label="Dersin ana döngüsü">
+    <li>E alanı</li><li class="arr" aria-hidden="true">→</li>
+    <li>elektron sallanır, x(t)</li><li class="arr" aria-hidden="true">→</li>
+    <li>dipol p = −e x</li><li class="arr" aria-hidden="true">→</li>
+    <li>P = n p</li><li class="arr" aria-hidden="true">→</li>
+    <li>ε = 1 + χ</li><li class="arr" aria-hidden="true">→</li>
+    <li>k = (ω/c)√ε</li><li class="arr" aria-hidden="true">→</li>
+    <li>dalga ilerler ya da söner</li>
+  </ol>
+  <p class="loop-note">Bütün ders bu döngü. ε(ω) onun tek satırlık özeti. İlk yarı ε'u hesaplıyor, ikinci yarı onu bir darbeye uygulamanın zeminini hazırlıyor.</p>
+  <nav class="toc" aria-label="Bölümler">
+    <ol>
+      <li><a href="#s1"><span class="n">1</span><span>Elektron ışığa nasıl cevap verir?</span></a></li>
+      <li><a href="#s2"><span class="n">2</span><span>Polarizasyondan ε(ω)'ya</span></a></li>
+      <li><a href="#s3"><span class="n">3</span><span>ω &lt; ω<sub>p</sub>: metal neden ayna?</span></a></li>
+      <li><a href="#s4"><span class="n">4</span><span>ω &gt; ω<sub>p</sub>: metal saydamlaşıyor</span></a></li>
+      <li><a href="#s5"><span class="n">5</span><span>Tek frekanstan darbeye: Fourier</span></a></li>
+      <li><a href="#s6"><span class="n">6</span><span>Darbe uzayda nasıl ilerler?</span></a></li>
+      <li><a href="#hatalar"><span class="n">+</span><span>Tahtadaki küçük hatalar</span></a></li>
+      <li><a href="#yokla"><span class="n">+</span><span>Kendini yokla</span></a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- 1 -->
+<section class="sec" id="s1">
+  <div class="sec-head"><span class="n">1</span><h2>Elektron ışığa nasıl cevap verir?</h2><button class="listen" type="button" data-sec="s1" aria-pressed="false"></button></div>
+
+  <h3 class="q">Neden yay ve kütle?</h3>
+  <p>Lorentz modeli yalıtkan ve yarıiletken için. Elektron atoma bağlı. Biraz kayınca çekirdek onu geri çeker ve küçük yer değiştirmede bu kuvvet lineer, \(-m\omega_0^2x\). Üstüne sönüm \(-m\gamma\dot x\) geliyor, çarpışmaları ve ışıma kaybını temsil ediyor. Son olarak ışığın kuvveti \(qE\):</p>
+  $$m\ddot x+m\gamma\dot x+m\omega_0^2x=qE_0\,e^{-i\omega t}$$
+  <p>Kontrol tarafından bildiğin kütle, yay, sönümleyici sistemi, zorlanmış ikinci derece. Işığın frekansı \(\omega_0\)'a yaklaşınca rezonans oluyor ve elektron en çok enerjiyi orada yutuyor. Notlardaki “very high absorption” buradan.</p>
+
+  <h3 class="q">Drude nerede farklı?</h3>
+  <p>Metalde iletim elektronu hiçbir atoma bağlı değil, gaz gibi geziyor. Yay yok, yani \(\omega_0=0\). Drude ayrı bir model değil, Lorentz'in \(\omega_0=0\) hali:</p>
+  $$m\ddot x+m\gamma\dot x=qE_0\,e^{-i\omega t}$$
+  <p>Burada \(\gamma\) elektronun örgüye ya da safsızlığa çarpma sıklığı, \(1/\gamma\) iki çarpışma arasındaki ortalama süre.</p>
+
+  <h3 class="q">Çözümü neden \(x(t)=\tilde x\,e^{-i\omega t}\) diye deniyoruz?</h3>
+  <p>Lineer bir sistemi tek frekansla sürersen, geçici kısım söndükten sonra çıktı aynı frekansta salınır. Sadece genliği ve fazı değişir. Kompleks üstel türevi çarpmaya çeviriyor:</p>
+  $$\frac{d}{dt}\;\to\;-i\omega,\qquad \frac{d^2}{dt^2}\;\to\;(-i\omega)^2=-\omega^2$$
+  <p>Diferansiyel denklem cebir denklemine dönüşüyor. \(\tilde x\) kompleks bir sayı. Modülü genlik, açısı ışığa göre faz gecikmesi. Fiziksel yer değiştirme gerçek kısmı. Drude için, \(q=-e\) alarak:</p>
+  $$\tilde x=\frac{eE_0/m}{\omega^2+i\gamma\omega}$$
+  <p class="fix"><span class="tag">Düzeltme</span>Notta bir satırda \((-i\omega t)^2\) yazıyor. Orada \(t\) olmayacak, \((-i\omega)^2\).</p>
+
+  <h3 class="q">Kuvvet alana zıt ama \(\tilde x\) pozitif çıktı. Elektron alanla aynı yöne mi gidiyor?</h3>
+  <p>Evet, dersin kilit noktası bu. \(\gamma=0\) al: \(\tilde x=eE_0/m\omega^2>0\). Kuvvet alanın tersine, yer değiştirme alanla aynı fazda. Sebebi şu: rezonansın üstünde sürülen bir kütle kuvvete 180° zıt fazda hareket eder. Bir kütleyi elinle hızlı hızlı ileri geri itersen, sağa en sert ittiğin anda kütle en soldadır. Sinüs bir harekette ivme \(=-\omega^2\times\)konum. İvme kuvvetle aynı yönde, konum ikisinin tersine.</p>
+
+  <figure class="fig" id="f1">
+    <div class="fig-head"><span class="fig-label">Şekil 1 · Zorlanmış salınıcı, γ = 0.12 ω₀</span>
+      <span class="legend"><span><i class="sw cu dash"></i>kuvvet</span><span><i class="sw wave"></i>yer değiştirme</span></span></div>
+    <div class="plot-box"><canvas class="plot" id="c1" role="img" aria-label="Kuvvet ve yer değiştirmenin zamana göre grafiği"></canvas></div>
+    <div class="ctrl"><label for="r1">ω / ω₀</label><input type="range" id="r1" min="0.2" max="3" step="0.01" value="0.5"><output id="o1" for="r1">0.50</output></div>
+    <p class="readout" id="ro1"></p>
+    <p class="try"><b>Dene.</b> Kaydırıcıyı 1'in üstüne çekmeden önce tahmin et: rezonansı geçince yer değiştirme kuvvete göre nereye kayacak? Drude'da \(\omega_0=0\), yani her frekans bu kaydırıcının en sağı gibi.</p>
+  </figure>
+
+  <p>Sonuç: elektron alan yönünde gidiyor ama yükü negatif. Oluşan dipol \(p=-ex\) alanın tersine bakıyor. Malzeme gelen alanı kısmen iptal eden bir polarizasyon üretiyor. Birazdan ε'un negatif çıkmasının sebebi tam olarak bu.</p>
+</section>
+
+<!-- 2 -->
+<section class="sec" id="s2">
+  <div class="sec-head"><span class="n">2</span><h2>Polarizasyondan ε(ω)'ya</h2><button class="listen" type="button" data-sec="s2" aria-pressed="false"></button></div>
+
+  <h3 class="q">Polarizasyon ne, neden \(n\) ile çarpıyoruz?</h3>
+  <p>Tek elektronun dipol momenti \(p=-e\tilde x\). P, birim hacimdeki toplam dipol momenti. Birim hacimde \(n\) elektron var:</p>
+  $$P=np=-ne\tilde x=-\frac{ne^2E_0/m}{\omega^2+i\gamma\omega}$$
+  <p class="fix"><span class="tag">Düzeltme</span>Bu eksi hem tahtada hem notta düşmüş. Hoca χ satırına eksiyi sonradan eklemiş, P satırı eksisiz kalmış. Önemsiz bir işaret değil, ε'u 1'in altına çeken tam olarak bu eksi.</p>
+  <p>\(P=\varepsilon_0\chi_eE\) tanımından:</p>
+  $$\chi_e=\frac{P}{\varepsilon_0E_0}=-\frac{ne^2}{m\varepsilon_0}\cdot\frac{1}{\omega^2+i\gamma\omega}$$
+
+  <h3 class="q">ω<sub>p</sub> nereden çıktı, uydurma bir kısaltma mı?</h3>
+  <p>Hocanın kırmızı kalemle yaptığı birim analizi buraya bağlanıyor. χ boyutsuz, \(1/(\omega^2+i\gamma\omega)\) ise 1/frekans² birimli. O zaman \(ne^2/m\varepsilon_0\) frekans² birimli olmak zorunda. Ona \(\omega_p^2\) diyoruz:</p>
+  $$\omega_p^2=\frac{ne^2}{m\varepsilon_0},\qquad \varepsilon(\omega)=1+\chi_e=1-\frac{\omega_p^2}{\omega^2+i\gamma\omega}$$
+  <p>\(1+\chi\) nereden: \(D=\varepsilon_0E+P=\varepsilon_0(1+\chi)E\). Boşluğun katkısı 1, malzemeninki χ.</p>
+  <p>Ama sadece kısaltma değil. Elektron gazını biraz kaydırırsan arkada pozitif iyonlar açıkta kalır, oluşan alan gazı geri çeker. Tek tek elektronların yayı yok ama topluluğun var, onun doğal salınım frekansı \(\omega_p\). Bakır için \(n\approx8.5\times10^{28}\ \mathrm{m^{-3}}\) koyarsan serbest elektron tahmini \(\omega_p\approx1.6\times10^{16}\) rad/s, yani \(\hbar\omega_p\approx11\) eV, morötede.</p>
+
+  <h3 class="q">Ölçeklenmiş birimler ne kazandırıyor?</h3>
+  <p>\(\bar\omega=\omega/\omega_p\) ve \(\bar\gamma=\gamma/\omega_p\) yazınca:</p>
+  $$\varepsilon(\bar\omega)=1-\frac{1}{\bar\omega^2+i\bar\gamma\bar\omega}$$
+  <p>Malzemeye özgü her şey \(\omega_p\)'nin içine gömüldü, geriye tek parametre \(\bar\gamma\) kaldı. Bütün Drude metalleri aynı eğriyi çiziyor. Derste geçtiği gibi bunlara normalize birim de deniyor.</p>
+
+  <figure class="fig" id="f2">
+    <div class="fig-head"><span class="fig-label">Şekil 2 · Drude ε(ω̄)</span>
+      <span class="legend"><span><i class="sw wave"></i>Re ε</span><span><i class="sw cu"></i>Im ε</span></span></div>
+    <div class="plot-box"><canvas class="plot" id="c2" role="img" aria-label="Drude dielektrik fonksiyonunun reel ve sanal kısmı"></canvas></div>
+    <div class="ctrl"><label for="r2">γ̄ = γ / ω<sub>p</sub></label><input type="range" id="r2" min="0.02" max="0.6" step="0.01" value="0.1"><output id="o2" for="r2">0.10</output></div>
+    <p class="readout" id="ro2"></p>
+    <p class="try"><b>Dene.</b> γ̄ değerini büyütmeden önce tahmin et: Re ε'un sıfırı kestiği nokta sağa mı kayar, sola mı? Im ε nerede büyür? Gölgeli bölge Re ε &lt; 0, yani bölüm 3'teki “ayna” rejimi.</p>
+  </figure>
+</section>
+
+<!-- 3 -->
+<section class="sec" id="s3">
+  <div class="sec-head"><span class="n">3</span><h2>ω &lt; ω<sub>p</sub>: metal neden ayna?</h2><button class="listen" type="button" data-sec="s3" aria-pressed="false"></button></div>
+
+  <h3 class="q">Hoca sönümü neden attı? Hile değil mi?</h3>
+  <p>\(\gamma=0\) koyunca \(\varepsilon=1-\omega_p^2/\omega^2\), saf reel. Gerekçe doğru: paydada \(\omega^2+i\gamma\omega\) var ve \(\omega\gg\gamma\) ise ikinci terim önemsiz. Bakırda \(\gamma\approx4\times10^{13}\) s⁻¹, görünür ışıkta \(\omega\approx3.5\times10^{15}\) rad/s, yüz kata yakın fark. Optik frekansta kayıpsız yaklaşım makul, mikrodalgada değil. Bu, deri kalınlığında geri dönecek.</p>
+
+  <h3 class="q">k sanal çıktı. Bu ne demek?</h3>
+  <p>\(\omega&lt;\omega_p\) iken ε negatif:</p>
+  $$k=\frac{\omega}{c}\sqrt{\varepsilon}=\frac1c\sqrt{\omega^2-\omega_p^2}=i\alpha,\qquad \alpha=\frac1c\sqrt{\omega_p^2-\omega^2}$$
+  $$E=E_0\,e^{i(kx-\omega t)}=E_0\,e^{-\alpha x}\,e^{-i\omega t}$$
+  <p>x'e bağlı kısımda salınım yok, sadece üstel sönüm. Alan zamanda titriyor ama uzayda ilerlemiyor, yüzeyden içeri doğru sönüp gidiyor. Hocanın “evanescent wave” dediği bu. Kökün diğer işareti \(-i\alpha\) içeride \(e^{+\alpha x}\) verir, alan derine indikçe sonsuza büyür. Yarı sonsuz bir malzemede fiziksel değil, atılıyor.</p>
+
+  <h3 class="q">İçeride sönüyorsa enerji nereye gidiyor? Soğurulmuyor mu?</h3>
+  <p>Derste arkada Türkçe tartışılan soru tam bu. Cevap hayır. Uzayda sönmek ile enerji kaybetmek farklı şeyler. Kayıp sadece Im ε'dan, yani γ'dan gelir ve burada γ = 0. Evanesan bölgede \(H=kE/\omega\mu_0\) ve k sanal, yani H ile E arasında 90° faz farkı var. Poynting vektörünün zaman ortalaması sıfır. Alan her yarım periyotta içeri biraz enerji itiyor, sonraki yarım periyotta geri alıyor. İçeri giremeyen ve kaybolamayan enerjinin gidebileceği tek yer geri:</p>
+  $$r=\frac{1-n}{1+n},\qquad n=i\kappa\;\;\Rightarrow\;\;|r|=\frac{|1-i\kappa|}{|1+i\kappa|}=1$$
+  <p>R tam olarak 1. Metallerin ayna olmasının sebebi bu. Gerçek metalde γ sıfır değil, birkaç yüzde ısıya gidiyor, o yüzden gerçek ayna %100 yansıtmıyor.</p>
+
+  <figure class="fig" id="f3">
+    <div class="fig-head"><span class="fig-label">Şekil 3 · Metal yüzeyinde alan, kayıpsız Drude</span>
+      <span class="legend"><span><i class="sw wave"></i>E(x, t)</span><span><i class="sw cu dash"></i>genlik |E(x)|</span></span></div>
+    <div class="plot-box"><canvas class="plot" id="c3" role="img" aria-label="Vakumdan metale gelen dalganın alanı"></canvas></div>
+    <div class="ctrl"><label for="r3">ω / ω<sub>p</sub></label><input type="range" id="r3" min="0.3" max="2.5" step="0.01" value="0.7"><output id="o3" for="r3">0.70</output></div>
+    <p class="readout" id="ro3"></p>
+    <p style="margin:.6rem 0 0"><button class="mini" type="button" id="b3" aria-pressed="true">Durdur</button></p>
+    <p class="try"><b>Dene.</b> Yatay eksen c/ω<sub>p</sub> biriminde, sol taraf vakum, sağ taraf metal. ω'yı ω<sub>p</sub>'nin altından üstüne geçirmeden önce tahmin et: metalin içinde ne değişecek, vakumdaki duran dalga deseni ne olacak? Sonra ω<sub>p</sub>'nin hemen üstünde içerideki dalga boyuna bak.</p>
+  </figure>
+
+  <h3 class="q">Deri kalınlığı neyi ölçüyor?</h3>
+  <p>Genliğin başlangıç değerinin 1/e'sine düştüğü derinliği. \(x=1/\alpha\) koyunca \(E_0/e\) çıkıyor:</p>
+  $$\delta=\frac1\alpha=\frac{c}{\sqrt{\omega_p^2-\omega^2}}\;\;\longrightarrow\;\;\frac{c}{\omega_p}\quad(\omega\ll\omega_p)$$
+  <p>Hocanın “üstelin kuvveti boyutsuz olmalı” lafı buraya: αx boyutsuz, o zaman α 1/uzunluk, δ uzunluk. Bakırda \(c/\omega_p\approx3\times10^8/1.6\times10^{16}\approx19\) nm.</p>
+
+  <h3 class="q">Ama bakırın deri kalınlığı 50 Hz'de milimetre mertebesinde değil miydi?</h3>
+  <p>İkisi de doğru, farklı rejimler. Elektrikçilerin formülü \(\omega\ll\gamma\) rejimine ait. Orada paydadaki sönüm terimi baskın, ε neredeyse saf sanal, yani durum kayıpsızın tam tersi. Drude'dan iletkenliği koyarsan bu formül aynı ε'dan çıkıyor:</p>
+  $$\delta=\sqrt{\frac{2}{\mu_0\sigma\omega}},\qquad \sigma=\frac{\varepsilon_0\omega_p^2}{\gamma}$$
+  <div class="tbl"><table>
+    <thead><tr><th>Rejim</th><th>Koşul</th><th>Bakırda δ</th></tr></thead>
+    <tbody>
+      <tr><td>Kayıp baskın</td><td>ω ≪ γ</td><td>50 Hz'de ≈ 9 mm, 1 GHz'de ≈ 2 µm</td></tr>
+      <tr><td>Kayıpsız, optik</td><td>γ ≪ ω &lt; ω<sub>p</sub></td><td>≈ c/ω<sub>p</sub> ≈ 19 nm, frekanstan bağımsız</td></tr>
+    </tbody>
+  </table></div>
+  <p>Hocanın “especially for lossy materials” dediği yer burası. Tanım değişmiyor, δ her zaman \(1/\mathrm{Im}\,k\). Kayıplı durumda k'nin hem reel hem sanal kısmı oluyor.</p>
+</section>
+
+<!-- 4 -->
+<section class="sec" id="s4">
+  <div class="sec-head"><span class="n">4</span><h2>ω &gt; ω<sub>p</sub>: metal saydamlaşıyor</h2><button class="listen" type="button" data-sec="s4" aria-pressed="false"></button></div>
+  <p>\(0&lt;\varepsilon&lt;1\), k reel, dalga ilerliyor. Hocanın “transparent” dediği rejim. Alkali metaller morötede gerçekten böyle. Dispersiyon bağıntısını şu formda yazmak işini çok kolaylaştırır:</p>
+  $$k^2c^2=\omega^2-\omega_p^2\quad\Longleftrightarrow\quad \omega^2=\omega_p^2+c^2k^2$$
+  $$v_p=\frac{\omega}{k}=\frac{c}{n}>c\qquad(n&lt;1)$$
+
+  <h3 class="q">Faz hızı c'den büyük. Görelilik bozulmuyor mu?</h3>
+  <p>Hayır. Faz hızı sonsuz uzunlukta, tek frekanslı bir dalganın tepelerinin hızı. Ne enerji taşıyor ne bilgi. Bilgi bir darbe ister, darbe de frekans paketi. Paketin zarfı grup hızıyla, \(v_g=d\omega/dk\) ile gider. Kayıpsız durumda enerji de grup hızıyla taşınıyor.</p>
+  <div class="hw">
+    <h4>Ödev · grup hızı</h4>
+    <p>Hoca bunu ödev bıraktı, cevabı burada yok. \(\omega^2=\omega_p^2+c^2k^2\) formundan türev almak bir satır. Sonra üç şeye bak: \(v_g\) c'den küçük mü? \(v_p\,v_g\) çarpımı ne çıkıyor? \(\omega\to\omega_p\) limitinde \(v_g\)'ye ne oluyor ve bunun fiziksel anlamı ne?</p>
+  </div>
+
+  <h3 class="q">Cherenkov neden geçti?</h3>
+  <p>Yüklü bir parçacık ortamdaki ışığın faz hızından hızlı giderse Cherenkov ışıması yapar, ses duvarının ışıktaki karşılığı gibi. \(\omega&gt;\omega_p\) bölgesinde faz hızı zaten c'nin üstünde, hiçbir parçacık onu geçemez. O frekanslarda Cherenkov yok. Bu ışıma ancak \(n&gt;1\) olan frekanslarda olabilir.</p>
+</section>
+
+<!-- 5 -->
+<section class="sec" id="s5">
+  <div class="sec-head"><span class="n">5</span><h2>Tek frekanstan darbeye: Fourier</h2><button class="listen" type="button" data-sec="s5" aria-pressed="false"></button></div>
+
+  <h3 class="q">Hoca neden birden Fourier'e geçti?</h3>
+  <p>Şimdiye kadar her şey tek frekans içindi. Gerçek bir lazer darbesi ise bir frekans paketi, kısa darbe geniş spektrum demek. Kurtaran şey lineerlik: denklem x'te lineer, o zaman sürücüyü frekans bileşenlerine ayır, her bileşeni ayrı çöz, topla. Sinyal işlemedeki transfer fonksiyonu mantığının aynısı. χ(ω) malzemenin transfer fonksiyonu.</p>
+  $$E_p(t)=\sum_\omega E_\omega\,e^{-i\omega t}=\int_{-\infty}^{\infty}E_p(\omega)\,e^{-i\omega t}\,d\omega$$
+
+  <h3 class="q">Katsayıların birimi ne?</h3>
+  <p>Kesikli seride üstel boyutsuz, o yüzden \(E_\omega\) V/m, alanın kendisiyle aynı. Sürekli integralde dω'nın birimi 1/s, o yüzden \(E_p(\omega)\) V·s/m olmak zorunda. Kayıtta “electric field multiplied by frequency” gibi duyuluyor. Ya yanlış duyulmuş ya ağız sürçmesi, doğrusu bölü frekans.</p>
+  <p>Anlamı şu: kesikli halde her frekansın kendi genliği var. Sürekli halde tek bir frekansın genliği sıfır, anlamlı olan birim frekans aralığına düşen genlik, yani spektral yoğunluk. Olasılık ile olasılık yoğunluğu arasındaki farkın aynısı. Derste sorulan “neden kesikli yazdık” sorusunun cevabı da hocanınki: ikisi aynı bilgiyi taşıyor, kesikli yazınca katsayı eşitleme mantığı daha kolay görülüyor.</p>
+
+  <h3 class="q">Denkleme koyunca ne çıkıyor?</h3>
+  <p>Zaman türevleri toplamın içine giriyor ve her biri \(-i\omega\) ile çarpmaya dönüşüyor:</p>
+  $$\int d\omega\,\Big[m\,x(\omega)\big(\omega_0^2-\omega^2-i\gamma\omega\big)-qE_p(\omega)\Big]e^{-i\omega t}=0$$
+  <p class="fix"><span class="tag">Düzeltme</span>Tahtada parantezin içinde \(-i\omega^2\) yazıyor, \((-i\omega)^2=-\omega^2\) olmalı. Hareket denkleminin sağ tarafında da yük eksik, \(qE_p(t)\) olacak.</p>
+
+  <h3 class="q">İki integral eşit diye terimleri frekans frekans eşitleyebilir miyim?</h3>
+  <p>Her iki tarafı \(e^{i\omega' t}\) ile çarpıp t üzerinden integral al:</p>
+  $$\int_{-\infty}^{\infty}e^{-i\omega t}\,e^{i\omega' t}\,dt=2\pi\,\delta(\omega-\omega')$$
+  <p>Hocanın anlattığı gibi, ω ≠ ω′ iken integralin içinde sinüs ve kosinüs var ve sonsuz aralıkta ortalamada sıfır veriyorlar. ω = ω′ olunca içerisi 1 oluyor ve integral sonsuza gidiyor. Bir noktada sonsuz, her yerde sıfır: Dirac delta. Delta bir cımbız gibi, toplamın içinden tek bir frekansı çekip alıyor:</p>
+  $$x(\omega)=\frac{q}{m}\,\frac{E_p(\omega)}{\omega_0^2-\omega^2-i\gamma\omega}$$
+  <p>Tek frekanslı Lorentz çözümünün aynısı, sadece \(E_0\) yerine \(E_p(\omega)\) geldi. Tek frekans çözümü her bileşen için aynen geçerli.</p>
+  <p class="fix"><span class="tag">Not</span>Tahtada “\(e^{-i\omega' t}\) ile çarp” yazıyor. \(e^{-i\omega t}\)'li açılımda bileşeni çekmek için aslında \(e^{+i\omega' t}\) gerekir. Delta simetrik olduğu için sonuç değişmiyor.</p>
+  <p>Zaman tarafındaki anlamı da güzel. Frekansta çarpım zamanda konvolüsyon: \(P(t)=\varepsilon_0\int\chi(t-t')\,E(t')\,dt'\). Malzemenin hafızası var, şu anki polarizasyon geçmişteki alana bağlı.</p>
+
+  <h3 class="q">Hoca neden “forget about zero frequency” dedi?</h3>
+  <p>Kayıtta bağlam net değil, ama Drude'da bunun gerçek bir sebebi var. \(\omega_0=0\) iken \(x(\omega)\propto1/(\omega^2+i\gamma\omega)\) ve ω → 0'da payda sıfıra gidiyor. Serbest elektrona sabit alan uygularsan onu geri çeken yay yok, durmadan sürüklenir, yer değiştirme sınırsız büyür. Sınırlı kalan hız, yani akım. DC'de metali yer değiştirmeyle değil iletkenlikle anlatmamızın sebebi bu. Lorentz'de \(\omega_0\neq0\), bu sorun yok.</p>
+</section>
+
+<!-- 6 -->
+<section class="sec" id="s6">
+  <div class="sec-head"><span class="n">6</span><h2>Darbe uzayda nasıl ilerler?</h2><button class="listen" type="button" data-sec="s6" aria-pressed="false"></button></div>
+
+  <h3 class="q">Boş uzayda genel çözüm neden iki terimli?</h3>
+  $$\vec E(x,t)=\int_{-\infty}^{\infty}d\omega\Big[A(\omega)\,e^{i(kx-\omega t)}+B(\omega)\,e^{-i(kx+\omega t)}\Big],\qquad k^2=\frac{\omega^2}{c^2}$$
+  <p>\(e^{i(kx-\omega t)}\)'de fazı sabit tutmak için \(x=(\omega/k)\,t\) olmalı. Zaman ilerledikçe x artıyor, dalga +x yönüne gidiyor. Diğer terim aynı mantıkla −x yönüne. A(ω) ve B(ω) ağırlıklar. Hocanın dediği gibi ortamda yapı aynı, sadece k yerine dispersiyon bağıntısı k(ω) geliyor.</p>
+
+  <h3 class="q">Gauss darbeyi nasıl yazıyoruz?</h3>
+  <p>Hoca “Gauss nasıl yazılır” diye sordu, cevap \(e^{-ax^2}\). Ama tahtadaki çizim zarfı Gauss olan salınan bir sinyal, yani zarf çarpı taşıyıcı:</p>
+  $$u(t)=E_0\,e^{-t^2/2\tau^2}\,e^{-i\omega_c t}$$
+  $$u(\omega)=\frac{1}{2\pi}\int u(t)\,e^{i\omega t}\,dt=\frac{E_0\,\tau}{\sqrt{2\pi}}\;e^{-(\omega-\omega_c)^2\tau^2/2}$$
+  <p>τ darbe süresi, \(\omega_c\) taşıyıcı frekans, yani lazerin rengi. Fourier dönüşümü yine Gauss, frekans ekseninde \(\omega_c\) etrafında ve genişliği \(1/\tau\). Literatürde alanın u diye yazılması, hocanın dediği gibi skaler büyüklükle çalışmak için.</p>
+
+  <figure class="fig" id="f4">
+    <div class="fig-head"><span class="fig-label">Şekil 4 · Gauss darbe ve spektrumu</span>
+      <span class="legend"><span><i class="sw wave"></i>Re u(t), |u(ω)|</span><span><i class="sw cu dash"></i>zarf</span></span></div>
+    <div class="plot-box"><canvas class="plot" id="c4" role="img" aria-label="Gauss darbenin zaman ve frekans gösterimi"></canvas></div>
+    <div class="ctrl"><label for="r4">τ (periyot)</label><input type="range" id="r4" min="0.4" max="4" step="0.05" value="1.5"><output id="o4" for="r4">1.50</output></div>
+    <p class="readout" id="ro4"></p>
+    <p class="try"><b>Dene.</b> τ'yu küçült. Spektrum neden genişliyor? Malzemede k(ω) lineer değilse, geniş spektrumlu darbe için bu ne anlama gelir?</p>
+  </figure>
+
+  <h3 class="q">A(ω) ile bunun ilişkisi ne?</h3>
+  <p>Darbe sadece +x yönüne gönderiliyorsa B = 0. x = 0'da \(E(0,t)=\int A(\omega)\,e^{-i\omega t}\,d\omega=u(t)\), yani A(ω) = u(ω), giriş darbesinin Fourier dönüşümü. Tarif şu: x = 0'daki darbeyi frekanslara ayır, her bileşen x mesafesinde \(e^{ik(\omega)x}\) fazı toplasın, hepsini geri topla.</p>
+  <p>Boş uzayda \(k=\omega/c\), faz sadece \(x/c\) kadar gecikme, darbe şeklini koruyarak kayar. Malzemede \(k(\omega)=\frac{\omega}{c}\sqrt{\varepsilon(\omega)}\), Drude'da \(\sqrt{\omega^2-\omega_p^2}/c\). k artık ω'da lineer değil, bileşenler farklı hızlarda gidiyor ve darbe genişliyor. İlk yarıda hesaplanan ε burada devreye giriyor, dersin iki yarısı burada birleşiyor.</p>
+  <p>Ders tam burada bitti. Sırada büyük ihtimalle k(ω)'nın \(\omega_c\) etrafında Taylor açılımı var: birinci türev \(1/v_g\), yani zarfın hızı, ikinci türev darbeyi genişleten grup hızı dispersiyonu.</p>
+</section>
+
+<section class="sec" id="hatalar">
+  <div class="sec-head"><span class="n">+</span><h2>Tahtadaki küçük hatalar</h2></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Nerede</th><th>Yazılan</th><th>Doğrusu</th></tr></thead>
+    <tbody>
+      <tr><td>Drude türetmesi, not</td><td>\((-i\omega t)^2\)</td><td>\((-i\omega)^2=-\omega^2\)</td></tr>
+      <tr><td>Polarizasyon satırı</td><td>\(P=ne\tilde x\)</td><td>\(P=-ne\tilde x\)</td></tr>
+      <tr><td>Fourier, parantez</td><td>\(-i\omega^2\)</td><td>\(-\omega^2\)</td></tr>
+      <tr><td>Hareket denklemi</td><td>\(\dots=E_p(t)\)</td><td>\(\dots=qE_p(t)\)</td></tr>
+      <tr><td>Delta adımı</td><td>\(e^{-i\omega' t}\) ile çarp</td><td>\(e^{+i\omega' t}\), sonuç aynı</td></tr>
+      <tr><td>Katsayı birimi</td><td>alan çarpı frekans</td><td>V·s/m, alan bölü frekans</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" id="yokla">
+  <div class="sec-head"><span class="n">+</span><h2>Kendini yokla</h2></div>
+  <p>Önce cevabı kendin söyle, sonra aç.</p>
+  <details><summary>Drude'da elektron alan yönünde gidiyor ama polarizasyon alana zıt. Bu nasıl oluyor?</summary>
+    <div><p>Rezonansın üstünde sürülen kütle kuvvete 180° zıt fazda, kuvvet −eE olduğu için yer değiştirme E yönünde. Dipol p = −ex, yük negatif olduğu için dipol E'nin tersine. Polarizasyon gelen alanı kısmen iptal ediyor, ε 1'in altına iniyor.</p></div></details>
+  <details><summary>ω &lt; ω<sub>p</sub> iken alan metalin içinde sönüyor ama R = 1. Enerji neden soğurulmuyor?</summary>
+    <div><p>Soğurma Im ε'dan, yani γ'dan gelir. Kayıpsız durumda evanesan alanda E ile H 90° faz farklı, ortalama Poynting akısı sıfır. Enerji içeri girip geri çıkıyor, net akış yok, hepsi yansıyor.</p></div></details>
+  <details><summary>Bakırın deri kalınlığı 50 Hz'de ≈ 9 mm, görünürde ≈ 19 nm. Neden iki farklı formül var?</summary>
+    <div><p>Farklı rejimler. ω ≪ γ'da sönüm baskın, ε neredeyse saf sanal ve δ = √(2/μ₀σω) frekansla küçülür. γ ≪ ω &lt; ω<sub>p</sub>'de kayıpsız yaklaşım geçerli ve δ ≈ c/ω<sub>p</sub>, frekanstan bağımsız. İkisi de δ = 1/Im k.</p></div></details>
+  <details><summary>Faz hızı c'den büyük çıkınca görelilikle çelişir mi?</summary>
+    <div><p>Hayır. Faz hızı tek frekanslı sonsuz dalganın tepe hızı, bilgi ve enerji taşımaz. Sinyal bir paket, zarfı grup hızıyla gider. Detayı ödevde.</p></div></details>
+  <details><summary>Sürekli Fourier katsayısı E<sub>p</sub>(ω)'nın birimi neden alanla aynı değil?</summary>
+    <div><p>İntegral dω ile çarpıyor ve dω'nın birimi 1/s. E<sub>p</sub>(ω) V·s/m, yani birim frekans başına genlik, spektral yoğunluk.</p></div></details>
+  <details><summary>Aynı cam bloktan iki Gauss darbe geçiyor, biri diğerinin yarı süresinde. Hangisi dispersiyondan daha çok bozulur?</summary>
+    <div><p>Kısa olan. Spektral genişlik 1/τ, kısa darbe iki kat geniş frekans aralığını kapsıyor. k(ω) bu aralıkta lineerden ne kadar saparsa bileşenler o kadar farklı hızda gider. Üstüne kısa darbe zaten kısa olduğu için aynı mutlak genişleme ona oranla daha büyük gelir.</p></div></details>
+</section>
+
+<footer class="foot">
+  <p class="kbm-back"><a href="../">← 602’nin diğer haftaları</a></p>
+  
+  Kaynak: ders tahtası fotoğrafları ve ders ses kaydının otomatik dökümü. Bakır için verilen sayılar serbest elektron tahmini, gerçek metalde bant içi geçişler görünür bölgeyi değiştirir. Sesli okuma cihazının kendi Türkçe sesiyle yapılıyor, ses kalitesi cihaza göre değişir.
+</footer>
+</div>
+
+<div class="player" id="player">
+  <div class="p-set" id="pset" hidden>
+    <label for="voice">Ses<select id="voice"></select></label>
+    <label for="rate">Hız<select id="rate">
+      <option value="0.85">0.85×</option><option value="0.95">0.95×</option><option value="1" selected>1×</option><option value="1.1">1.1×</option><option value="1.25">1.25×</option><option value="1.4">1.4×</option>
+    </select></label>
+    <p id="vtip">iPhone'da daha doğal ses için Ayarlar › Erişilebilirlik › Seslendirilen İçerik › Sesler › Türkçe altından geliştirilmiş bir ses indir, sonra sayfayı yenile.</p>
+  </div>
+  <div class="p-row">
+    <button class="pbtn" type="button" id="pprev" aria-label="Önceki bölüm"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z" fill="currentColor"/></svg></button>
+    <button class="pbtn main" type="button" id="pplay" aria-label="Dinle"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path id="pico" d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+    <button class="pbtn" type="button" id="pnext" aria-label="Sonraki bölüm"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z" fill="currentColor"/></svg></button>
+    <div class="now" id="now" aria-live="polite"><b>1 · Elektron ışığa nasıl cevap verir?</b><span>Dinlemek için oynat</span></div>
+    <button class="setbtn" type="button" id="pset-btn" aria-expanded="false" aria-controls="pset">Ses</button>
+  </div>
+</div>
+
+<script type="text/plain" data-sec="s1">
+Bölüm bir. Elektron ışığa nasıl cevap verir?
+
+Önce büyük resim. Bu dersin kafa yakmasının asıl sebebi, tek tek türetmelerin nereye gittiğinin görünmemesi. Aslında bütün ders tek bir döngü. Işığın elektrik alanı elektronları sallar. Sallanan elektronlar dipol oluşturur, bunların toplamına polarizasyon diyoruz. Polarizasyon da dalga denklemine geri girip ışığın malzemede ne hızla gideceğini ve ne kadar söneceğini belirler. Dielektrik fonksiyonu, yani epsilon omega, bu döngünün tek satırlık özeti.
+
+Neden yay ve kütle?
+
+İlk soru şu. Bir elektronun ışığa cevabını neden yay kütle sistemiyle modelliyoruz?
+
+Lorentz modeli yalıtkanlar ve yarıiletkenler için. Orada elektron atoma bağlı. Biraz kayınca çekirdek onu geri çeker, ve küçük yer değiştirmelerde bu kuvvet yer değiştirmeyle doğru orantılı. Yani bir yay. Bu kuvveti eksi em çarpı omega sıfır kare çarpı iks diye yazıyoruz. Üstüne bir sönüm terimi ekliyoruz, eksi em gama çarpı hız. Bu, çarpışmaları ve ışıma kayıplarını temsil ediyor. Son olarak ışığın uyguladığı kuvvet, yük çarpı elektrik alan.
+
+Böylece hareket denklemi şöyle oluyor. Em çarpı iksin ikinci türevi, artı em gama çarpı iksin birinci türevi, artı em omega sıfır kare çarpı iks, eşittir ku çarpı E sıfır çarpı e üzeri eksi i omega te.
+
+Bu, kontrol tarafından bildiğin kütle, yay, sönümleyici sistemi. Zorlanmış, ikinci dereceden bir sistem. Işığın frekansı omega sıfıra yaklaşınca rezonans oluyor, ve elektron en çok enerjiyi orada yutuyor. Notlarındaki çok yüksek soğurma ifadesi buradan geliyor.
+
+Drude modeli neden farklı?
+
+Metalde iletim elektronu hiçbir atoma bağlı değil, bir gaz gibi geziniyor. Yani yay yok, omega sıfır, sıfıra eşit. Bu kadar. Drude ayrı bir model değil, Lorentz modelinin omega sıfır eşittir sıfır hali.
+
+Burada gama, elektronun örgüye ya da safsızlıklara ne sıklıkla çarptığını gösteriyor. Bir bölü gama da, iki çarpışma arasındaki ortalama süre.
+
+Çözümü neden e üzeri eksi i omega te diye tahmin ediyoruz?
+
+Lineer bir sistemi tek bir frekansla sürersen, geçici kısım söndükten sonra çıktı da aynı frekansta salınır. Sadece genliği ve fazı değişir.
+
+Kompleks üstelin güzelliği şu. Türev almayı çarpmaya çeviriyor. Zamana göre türev, eksi i omega ile çarpmak oluyor. İkinci türev de eksi i omeganın karesi, yani eksi omega kare ile çarpmak. Böylece diferansiyel denklem basit bir cebir denklemine dönüşüyor.
+
+Genlik dediğimiz iks tilda, kompleks bir sayı. Büyüklüğü salınımın genliği, açısı da ışığa göre faz gecikmesi. Fiziksel yer değiştirme, bunun gerçek kısmı.
+
+Drude için denklemi çözünce, iks tilda, e çarpı E sıfır bölü em, bölü omega kare artı i gama omega çıkıyor. Burada elektronun yükünü eksi e aldık.
+
+Küçük bir not. Notlarında bir satırda, eksi i omega te'nin karesi yazmışsın. Orada te olmamalı. Sadece eksi i omeganın karesi.
+
+Elektron alanla aynı yöne mi gidiyor?
+
+Şimdi kritik soru. Elektrona etki eden kuvvet eksi e çarpı E, yani alanın tersine. Ama iks tilda pozitif çıktı. Elektron alanla aynı yöne mi gidiyor?
+
+Evet. Ve dersin kilit noktası bu. Gamayı sıfır al. İks tilda, e E sıfır bölü em omega kare oluyor, yani pozitif. Kuvvet alanın tersine, ama yer değiştirme alanla aynı fazda.
+
+Sebebi şu. Rezonansın üstünde sürülen bir kütle, kuvvete yüz seksen derece zıt fazda hareket eder. Bir kütleyi elinle hızlı hızlı ileri geri ittiğini düşün. Sağa en sert ittiğin anda, kütle en soldadır. Sinüs şeklinde bir harekette ivme, eksi omega kare çarpı konum. İvme kuvvetle aynı yönde, konum ise ikisinin tersine. Drude modelinde omega sıfır, sıfır olduğu için, her frekans rezonansın üstü sayılır.
+
+Sonuç olarak elektron alan yönünde gidiyor, ama yükü negatif. Oluşan dipol alanın tersine bakıyor. Yani malzeme, gelen alanı kısmen iptal eden bir polarizasyon üretiyor. Bunu aklında tut. Birazdan epsilonun negatif çıkmasının sebebi tam olarak bu.
+</script>
+<script type="text/plain" data-sec="s2">
+Bölüm iki. Polarizasyondan dielektrik fonksiyonuna.
+
+Polarizasyon ve süseptibilite
+
+Tek bir elektronun dipol momenti, yük çarpı yer değiştirme. Yani eksi e çarpı iks tilda. Polarizasyon, birim hacimdeki toplam dipol momenti. Birim hacimde en tane elektron varsa, polarizasyon, eksi en e kare E sıfır bölü em, bölü omega kare artı i gama omega oluyor.
+
+Burada dikkat. Bu eksi işareti hem tahtada hem notlarında düşmüş. Hoca süseptibilite satırına eksiyi sonradan eklemiş, ama polarizasyon satırında unutmuş. Bu önemsiz bir işaret hatası değil. Epsilonu birin altına çeken tam olarak bu eksi.
+
+Polarizasyon eşittir epsilon sıfır çarpı ki çarpı E tanımından, süseptibilite ki, eksi en e kare bölü em epsilon sıfır, çarpı bir bölü omega kare artı i gama omega çıkıyor.
+
+Plazma frekansı uydurma bir kısaltma mı?
+
+Hocanın kırmızı kalemle yaptığı birim analizi buraya bağlanıyor. Süseptibilite boyutsuz. Bir bölü omega kare artı i gama omega ise, bir bölü frekans kare biriminde. O zaman önündeki en e kare bölü em epsilon sıfır, frekans kare biriminde olmak zorunda. Biz buna omega pe kare diyoruz. Plazma frekansının karesi.
+
+Böylece epsilon, bir artı ki, yani bir eksi omega pe kare bölü omega kare artı i gama omega oluyor. Bir artı ki nereden geliyor? De alanı, epsilon sıfır çarpı E artı polarizasyon. Boşluğun katkısı bir, malzemenin katkısı ki.
+
+Ama omega pe sadece bir kısaltma değil. Bütün elektron gazını biraz kaydırırsan, arkada pozitif iyonlar açıkta kalır, ve oluşan alan gazı geri çeker. Tek tek elektronların yayı yok, ama topluluğun var. Bu topluluğun doğal salınım frekansı, omega pe. Bakır için bu, yaklaşık on bir elektron volt ediyor. Yani morötede.
+
+Ölçeklenmiş birimler
+
+Ölçekleme kısmında, omega bölü omega pe'ye omega bar, gama bölü omega pe'ye gama bar diyoruz. O zaman epsilon, bir eksi bir bölü omega bar kare artı i gama bar omega bar oluyor.
+
+Malzemeye özgü her şey omega pe'nin içine gömüldü. Geriye tek parametre kaldı, gama bar. Bütün Drude metalleri aynı eğriyi çiziyor. Derste bir arkadaşın dediği gibi, bu birimlere normalize birim de deniyor.
+</script>
+<script type="text/plain" data-sec="s3">
+Bölüm üç. Omega, omega pe'nin altında. Metal neden ayna?
+
+Önceki bölümde epsilonu türettik. Bir eksi omega pe kare, bölü omega kare artı i gama omega. Şimdi bu formülün fiziksel olarak ne söylediğine bakıyoruz. Dersin ortasının neredeyse tamamı bu.
+
+Hoca sönümü neden attı? Bu hile değil mi?
+
+Gamayı sıfır koyunca epsilon, bir eksi omega pe kare bölü omega kare oluyor, ve tamamen reel. Hocanın gerekçesi doğru. Paydada omega kare artı i gama omega var. Omega gamadan çok büyükse, ikinci terim birincinin yanında önemsiz kalıyor.
+
+Bakırda gama yaklaşık dört çarpı on üzeri on üç. Görünür ışığın frekansı ise yaklaşık üç buçuk çarpı on üzeri on beş. Arada yüz kata yakın fark var. Yani optik frekanslarda metal için kayıpsız yaklaşım makul, ama mikrodalgada değil. Bunu aklında tut, deri kalınlığında geri döneceğiz.
+
+Kayıpsız durumda geriye tek bir soru kalıyor. Omega, omega pe'nin altında mı, üstünde mi?
+
+Omega, omega pe'nin altındayken, ke neden sanal?
+
+Omega pe kare bölü omega kare birden büyük, o yüzden epsilon negatif. Dalga sayısı ke, omega bölü ce, çarpı karekök epsilon. Bunu, bir bölü ce çarpı karekök omega kare eksi omega pe kare diye de yazabilirsin. Kökün içi negatif. Demek ki ke saf sanal. Ke eşittir i çarpı alfa diyoruz. Alfa da, bir bölü ce çarpı karekök omega pe kare eksi omega kare.
+
+Bunu dalgaya koyalım. E sıfır çarpı e üzeri i, ke iks eksi omega te. Ke yerine i çarpı alfa yazınca, i çarpı i eksi bir veriyor, ve geriye e üzeri eksi alfa iks, çarpı e üzeri eksi i omega te kalıyor.
+
+İks'e bağlı kısımda artık salınım yok, sadece üstel sönüm var. Alan zamanda hâlâ titriyor, ama uzayda ilerlemiyor. Yüzeyden içeri doğru sönüp gidiyor. Hocanın evanesan dalga dediği bu.
+
+Peki kökün iki işareti var. Eksi i çarpı alfa neden değil? O, e üzeri artı alfa iks verir. Malzemenin derinine indikçe alan sonsuza büyür. Yarı sonsuz bir malzemede bu fiziksel değil, o yüzden atıyoruz.
+
+İçeride sönüyorsa, enerji nereye gidiyor? Soğurulmuyor mu?
+
+Derste arkada Türkçe tartışılan soru tam olarak buydu. Cevap hayır. Uzayda sönmek ile enerji kaybetmek farklı şeyler. Kayıp sadece epsilonun sanal kısmından, yani gamadan gelir. Burada gama sıfır.
+
+Evanesan bölgede manyetik alan, elektrik alanla doksan derece faz farklı oluyor. Çünkü manyetik alan ke ile orantılı, ve ke sanal. Bu yüzden Poynting vektörünün zaman ortalaması sıfır. Alan her yarım periyotta içeri biraz enerji itiyor, sonraki yarım periyotta geri alıyor. Net akış yok. Enerji ne içeri girebiliyor, ne kaybolabiliyor. O zaman gidebileceği tek yer, geri.
+
+Bunu tek satırda görebilirsin. Dik gelişte yansıma katsayısı, bir eksi en, bölü bir artı en. Epsilon negatifken kırılma indisi en saf sanal, i çarpı kappa diyelim. Bir eksi i çarpı kappanın büyüklüğü, bir artı i çarpı kappanın büyüklüğüne eşit. Yani yansıma katsayısının büyüklüğü tam olarak bir. Hocanın yansıma tam olarak bir dediği bu. Metallerin ayna olmasının sebebi de bu.
+
+Gerçek bir metalde gama sıfır olmadığı için, enerjinin birkaç yüzdesi ısıya gidiyor. O yüzden gerçek bir ayna yüzde yüz yansıtmıyor.
+
+Deri kalınlığı tam olarak neyi ölçüyor?
+
+Genliğin, başlangıç değerinin bir bölü e'sine düştüğü derinliği. E sıfır çarpı e üzeri eksi alfa iks ifadesinde, iks yerine bir bölü alfa koyunca, E sıfır bölü e çıkıyor. Demek ki deri kalınlığı delta, bir bölü alfa. Yani ce, bölü karekök omega pe kare eksi omega kare. Omega, omega pe'den çok küçükse, bu ce bölü omega pe'ye gidiyor.
+
+Hocanın, üstel fonksiyonun kuvveti boyutsuz olmalı lafı da buraya bağlanıyor. Alfa çarpı iks boyutsuz. O zaman alfa, bir bölü uzunluk. Delta da uzunluk biriminde. Bakır için ce bölü omega pe, yaklaşık yirmi nanometre.
+
+Ama bakırın deri kalınlığı elli hertzde milimetre mertebesinde değil miydi?
+
+İkisi de doğru, sadece farklı rejimler. Elektrik mühendislerinin kullandığı formül, omega gamadan çok küçükken geçerli. Orada paydadaki sönüm terimi baskın, ve epsilon neredeyse saf sanal. Yani durum kayıpsızın tam tersi, kayıp baskın. Drude modelinden iletkenliği yerine koyarsan, o formül aynı epsilondan çıkıyor.
+
+Bakırda bu, elli hertzde yaklaşık dokuz milimetre, bir gigahertzde yaklaşık iki mikrometre ediyor. Frekans gamayı geçince, deri kalınlığı frekanstan bağımsız hale geliyor, ve ce bölü omega pe'ye oturuyor.
+
+Hocanın, özellikle kayıplı malzemeler için dediği yer burası. Tanım değişmiyor. Deri kalınlığı her zaman, bir bölü ke'nin sanal kısmı. Kayıplı durumda ke'nin hem reel hem sanal kısmı oluyor, o kadar.
+</script>
+<script type="text/plain" data-sec="s4">
+Bölüm dört. Omega, omega pe'nin üstünde. Metal saydamlaşıyor.
+
+Omega, omega pe'nin üstüne çıkınca ne değişiyor?
+
+Epsilon sıfır ile bir arasında. Ke reel, ve dalga ilerliyor. Metal saydamlaşıyor. Hocanın saydam dielektrik dediği rejim bu. Alkali metaller morötede gerçekten böyle davranıyor.
+
+Dispersiyon bağıntısını şu formda yazmak işini çok kolaylaştırır. Ke kare ce kare, omega kare eksi omega pe kareye eşit. Yani omega kare, omega pe kare artı ce kare ke kare.
+
+Faz hızı omega bölü ke, yani ce bölü en. En birden küçük olduğu için, faz hızı ışık hızından büyük.
+
+Faz hızı ışık hızından büyük. Görelilik bozulmuyor mu?
+
+Hayır. Faz hızı, sonsuz uzunlukta, tek frekanslı bir dalganın tepelerinin hızı. Ne enerji taşıyor, ne bilgi. Bilgi göndermek için darbe lazım, darbe de bir frekans paketi. Paketin zarfı, grup hızıyla ilerliyor. Yani de omega bölü de ke ile. Kayıpsız durumda enerji de grup hızıyla taşınıyor.
+
+Hoca grup hızını ödev olarak bıraktı, o yüzden sonucu söylemiyorum. Ama omega kare eşittir omega pe kare artı ce kare ke kare formundan türev almak bir satır sürer. Sonra üç şeye bak. Grup hızı ışık hızından küçük mü? Faz hızı ile grup hızının çarpımı ne çıkıyor? Omega, omega pe'ye yaklaşırken grup hızına ne oluyor?
+
+Çerenkov ışıması neden geçti?
+
+Yüklü bir parçacık, ortamdaki ışığın faz hızından hızlı giderse, Çerenkov ışıması yapar. Ses duvarının ışıktaki karşılığı gibi düşünebilirsin. Omega, omega pe'nin üstündeyken faz hızı zaten ışık hızının üstünde. Hiçbir parçacık onu geçemez. O frekanslarda Çerenkov ışıması olmaz. Bu ışıma, sadece kırılma indisinin birden büyük olduğu frekanslarda mümkün.
+</script>
+<script type="text/plain" data-sec="s5">
+Bölüm beş. Tek frekanstan darbeye. Fourier dönüşümü.
+
+Lorentz ve Drude modellerini kurarken, malzemenin tek frekanslı ışıkla aydınlatıldığını varsaydık. Hocanın sorusu şu. Ya kaynak bir darbeyse? Mesela bir Gauss darbesi?
+
+Fourier dönüşümüne neden geçtik?
+
+Gerçek bir lazer darbesi, bir frekans paketi. Kısa darbe, geniş spektrum demek. Bizi kurtaran şey lineerlik. Hareket denklemi iks'te lineer. O zaman sürücüyü frekans bileşenlerine ayırırız, her bileşeni ayrı çözeriz, sonra toplarız. Sinyal işlemedeki transfer fonksiyonu mantığının aynısı. Süseptibilite, malzemenin transfer fonksiyonu.
+
+Hocanın sorduğu birim sorusu neydi?
+
+Kesikli seride elektrik alan, E omega çarpı e üzeri eksi i omega te terimlerinin toplamı. Üstel boyutsuz. O zaman E omega'nın birimi volt bölü metre, alanın kendisiyle aynı.
+
+Sürekli integralde ise alan, E omega çarpı e üzeri eksi i omega te çarpı de omega'nın integrali. De omega'nın birimi bir bölü saniye. O zaman E omega, volt çarpı saniye bölü metre olmak zorunda. Transkriptte, elektrik alan çarpı frekans gibi geçiyor. Ya yanlış duyulmuş, ya da ağız sürçmesi. Doğrusu, bölü frekans.
+
+Anlamı şu. Kesikli halde her frekansın kendi genliği var. Sürekli halde tek bir frekansın genliği sıfır. Anlamlı olan, birim frekans aralığına düşen genlik. Yani spektral yoğunluk. Olasılık ile olasılık yoğunluğu arasındaki farkın aynısı.
+
+Derste bir arkadaşın neden kesikli yazdığımızı sordu. Hocanın cevabı doğru. İkisi aynı bilgiyi taşıyor. Kesikli yazınca katsayıları eşitleme mantığı daha kolay görülüyor. Sürekliye geçmek, toplamın yerine integral koymaktan ibaret.
+
+Denklemi frekans frekans çözmek
+
+Hem alanı hem yer değiştirmeyi frekansların toplamı olarak yazıp, Lorentz denklemine koyuyoruz. Zaman türevleri toplamın içine giriyor, ve her biri sadece eksi i omega ile çarpmaya dönüşüyor. Toplamın içinde, her frekans için şu çıkıyor. Em çarpı iks omega, çarpı omega sıfır kare eksi omega kare eksi i gama omega. Bu da, ku çarpı E omega ile karşılaştırılıyor.
+
+Tahtada parantezin içine eksi i omega kare yazılmış. Eksi i omeganın karesi, eksi omega kare olmalı. Hareket denkleminin sağ tarafında da yük eksik. Ku çarpı E olacak.
+
+Delta fonksiyonu neden lazım?
+
+Hocanın asıl sorusu şuydu. İki toplam birbirine eşit diye, içlerindeki terimleri frekans frekans eşitleyebilir miyim?
+
+Bunun için her iki tarafı e üzeri i omega üssü te ile çarpıp, zamana göre eksi sonsuzdan artı sonsuza integral alıyorsun. E üzeri eksi i omega te, çarpı e üzeri i omega üssü te'nin integrali, iki pi çarpı delta, omega eksi omega üssü.
+
+Hocanın derste anlattığı gibi, omega ile omega üssü farklıysa, integralin içinde kosinüs ve sinüs var, ve bunlar sonsuz aralıkta ortalamada sıfır veriyor. Omega eşittir omega üssü olunca içerisi bir oluyor, ve integral sonsuza gidiyor. Bir noktada sonsuz, her yerde sıfır olan fonksiyon, Dirac delta.
+
+Yani delta fonksiyonu bir cımbız gibi. Toplamın içinden tek bir frekansı çekip alıyor. Sonuç her omega için ayrı ayrı. İks omega, ku bölü em, çarpı E omega, bölü omega sıfır kare eksi omega kare eksi i gama omega.
+
+Bu, tek frekanslı Lorentz çözümünün aynısı. Sadece E sıfırın yerine E omega geldi. Tek frekans çözümü, her bileşen için aynen geçerli.
+
+Küçük bir not. Tahtada, e üzeri eksi i omega üssü te ile çarp yazıyor. Bu açılımda bileşeni çekmek için aslında artı işaretli olanı gerekiyor. Ama delta simetrik olduğu için sonuç değişmiyor.
+
+Zaman tarafındaki anlamı da güzel. Frekansta çarpım, zamanda konvolüsyon demek. Yani şu anki polarizasyon, geçmişteki alana bağlı. Malzemenin bir hafızası var.
+
+Hoca neden sıfır frekansı unutun dedi?
+
+Transkriptte bağlamı net değil. Ama Drude modelinde bunun gerçek bir sebebi var. Omega sıfır, sıfır olunca, iks omega, bir bölü omega kare artı i gama omega ile orantılı. Omega sıfıra giderken payda da sıfıra gidiyor.
+
+Fiziksel olarak, serbest elektrona sabit bir alan uygularsan, onu geri çeken bir yay yok. Elektron durmadan sürüklenir, yer değiştirme sınırsız büyür. Sınırlı kalan şey hız, yani akım. Doğru akımda metali yer değiştirmeyle değil, iletkenlikle anlatmamızın sebebi bu. Lorentz modelinde omega sıfır, sıfırdan farklı olduğu için böyle bir sorun yok.
+</script>
+<script type="text/plain" data-sec="s6">
+Bölüm altı. Darbe uzayda nasıl ilerler?
+
+Son tahta. Elektromanyetik dalganın uzaydaki evrimi.
+
+Boş uzayda dalga denklemine e üzeri i, ke iks eksi omega te koyunca, ke kare eşittir omega kare bölü ce kare çıkıyor. Her frekans için iki çözüm var.
+
+E üzeri i, ke iks eksi omega te'de fazı sabit tutmak için, iks, omega bölü ke çarpı te olmalı. Zaman ilerledikçe iks artıyor, yani bu dalga artı iks yönüne gidiyor. Diğeri, e üzeri eksi i ke iks eksi i omega te, aynı mantıkla eksi iks yönüne gidiyor. Genel çözüm hepsinin toplamı. A omega ve be omega da ağırlıklar.
+
+Hoca bir de, ortamda çözümün çok benzer olduğunu söyledi. Sadece dalga sayısının yerine dispersiyon bağıntısını koyuyoruz.
+
+Gauss darbesini nasıl yazıyoruz?
+
+Hoca, Gauss nasıl yazılır diye sordu. Cevap, e üzeri eksi a iks kare. Ama tahtadaki çizim, zarfı Gauss şeklinde olan, salınan bir sinyal. Yani zarf çarpı taşıyıcı.
+
+U te eşittir E sıfır, çarpı e üzeri eksi te kare bölü iki tau kare, çarpı e üzeri eksi i omega taşıyıcı çarpı te. Burada tau darbe süresi. Omega taşıyıcı da taşıyıcı frekans, yani lazerin rengi. Literatürde alanı u diye yazmalarının sebebi, hocanın dediği gibi, skaler bir büyüklükle çalışmak.
+
+Bunun Fourier dönüşümü yine bir Gauss. Ama frekans ekseninde, omega taşıyıcının etrafında, ve genişliği bir bölü tau. Darbe ne kadar kısaysa, spektrumu o kadar geniş.
+
+Önceki tahtadaki A omega, tam olarak bu. Sadece artı iks yönüne giden bir darbe gönderiyorsan, be omega sıfır. İks sıfırda alan, A omega'nın Fourier integraline eşit, bu da u te. Demek ki A omega, giriş darbesinin Fourier dönüşümü.
+
+Tarif şu. İks sıfırdaki darbeyi frekanslarına ayır. Her bileşen, iks mesafesinde, e üzeri i ke omega çarpı iks fazı toplasın. Sonra hepsini geri topla.
+
+Boş uzayda ke eşittir omega bölü ce. Bu faz, sadece iks bölü ce kadar bir gecikme. Darbe şeklini koruyarak ışık hızıyla kayıyor. Malzemede ise ke omega, omega bölü ce çarpı karekök epsilon omega. İkinci bölümde bulduğun gibi, omegada lineer olmayan bir şey. Bileşenler farklı hızlarda gidiyor, ve darbe genişlemeye başlıyor. İlk yarıda hesapladığın epsilon buraya giriyor, ve dersin iki yarısı burada birleşiyor.
+
+Ders tam burada bitiyor. Son cümle de, bunun nasıl değiştiğini görmek. Bir sonraki derste muhtemelen ke omega'yı, taşıyıcı frekans etrafında Taylor serisine açacak. Birinci türev zarfın hızını, yani grup hızını verecek. İkinci türev de darbeyi genişleten grup hızı dispersiyonunu.
+
+Grup hızı ödevini çıkarınca sonucunu sohbete yaz, birlikte üstünden geçeriz.
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+function store(k,v){try{localStorage.setItem('ieg-'+k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem('ieg-'+k)}catch(e){return null}}
+
+/* ---------- math ---------- */
+function renderMath(){
+  if(!window.renderMathInElement) return;
+  try{renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],output:'mathml',throwOnError:false,ignoredTags:['script','noscript','style','textarea','pre','code','option','canvas']});}catch(e){}
+}
+renderMath();
+
+/* ---------- plotting helpers ---------- */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const pal=()=>({ink:css('--ink'),ink2:css('--ink-2'),rule:css('--rule'),cu:css('--copper'),wave:css('--wave'),soft:css('--soft')});
+const plots=[];
+function makePlot(canvas,draw,aspect,minH){
+  const ctx=canvas.getContext('2d');const P={ctx,w:0,h:0};P.draw=()=>{if(P.w)draw(P)};
+  const fit=()=>{const w=canvas.parentElement.clientWidth;if(!w)return;const h=Math.max(minH,Math.round(w*aspect));const d=window.devicePixelRatio||1;
+    canvas.width=Math.round(w*d);canvas.height=Math.round(h*d);canvas.style.height=h+'px';ctx.setTransform(d,0,0,d,0,0);P.w=w;P.h=h;P.draw();};
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(canvas.parentElement); else window.addEventListener('resize',fit);
+  fit();plots.push(P);return P;
+}
+function frame(ctx,box,xr,yr,xt,yt,c){
+  const X=x=>box.l+(x-xr[0])/(xr[1]-xr[0])*(box.r-box.l);
+  const Y=y=>box.b-(y-yr[0])/(yr[1]-yr[0])*(box.b-box.t);
+  ctx.font='11px "IBM Plex Mono", ui-monospace, monospace';ctx.lineWidth=1;ctx.strokeStyle=c.rule;ctx.fillStyle=c.ink2;
+  ctx.textAlign='center';ctx.textBaseline='top';
+  xt.forEach(([v,l])=>{const x=X(v);ctx.beginPath();ctx.moveTo(x,box.t);ctx.lineTo(x,box.b);ctx.stroke();ctx.fillText(l,x,box.b+6);});
+  ctx.textAlign='right';ctx.textBaseline='middle';
+  yt.forEach(([v,l])=>{const y=Y(v);ctx.beginPath();ctx.moveTo(box.l,y);ctx.lineTo(box.r,y);ctx.stroke();ctx.fillText(l,box.l-6,y);});
+  return {X,Y};
+}
+function clip(ctx,box){ctx.save();ctx.beginPath();ctx.rect(box.l,box.t,box.r-box.l,box.b-box.t);ctx.clip();}
+function curve(ctx,X,Y,f,x0,x1,n,color,width,dash){
+  ctx.beginPath();for(let i=0;i<=n;i++){const x=x0+(x1-x0)*i/n;const px=X(x),py=Y(f(x));i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+  ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash||[]);ctx.stroke();ctx.setLineDash([]);
+}
+function zero(ctx,X,Y,x0,x1,c){ctx.beginPath();ctx.moveTo(X(x0),Y(0));ctx.lineTo(X(x1),Y(0));ctx.strokeStyle=c.ink2;ctx.lineWidth=1;ctx.stroke();}
+const PI=Math.PI;
+
+/* Figure 1: driven oscillator */
+const r1=$('#r1'),o1=$('#o1'),ro1=$('#ro1');
+const P1=makePlot($('#c1'),P=>{
+  const c=pal(),ctx=P.ctx;ctx.clearRect(0,0,P.w,P.h);
+  const r=+r1.value,a=1-r*r,b=.12*r,th=Math.atan2(b,a),mag=1/Math.hypot(a,b);
+  const box={l:30,t:8,r:P.w-8,b:P.h-24};
+  const {X,Y}=frame(ctx,box,[0,4*PI],[-1.3,1.3],[[0,'0'],[PI,'π'],[2*PI,'2π'],[3*PI,'3π'],[4*PI,'4π  ωt']].map((v,i)=>i===4?[v[0],'4π']:v),[[-1,'−1'],[0,'0'],[1,'1']],c);
+  clip(ctx,box);zero(ctx,X,Y,0,4*PI,c);
+  curve(ctx,X,Y,t=>Math.cos(t),0,4*PI,320,c.cu,2,[6,5]);
+  curve(ctx,X,Y,t=>Math.cos(t-th),0,4*PI,320,c.wave,2.5);
+  ctx.fillStyle=c.cu;ctx.beginPath();ctx.arc(X(2*PI),Y(1),4,0,2*PI);ctx.fill();
+  ctx.fillStyle=c.wave;ctx.beginPath();ctx.arc(X(2*PI+th),Y(1),4,0,2*PI);ctx.fill();
+  ctx.restore();
+  o1.textContent=r.toFixed(2);
+  ro1.textContent='faz gecikmesi '+Math.round(th*180/PI)+'° · genlik, statik yer değiştirmenin '+mag.toFixed(2)+' katı'+(r>1.5?' · kuvvetle neredeyse ters fazda':r<0.6?' · kuvveti neredeyse aynı fazda izliyor':'');
+},0.42,190);
+r1.addEventListener('input',P1.draw);
+
+/* Figure 2: Drude epsilon */
+const r2=$('#r2'),o2=$('#o2'),ro2=$('#ro2');
+const reE=(w,g)=>1-1/(w*w+g*g), imE=(w,g)=>g/(w*(w*w+g*g));
+const P2=makePlot($('#c2'),P=>{
+  const c=pal(),ctx=P.ctx;ctx.clearRect(0,0,P.w,P.h);
+  const g=+r2.value,box={l:30,t:8,r:P.w-8,b:P.h-24},xr=[0.2,2.5],yr=[-6,2];
+  const X=x=>box.l+(x-xr[0])/(xr[1]-xr[0])*(box.r-box.l),Y=y=>box.b-(y-yr[0])/(yr[1]-yr[0])*(box.b-box.t);
+  const xc=g<1?Math.sqrt(1-g*g):null;
+  if(xc&&xc>xr[0]){ctx.fillStyle=c.soft;ctx.fillRect(X(xr[0]),box.t,X(Math.min(xc,xr[1]))-X(xr[0]),box.b-box.t);}
+  frame(ctx,box,xr,yr,[[0.5,'0.5'],[1,'1'],[1.5,'1.5'],[2,'2'],[2.5,'2.5']],[[-6,'−6'],[-4,'−4'],[-2,'−2'],[0,'0'],[2,'2']],c);
+  clip(ctx,box);zero(ctx,X,Y,xr[0],xr[1],c);
+  if(xc){ctx.beginPath();ctx.moveTo(X(xc),box.t);ctx.lineTo(X(xc),box.b);ctx.setLineDash([3,4]);ctx.strokeStyle=c.ink2;ctx.stroke();ctx.setLineDash([]);}
+  curve(ctx,X,Y,w=>Math.max(-50,reE(w,g)),xr[0],xr[1],400,c.wave,2.5);
+  curve(ctx,X,Y,w=>Math.min(50,imE(w,g)),xr[0],xr[1],400,c.cu,2);
+  ctx.font='11px "IBM Plex Mono", ui-monospace, monospace';ctx.fillStyle=c.ink2;ctx.textAlign='left';ctx.textBaseline='top';
+  if(xc&&X(xc)-X(xr[0])>90)ctx.fillText('Re ε < 0, yansıtır',X(xr[0])+6,box.t+6);
+  ctx.restore();
+  o2.textContent=g.toFixed(2);
+  ro2.textContent=(xc?'Re ε = 0 noktası ω/ωp = '+xc.toFixed(3):'Re ε hiç negatif olmuyor')+' · ω/ωp = 0.5 için Re ε = '+reE(.5,g).toFixed(2)+', Im ε = '+imE(.5,g).toFixed(2);
+},0.56,220);
+r2.addEventListener('input',P2.draw);
+
+/* Figure 3: field at a metal surface (lossless Drude) */
+const r3=$('#r3'),o3=$('#o3'),ro3=$('#ro3'),b3=$('#b3');
+const cx=(re,im)=>({re,im}),cadd=(a,b)=>cx(a.re+b.re,a.im+b.im),csub=(a,b)=>cx(a.re-b.re,a.im-b.im),
+  cmul=(a,b)=>cx(a.re*b.re-a.im*b.im,a.re*b.im+a.im*b.re),cdiv=(a,b)=>{const d=b.re*b.re+b.im*b.im;return cx((a.re*b.re+a.im*b.im)/d,(a.im*b.re-a.re*b.im)/d)},
+  cexpi=t=>cx(Math.cos(t),Math.sin(t)),cabs=a=>Math.hypot(a.re,a.im);
+function state3(w){const eps=1-1/(w*w);const n=eps>=0?cx(Math.sqrt(eps),0):cx(0,Math.sqrt(-eps));const one=cx(1,0);const r=cdiv(csub(one,n),cadd(one,n));return{eps,n,r,t:cadd(one,r)};}
+let ph=0;
+const P3=makePlot($('#c3'),P=>{
+  const c=pal(),ctx=P.ctx;ctx.clearRect(0,0,P.w,P.h);
+  const w=+r3.value,S=state3(w),box={l:26,t:22,r:P.w-8,b:P.h-24},xr=[-8,12],yr=[-2.4,2.4];
+  const X=x=>box.l+(x-xr[0])/(xr[1]-xr[0])*(box.r-box.l),Y=y=>box.b-(y-yr[0])/(yr[1]-yr[0])*(box.b-box.t);
+  ctx.fillStyle=c.soft;ctx.fillRect(X(0),box.t,box.r-X(0),box.b-box.t);
+  frame(ctx,box,xr,yr,[[-8,'−8'],[-4,'−4'],[0,'0'],[4,'4'],[8,'8'],[12,'12']],[[-2,'−2'],[0,'0'],[2,'2']],c);
+  ctx.font='11px "IBM Plex Mono", ui-monospace, monospace';ctx.fillStyle=c.ink2;ctx.textBaseline='bottom';
+  ctx.textAlign='left';ctx.fillText('vakum',box.l+4,box.t-4);ctx.fillText('metal',X(0)+6,box.t-4);
+  const k0=w,amp=x=>{if(x<0)return cadd(cexpi(k0*x),cmul(S.r,cexpi(-k0*x)));if(S.eps>=0)return cmul(S.t,cexpi(w*S.n.re*x));const a=Math.sqrt(1-w*w);return cx(S.t.re*Math.exp(-a*x),S.t.im*Math.exp(-a*x));};
+  clip(ctx,box);zero(ctx,X,Y,xr[0],xr[1],c);
+  curve(ctx,X,Y,x=>cabs(amp(x)),xr[0],xr[1],500,c.cu,1.6,[5,4]);
+  curve(ctx,X,Y,x=>-cabs(amp(x)),xr[0],xr[1],500,c.cu,1.6,[5,4]);
+  curve(ctx,X,Y,x=>{const A=amp(x);return A.re*Math.cos(ph)+A.im*Math.sin(ph);},xr[0],xr[1],700,c.wave,2.5);
+  ctx.beginPath();ctx.moveTo(X(0),box.t);ctx.lineTo(X(0),box.b);ctx.strokeStyle=c.ink2;ctx.lineWidth=1.5;ctx.stroke();
+  if(S.eps<0){const d=1/Math.sqrt(1-w*w),y=Y(-2.05);ctx.strokeStyle=c.cu;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(X(0),y);ctx.lineTo(X(d),y);ctx.moveTo(X(d),y-5);ctx.lineTo(X(d),y+5);ctx.stroke();
+    ctx.fillStyle=c.cu;ctx.textAlign='center';ctx.textBaseline='bottom';ctx.fillText('δ',(X(0)+X(d))/2,y-3);}
+  ctx.restore();
+  o3.textContent=w.toFixed(2);
+  if(S.eps<0){const kap=S.n.im;ro3.textContent='ε = '+S.eps.toFixed(2)+' · n = i·'+kap.toFixed(2)+' · k sanal, δ = '+(1/Math.sqrt(1-w*w)).toFixed(2)+' c/ωp · R = 1';}
+  else{const n=S.n.re,R=cabs(S.r)**2;ro3.textContent='ε = '+S.eps.toFixed(2)+' · n = '+n.toFixed(2)+' · içerideki dalga boyu vakumun '+(n>0.005?(1/n).toFixed(1)+' katı':'çok üstünde')+' · v_p = '+(n>0.005?(1/n).toFixed(2)+' c':'∞')+' · R = '+R.toFixed(3);}
+},0.5,230);
+r3.addEventListener('input',P3.draw);
+let play3=!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches),vis3=false,raf=null,last=0;
+function setB3(){b3.textContent=play3?'Durdur':'Oynat';b3.setAttribute('aria-pressed',String(play3));}
+function loop(ts){if(!play3||!vis3){raf=null;return;}const dt=last?Math.min(.05,(ts-last)/1000):0;last=ts;ph+=dt*2.4;P3.draw();raf=requestAnimationFrame(loop);}
+function kick(){if(play3&&vis3&&!raf){last=0;raf=requestAnimationFrame(loop);}}
+if(window.IntersectionObserver)new IntersectionObserver(es=>{vis3=es[0].isIntersecting;kick();}).observe($('#c3'));else{vis3=true;kick();}
+b3.addEventListener('click',()=>{play3=!play3;setB3();kick();});setB3();
+
+/* Figure 4: Gaussian pulse and spectrum */
+const r4=$('#r4'),o4=$('#o4'),ro4=$('#ro4');
+const P4=makePlot($('#c4'),P=>{
+  const c=pal(),ctx=P.ctx;ctx.clearRect(0,0,P.w,P.h);
+  const tau=+r4.value,mid=Math.round(P.h*0.5);
+  const b1={l:30,t:22,r:P.w-8,b:mid-24},b2={l:30,t:mid+18,r:P.w-8,b:P.h-24};
+  let f=frame(ctx,b1,[-6,6],[-1.2,1.2],[[-6,'−6'],[-3,'−3'],[0,'0'],[3,'3'],[6,'6']],[[-1,'−1'],[0,'0'],[1,'1']],c);
+  ctx.fillStyle=c.ink2;ctx.textAlign='left';ctx.textBaseline='bottom';ctx.fillText('zaman, taşıyıcı periyodu biriminde',b1.l,b1.t-5);
+  clip(ctx,b1);zero(ctx,f.X,f.Y,-6,6,c);
+  const env=t=>Math.exp(-t*t/(2*tau*tau));
+  curve(ctx,f.X,f.Y,env,-6,6,300,c.cu,1.6,[5,4]);curve(ctx,f.X,f.Y,t=>-env(t),-6,6,300,c.cu,1.6,[5,4]);
+  curve(ctx,f.X,f.Y,t=>env(t)*Math.cos(2*PI*t),-6,6,900,c.wave,2.2);
+  ctx.restore();
+  f=frame(ctx,b2,[0,2],[0,1.15],[[0,'0'],[0.5,'0.5'],[1,'1'],[1.5,'1.5'],[2,'2']],[[0,'0'],[1,'1']],c);
+  ctx.fillStyle=c.ink2;ctx.textAlign='left';ctx.textBaseline='bottom';ctx.fillText('frekans, ω / ωc (tepe normalize)',b2.l,b2.t-5);
+  clip(ctx,b2);
+  const S=v=>Math.exp(-Math.pow((v-1)*2*PI*tau,2)/2);
+  ctx.beginPath();ctx.moveTo(f.X(0),f.Y(0));for(let i=0;i<=400;i++){const v=2*i/400;ctx.lineTo(f.X(v),f.Y(S(v)));}ctx.lineTo(f.X(2),f.Y(0));ctx.closePath();
+  ctx.globalAlpha=.16;ctx.fillStyle=c.wave;ctx.fill();ctx.globalAlpha=1;
+  curve(ctx,f.X,f.Y,S,0,2,400,c.wave,2.2);
+  ctx.restore();
+  o4.textContent=tau.toFixed(2);
+  ro4.textContent='τ = '+tau.toFixed(2)+' periyot · spektral genişlik Δω = 1/τ = '+(1/(2*PI*tau)).toFixed(3)+' ωc · çarpım τ·Δω = 1';
+},0.62,300);
+r4.addEventListener('input',P4.draw);
+
+const redraw=()=>plots.forEach(p=>p.draw());
+if(window.matchMedia)matchMedia('(prefers-color-scheme: dark)').addEventListener&&matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','class','style']});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(redraw);
+
+/* ---------- read aloud ---------- */
+const synth=window.speechSynthesis;
+const ORDER=['s1','s2','s3','s4','s5','s6'];
+const TITLE={};ORDER.forEach((id,i)=>TITLE[id]=(i+1)+' · '+document.querySelector('#'+id+' h2').textContent);
+const NARR={};
+document.querySelectorAll('script[data-sec]').forEach(s=>{
+  NARR[s.dataset.sec]=s.textContent.split(/\n\s*\n/).map(p=>p.replace(/\s+/g,' ').trim()).filter(Boolean)
+    .flatMap(p=>p.match(/[^.?!]+[.?!]*/g)||[]).map(x=>x.trim()).filter(x=>x.length>1);
+});
+const st={sec:'s1',idx:0,playing:false,token:0};
+let voices=[],voice=null,rate=+(load('rate')||1);
+const ICON_PLAY='M8 5v14l11-7z',ICON_PAUSE='M7 5h4v14H7zM13 5h4v14h-4z';
+const SPK='<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>';
+
+function ui(){
+  $('#pico').setAttribute('d',st.playing?ICON_PAUSE:ICON_PLAY);
+  $('#pplay').setAttribute('aria-label',st.playing?'Duraklat':'Dinle');
+  const list=NARR[st.sec]||[];
+  $('#now').innerHTML='<b></b><span></span>';
+  $('#now b').textContent=TITLE[st.sec];
+  $('#now span').textContent=st.playing?('cümle '+Math.min(st.idx+1,list.length)+' / '+list.length):(st.idx>0?'duraklatıldı, '+(st.idx+1)+'. cümleden devam eder':'Dinlemek için oynat');
+  document.querySelectorAll('.listen').forEach(b=>{const on=st.playing&&b.dataset.sec===st.sec;b.setAttribute('aria-pressed',String(on));b.innerHTML=SPK+(on?'Duraklat':'Bu bölümü dinle');});
+  document.querySelectorAll('.sec').forEach(s=>s.classList.toggle('speaking',st.playing&&s.id===st.sec));
+}
+function speakNext(){
+  let list=NARR[st.sec];
+  if(st.idx>=list.length){const i=ORDER.indexOf(st.sec);if(i<ORDER.length-1){st.sec=ORDER[i+1];st.idx=0;list=NARR[st.sec];}else{st.playing=false;st.sec='s1';st.idx=0;ui();return;}}
+  const tok=st.token,u=new SpeechSynthesisUtterance(list[st.idx]);
+  u.lang=voice?voice.lang:'tr-TR';if(voice)u.voice=voice;u.rate=rate;
+  u.onend=()=>{if(tok!==st.token||!st.playing)return;st.idx++;speakNext();};
+  u.onerror=e=>{if(tok!==st.token||!st.playing)return;if(e&&(e.error==='interrupted'||e.error==='canceled'))return;st.idx++;speakNext();};
+  synth.speak(u);ui();
+}
+function play(sec){if(!synth)return;if(sec&&sec!==st.sec){st.sec=sec;st.idx=0;}st.token++;if(synth.speaking||synth.pending)synth.cancel();st.playing=true;speakNext();}
+function pause(){st.token++;st.playing=false;if(synth)synth.cancel();ui();}
+function jump(d){const i=ORDER.indexOf(st.sec);let j=i+d;if(d<0&&st.idx>2)j=i;j=Math.max(0,Math.min(ORDER.length-1,j));st.sec=ORDER[j];st.idx=0;play();}
+
+function loadVoices(){
+  if(!synth)return;const sel=$('#voice');const all=synth.getVoices()||[];
+  voices=all.filter(v=>/^tr/i.test(v.lang||''));sel.innerHTML='';
+  if(!voices.length){sel.append(new Option('Cihazın varsayılan Türkçe sesi',''));voice=null;return;}
+  voices.forEach((v,i)=>sel.append(new Option(v.name+(v.localService===false?' · çevrim içi':''),String(i))));
+  const saved=load('voice');let i=voices.findIndex(v=>v.name===saved);
+  if(i<0)i=voices.findIndex(v=>/enhanced|premium|geli[sş]tirilmi[sş]|natural|neural/i.test(v.name));
+  if(i<0)i=voices.findIndex(v=>/google|microsoft/i.test(v.name));
+  if(i<0)i=0;sel.value=String(i);voice=voices[i];
+}
+if(!synth){
+  ['#pplay','#pprev','#pnext'].forEach(s=>$(s).disabled=true);
+  $('#now').innerHTML='<b>Sesli okuma bu görünümde yok</b><span>Sayfayı Safari ya da Chrome\'da açınca çalışır</span>';
+  document.querySelectorAll('.listen').forEach(b=>b.hidden=true);
+}else{
+  loadVoices();if('onvoiceschanged' in synth)synth.onvoiceschanged=loadVoices;setTimeout(loadVoices,600);setTimeout(loadVoices,2000);
+  $('#voice').addEventListener('change',e=>{voice=voices[+e.target.value]||null;if(voice)store('voice',voice.name);if(st.playing)play();});
+  const rs=$('#rate');rs.value=String(rate);if(!rs.value){rs.value='1';rate=1;}
+  rs.addEventListener('change',e=>{rate=+e.target.value;store('rate',String(rate));if(st.playing)play();});
+  $('#pplay').addEventListener('click',()=>st.playing?pause():play());
+  $('#pprev').addEventListener('click',()=>jump(-1));
+  $('#pnext').addEventListener('click',()=>jump(1));
+  document.querySelectorAll('.listen').forEach(b=>b.addEventListener('click',()=>{const s=b.dataset.sec;if(st.playing&&st.sec===s)pause();else{st.sec=s;st.idx=0;play();}}));
+  ui();
+}
+$('#pset-btn').addEventListener('click',e=>{const p=$('#pset');p.hidden=!p.hidden;e.currentTarget.setAttribute('aria-expanded',String(!p.hidden));});
+})();
+</script>
+
+</body></html>

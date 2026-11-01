@@ -5,16 +5,21 @@ celikemir.github.io: kuantum yüksek lisans derslerinin (KBM 601, KBM 602) hafta
 ## Yapı
 
 ```
-index.html          ana sayfa: iki ders kartı (601, 602)
-kbm.css             ana sayfa ve ders sayfalarının ortak stili
+index.html          ana sayfa: iki ders kartı
+kbm.css             ana sayfa, ders sayfaları ve yazılı notların ortak stili
 favicon.svg
-601/index.html      Hafta 1–14 kutuları
-601/hafta-N/        o haftanın defteri (index.html + kendi dosyaları, ör. boards/*.jpg)
-602/index.html
-602/hafta-N/
+601/                KBM 601 Kuantum teknolojileri için kuantum mekaniği
+  index.html        Hafta 1–14 kutuları
+  hafta-N/          o haftanın notu (index.html + kendi dosyaları, ör. boards/*.jpg, ders-notu.html)
+602/                KBM 602 Nanofotoniğin temelleri
+  index.html        Hafta 1–14 kutuları + altta "Nanofotonik serisi" listesi
+  hafta-N/
+  nanofotonik/      Bölüm 0–4 (Hafta 1–2'nin notları; 602'deki Hafta 1–2 kutuları buraya gidiyor)
 ```
 
 Tüm bağlantılar göreceli (`../`, `../../favicon.svg`), mutlak yol kullanma.
+
+Kullanıcının zip'lerinde bazen `ozel/` klasörü olur (ödev çözümleri). Onu asla repoya koyma; site herkese açık.
 
 ## Yeni hafta eklemek
 

@@ -1,0 +1,1655 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Sıfırdan Elektromanyetik Teori</title>
+<meta name="description" content="1–4. bölümlerin üzerine kurulduğu zemin: vektör alanları, diverjans ve rotasyonel, akı ve iki büyük teorem, kompleks dalgalar; sonra yükten dört Maxwell…">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<style>
+/* Layout: graph-paper masthead with a spectral rule, one serif reading column (~68ch),
+   margin notes beside it on wide screens, figures and tools on graph-paper panels. */
+:root{
+  --paper:#F7F8F6;
+  --sheet:#FCFCFB;
+  --grid:rgba(39,112,194,.085);
+  --ink:#16203A;
+  --ink-2:#4A5570;
+  --ink-3:#636C80;
+  --rule:#DCE1E7;
+  --magenta:#B8236A;
+  --blue:#2770C2;
+  --red:#B83226;
+  --mag-wash:rgba(184,35,106,.075);
+  --blue-wash:rgba(39,112,194,.085);
+  --red-wash:rgba(184,50,38,.07);
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+    --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+    --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+    --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+  --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+  --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+  --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:1.0625rem;line-height:1.62;
+  font-optical-sizing:auto;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:var(--mag-wash)}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+.wrap{
+  max-width:1180px;margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:22px 22px;
+  border-bottom:1px solid var(--rule);
+}
+.masthead .wrap{padding-block:clamp(28px,5vw,56px) 22px;display:grid;gap:14px}
+.kicker{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);margin:0;display:flex;flex-wrap:wrap;gap:.35rem 1rem;
+}
+.kicker b{color:var(--magenta);font-weight:600}
+h1{
+  font-family:var(--font-display);font-weight:760;font-stretch:112%;
+  font-variation-settings:"wdth" 112;
+  font-size:clamp(2.15rem, 1.25rem + 3.8vw, 3.55rem);line-height:1.02;letter-spacing:-.018em;
+  margin:0;text-wrap:balance;max-width:20ch;
+}
+.lede{font-size:1.16rem;line-height:1.55;color:var(--ink-2);margin:0;max-width:62ch}
+.series{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.series a,.series span.item{
+  display:inline-flex;align-items:baseline;gap:.5rem;
+  font-family:var(--font-display);font-size:.88rem;font-weight:560;
+  padding:.38rem .7rem .38rem .55rem;border:1px solid var(--rule);border-radius:999px;
+  color:var(--ink-2);text-decoration:none;background:var(--paper);
+}
+.series .n{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-3)}
+.series a:hover{border-color:var(--ink-3);color:var(--ink)}
+.series .is-current{border-color:var(--magenta);color:var(--ink);background:var(--mag-wash)}
+.series .is-current .n{color:var(--magenta)}
+.spectrum{height:7px;position:relative}
+.spectrum-scale{
+  position:relative;height:18px;font-family:var(--font-mono);font-size:.62rem;color:var(--ink-3);overflow:hidden;
+}
+.spectrum-scale span{position:absolute;top:3px;transform:translateX(-50%);white-space:nowrap}
+
+/* ---------- page layout ---------- */
+.layout{display:block;padding-block:28px 72px}
+.toc{
+  font-family:var(--font-display);font-size:.86rem;margin:0 0 28px;
+  display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--ink-3);
+}
+.toc .toc-title{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;width:100%;color:var(--ink-3)}
+.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--magenta)}
+.prose{max-width:700px;min-width:0}
+.prose > section{padding-top:18px;margin-top:30px;border-top:1px solid var(--rule)}
+.prose > section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.prose::after{content:"";display:block;clear:both}
+
+@media (min-width:1240px){
+  .layout{display:grid;grid-template-columns:184px minmax(0,1fr);gap:40px}
+  .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;flex-direction:column;flex-wrap:nowrap;gap:9px;margin:0;max-height:calc(100vh - 48px);overflow-y:auto;padding-bottom:12px}
+  .toc a{border-bottom:0}
+  .toc a.on{color:var(--magenta)}
+  .prose{margin-right:300px}
+}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 4px;
+}
+h2{
+  font-family:var(--font-display);font-weight:690;font-stretch:104%;font-variation-settings:"wdth" 104;
+  font-size:clamp(1.42rem, 1.1rem + 1.1vw, 1.75rem);line-height:1.15;letter-spacing:-.01em;
+  margin:0 0 .7rem;text-wrap:balance;scroll-margin-top:20px;
+}
+h3{font-family:var(--font-display);font-weight:650;font-size:1.1rem;line-height:1.25;margin:1.6rem 0 .4rem;text-wrap:balance}
+p{margin:.75rem 0}
+.prose ul,.prose ol{padding-left:1.25rem;margin:.6rem 0}
+.prose li{margin:.3rem 0}
+strong{font-weight:640}
+.mono{font-family:var(--font-mono);font-size:.88em}
+.en{font-style:italic;color:var(--ink-2)}
+sub,sup{line-height:0}
+
+/* ---------- math ---------- */
+mjx-container[jax="SVG"][display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:3px 0;margin:.9em 0 !important}
+mjx-container[jax="SVG"]{outline:none}
+mjx-container .cE{fill:var(--magenta);stroke:var(--magenta)}
+mjx-container .cB{fill:var(--blue);stroke:var(--blue)}
+mjx-container .cR{fill:var(--red);stroke:var(--red)}
+mjx-container .cM{fill:var(--ink-3);stroke:var(--ink-3)}
+.key{
+  border:1.5px solid var(--magenta);border-radius:28px;
+  padding:0 1.3rem;width:fit-content;max-width:100%;margin:1.1rem auto;overflow-x:auto;
+  background:var(--sheet);
+}
+.key mjx-container[jax="SVG"][display="true"]{margin:.55em 0 !important}
+.key.blue{border-color:var(--blue)}
+
+/* ---------- notes ---------- */
+.note{
+  font-size:.9rem;line-height:1.5;color:var(--ink-2);
+  background:var(--sheet);border:1px solid var(--rule);border-radius:var(--radius);
+  padding:.8rem 1rem;margin:1rem 0;
+}
+.note p{margin:.35rem 0 0}
+.note .tag{
+  display:block;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+}
+.note.fix{background:var(--red-wash);border-color:transparent}
+.note.fix .tag{color:var(--red)}
+.note.more .tag{color:var(--blue)}
+.note.tip .tag{color:var(--magenta)}
+@media (min-width:1240px){
+  .note,.note.fix{float:right;clear:right;width:262px;margin:.2rem -300px 1rem 0;background:none;border:0;border-top:1px solid var(--rule);border-radius:0;padding:.55rem 0 0}
+  .wide{margin-right:-300px;clear:right}
+}
+
+/* ---------- lists of quantities ---------- */
+.defs{display:grid;gap:10px;margin:1rem 0;padding:0}
+.defs > div{display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:4px 14px;align-items:baseline}
+.defs dt{font-size:1.15rem;text-align:center}
+.defs dd{margin:0}
+.defs dd b{font-family:var(--font-display);font-weight:640;font-size:.95rem}
+
+/* ---------- panels, figures, tools ---------- */
+figure{margin:1.4rem 0}
+.panel{
+  border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet);
+  overflow:hidden;
+}
+.graph{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:20px 20px;background-position:-1px -1px;
+}
+.panel-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;
+  padding:12px 16px 10px;border-bottom:1px solid var(--rule);background:var(--sheet);
+}
+.panel-head h3{margin:0;font-size:1rem}
+.panel-head .hint{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
+figcaption{
+  font-family:var(--font-display);font-size:.84rem;line-height:1.45;color:var(--ink-2);
+  padding:10px 16px 12px;border-top:1px solid var(--rule);background:var(--sheet);
+}
+figure.bare figcaption{border-top:0;padding:8px 2px 0;background:none}
+.svgbox{display:block;width:100%;height:auto}
+.scroll-x{overflow-x:auto}
+canvas.sim{display:block;width:100%;touch-action:pan-y}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule);background:var(--sheet)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.seg button,.btn{
+  font-family:var(--font-display);font-size:.84rem;font-weight:560;color:var(--ink-2);
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:.32rem .75rem;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.seg button:hover,.btn:hover{border-color:var(--ink-3);color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--magenta);color:var(--magenta);background:var(--mag-wash)}
+.btn.icon{display:inline-flex;align-items:center;gap:.4rem}
+.slider{display:grid;grid-template-columns:auto minmax(110px,1fr) 4.6rem;gap:10px;align-items:center;flex:1 1 260px;min-width:0}
+.slider .lbl{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-2);white-space:nowrap}
+.slider output{font-family:var(--font-mono);font-size:.8rem;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--magenta);margin:0;min-width:0}
+.check{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-display);font-size:.84rem;color:var(--ink-2);cursor:pointer}
+.check input{accent-color:var(--magenta)}
+
+.readout{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;margin:0;
+  background:var(--sheet);border-top:1px solid var(--rule);
+}
+.readout > div{background:var(--sheet);padding:9px 14px 10px;min-width:0;box-shadow:0 0 0 1px var(--rule)}
+.readout dt{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-3)}
+.readout dd{margin:2px 0 0;font-family:var(--font-mono);font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere}
+.readout dd small{font-size:.74rem;color:var(--ink-3)}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 16px 0;font-family:var(--font-display);font-size:.82rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid currentColor}
+.legend i.ink{border-color:var(--ink)} .legend i.mag{border-color:var(--magenta)} .legend i.blue{border-color:var(--blue)} .legend i.mut{border-color:var(--ink-3)}
+.legend i.dash{border-top-style:dashed}
+
+/* SVG chart chrome (colors from tokens, never literals) */
+.ax line,.ax path{stroke:var(--rule);stroke-width:1;fill:none}
+.ax text,.lab{fill:var(--ink-3);font-family:var(--font-mono);font-size:11px}
+.lab.ink{fill:var(--ink-2)}
+.lab.strong{fill:var(--ink);font-weight:600}
+.grid-line{stroke:var(--rule);stroke-width:1}
+.s-mag{stroke:var(--magenta);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-blue{stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-ink{stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.s-mut{stroke:var(--ink-3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.s-dash{stroke-dasharray:5 5}
+.f-mag{fill:var(--magenta)} .f-blue{fill:var(--blue)} .f-ink{fill:var(--ink)} .f-mut{fill:var(--ink-3)}
+.f-sheet{fill:var(--sheet)} .f-paper{fill:var(--paper)}
+.w-mag{fill:var(--mag-wash)} .w-blue{fill:var(--blue-wash)} .w-red{fill:var(--red-wash)}
+.ring{stroke:var(--sheet);stroke-width:2}
+.ttip{
+  position:absolute;pointer-events:none;z-index:3;min-width:150px;
+  background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;
+  font-family:var(--font-mono);font-size:.74rem;color:var(--ink-2);box-shadow:0 6px 18px rgba(10,20,40,.12);
+}
+.ttip .row{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ttip .row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ttip .k{display:inline-block;width:12px;border-top:2px solid var(--ink-3)}
+.ttip .k.mag{border-color:var(--magenta)} .ttip .k.blue{border-color:var(--blue)}
+.ttip .h{color:var(--ink-3);margin-bottom:3px}
+.chartwrap{position:relative}
+
+/* ---------- tables ---------- */
+.tablebox{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet)}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem}
+table.data th,table.data td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--rule);vertical-align:baseline}
+table.data tr:last-child td{border-bottom:0}
+table.data th{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.02em;color:var(--ink-3);font-weight:600}
+table.data td.num{font-family:var(--font-mono);font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;padding:0;margin:1rem 0;counter-reset:st;display:grid;gap:4px}
+ol.steps > li{counter-increment:st;display:grid;grid-template-columns:2rem minmax(0,1fr);gap:0 12px;margin:0}
+ol.steps > li::before{
+  content:counter(st);font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--red);
+  border:1px solid var(--rule);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;margin-top:.2rem;
+  background:var(--sheet);
+}
+ol.steps > li > div{min-width:0}
+ol.steps > li p{margin:.2rem 0}
+
+/* ---------- quiz ---------- */
+.quiz details{border-top:1px solid var(--rule);padding:.15rem 0}
+.quiz details:last-of-type{border-bottom:1px solid var(--rule)}
+.quiz summary{cursor:pointer;padding:.6rem 2rem .6rem 0;list-style:none;position:relative;font-weight:560}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::after{
+  content:"+";position:absolute;right:4px;top:.45rem;font-family:var(--font-mono);font-size:1.1rem;color:var(--magenta);
+}
+.quiz details[open] summary::after{content:"−"}
+.quiz .ans{padding:0 0 .8rem;color:var(--ink-2)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding-block:22px 40px;font-family:var(--font-display);font-size:.84rem;color:var(--ink-3)}
+.foot p{margin:.3rem 0;max-width:80ch}
+
+@media (max-width:600px){
+  body{font-size:1.02rem}
+  .defs > div{grid-template-columns:2.6rem minmax(0,1fr)}
+  .slider{grid-template-columns:auto minmax(80px,1fr) 4.2rem;flex-basis:100%}
+  .key{padding:0 .8rem;border-radius:20px}
+}
+@media print{.toc,.controls,.series{display:none}}
+
+.next{margin-top:2.2rem;font-family:var(--font-display);font-size:.95rem}
+.next a{font-weight:600}
+.pk-bottom{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule)}
+.pk-bottom .legend{padding-bottom:6px}
+.disp-cell{min-width:0;background:var(--sheet)}
+@media (min-width:760px){
+  .pk-bottom{grid-template-columns:minmax(0,3fr) minmax(220px,2fr)}
+  .pk-read{border-top:0;border-left:1px solid var(--rule);grid-template-columns:repeat(2,minmax(0,1fr));align-content:stretch}
+}
+
+.nw{white-space:nowrap}
+
+.partmark{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 18px;align-items:center;margin:58px 0 6px;padding:18px 0 12px;border-top:2px solid var(--ink);scroll-margin-top:20px}
+.pm-letter{font-family:var(--font-display);font-weight:800;font-stretch:115%;font-variation-settings:"wdth" 115;font-size:3.3rem;line-height:.9;color:var(--magenta)}
+.pm-title{margin:0;font-family:var(--font-display);font-weight:720;font-size:1.4rem;letter-spacing:-.005em;line-height:1.2}
+.pm-sub{margin:.2rem 0 0;color:var(--ink-2);font-size:.95rem;line-height:1.4}
+.prose > .partmark + section{border-top:0;margin-top:6px;padding-top:6px}
+.thm-eqs{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule);background:var(--sheet)}
+@media (min-width:760px){.thm-eqs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .thm-eqs > div + div{border-left:1px solid var(--rule)}}
+.thm-eqs > div{padding:2px 16px 12px;min-width:0}
+.thm-eqs p{margin:0;font-size:.9rem;color:var(--ink-2)}
+.thm-eqs p.eq-cap{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-3);margin-top:.7rem}
+.maxwell-t td{vertical-align:middle}
+.toc .toc-group{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta);width:100%;margin-top:6px}
+@media (min-width:1240px){.toc .toc-group{margin-top:10px}}
+
+</style>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [["\\(","\\)"]], displayMath: [["\\[","\\]"]]},
+  svg: {fontCache: "global"},
+  options: {enableMenu: false}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+<header class="masthead" lang="tr">
+  <div class="wrap">
+    <nav class="kbm-crumbs" aria-label="Konum"><a href="../../../">KBM notları</a> › <a href="../../">602</a> › <a href="../../#nanofotonik">Nanofotonik</a> › Bölüm 0</nav>
+    <p class="kicker"><b>Nanofotonik</b><span>Ön hazırlık</span><span>Bölüm 0 / 4</span></p>
+    <h1>Sıfırdan Elektromanyetik Teori</h1>
+    <p class="lede">1–4. bölümlerin üzerine kurulduğu zemin: vektör alanları, diverjans ve rotasyonel, akı ve iki büyük teorem, kompleks dalgalar; sonra yükten dört Maxwell denklemine ve ışığa. EM teori dersi almamış biri için.</p>
+    <nav class="series" aria-label="Notların bölümleri">
+      <span class="item is-current" aria-current="page"><span class="n">0</span><span>Sıfırdan EM teorisi</span></span>
+      <a href="../1-faz-ve-grup-hizi/"><span class="n">1</span><span>Faz ve grup hızı</span></a>
+      <a href="../2-dalga-parcacik-ikiligi/"><span class="n">2</span><span>Dalga-parçacık ikiliği</span></a>
+      <a href="../3-maddede-isik/"><span class="n">3</span><span>Maddede ışık</span></a>
+      <a href="../4-maxwellden-dalga-denklemine/"><span class="n">4</span><span>Maxwell’den dalga denklemine</span></a>
+    </nav>
+  </div>
+</header>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="spectrum-scale" aria-hidden="true"></div>
+<div class="wrap layout" lang="tr">
+  <nav class="toc" aria-label="Bu sayfada">
+    <span class="toc-title">Bu sayfada</span>
+    <a href="#nasil">Bu bölüm ne için</a>
+    <span class="toc-group">A · Matematik</span>
+    <a href="#vektorler">Vektörler</a>
+    <a href="#alanlar">Alanlar ve gradyan</a>
+    <a href="#div-curl">Diverjans, rotasyonel</a>
+    <a href="#integraller">Akı ve teoremler</a>
+    <a href="#ozdeslikler">Laplasyen, özdeşlikler</a>
+    <a href="#kompleks">Kompleks dalgalar</a>
+    <span class="toc-group">B · Fizik</span>
+    <a href="#yuk">Yük ve E alanı</a>
+    <a href="#gauss">Gauss yasası</a>
+    <a href="#potansiyel">Potansiyel, dipol</a>
+    <a href="#akim">Akım ve B alanı</a>
+    <a href="#ampere">Ampère</a>
+    <a href="#faraday">Faraday ve Lenz</a>
+    <a href="#maxwell">Dört denklem</a>
+    <a href="#isik">Işık</a>
+    <a href="#madde">Maddeye bakış</a>
+    <span class="toc-group">C · Başvuru</span>
+    <a href="#sabitler">Sabitler ve semboller</a>
+    <a href="#test">Kendini test et</a>
+  </nav>
+  <article class="prose">
+<section id="nasil">
+  <p class="eyebrow" lang="en">Start here</p>
+  <h2>Bu bölüm ne için var?</h2>
+  <p>1–4. bölümler elektromanyetik teoriyi bildiğini varsayıyor: Maxwell denklemleri, diverjans, rotasyonel, akı, dipol, kompleks dalga gösterimi. Lisansta EM teori dersi almadıysan bu sayfa o zemini sıfırdan kuruyor. Türev, integral ve vektörlerle temel işlemleri bildiğini varsayıyorum; gerisini burada inşa ediyoruz.</p>
+  <p>İki kısım var. <strong>A</strong> matematik araçlarını kuruyor: alanlar, türev operatörleri, integraller ve kompleks dalgalar. <strong>B</strong> fiziği kuruyor: yükten başlayıp dört Maxwell denklemine ve ışığa kadar. Tablo hangi parçanın serinin neresinde kullanıldığını gösteriyor.</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Bu sayfada</th><th>Kullanıldığı yer</th></tr></thead>
+      <tbody>
+        <tr><td>Gradyan, diverjans, rotasyonel, Laplasyen</td><td>3 ve 4: Maxwell denklemlerinin tamamı</td></tr>
+        <tr><td>Akı, dolanım, diverjans ve Stokes teoremleri</td><td>4: integral formlar</td></tr>
+        <tr><td>Kompleks üstel, dalga denklemi, Fourier</td><td>1: faz ve grup hızı · 4: düzlem dalga</td></tr>
+        <tr><td>Coulomb, elektrik alan, Gauss yasası, dipol</td><td>3: polarizasyon ve D vektörü</td></tr>
+        <tr><td>Potansiyel ve elektronvolt</td><td>2: enerji birimleri</td></tr>
+        <tr><td>Akım, manyetik alan, Ampère, Faraday</td><td>3: manyetizasyon · 4: dört denklem</td></tr>
+        <tr><td>Yerdeğiştirme akımı</td><td>4: dalga denkleminin türetilmesi</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="note tip"><span class="tag">Okuma sırası</span><p>A’yı bir oturuşta hızlıca geç; takıldığın yerde gezginle oyna. B’yi sırayla oku, her alt başlık bir öncekinin üstüne kuruluyor. Sonra 1’den 4’e devam et.</p></aside>
+</section>
+
+<div class="partmark" id="kisim-a"><span class="pm-letter">A</span><div><p class="pm-title">Matematik araçları</p><p class="pm-sub">Vektörler, alanlar, türev operatörleri, integraller ve kompleks dalgalar</p></div></div>
+
+<section id="vektorler">
+  <p class="eyebrow" lang="en">Vectors</p>
+  <h2>Vektörler ve iki çarpım</h2>
+  <p>Üç boyutta bir vektör birim vektörlerle yazılır: <span class="nw">\(\vec A = A_x\hat x + A_y\hat y + A_z\hat z\),</span> büyüklüğü <span class="nw">\(|\vec A| = \sqrt{A_x^2+A_y^2+A_z^2}\).</span> Fizikte iki çarpım sürekli karşına çıkacak.</p>
+  <figure class="panel">
+    <div class="graph"><svg id="vec" class="svgbox" role="img" aria-label="Solda b vektörünün a üzerindeki izdüşümü, uzunluğu b çarpı kosinüs teta. Sağda a ve b’nin gerdiği paralelkenar; alanı a çarpı b çarpı sinüs teta, a çarpı b vektörü sayfadan dışarı."></svg></div>
+    <figcaption>Solda nokta çarpım: <span class="nw">\(\vec b\)’nin</span> \(\vec a\) doğrultusundaki payı. Sağda vektörel çarpım: iki vektörün gerdiği paralelkenarın alanı; sonuç vektörü ikisine de dik, burada sayfadan dışarı.</figcaption>
+  </figure>
+  <h3>Nokta çarpım <span class="en">dot product</span></h3>
+  \[ \vec A\cdot\vec B = A_xB_x + A_yB_y + A_zB_z = |\vec A|\,|\vec B|\cos\theta \]
+  <p>Sonuç bir sayıdır. Bir vektörün diğerinin doğrultusundaki payını ölçer: dik vektörlerde sıfır, paralel vektörlerde en büyük. Fizikte iş \(W = \vec F\cdot\vec d\) ve akı \(\vec E\cdot d\vec a\) böyle hesaplanır.</p>
+  <h3>Vektörel çarpım <span class="en">cross product</span></h3>
+  \[ \vec A\times\vec B = \begin{vmatrix}\hat x&amp;\hat y&amp;\hat z\\ A_x&amp;A_y&amp;A_z\\ B_x&amp;B_y&amp;B_z\end{vmatrix}, \qquad |\vec A\times\vec B| = |\vec A|\,|\vec B|\sin\theta \]
+  <p>Sonuç bir vektördür ve iki vektöre de diktir. Yönü sağ el kuralıyla bulunur: sağ elinin parmakları <span class="nw">\(\vec A\)’dan</span> <span class="nw">\(\vec B\)’ye</span> kıvrılırken başparmak sonucu gösterir. Büyüklüğü iki vektörün gerdiği paralelkenarın alanıdır. Paralel vektörlerde sıfırdır ve sıra önemlidir: <span class="nw">\(\vec B\times\vec A = -\vec A\times\vec B\).</span> Fizikte manyetik kuvvet \(q\,\vec v\times\vec B\) ve rotasyonel bu çarpımdan gelir.</p>
+</section>
+
+<section id="alanlar">
+  <p class="eyebrow" lang="en">Fields · Gradient</p>
+  <h2>Alanlar ve gradyan</h2>
+  <p>Alan, uzayın her noktasına bir değer atayan fonksiyondur. <strong>Skaler alan</strong> her noktaya bir sayı atar: bir odadaki sıcaklık \(T(x,y,z)\) ya da elektrik potansiyeli <span class="nw">\(V\).</span> <strong>Vektör alanı</strong> her noktaya bir vektör atar: rüzgâr hızı, elektrik alan <span class="nw">\(\vec E\),</span> manyetik alan <span class="nw">\(\vec B\).</span> Elektromanyetizma vektör alanlarının dilidir.</p>
+  <p>Kısmi türev <span class="nw">\(\partial f/\partial x\),</span> diğer koordinatlar sabitken <span class="nw">\(f\)’nin</span> yalnızca \(x\) yönündeki değişimidir. Üç kısmi türevi bir vektörde toplayınca gradyan çıkar:</p>
+  <div class="key">\[ \nabla f = \frac{\partial f}{\partial x}\hat x + \frac{\partial f}{\partial y}\hat y + \frac{\partial f}{\partial z}\hat z \]</div>
+  <p>Optimizasyondan tanıdığın gradyanla aynı nesne. Yönü <span class="nw">\(f\)’nin</span> en hızlı arttığı yön, büyüklüğü o yöndeki artış hızı; eş değer yüzeylerine (kontur çizgilerine) her yerde diktir. Herhangi bir \(\hat u\) yönündeki değişim \(\nabla f\cdot\hat u\) ile bulunur.</p>
+  <p>Buradaki \(\nabla\) (nabla) bir vektör operatörüdür: <span class="nw">\(\nabla = \hat x\,\partial_x + \hat y\,\partial_y + \hat z\,\partial_z\).</span> Onu bir vektör gibi kullanmanın üç yolu var ve Maxwell denklemlerinin hepsi bu üçüyle yazılır:</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>İşlem</th><th>Neye uygulanır</th><th>Sonuç</th><th>Ne ölçer</th></tr></thead>
+      <tbody>
+        <tr><td>Gradyan \(\nabla f\)</td><td>skaler</td><td>vektör</td><td>en hızlı artışın yönü ve hızı</td></tr>
+        <tr><td>Diverjans \(\nabla\cdot\vec F\)</td><td>vektör</td><td>skaler</td><td>bir noktadan dışarı net akış</td></tr>
+        <tr><td>Rotasyonel \(\nabla\times\vec F\)</td><td>vektör</td><td>vektör</td><td>bir nokta etrafındaki dolanım</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="div-curl">
+  <p class="eyebrow" lang="en">Divergence · Curl</p>
+  <h2>Diverjans ve rotasyonel</h2>
+  <p>Bir vektör alanını su akışı gibi düşün. İki soru sorabilirsin: bir noktadan su fışkırıyor mu, ve su bir noktanın etrafında dönüyor mu? Diverjans birincisini, rotasyonel ikincisini ölçer.</p>
+  <h3>Diverjans: kaynak ve kuyu</h3>
+  <p>Noktanın etrafına küçük bir kapalı yüzey koy, dışarı çıkan net akıyı hacme böl. Hacim sıfıra giderken kalan sayı diverjanstır:</p>
+  \[ \nabla\cdot\vec F = \lim_{\Delta V\to 0}\frac{1}{\Delta V}\oint_S \vec F\cdot d\vec a = \frac{\partial F_x}{\partial x} + \frac{\partial F_y}{\partial y} + \frac{\partial F_z}{\partial z} \]
+  <p>Pozitifse nokta bir kaynaktır, negatifse kuyu. Örnek: \(\vec F = (x, y, z)\) için <span class="nw">\(\nabla\cdot\vec F = 3\);</span> her nokta dışarı akan bir kaynak.</p>
+  <h3>Rotasyonel: dolanım</h3>
+  <p>Noktanın etrafına küçük bir halka koy, alanı halka boyunca topla (dolanım) ve halkanın alanına böl. Sonuç, rotasyonelin halka düzlemine dik bileşenidir. Bileşenleriyle:</p>
+  \[ \nabla\times\vec F = \begin{vmatrix}\hat x&amp;\hat y&amp;\hat z\\ \partial_x&amp;\partial_y&amp;\partial_z\\ F_x&amp;F_y&amp;F_z\end{vmatrix} \qquad \begin{aligned} (\nabla\times\vec F)_x &amp;= \partial_y F_z - \partial_z F_y \\ (\nabla\times\vec F)_y &amp;= \partial_z F_x - \partial_x F_z \\ (\nabla\times\vec F)_z &amp;= \partial_x F_y - \partial_y F_x \end{aligned} \]
+  <p>Akışa küçük bir çark koyduğunu düşün. Rotasyonel sıfır değilse çark döner; açısal hızı rotasyonelin yarısıdır. Örnek: \(\vec F = (-y, x, 0)\) için <span class="nw">\(\nabla\times\vec F = 2\hat z\).</span></p>
+  <figure class="panel wide" id="fx">
+    <div class="panel-head"><h3>Vektör alanı gezgini</h3><span class="hint">halkayı sürükle · çark rotasyoneli, kenardaki çizgiler akıyı gösterir</span></div>
+    <div class="graph"><canvas id="fx-c" class="sim" tabindex="0" role="img" aria-label="İki boyutlu vektör alanı okları, sürüklenebilir bir halka, halkanın kenarında alanın dik bileşenini gösteren çizgiler ve merkezde dönen bir çark."></canvas></div>
+    <div class="controls">
+      <div class="seg" id="fx-pre" role="group" aria-label="Alan">
+        <button data-v="src" aria-pressed="true">Kaynak</button>
+        <button data-v="sink" aria-pressed="false">Kuyu</button>
+        <button data-v="unif" aria-pressed="false">Düzgün</button>
+        <button data-v="vortex" aria-pressed="false">Girdap</button>
+        <button data-v="shear" aria-pressed="false">Kayma</button>
+        <button data-v="saddle" aria-pressed="false">Eyer</button>
+        <button data-v="grad" aria-pressed="false">Tepenin gradyanı</button>
+        <button data-v="line" aria-pressed="false">Yüklü tel</button>
+        <button data-v="wire" aria-pressed="false">Akım teli</button>
+      </div>
+    </div>
+    <dl class="readout">
+      <div><dt>Alan F(x, y)</dt><dd id="fx-f">–</dd></div>
+      <div><dt>Merkezde ∇·F</dt><dd id="fx-div">–</dd></div>
+      <div><dt>Merkezde (∇×F)z</dt><dd id="fx-curl">–</dd></div>
+      <div><dt>Halkadan net akı ∮F·n dl</dt><dd id="fx-flux">–</dd></div>
+      <div><dt>Halka boyunca dolanım ∮F·dl</dt><dd id="fx-circ">–</dd></div>
+      <div><dt>Halkanın alanı</dt><dd id="fx-area">–</dd></div>
+    </dl>
+    <figcaption>Halkanın kenarındaki çizgiler alanın halkaya dik bileşenini gösteriyor: magenta dışarı, mavi içeri. Merkezdeki çark yerel rotasyonelle dönüyor. Küçük bir halkada net akı ≈ diverjans × alan, dolanım ≈ rotasyonel × alan; bu iki satır bir sonraki başlıktaki teoremlerin ta kendisi.</figcaption>
+  </figure>
+  <p>Gezginde üç ders saklı. <strong>Kayma</strong> alanının çizgileri dümdüz ama çark dönüyor: üstteki katman alttakinden hızlı aktığı için. <strong>Akım teli</strong> alanının çizgileri çember, ama telin dışında hiçbir noktada çark dönmüyor; yine de teli içine alan bir halkada dolanım 2π. Bütün dolanım teldeki tekil noktadan geliyor ve Ampère yasası tam olarak bunu söyleyecek. <strong>Yüklü tel</strong> alanında da yükün dışında her yerde diverjans sıfır, ama yükü içine alan halkadan net akı çıkıyor: Gauss yasası.</p>
+</section>
+
+<section id="integraller">
+  <p class="eyebrow" lang="en">Line and surface integrals</p>
+  <h2>Akı, dolanım ve iki büyük teorem</h2>
+  <p><strong>Çizgi integrali</strong> bir eğri boyunca alanın eğriye teğet bileşenini toplar: <span class="nw">\(\int_C \vec F\cdot d\vec l\).</span> Kuvvet alanında bu yapılan iştir. Eğri kapalıysa \(\oint_C\) yazılır ve sonuca <strong>dolanım</strong> <span class="en">circulation</span> denir.</p>
+  <p><strong>Yüzey integrali</strong> bir yüzeyden geçen alanı toplar: <span class="nw">\(\int_S \vec F\cdot d\vec a\).</span> Burada <span class="nw">\(d\vec a = \hat n\,da\),</span> yüzeye dik ve büyüklüğü küçük yüzey parçasının alanı olan vektör. Sonuç <strong>akıdır</strong> <span class="en">flux</span>: alan çizgilerinden kaçının yüzeyi deldiğinin ölçüsü. Kapalı yüzeyde \(\hat n\) dışarı bakar. Açık yüzeyde yön, sınır eğrisinin dönüş yönüne sağ el kuralıyla bağlanır.</p>
+  <figure class="panel wide">
+    <div class="graph"><svg id="thm" class="svgbox" role="img" aria-label="Solda içinde kaynaklar olan kapalı bir yüzey ve dışarı bakan yüzey elemanları. Sağda sınırı C eğrisi olan açık bir yüzey, üzerinde küçük dolanımlar ve normal vektör."></svg></div>
+    <div class="thm-eqs">
+      <div><p class="eq-cap">Diverjans (Gauss) teoremi</p>\[ \int_V (\nabla\cdot\vec F)\,dV = \oint_S \vec F\cdot d\vec a \]<p>Hacmin içindeki kaynakların toplamı, kapalı yüzeyden çıkan net akıya eşit.</p></div>
+      <div><p class="eq-cap">Stokes teoremi</p>\[ \int_S (\nabla\times\vec F)\cdot d\vec a = \oint_C \vec F\cdot d\vec l \]<p>Yüzeydeki küçük dolanımlar komşularıyla birbirini götürür; geriye sınır eğrisi boyunca dolanım kalır.</p></div>
+    </div>
+    <figcaption>İki teoremin fikri aynı: içerideki küçük katkılar komşularıyla birbirini götürür, geriye yalnızca sınır kalır.</figcaption>
+  </figure>
+  <p>Tek değişkenli analizden tanıdığın \(\int_a^b f'(x)\,dx = f(b) - f(a)\) bu fikrin bir boyutlu hali: içerideki türevlerin toplamı sınırdaki değerlere eşit. Maxwell denklemlerinin diferansiyel ve integral formları arasında bu iki teoremle gidip geliriz; 4. bölümdeki “integral forms” sütunu buradan çıkıyor.</p>
+</section>
+
+<section id="ozdeslikler">
+  <p class="eyebrow" lang="en">Laplacian · Identities</p>
+  <h2>Laplasyen ve üç özdeşlik</h2>
+  <p>Gradyanın diverjansı Laplasyendir:</p>
+  <div class="key">\[ \nabla^2 f = \nabla\cdot(\nabla f) = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} \]</div>
+  <p>Bir noktadaki değerin, çevresindeki değerlerin ortalamasından ne kadar saptığını ölçer. Tepede <span class="nw">\(\nabla^2 f \lt 0\),</span> çukurda <span class="nw">\(\nabla^2 f \gt 0\).</span> \(\nabla^2 f = 0\) olan bir fonksiyonun içeride tepesi ya da çukuru olamaz; her nokta komşularının ortalamasıdır. Gezgindeki “tepenin gradyanı” alanında diverjans tepenin üstünde negatif, eteklerde pozitif: o diverjans <span class="nw">\(\nabla^2 f\)’nin</span> kendisi.</p>
+  <p>Seride sürekli kullanılan üç özdeşlik:</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Özdeşlik</th><th>Anlamı</th><th>Nerede lazım</th></tr></thead>
+      <tbody>
+        <tr><td>\(\nabla\times(\nabla f) = 0\)</td><td>gradyan alanları dönmez</td><td>elektrostatikte <span class="nw">\(\nabla\times\vec E = 0\),</span> bu yüzden \(\vec E = -\nabla V\)</td></tr>
+        <tr><td>\(\nabla\cdot(\nabla\times\vec F) = 0\)</td><td>rotasyonel alanlarının kaynağı yoktur</td><td>yük korunumu ve Maxwell’in düzeltmesi</td></tr>
+        <tr><td>\(\nabla\times(\nabla\times\vec F) = \nabla(\nabla\cdot\vec F) - \nabla^2\vec F\)</td><td>BAC-CAB kuralı</td><td>dalga denkleminin türetilmesi, 4. bölüm</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Son bir sonuç, Helmholtz teoremi: sonsuzda sönen bir vektör alanı, diverjansı ve rotasyoneli bilinince tamamen belirlenir. Maxwell denklemlerinin tam olarak iki diverjans ve iki rotasyonel denkleminden oluşmasının sebebi bu; \(\vec E\) ve <span class="nw">\(\vec B\)’yi</span> belirlemek için gereken her şey bunlar.</p>
+</section>
+
+<section id="kompleks">
+  <p class="eyebrow" lang="en">Complex exponentials · Waves</p>
+  <h2>Kompleks üstel ve dalga denklemi</h2>
+  <h3>Euler formülü</h3>
+  <div class="key">\[ e^{i\theta} = \cos\theta + i\sin\theta \]</div>
+  <p>\(e^{i\theta}\) kompleks düzlemde birim çember üzerinde, açısı \(\theta\) olan bir noktadır. \(\theta\) değiştikçe nokta çember üzerinde döner; gerçek kısmı <span class="nw">\(\cos\theta\),</span> sanal kısmı <span class="nw">\(\sin\theta\).</span> Bir sayıyı \(e^{i\theta}\) ile çarpmak onu \(\theta\) kadar döndürmek demektir.</p>
+  <h3>Dalgaları neden kompleks yazıyoruz?</h3>
+  <p>Çünkü türev almak çarpmaya dönüşür:</p>
+  \[ \frac{\partial}{\partial x}\,e^{i(kx-\omega t)} = ik\,e^{i(kx-\omega t)}, \qquad \frac{\partial}{\partial t}\,e^{i(kx-\omega t)} = -i\omega\,e^{i(kx-\omega t)} \]
+  <p>Diferansiyel denklemler cebire iner: <span class="nw">\(\partial/\partial x \to ik\),</span> <span class="nw">\(\partial/\partial t \to -i\omega\).</span> Fiziksel alan gerçek bir sayıdır; hesabı kompleks yapıp sonunda gerçek kısmı alırız: <span class="nw">\(E(x,t) = \mathrm{Re}\{E_0\,e^{i(kx-\omega t)}\} = E_0\cos(kx-\omega t)\).</span> Denklemler doğrusal olduğu sürece bu güvenli. 4. bölümdeki düzlem dalga hesabı tam olarak bu adımı kullanıyor.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>Fazör ve dalga</h3><span class="hint">kompleks düzlemde Re ekseni dikey çizildi</span></div>
+    <div class="graph"><canvas id="ph-c" class="sim" role="img" aria-label="Solda kompleks düzlemde saat yönünde dönen birim vektör, sağda aynı fazörün gerçek kısmından oluşan ve sağa ilerleyen kosinüs dalgası."></canvas></div>
+    <div class="controls">
+      <label class="slider" for="ph-w"><span class="lbl">ω</span><input type="range" id="ph-w" min="0.5" max="3" step="0.05" value="2"><output id="ph-wo" for="ph-w">2.00</output></label>
+      <label class="slider" for="ph-k"><span class="lbl">k</span><input type="range" id="ph-k" min="0.5" max="4" step="0.05" value="2.5"><output id="ph-ko" for="ph-k">2.50</output></label>
+      <label class="check" for="ph-d"><input type="checkbox" id="ph-d"> ∂/∂t’yi göster</label>
+      <button class="btn" id="ph-play" type="button">Duraklat</button>
+    </div>
+    <dl class="readout">
+      <div><dt>λ = 2π/k</dt><dd id="ph-l">–</dd></div>
+      <div><dt>T = 2π/ω</dt><dd id="ph-t">–</dd></div>
+      <div><dt>v = ω/k</dt><dd id="ph-v">–</dd></div>
+    </dl>
+    <figcaption>Soldaki vektör <span class="nw">\(e^{i(kx-\omega t)}\)’nin</span> <span class="nw">\(x = 0\)’daki</span> değeri; \(-\omega t\) yüzünden saat yönünde dönüyor. Kesikli çizgi gerçek kısmını sağdaki dalganın sol ucuna taşıyor; dalga \(v = \omega/k\) ile sağa ilerliyor. Türev seçeneği <span class="nw">\(-i\omega\,e^{i\varphi}\)’yi</span> gösteriyor: zamana göre türev almak, fazörü 90° döndürüp ω ile çarpmak demek.</figcaption>
+  </figure>
+  <h3>Dalga denklemi</h3>
+  <p>Gerilmiş bir ip, ses ya da ışık: hepsi aynı denklemi sağlar.</p>
+  <div class="key">\[ \frac{\partial^2 u}{\partial x^2} = \frac{1}{v^2}\,\frac{\partial^2 u}{\partial t^2} \]</div>
+  <p>Çözümü şaşırtıcı derecede basit: herhangi bir \(f\) şekli için \(u(x,t) = f(x - vt)\) bir çözümdür. Yerine koy: sol taraf <span class="nw">\(f''\),</span> sağ taraf <span class="nw">\(v^2 f''/v^2 = f''\).</span> Yani şekil bozulmadan \(v\) hızıyla sağa kayar; \(g(x+vt)\) aynı şekilde sola kayar.</p>
+  <p>Harmonik dalga \(u = A\cos(kx-\omega t)\) yerine konunca <span class="nw">\(-k^2 = -\omega^2/v^2\),</span> yani \(\omega = vk\) çıkar. Bu, 1. bölümdeki dispersiyon bağıntısının en basit hali.</p>
+  <h3>Süperpozisyon ve Fourier</h3>
+  <p>Denklem doğrusal olduğu için çözümlerin toplamı da çözümdür. Fourier’in sonucu: makul her şekil, farklı \(k\) değerlerindeki harmonik dalgaların toplamı olarak yazılabilir:</p>
+  \[ u(x,t) = \int A(k)\,e^{i(kx-\omega(k)t)}\,dk \]
+  <p>1. bölümdeki dalga paketi ve grup hızı bu formülün üstüne kurulu: \(\omega(k)\) doğrusal değilse bileşenler farklı hızlarda gider ve paket şekil değiştirir.</p>
+</section>
+
+<div class="partmark" id="kisim-b"><span class="pm-letter">B</span><div><p class="pm-title">Elektromanyetizma</p><p class="pm-sub">Yükten dört Maxwell denklemine ve ışığa</p></div></div>
+
+<section id="yuk">
+  <p class="eyebrow" lang="en">Charge · Coulomb’s law · Electric field</p>
+  <h2>Yük, Coulomb yasası ve elektrik alan</h2>
+  <p>Elektrik yükü iki türlüdür, artı ve eksi; aynı işaretliler iter, zıtlar çeker. Yük kuantumludur: her yük temel yükün, \(e = 1.602\times10^{-19}\) C’nin tam katıdır. Ve korunur: toplam yük hiçbir süreçte değişmez.</p>
+  <p>İki nokta yük arasındaki kuvvet Coulomb yasasıyla verilir:</p>
+  <div class="key">\[ \vec F = \frac{1}{4\pi\varepsilon_0}\,\frac{q_1q_2}{r^2}\,\hat r \]</div>
+  <p>\(\hat r\) bir yükten diğerine bakan birim vektör, \(1/4\pi\varepsilon_0 = 8.99\times10^9\) N·m²/C². \(\varepsilon_0 = 8.854\times10^{-12}\) C²/(N·m²) vakumun elektriksel geçirgenliği; 3. bölümdeki \(\varepsilon_r\) bununla karşılaştırılır. Birden fazla yük varsa kuvvetler vektörel olarak toplanır: süperpozisyon.</p>
+  <h3>Elektrik alan</h3>
+  <p>Kuvveti iki adıma ayırmak çok daha güçlü bir fikir: yük çevresindeki uzayda bir alan yaratır, başka bir yük o alanı hisseder. Elektrik alan, küçük bir deneme yüküne birim yük başına etki eden kuvvettir:</p>
+  \[ \vec E = \frac{\vec F}{q}, \qquad \text{nokta yük için}\quad \vec E = \frac{1}{4\pi\varepsilon_0}\,\frac{Q}{r^2}\,\hat r \]
+  <p>Birimi N/C, eşdeğer olarak V/m. Alan çizgileri artı yükten başlar, eksi yükte biter ve birbirini kesmez; çizgilerin sıklığı alanın şiddetini gösterir.</p>
+  <aside class="note more"><span class="tag">Ölçek</span><p>Hidrojende elektronun bulunduğu mesafede (0.053 nm) protonun alanı yaklaşık 5×10¹¹ V/m. Güneş ışığının alanı yaklaşık 900 V/m. Arada 6×10⁸ kat fark var; sıradan ışık atomu ancak hafifçe dürtebilir. Bu yüzden maddenin ışığa tepkisi neredeyse her zaman doğrusal. Alan atomik değere yaklaştıkça, yani güçlü lazerlerde, 3. bölümdeki doğrusal olmayan terimler devreye girer.</p></aside>
+</section>
+
+<section id="gauss">
+  <p class="eyebrow" lang="en">Flux · Gauss’s law</p>
+  <h2>Elektrik akısı ve Gauss yasası</h2>
+  <p>Elektrik akısı, bir yüzeyden geçen alan çizgilerinin ölçüsüdür: <span class="nw">\(\Phi_E = \int_S \vec E\cdot d\vec a\).</span> Bir nokta yükü merkezine alan \(R\) yarıçaplı bir küre düşün. Alan küreye her yerde dik, büyüklüğü <span class="nw">\(Q/4\pi\varepsilon_0R^2\);</span> kürenin alanı <span class="nw">\(4\pi R^2\).</span> Çarpınca:</p>
+  \[ \oint_S \vec E\cdot d\vec a = \frac{Q}{4\pi\varepsilon_0R^2}\cdot 4\pi R^2 = \frac{Q}{\varepsilon_0} \]
+  <p>\(R\) sadeleşti: alan \(1/r^2\) ile azalırken yüzey \(r^2\) ile büyüyor. Sonuç kürenin büyüklüğüne bağlı değil, şekline de bağlı değil. Kapalı yüzeyin dışındaki yüklerin çizgileri yüzeye bir yerden girip başka bir yerden çıkar; net katkıları sıfırdır. Gauss yasası:</p>
+  <div class="key">\[ \oint_S \vec E\cdot d\vec a = \frac{Q_{\text{iç}}}{\varepsilon_0} \]</div>
+  <p>Sol tarafa diverjans teoremini uygula, yükü de yük yoğunluğunun integrali olarak yaz: <span class="nw">\(\int_V \nabla\cdot\vec E\,dV = \int_V \rho/\varepsilon_0\,dV\).</span> Bu her hacim için doğru olduğuna göre integrallerin içleri eşit olmalı:</p>
+  <div class="key">\[ \nabla\cdot\vec E = \frac{\rho}{\varepsilon_0} \]</div>
+  <p>Maxwell’in birinci denklemi bu: yükler elektrik alanın kaynaklarıdır. 3. bölümde maddede bunun \(\nabla\cdot\vec D = \rho_f\) haline geldiğini göreceksin.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>Gauss yasası laboratuvarı</h3><span class="hint">yükleri ve kesikli çemberi sürükle</span></div>
+    <div class="graph"><canvas id="gl-c" class="sim" tabindex="0" role="img" aria-label="Artı ve eksi yüklerin alan okları ve sürüklenebilir kesikli bir Gauss yüzeyi; yüzeyin kenarında alanın dışarı ve içeri bileşenleri işaretli."></canvas></div>
+    <div class="controls">
+      <div class="seg">
+        <button class="btn" id="gl-plus" type="button">+ yük ekle</button>
+        <button class="btn" id="gl-minus" type="button">− yük ekle</button>
+        <button class="btn" id="gl-reset" type="button">Baştan</button>
+      </div>
+      <label class="slider" for="gl-r"><span class="lbl">yarıçap</span><input type="range" id="gl-r" min="0.15" max="0.95" step="0.01" value="0.5"><output id="gl-ro" for="gl-r">0.50</output></label>
+    </div>
+    <dl class="readout">
+      <div><dt>Yüzeyin içindeki yük</dt><dd id="gl-in">–</dd></div>
+      <div><dt>Ölçülen net akı × ε₀</dt><dd id="gl-flux">–</dd></div>
+      <div><dt>Dışarıdaki yük</dt><dd id="gl-out">–</dd></div>
+    </dl>
+    <figcaption>İki boyutlu kesit: her nokta, sayfaya dik sonsuz uzun yüklü bir tel. Bu geometride Gauss yasası çember için birebir aynı şekilde çalışır. Akı, çemberin 720 noktasında alanın dik bileşeni toplanarak sayısal olarak hesaplanıyor. Çemberi büyüt, küçült, şeklini kaydır: içerideki yük değişmedikçe akı değişmiyor; dışarıdaki yükler hiçbir şey eklemiyor.</figcaption>
+  </figure>
+  <h3>İki kullanışlı sonuç</h3>
+  <p>Simetrik durumlarda Gauss yasası alanı tek satırda verir. Yüzey yük yoğunluğu \(\sigma\) olan sonsuz bir düzlemin alanı iki yanda da <span class="nw">\(E = \sigma/2\varepsilon_0\).</span> Zıt yüklü iki paralel levhanın alanları arada toplanır, dışarıda birbirini götürür: içeride <span class="nw">\(E = \sigma/\varepsilon_0\),</span> dışarıda sıfır. 3. bölümdeki kondansatör figürü bu düzeneğin içine bir dielektrik koyuyor.</p>
+</section>
+
+<section id="potansiyel">
+  <p class="eyebrow" lang="en">Potential · Conductors · Dipoles</p>
+  <h2>Potansiyel, iletkenler ve dipol</h2>
+  <p>Durağan yüklerin alanında bir yükü kapalı bir yolda gezdirirsen yapılan toplam iş sıfırdır: <span class="nw">\(\oint\vec E\cdot d\vec l = 0\),</span> Stokes ile <span class="nw">\(\nabla\times\vec E = 0\).</span> Rotasyoneli sıfır olan bir alan, bir skalerin gradyanı olarak yazılabilir (birinci özdeşlik):</p>
+  <div class="key">\[ \vec E = -\nabla V \]</div>
+  <p>\(V\) elektrik potansiyeli: birim yük başına potansiyel enerji, birimi volt (J/C). Eksi işaret, alanın potansiyelin azaldığı yöne baktığını söyler. Eş potansiyel yüzeyler alan çizgilerine diktir.</p>
+  <aside class="note tip"><span class="tag">2. bölüme köprü</span><p>Bir elektron 1 V’luk potansiyel farkından geçince \(e\times 1\ \mathrm V = 1.602\times10^{-19}\) J enerji kazanır. Bu enerji birimine elektronvolt denir. 2. bölümdeki “10 eV’luk elektron”, 10 V ile hızlandırılmış bir elektron demek.</p></aside>
+  <p><span class="nw">\(\vec E = -\nabla V\)’yi</span> Gauss yasasına koyunca Poisson denklemi çıkar; yüksüz bölgede Laplace denklemine iner. 4. bölümdeki tabloda bu ikisi var:</p>
+  \[ \nabla^2 V = -\frac{\rho}{\varepsilon_0}, \qquad \rho = 0 \text{ ise } \nabla^2 V = 0 \]
+  <h3>İletkenler</h3>
+  <p>Metalde serbest elektronlar alan olduğu sürece hareket eder; içerideki alan sıfırlanınca dururlar. Durağan halde iletkenin içinde <span class="nw">\(\vec E = 0\),</span> bütün iletken aynı potansiyelde, fazla yük yüzeyde ve dışarıdaki alan yüzeye dik. 3. bölümdeki “metalde E = 0” ifadesi bu.</p>
+  <h3>Dipol</h3>
+  <p>Aralarında \(\vec d\) mesafesi olan \(+q\) ve \(-q\) bir dipol oluşturur. Dipol momenti <span class="nw">\(\vec p = q\vec d\),</span> eksi yükten artıya bakar. Net yük sıfır olduğu için uzaktan alanı nokta yükünkinden hızlı söner, \(1/r^3\) ile. Düzgün bir alanda dipole tork etkir, <span class="nw">\(\vec\tau = \vec p\times\vec E\),</span> ve onu alana paralel çevirmeye çalışır. Nötr bir atom alanın içinde kendisi bir dipole dönüşür: elektron bulutu bir yana, çekirdek öbür yana çekilir. 3. bölümdeki polarizasyonun başlangıç noktası bu.</p>
+</section>
+
+<section id="akim">
+  <p class="eyebrow" lang="en">Current · Magnetic field · Lorentz force</p>
+  <h2>Akım ve manyetik alan</h2>
+  <p>Akım, birim zamanda geçen yüktür: <span class="nw">\(I = dQ/dt\),</span> birimi amper (C/s). Yükün uzaydaki akışını <strong>akım yoğunluğu</strong> \(\vec J\) (A/m²) anlatır; \(n\) yoğunluklu, \(q\) yüklü, \(\vec v\) hızlı taşıyıcılar için <span class="nw">\(\vec J = nq\vec v\).</span> Bir yüzeyden geçen akım <span class="nw">\(I = \int_S \vec J\cdot d\vec a\).</span></p>
+  <h3>Süreklilik denklemi</h3>
+  <p>Yük korunduğu için kapalı bir yüzeyden dışarı akan akım, içerideki yükü azaltmak zorunda: <span class="nw">\(\oint_S \vec J\cdot d\vec a = -dQ_{\text{iç}}/dt\).</span> Diverjans teoremiyle yerel hali:</p>
+  <div class="key">\[ \nabla\cdot\vec J + \frac{\partial\rho}{\partial t} = 0 \]</div>
+  <h3>Lorentz kuvveti</h3>
+  <p>Hareketli yükler elektrik alana ek olarak manyetik bir kuvvet de hisseder. Bir yüke etkiyen toplam kuvvet:</p>
+  <div class="key">\[ \vec F = q\big(\vec E + \vec v\times\vec B\big) \]</div>
+  <p>Manyetik kuvvet hıza diktir, bu yüzden iş yapmaz: parçacığın hızının büyüklüğünü değil yönünü değiştirir ve onu çember ya da sarmal üzerinde döndürür. <span class="nw">\(\vec B\)’nin</span> birimi tesla, T = N/(A·m). Dünyanın alanı yaklaşık 50 µT, bir MR cihazınınki 1.5–3 T.</p>
+  <h3>Manyetik alanın kaynağı: akım</h3>
+  <p>Manyetik alanı hareketli yükler, yani akımlar üretir. Düz ve uzun bir telin alanı teli çevreleyen çemberlerdir ve uzaklıkla azalır:</p>
+  \[ B = \frac{\mu_0 I}{2\pi r}, \qquad \mu_0 = 4\pi\times10^{-7}\ \mathrm{T\,m/A} \]
+  <figure class="panel">
+    <div class="graph"><svg id="wire" class="svgbox" role="img" aria-label="Sayfadan dışarı akım taşıyan telin kesiti ve etrafında saat yönünün tersine dönen, uzaklaştıkça seyrekleşen manyetik alan çemberleri."></svg></div>
+    <figcaption>Akım sayfadan dışarı akıyor. Sağ elinin başparmağını akım yönüne tut: parmakların <span class="nw">\(\vec B\)’nin</span> dönüş yönünü gösterir, burada saat yönünün tersi. Oklar \(1/r\) ile kısalıyor.</figcaption>
+  </figure>
+  <p>Genel durumda alan Biot–Savart yasasıyla hesaplanır, <span class="nw">\(d\vec B = \frac{\mu_0}{4\pi}\,\frac{I\,d\vec l\times\hat r}{r^2}\):</span> Coulomb yasasının manyetik karşılığı. \(\mu_0\) vakumun manyetik geçirgenliği; 3. bölümdeki \(\mu_r\) bununla karşılaştırılır.</p>
+  <h3>Manyetik yük yok</h3>
+  <p>Elektrik alan çizgileri yükte başlar ve biter. Manyetik alan çizgileri hiçbir yerde başlamaz; hep kapalı ilmekler oluşturur. Bir mıknatısı ikiye bölersen iki mıknatıs elde edersin, tek başına bir kuzey kutbu elde edemezsin. Matematiksel ifadesi Maxwell’in ikinci denklemi:</p>
+  <div class="key">\[ \nabla\cdot\vec B = 0 \]</div>
+</section>
+
+<section id="ampere">
+  <p class="eyebrow" lang="en">Ampère’s law</p>
+  <h2>Ampère yasası</h2>
+  <p>Telin alanını bir çember boyunca topla: \(B\) çember üzerinde sabit ve çembere teğet, çemberin boyu <span class="nw">\(2\pi r\).</span> Sonuç <span class="nw">\(B\cdot 2\pi r = \mu_0 I\),</span> yarıçapa bağlı değil. Durağan akımlar için genel hali:</p>
+  <div class="key">\[ \oint_C \vec B\cdot d\vec l = \mu_0 I_{\text{iç}} \]</div>
+  <p>Stokes teoremiyle diferansiyel hali <span class="nw">\(\nabla\times\vec B = \mu_0\vec J\).</span> Gezgindeki “akım teli” alanını hatırla: telin dışında rotasyonel sıfırdı, teli çevreleyen halkada dolanım değildi. Dolanımın tamamı akımın aktığı yerden geliyor.</p>
+  <p>Gauss ve Ampère yan yana okununca bir simetri çıkıyor: yükler <span class="nw">\(\vec E\)’nin</span> diverjans kaynağı, akımlar <span class="nw">\(\vec B\)’nin</span> rotasyonel kaynağı.</p>
+</section>
+
+<section id="faraday">
+  <p class="eyebrow" lang="en">Faraday’s law · Lenz’s rule</p>
+  <h2>Faraday indüksiyonu ve Lenz kuralı</h2>
+  <p>Bir yüzeyden geçen manyetik akı <span class="nw">\(\Phi_B = \int_S \vec B\cdot d\vec a\),</span> birimi weber. Faraday 1831’de şunu buldu: bir halkadan geçen manyetik akı değişirse halkada bir elektromotor kuvvet (EMK), yani halka boyunca bir gerilim oluşur:</p>
+  <div class="key">\[ \mathcal E = \oint_C \vec E\cdot d\vec l = -\frac{d\Phi_B}{dt} \]</div>
+  <p>Akı üç yolla değişebilir: alanın kendisi değişir, halkanın alanı değişir ya da halka döner. Jeneratörler üçüncüsüyle, transformatörler ve kablosuz şarj birincisiyle çalışır. MR cihazında sinyal de böyle alınır: dönen mıknatıslanma alıcı bobinde gerilim indükler.</p>
+  <p>Eksi işaret <strong>Lenz kuralıdır</strong>: indüklenen akımın kendi manyetik alanı akıdaki değişime karşı koyar. Başka türlü olsaydı küçük bir değişim kendini büyütür, enerji yoktan var olurdu.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>İndüksiyon</h3><span class="hint">halka yukarıdan görünüyor · ⊙ sayfadan dışarı, ⊗ sayfaya doğru</span></div>
+    <div class="legend" aria-hidden="true"><span><i class="ink"></i><span>akı Φ</span></span><span><i class="mag"></i><span>EMK ℰ = −dΦ/dt</span></span></div>
+    <div class="graph"><canvas id="ind-c" class="sim" role="img" aria-label="Yukarıdan görülen bir halka, içinden geçen ve zamanla değişen manyetik alan, halkada indüklenen akımın yönü ve sağda akı ile EMK’nın zamana göre grafiği."></canvas></div>
+    <div class="controls">
+      <label class="slider" for="ind-f"><span class="lbl">frekans</span><input type="range" id="ind-f" min="0.1" max="1" step="0.01" value="0.3"><output id="ind-fo" for="ind-f">0.30</output></label>
+      <button class="btn" id="ind-play" type="button">Duraklat</button>
+    </div>
+    <dl class="readout">
+      <div><dt>Alan B (normalize)</dt><dd id="ind-b">–</dd></div>
+      <div><dt>Akı değişiyor</dt><dd id="ind-d">–</dd></div>
+      <div><dt>İndüklenen akım</dt><dd id="ind-i">–</dd></div>
+      <div><dt>Akımın kendi B’si</dt><dd id="ind-own">–</dd></div>
+    </dl>
+    <figcaption>EMK akının değerine değil değişim hızına bağlı: akı en büyükken EMK sıfır, akı sıfırdan geçerken EMK en büyük. İki eğri arasında çeyrek periyot fark var. İndüklenen akımın kendi alanı her an akıdaki değişime ters yönde.</figcaption>
+  </figure>
+  <p>Halka sabitken Stokes teoremini uygula: <span class="nw">\(\int_S (\nabla\times\vec E)\cdot d\vec a = -\int_S \partial\vec B/\partial t\cdot d\vec a\),</span> her yüzey için. Diferansiyel hali Maxwell’in üçüncü denklemi:</p>
+  <div class="key">\[ \nabla\times\vec E = -\frac{\partial\vec B}{\partial t} \]</div>
+  <p>Anlamı büyük: değişen manyetik alan, ortada tel ya da yük olmasa da uzayda dolanan bir elektrik alan yaratır. Böyle bir alan artık \(-\nabla V\) olarak yazılamaz; elektrostatiğin \(\nabla\times\vec E = 0\) kuralı yalnızca durağan durumda geçerliydi.</p>
+</section>
+
+<section id="maxwell">
+  <p class="eyebrow" lang="en">Displacement current · Maxwell’s equations</p>
+  <h2>Maxwell’in düzeltmesi ve dört denklem</h2>
+  <p>Ampère yasasında bir tutarsızlık var. Şarj olan bir kondansatörün teline bir halka geçir. Halkanın gerdiği yüzey olarak teli delen düz bir disk seçersen içinden \(I\) akımı geçer. Aynı halkaya, levhaların arasından geçen torba şeklinde bir yüzey de gerebilirsin; ondan hiç akım geçmez. Aynı halka için iki farklı cevap çıkıyor.</p>
+  <figure class="panel wide">
+    <div class="graph"><svg id="cap0" class="svgbox" role="img" aria-label="Şarj olan kondansatöre giden telde bir halka; halkaya gerilmiş düz disk telden geçen akımı yakalıyor, levhaların arasına uzanan torba yüzey ise yalnızca artan elektrik alanı yakalıyor."></svg></div>
+    <figcaption>Aynı C halkası, iki yüzey. S₁’den iletim akımı geçiyor. S₂’den hiç yük geçmiyor ama levhalar arasındaki elektrik alan artıyor. Maxwell’in eklediği terim ikisini eşitliyor.</figcaption>
+  </figure>
+  <p>Sorun diferansiyel formda da görünür. <span class="nw">\(\nabla\times\vec B = \mu_0\vec J\)’nin</span> diverjansını al: sol taraf her zaman sıfır (ikinci özdeşlik), yani \(\nabla\cdot\vec J = 0\) olmak zorunda. Oysa süreklilik denklemi \(\nabla\cdot\vec J = -\partial\rho/\partial t\) diyor ve levhalarda yük birikirken bu sıfır değil.</p>
+  <p>Maxwell’in çözümü bir terim eklemek oldu:</p>
+  <div class="key">\[ \nabla\times\vec B = \mu_0\vec J + \mu_0\varepsilon_0\frac{\partial\vec E}{\partial t} \]</div>
+  <p>Kontrol: iki tarafın diverjansını al. Sol taraf yine sıfır, sağ taraf da artık sıfır çıkıyor:</p>
+  \[ \mu_0\Big(\nabla\cdot\vec J + \varepsilon_0\frac{\partial(\nabla\cdot\vec E)}{\partial t}\Big) = \mu_0\Big(\nabla\cdot\vec J + \frac{\partial\rho}{\partial t}\Big) = 0 \]
+  <p>Süreklilik denklemiyle tam uyumlu. Kondansatörde levhalar arasındaki alan <span class="nw">\(E = \sigma/\varepsilon_0 = Q/(\varepsilon_0A)\),</span> dolayısıyla <span class="nw">\(\varepsilon_0\,(dE/dt)\,A = dQ/dt = I\).</span> Torba yüzeyden geçen “yerdeğiştirme akımı” teldeki akıma birebir eşit.</p>
+  <h3>Vakumda Maxwell denklemleri</h3>
+  <div class="tablebox">
+    <table class="data maxwell-t">
+      <thead><tr><th></th><th>İntegral</th><th>Diferansiyel</th><th>Ne söyler</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>\(\oint_S \vec E\cdot d\vec a = Q_{\text{iç}}/\varepsilon_0\)</td><td>\(\nabla\cdot\vec E = \rho/\varepsilon_0\)</td><td>yükler E’nin kaynağı</td></tr>
+        <tr><td class="num">2</td><td>\(\oint_S \vec B\cdot d\vec a = 0\)</td><td>\(\nabla\cdot\vec B = 0\)</td><td>manyetik yük yok</td></tr>
+        <tr><td class="num">3</td><td>\(\oint_C \vec E\cdot d\vec l = -\dfrac{d\Phi_B}{dt}\)</td><td>\(\nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}\)</td><td>değişen B, dolanan E yaratır</td></tr>
+        <tr><td class="num">4</td><td>\(\oint_C \vec B\cdot d\vec l = \mu_0 I_{\text{iç}} + \mu_0\varepsilon_0\dfrac{d\Phi_E}{dt}\)</td><td>\(\nabla\times\vec B = \mu_0\vec J + \mu_0\varepsilon_0\dfrac{\partial\vec E}{\partial t}\)</td><td>akım ve değişen E, dolanan B yaratır</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Bunlara yüklere ne olduğunu söyleyen Lorentz kuvveti \(\vec F = q(\vec E + \vec v\times\vec B)\) eklenince klasik elektromanyetizmanın tamamı elde edilir. 4. bölüm aynı denklemleri maddede, \(\vec D\) ve \(\vec H\) ile yazıyor.</p>
+  <figure class="panel wide">
+    <div class="graph"><svg id="map" class="svgbox" role="img" aria-label="Kavram haritası: yük E’yi, akım B’yi üretir; değişen B E’yi, değişen E B’yi besler; B’nin kaynağı yoktur. Boş uzayda yalnızca E ile B arasındaki döngü kalır."></svg></div>
+    <figcaption>Dört denklemin haritası. Soldaki kaynaklar (yük, akım) alanları üretir. Sağdaki magenta döngüde iki alan birbirini besler. Boş uzayda kaynaklar silinir, geriye yalnızca bu döngü kalır: ışık.</figcaption>
+  </figure>
+</section>
+
+<section id="isik">
+  <p class="eyebrow" lang="en">Light</p>
+  <h2>Işık nereden çıkıyor?</h2>
+  <p>Yükten ve akımdan uzak bir bölgede <span class="nw">\(\rho = 0\),</span> <span class="nw">\(\vec J = 0\).</span> Geriye kalan iki rotasyonel denklemi bir zincir gibi oku: değişen \(\vec B\) dolanan bir \(\vec E\) yaratıyor, değişen \(\vec E\) de dolanan bir <span class="nw">\(\vec B\).</span> Bir kez başlatılan bozulma, kaynağa ihtiyaç duymadan kendini besleyerek yayılır. Maxwell 1865’te bu dalganın hızını hesapladı:</p>
+  <div class="key">\[ v = \frac{1}{\sqrt{\mu_0\varepsilon_0}} = 3.00\times10^8\ \mathrm{m/s} \]</div>
+  <p>Ölçülen ışık hızıyla aynı. Sonuç: ışık bir elektromanyetik dalgadır. Hertz 1887’de laboratuvarda radyo dalgaları üretip bunu doğruladı. Radyodan gama ışınlarına kadar bütün spektrum aynı denklemlerin çözümü; yalnızca frekans farklı. Türetmenin adım adım hali 4. bölümde.</p>
+  <h3>Dalga enerji taşır</h3>
+  <p>Alanlarda enerji depolanır; birim hacimdeki enerji <span class="nw">\(u = \tfrac12\varepsilon_0E^2 + \tfrac{1}{2\mu_0}B^2\).</span> Enerjinin akışını Poynting vektörü verir:</p>
+  <div class="key">\[ \vec S = \frac{1}{\mu_0}\,\vec E\times\vec B \qquad [\mathrm{W/m^2}] \]</div>
+  <p>Düzlem dalgada \(\vec S\) yayılma yönüne bakar; zaman ortalaması yoğunluğu verir, <span class="nw">\(I = \tfrac12 c\varepsilon_0E_0^2\).</span> Güneş ışığı yeryüzünde yaklaşık 1000 W/m², bu da \(E_0 \approx 870\) V/m demek. 1 mW’lık bir lazer işaretçisinin 1 mm²’lik demeti de yaklaşık 1000 W/m².</p>
+</section>
+
+<section id="madde">
+  <p class="eyebrow" lang="en">Fields in matter</p>
+  <h2>Maddeye kısa bir bakış</h2>
+  <p>Buraya kadar her şey vakumdaydı. Maddede alan atomları polarize eder ve mıknatıslar; bu da kendi bağlı yüklerini ve bağlı akımlarını üretir. Her atomu tek tek izlemek yerine bu tepkiyi iki yardımcı alanın içine katlarız:</p>
+  \[ \vec D = \varepsilon_0\vec E + \vec P, \qquad \vec H = \frac{\vec B}{\mu_0} - \vec M \]
+  <p>Böylece Maxwell denklemleri yalnızca kontrol ettiğimiz serbest yük ve akımlarla yazılır: <span class="nw">\(\nabla\cdot\vec D = \rho_f\),</span> <span class="nw">\(\nabla\times\vec H = \vec J_f + \partial\vec D/\partial t\).</span> Doğrusal bir malzemede <span class="nw">\(\vec D = \varepsilon\vec E\),</span> \(\vec B = \mu\vec H\) olur ve ışığın hızı <span class="nw">\(v = 1/\sqrt{\varepsilon\mu} = c/n\)’ye</span> düşer. Bunların hepsi 3. bölümün konusu.</p>
+</section>
+
+<div class="partmark" id="kisim-c"><span class="pm-letter">C</span><div><p class="pm-title">Başvuru</p><p class="pm-sub">Sabitler, birimler, semboller ve test</p></div></div>
+
+<section id="sabitler">
+  <p class="eyebrow" lang="en">Reference</p>
+  <h2>Sabitler, birimler ve semboller</h2>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Sabit</th><th>Değer</th></tr></thead>
+      <tbody>
+        <tr><td>Temel yük \(e\)</td><td class="num">1.602×10⁻¹⁹ C</td></tr>
+        <tr><td>Vakum geçirgenliği \(\varepsilon_0\)</td><td class="num">8.854×10⁻¹² F/m</td></tr>
+        <tr><td>Coulomb sabiti \(1/4\pi\varepsilon_0\)</td><td class="num">8.988×10⁹ N·m²/C²</td></tr>
+        <tr><td>Vakum manyetik geçirgenliği \(\mu_0\)</td><td class="num">1.257×10⁻⁶ H/m ≈ 4π×10⁻⁷</td></tr>
+        <tr><td>Işık hızı \(c\)</td><td class="num">299 792 458 m/s</td></tr>
+        <tr><td>Planck sabiti <span class="nw">\(h\),</span> \(\hbar\)</td><td class="num">6.626×10⁻³⁴, 1.055×10⁻³⁴ J·s</td></tr>
+        <tr><td>Elektron kütlesi \(m_e\)</td><td class="num">9.109×10⁻³¹ kg</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Büyüklük</th><th>Sembol</th><th>SI birimi</th></tr></thead>
+      <tbody>
+        <tr><td>Yük</td><td>\(Q\)</td><td class="num">C</td></tr>
+        <tr><td>Akım</td><td>\(I\)</td><td class="num">A = C/s</td></tr>
+        <tr><td>Hacim, yüzey yük yoğunluğu</td><td><span class="nw">\(\rho\),</span> \(\sigma\)</td><td class="num">C/m³, C/m²</td></tr>
+        <tr><td>Akım yoğunluğu</td><td>\(\vec J\)</td><td class="num">A/m²</td></tr>
+        <tr><td>Elektrik alan</td><td>\(\vec E\)</td><td class="num">V/m = N/C</td></tr>
+        <tr><td>Potansiyel</td><td>\(V\)</td><td class="num">V = J/C</td></tr>
+        <tr><td>Manyetik alan</td><td>\(\vec B\)</td><td class="num">T = N/(A·m)</td></tr>
+        <tr><td>Manyetik akı</td><td>\(\Phi_B\)</td><td class="num">Wb = T·m²</td></tr>
+        <tr><td>Yerdeğiştirme, polarizasyon</td><td><span class="nw">\(\vec D\),</span> \(\vec P\)</td><td class="num">C/m²</td></tr>
+        <tr><td>H alanı, mıknatıslanma</td><td><span class="nw">\(\vec H\),</span> \(\vec M\)</td><td class="num">A/m</td></tr>
+        <tr><td>Poynting vektörü</td><td>\(\vec S\)</td><td class="num">W/m²</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Sembol</th><th>Okunuşu</th><th>Seride genelde</th></tr></thead>
+      <tbody>
+        <tr><td>\(\varepsilon\)</td><td>epsilon</td><td>elektriksel geçirgenlik</td></tr>
+        <tr><td>\(\mu\)</td><td>mü</td><td>manyetik geçirgenlik</td></tr>
+        <tr><td><span class="nw">\(\rho\),</span> \(\sigma\)</td><td>ro, sigma</td><td>yük yoğunlukları</td></tr>
+        <tr><td>\(\Phi\)</td><td>fi</td><td>akı</td></tr>
+        <tr><td><span class="nw">\(\omega\),</span> \(\nu\)</td><td>omega, nü</td><td>açısal frekans, frekans</td></tr>
+        <tr><td><span class="nw">\(\lambda\),</span> <span class="nw">\(\kappa\),</span> \(\chi\)</td><td>lamda, kappa, ki</td><td>dalga boyu, sönüm katsayısı, alınganlık</td></tr>
+        <tr><td><span class="nw">\(\nabla\),</span> \(\partial\)</td><td>nabla, kısmi türev (“del”)</td><td>türev operatörleri</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="test" class="quiz">
+  <p class="eyebrow" lang="en">Self-check</p>
+  <h2>Kendini test et</h2>
+  <details><summary>\(\vec F = (x^2, y, 0)\) için \((1, 2)\) noktasında diverjans nedir?</summary><div class="ans"><p><span class="nw">\(\partial_x(x^2) + \partial_y(y) = 2x + 1 = 3\).</span></p></div></details>
+  <details><summary>Kayma alanı <span class="nw">\(\vec F = (y, 0, 0)\)’nın</span> rotasyoneli nedir, çark hangi yöne döner?</summary><div class="ans"><p><span class="nw">\((\nabla\times\vec F)_z = \partial_x F_y - \partial_y F_x = 0 - 1 = -1\).</span> Negatif z yönü: yukarıdan bakınca saat yönünde döner.</p></div></details>
+  <details><summary>Bir yükü içine almayan kapalı bir yüzeyden geçen net elektrik akısı nedir?</summary><div class="ans"><p>Sıfır. Dışarıdaki yükün çizgileri yüzeye bir yerden girip başka yerden çıkar.</p></div></details>
+  <details><summary>\(\nabla\cdot\vec B = 0\) fiziksel olarak ne söyler?</summary><div class="ans"><p>Manyetik yük (monopol) yok; manyetik alan çizgileri hiçbir yerde başlamaz ya da bitmez, kapalı ilmekler oluşturur.</p></div></details>
+  <details><summary>10 V ile hızlandırılan bir elektronun enerjisi kaç joule?</summary><div class="ans"><p>10 eV = \(10\times1.602\times10^{-19} = 1.602\times10^{-18}\) J. 2. bölümdeki örneğin başlangıç değeri bu.</p></div></details>
+  <details><summary>10 A taşıyan telden 1 cm uzakta B nedir?</summary><div class="ans">\[ B = \frac{\mu_0 I}{2\pi r} = \frac{4\pi\times10^{-7}\cdot 10}{2\pi\cdot 0.01} = 2\times10^{-4}\ \mathrm T \]<p>Yani 200 µT, Dünya’nın alanının dört katı kadar.</p></div></details>
+  <details><summary>Ampère yasasına neden \(\varepsilon_0\,\partial\vec E/\partial t\) terimi eklenmek zorunda?</summary><div class="ans"><p>Rotasyonelin diverjansı sıfır olduğu için eski hali \(\nabla\cdot\vec J = 0\) gerektiriyordu; yük biriken her durumda (şarj olan kondansatör) bu süreklilik denklemiyle çelişir. Eklenen terim tutarlılığı sağlar ve ışığı mümkün kılar.</p></div></details>
+  <details><summary><span class="nw">\(e^{i(kx-\omega t)}\)’nin</span> zamana göre türevi nedir?</summary><div class="ans"><p><span class="nw">\(-i\omega\,e^{i(kx-\omega t)}\).</span> Zaman türevi \(-i\omega\) ile çarpmaya dönüşür.</p></div></details>
+</section>
+
+<p class="next">Sonraki bölüm: <a href="../1-faz-ve-grup-hizi/">Faz ve grup hızı →</a></p>
+  </article>
+</div>
+<footer class="wrap foot" lang="tr">
+  <p class="kbm-back"><a href="../../#nanofotonik">← Nanofotonik serisi</a> · <a href="../../">602’nin haftaları</a></p>
+  
+  <p>Bu bölüm derste anlatılmayan ön bilgiyi toplar; 1–4. bölümler 25.09.2026 ve 02.10.2026 tarihli ders notlarına dayanır. Sayısal sabitler dört anlamlı basamağa yuvarlanmıştır.</p>
+</footer>
+<script>
+(function(){
+"use strict";
+var NF = window.NF = {};
+var root = document.documentElement;
+var tokCache = {};
+NF.tok = function(name){
+  if (tokCache[name] === undefined) tokCache[name] = getComputedStyle(root).getPropertyValue(name).trim();
+  return tokCache[name];
+};
+var themeCbs = [];
+NF.onTheme = function(cb){ themeCbs.push(cb); };
+function themeChanged(){ tokCache = {}; themeCbs.forEach(function(cb){ try{ cb(); }catch(e){} }); }
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeChanged); } catch(e){}
+try { new MutationObserver(themeChanged).observe(root, {attributes:true, attributeFilter:["data-theme","class","style"]}); } catch(e){}
+
+NF.reduceMotion = false;
+try { NF.reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+
+NF.fitCanvas = function(canvas, cssH){
+  var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  var w = Math.max(240, Math.round(canvas.parentNode.getBoundingClientRect().width));
+  var h = typeof cssH === "function" ? cssH(w) : cssH;
+  if (canvas._w !== w || canvas._h !== h || canvas._dpr !== dpr){
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    canvas.style.height = h + "px";
+    canvas._w = w; canvas._h = h; canvas._dpr = dpr;
+  }
+  var ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {ctx: ctx, w: w, h: h};
+};
+NF.onResize = function(el, cb){
+  var t = null;
+  try { new ResizeObserver(function(){ clearTimeout(t); t = setTimeout(cb, 40); }).observe(el); }
+  catch(e){ window.addEventListener("resize", cb); }
+};
+NF.whenVisible = function(el, cb){
+  try {
+    new IntersectionObserver(function(es){ es.forEach(function(e){ cb(e.isIntersecting); }); }, {rootMargin:"80px"}).observe(el);
+  } catch(e){ cb(true); }
+};
+
+var SUP = {"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+NF.sup = function(n){ return String(n).split("").map(function(c){ return SUP[c] || c; }).join(""); };
+NF.sci = function(x, d){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var e = Math.floor(Math.log10(Math.abs(x)));
+  var m = x / Math.pow(10, e);
+  if (Math.abs(m) >= 9.9995 && d <= 3) { m /= 10; e += 1; }
+  return m.toFixed(d) + "×10" + NF.sup(e);
+};
+NF.num = function(x, d){
+  if (!isFinite(x)) return "∞";
+  var a = Math.abs(x);
+  if (a !== 0 && (a >= 1e5 || a < 1e-3)) return NF.sci(x, Math.max(1, d - 1));
+  return x.toFixed(d);
+};
+NF.sig = function(x, s){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var a = Math.abs(x);
+  if (a >= 1e5 || a < 1e-3) return NF.sci(x, s - 1);
+  var d = Math.max(0, s - 1 - Math.floor(Math.log10(a)));
+  return x.toFixed(d);
+};
+NF.logFrom = function(t, lo, hi){ return lo * Math.pow(hi / lo, t); };
+NF.logTo = function(v, lo, hi){ return Math.log(v / lo) / Math.log(hi / lo); };
+
+var SVGNS = "http://www.w3.org/2000/svg";
+NF.el = function(tag, attrs, parent, text){
+  var e = document.createElementNS(SVGNS, tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+};
+NF.path = function(pts){
+  var s = "";
+  for (var i = 0; i < pts.length; i++) s += (i ? "L" : "M") + pts[i][0].toFixed(2) + " " + pts[i][1].toFixed(2);
+  return s;
+};
+NF.clear = function(node){ while (node.firstChild) node.removeChild(node.firstChild); };
+
+/* wavelength (nm) to sRGB, Bruton's approximation with edge falloff */
+NF.wl2rgb = function(wl){
+  var r=0,g=0,b=0;
+  if (wl>=380&&wl<440){r=-(wl-440)/60;b=1}
+  else if (wl<490){g=(wl-440)/50;b=1}
+  else if (wl<510){g=1;b=-(wl-510)/20}
+  else if (wl<580){r=(wl-510)/70;g=1}
+  else if (wl<645){r=1;g=-(wl-645)/65}
+  else if (wl<=780){r=1}
+  var f = 1;
+  if (wl < 380 || wl > 780) f = 0;
+  else if (wl < 420) f = .3 + .7*(wl-380)/40;
+  else if (wl > 700) f = .3 + .7*(780-wl)/80;
+  function c(v){ return Math.round(255 * Math.pow(v * f, .8)); }
+  return [c(r), c(g), c(b)];
+};
+NF.wlName = function(wl){
+  if (wl < 380) return "morötesi (UV)";
+  if (wl < 450) return "mor";
+  if (wl < 495) return "mavi";
+  if (wl < 570) return "yeşil";
+  if (wl < 590) return "sarı";
+  if (wl < 620) return "turuncu";
+  if (wl <= 750) return "kırmızı";
+  if (wl <= 1400) return "yakın kızılötesi";
+  return "kızılötesi (telekom)";
+};
+
+/* tooltip helper: rows = [{k:"mag"|"blue"|"", label:"", value:""}] */
+NF.tooltip = function(wrap){
+  var tip = document.createElement("div");
+  tip.className = "ttip"; tip.hidden = true; tip.setAttribute("role","status");
+  wrap.appendChild(tip);
+  return {
+    show: function(x, y, head, rows){
+      NF.clear(tip);
+      var h = document.createElement("div"); h.className = "h"; h.textContent = head; tip.appendChild(h);
+      rows.forEach(function(r){
+        var row = document.createElement("div"); row.className = "row";
+        var k = document.createElement("i"); k.className = "k " + (r.k || ""); row.appendChild(k);
+        var v = document.createElement("b"); v.textContent = r.value; row.appendChild(v);
+        var l = document.createElement("span"); l.textContent = r.label; row.appendChild(l);
+        tip.appendChild(row);
+      });
+      tip.hidden = false;
+      var W = wrap.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+      var left = x + 14; if (left + tw > W - 4) left = x - tw - 14; if (left < 4) left = 4;
+      var top = y - th - 10; if (top < 4) top = y + 14;
+      tip.style.left = left + "px"; tip.style.top = top + "px";
+    },
+    hide: function(){ tip.hidden = true; }
+  };
+};
+
+/* spectral rule under the masthead */
+(function(){
+  var bar = document.querySelector(".spectrum");
+  if (!bar) return;
+  var stops = [];
+  for (var wl = 380; wl <= 750; wl += 10){
+    var c = NF.wl2rgb(wl);
+    stops.push("rgb(" + c.join(",") + ") " + ((wl - 380) / 370 * 100).toFixed(1) + "%");
+  }
+  bar.style.background = "linear-gradient(90deg," + stops.join(",") + ")";
+  var sc = document.querySelector(".spectrum-scale");
+  if (sc) [400,500,600,700].forEach(function(wl){
+    var s = document.createElement("span");
+    s.style.left = ((wl - 380) / 370 * 100) + "%";
+    s.textContent = wl + " nm";
+    sc.appendChild(s);
+  });
+})();
+
+/* table of contents: mark the section in view */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  var map = {};
+  links.forEach(function(a){ var s = document.getElementById(a.getAttribute("href").slice(1)); if (s) map[s.id] = a; });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){
+        links.forEach(function(a){ a.classList.remove("on"); });
+        if (map[e.target.id]) map[e.target.id].classList.add("on");
+      }
+    });
+  }, {rootMargin:"-20% 0px -70% 0px"});
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+
+/* segmented buttons: one pressed at a time */
+NF.seg = function(group, onPick){
+  var btns = Array.prototype.slice.call(group.querySelectorAll("button"));
+  btns.forEach(function(b){
+    b.addEventListener("click", function(){
+      btns.forEach(function(o){ o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      onPick(b.dataset.v, b);
+    });
+  });
+  return {
+    clear: function(){ btns.forEach(function(o){ o.setAttribute("aria-pressed","false"); }); },
+    set: function(v){ btns.forEach(function(o){ o.setAttribute("aria-pressed", o.dataset.v === v ? "true" : "false"); }); }
+  };
+};
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+var TAU = Math.PI*2;
+function $(id){ return document.getElementById(id); }
+function txt(id, s){ var e = $(id); if (e) e.textContent = s; }
+function sizeSvg(svg, H){
+  var W = Math.max(260, Math.round(svg.parentNode.getBoundingClientRect().width));
+  if (typeof H === "function") H = H(W);
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  NF.clear(svg);
+  return {W: W, H: H};
+}
+function head(svg, x, y, dir, cls, a, b){
+  a = a || 7; b = b || 3.6;
+  var p1 = [x - a*Math.cos(dir) + b*Math.sin(dir), y - a*Math.sin(dir) - b*Math.cos(dir)];
+  var p2 = [x - a*Math.cos(dir) - b*Math.sin(dir), y - a*Math.sin(dir) + b*Math.cos(dir)];
+  NF.el("polygon", {points: x + "," + y + " " + p1.join(",") + " " + p2.join(","), class: cls}, svg);
+}
+function arrow(svg, x1, y1, x2, y2, scls, fcls, w){
+  var d = Math.atan2(y2 - y1, x2 - x1);
+  NF.el("line", {x1:x1, y1:y1, x2:x2 - 5*Math.cos(d), y2:y2 - 5*Math.sin(d), class:scls, "stroke-width": w || 1.5}, svg);
+  head(svg, x2, y2, d, fcls);
+}
+function label(svg, x, y, s, cls, anchor){ return NF.el("text", {x:x, y:y, "text-anchor": anchor || "start", class: "lab " + (cls || "")}, svg, s); }
+function cArrow(ctx, x1, y1, x2, y2, w, hs){
+  var d = Math.atan2(y2 - y1, x2 - x1), L = Math.hypot(x2 - x1, y2 - y1), h = Math.min(hs || 6, L*0.5);
+  ctx.lineWidth = w;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - h*0.7*Math.cos(d), y2 - h*0.7*Math.sin(d)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - h*Math.cos(d) + h*0.5*Math.sin(d), y2 - h*Math.sin(d) - h*0.5*Math.cos(d));
+  ctx.lineTo(x2 - h*Math.cos(d) - h*0.5*Math.sin(d), y2 - h*Math.sin(d) + h*0.5*Math.cos(d));
+  ctx.closePath(); ctx.fill();
+}
+function mono(px, w){ return (w || "400") + " " + px + "px " + NF.tok("--font-mono"); }
+
+/* ---------- D1: dot and cross product ---------- */
+function drawVec(){
+  var svg = $("vec"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 560 ? 410 : 220; }), W = s.W, H = s.H, narrow = W < 560;
+  var th = 50*Math.PI/180;
+  var o1 = narrow ? [36, 170] : [32, H - 46];
+  var La = narrow ? W - 90 : W*0.36, Lb = Math.min(La*0.62, (o1[1] - 44)/Math.sin(th));
+  var A = [o1[0] + La, o1[1]], Bv = [o1[0] + Lb*Math.cos(th), o1[1] - Lb*Math.sin(th)];
+  label(svg, o1[0], narrow ? 22 : 22, "nokta çarpım · a·b = |a||b| cos θ", "ink");
+  NF.el("line", {x1:Bv[0], y1:Bv[1], x2:Bv[0], y2:o1[1], class:"s-mut s-dash", "stroke-width":1.2}, svg);
+  NF.el("line", {x1:o1[0], y1:o1[1] + 12, x2:Bv[0], y2:o1[1] + 12, class:"s-mag", "stroke-width":3}, svg);
+  label(svg, (o1[0] + Bv[0])/2, o1[1] + 30, "|b| cos θ", "strong", "middle");
+  arrow(svg, o1[0], o1[1], A[0], A[1], "s-ink", "f-ink", 2);
+  arrow(svg, o1[0], o1[1], Bv[0], Bv[1], "s-blue", "f-blue", 2);
+  label(svg, A[0] - 4, A[1] - 9, "a", "strong", "end");
+  label(svg, Bv[0] + 8, Bv[1] + 2, "b", "strong");
+  var arc = [];
+  for (var i = 0; i <= 20; i++){ var t = th*i/20; arc.push([o1[0] + 30*Math.cos(t), o1[1] - 30*Math.sin(t)]); }
+  NF.el("path", {d:NF.path(arc), class:"s-mut", "stroke-width":1}, svg);
+  label(svg, o1[0] + 36, o1[1] - 10, "θ", "strong");
+
+  var o2 = narrow ? [36, 380] : [W*0.56, H - 46];
+  var La2 = narrow ? W*0.5 : W*0.24, Lb2 = Math.min(La2*0.8, (o2[1] - (narrow ? 270 : 48))/Math.sin(th));
+  var A2 = [o2[0] + La2, o2[1]], B2 = [o2[0] + Lb2*Math.cos(th), o2[1] - Lb2*Math.sin(th)];
+  var C2 = [A2[0] + B2[0] - o2[0], A2[1] + B2[1] - o2[1]];
+  label(svg, o2[0], narrow ? 228 : 22, "vektörel çarpım · |a×b| = |a||b| sin θ", "ink");
+  NF.el("path", {d:"M" + o2.join(" ") + "L" + A2.join(" ") + "L" + C2.join(" ") + "L" + B2.join(" ") + "Z", class:"w-blue"}, svg);
+  NF.el("path", {d:"M" + A2.join(" ") + "L" + C2.join(" ") + "L" + B2.join(" "), class:"s-mut s-dash", "stroke-width":1}, svg);
+  arrow(svg, o2[0], o2[1], A2[0], A2[1], "s-ink", "f-ink", 2);
+  arrow(svg, o2[0], o2[1], B2[0], B2[1], "s-blue", "f-blue", 2);
+  label(svg, A2[0] - 4, A2[1] + 16, "a", "strong", "end");
+  label(svg, B2[0] - 10, B2[1] - 4, "b", "strong", "end");
+  var mx = (o2[0] + C2[0])/2, my = (o2[1] + C2[1])/2;
+  label(svg, mx, my + 4, "alan", "ink", "middle");
+  var sx = Math.min(C2[0] + 40, W - 30), sy = Math.max(C2[1] - 4, 40);
+  NF.el("circle", {cx:sx, cy:sy, r:9, fill:"none", class:"s-mag", "stroke-width":1.6}, svg);
+  NF.el("circle", {cx:sx, cy:sy, r:2.6, class:"f-mag"}, svg);
+  label(svg, sx, sy + 26, "a×b", "strong", "middle");
+  label(svg, sx, sy + 40, "dışarı", "", "middle");
+}
+
+/* ---------- I1: vector field explorer ---------- */
+var FIELDS = {
+  src:    {f:function(x,y){ return [x, y]; }, s:"(x, y)"},
+  sink:   {f:function(x,y){ return [-x, -y]; }, s:"(−x, −y)"},
+  unif:   {f:function(x,y){ return [1, 0.4]; }, s:"(1, 0.4)"},
+  vortex: {f:function(x,y){ return [-y, x]; }, s:"(−y, x)"},
+  shear:  {f:function(x,y){ return [y, 0]; }, s:"(y, 0)"},
+  saddle: {f:function(x,y){ return [x, -y]; }, s:"(x, −y)"},
+  grad:   {f:function(x,y){ var g = Math.exp(-2*(x*x + y*y)); return [-4*x*g, -4*y*g]; }, s:"∇f, f = e^(−2r²)", hill:true},
+  line:   {f:function(x,y){ var r2 = x*x + y*y; return [x/r2, y/r2]; }, s:"r̂/r · yüklü tel", sing:"q"},
+  wire:   {f:function(x,y){ var r2 = x*x + y*y; return [-y/r2, x/r2]; }, s:"φ̂/r · akım teli", sing:"i"}
+};
+var fx = {key:"src", px:0.5, py:0.35, R:0.24, ang:0, raf:0, last:0, visible:true, drag:false, geom:null};
+var fxc = $("fx-c");
+function fxDiv(F, x, y){ var h = 1e-4; return (F(x+h,y)[0] - F(x-h,y)[0] + F(x,y+h)[1] - F(x,y-h)[1])/(2*h); }
+function fxCurl(F, x, y){ var h = 1e-4; return (F(x+h,y)[1] - F(x-h,y)[1] - F(x,y+h)[0] + F(x,y-h)[0])/(2*h); }
+function fxLoop(F){
+  var N = 240, fl = 0, ci = 0, dl = TAU*fx.R/N;
+  for (var i = 0; i < N; i++){
+    var a = (i + 0.5)/N*TAU, x = fx.px + fx.R*Math.cos(a), y = fx.py + fx.R*Math.sin(a), v = F(x, y);
+    fl += (v[0]*Math.cos(a) + v[1]*Math.sin(a))*dl;
+    ci += (-v[0]*Math.sin(a) + v[1]*Math.cos(a))*dl;
+  }
+  return [fl, ci];
+}
+function fxCurlNow(){
+  var fd = FIELDS[fx.key];
+  if (fd.sing && Math.hypot(fx.px, fx.py) < 0.04) return 0;
+  return fxCurl(fd.f, fx.px, fx.py);
+}
+function drawFx(){
+  var f = NF.fitCanvas(fxc, function(w){ return w < 560 ? 320 : 380; });
+  var ctx = f.ctx, w = f.w, h = f.h;
+  var S = h/2.5, cx = w/2, cy = h/2;
+  fx.geom = {S:S, cx:cx, cy:cy, w:w, h:h};
+  function X(x){ return cx + x*S; } function Y(y){ return cy - y*S; }
+  ctx.clearRect(0, 0, w, h);
+  var fd = FIELDS[fx.key], F = fd.f;
+  var ink = NF.tok("--ink"), ink3 = NF.tok("--ink-3"), mag = NF.tok("--magenta"), blue = NF.tok("--blue"), sheet = NF.tok("--sheet");
+  if (fd.hill){
+    ctx.strokeStyle = NF.tok("--rule"); ctx.lineWidth = 1.2;
+    [0.15, 0.35, 0.6, 0.85].forEach(function(lv){ var r = Math.sqrt(-Math.log(lv)/2); ctx.beginPath(); ctx.arc(cx, cy, r*S, 0, TAU); ctx.stroke(); });
+  }
+  var gp = w < 560 ? 28 : 34, pts = [], mags = [];
+  for (var gx = gp/2; gx < w; gx += gp) for (var gy = gp/2; gy < h; gy += gp){
+    var x = (gx - cx)/S, y = (cy - gy)/S;
+    if (fd.sing && Math.hypot(x, y) < 0.09) continue;
+    var v = F(x, y), m = Math.hypot(v[0], v[1]);
+    pts.push([gx, gy, v[0], v[1], m]); mags.push(m);
+  }
+  var sorted = mags.slice().sort(function(a, b){ return a - b; });
+  var ref = sorted[Math.floor(sorted.length*0.8)] || 1;
+  ctx.fillStyle = ink3; ctx.strokeStyle = ink3;
+  pts.forEach(function(p){
+    if (p[4] < 1e-9) return;
+    var L = gp*0.78*Math.min(1, Math.sqrt(p[4]/ref)), ux = p[2]/p[4], uy = -p[3]/p[4];
+    ctx.globalAlpha = 0.35 + 0.6*Math.min(1, p[4]/ref);
+    cArrow(ctx, p[0] - ux*L/2, p[1] - uy*L/2, p[0] + ux*L/2, p[1] + uy*L/2, 1.3, 5.5);
+  });
+  ctx.globalAlpha = 1;
+  if (fd.sing){
+    ctx.beginPath(); ctx.arc(cx, cy, 9, 0, TAU);
+    ctx.fillStyle = fd.sing === "q" ? mag : sheet; ctx.fill();
+    ctx.lineWidth = 1.6; ctx.strokeStyle = fd.sing === "q" ? sheet : ink; ctx.stroke();
+    if (fd.sing === "q"){ ctx.fillStyle = sheet; ctx.font = mono(13, "600"); ctx.textAlign = "center"; ctx.fillText("+", cx, cy + 4.5); }
+    else { ctx.beginPath(); ctx.arc(cx, cy, 2.6, 0, TAU); ctx.fillStyle = ink; ctx.fill(); }
+    ctx.textAlign = "left";
+  }
+  var pcx = X(fx.px), pcy = Y(fx.py), pr = fx.R*S;
+  ctx.fillStyle = NF.tok("--mag-wash"); ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.fill();
+  var maxT = 0, ticks = [];
+  for (var i = 0; i < 36; i++){
+    var a = i/36*TAU, x2 = fx.px + fx.R*Math.cos(a), y2 = fx.py + fx.R*Math.sin(a);
+    if (fd.sing && Math.hypot(x2, y2) < 0.05) continue;
+    var v2 = F(x2, y2), fn = v2[0]*Math.cos(a) + v2[1]*Math.sin(a);
+    ticks.push([a, fn]); maxT = Math.max(maxT, Math.abs(fn));
+  }
+  var tref = Math.max(ref, maxT*0.5);
+  ticks.forEach(function(t){
+    var len = Math.max(-1, Math.min(1, t[1]/tref))*16, bx = pcx + pr*Math.cos(t[0]), by = pcy - pr*Math.sin(t[0]);
+    if (Math.abs(len) < 0.6) return;
+    ctx.strokeStyle = len > 0 ? mag : blue; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx + len*Math.cos(t[0]), by - len*Math.sin(t[0])); ctx.stroke();
+  });
+  ctx.setLineDash([5, 4]); ctx.strokeStyle = mag; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
+  var cr = Math.min(pr*0.55, 18);
+  ctx.strokeStyle = blue; ctx.lineWidth = 2.4; ctx.lineCap = "round";
+  for (var b = 0; b < 4; b++){
+    var ang = -fx.ang + b*Math.PI/2;
+    ctx.beginPath(); ctx.moveTo(pcx, pcy); ctx.lineTo(pcx + cr*Math.cos(ang), pcy + cr*Math.sin(ang)); ctx.stroke();
+  }
+  ctx.lineCap = "butt";
+  ctx.beginPath(); ctx.arc(pcx, pcy, 3, 0, TAU); ctx.fillStyle = blue; ctx.fill();
+  var cu = fxCurlNow();
+  if (Math.abs(cu) > 1e-3){
+    ctx.fillStyle = NF.tok("--ink-2"); ctx.font = mono(12, "600");
+    ctx.fillText(cu > 0 ? "↺" : "↻", pcx + pr + 6, pcy - pr + 4);
+  }
+  ctx.font = mono(11); var lab = "F = " + fd.s, lw = ctx.measureText(lab).width;
+  ctx.fillStyle = NF.tok("--sheet"); ctx.globalAlpha = 0.92; ctx.fillRect(4, 4, lw + 14, 22); ctx.globalAlpha = 1;
+  ctx.fillStyle = NF.tok("--ink-2"); ctx.fillText(lab, 11, 19);
+}
+function f2(v){ var s = v.toFixed(2); return s === "-0.00" ? "0.00" : s; }
+function fxRead(){
+  var fd = FIELDS[fx.key], F = fd.f, sing = fd.sing && Math.hypot(fx.px, fx.py) < 0.04;
+  txt("fx-f", fd.s);
+  txt("fx-div", sing ? "tekil nokta" : f2(fxDiv(F, fx.px, fx.py)));
+  txt("fx-curl", sing ? "tekil nokta" : f2(fxCurl(F, fx.px, fx.py)));
+  var lp = fxLoop(F);
+  var inside = fd.sing && Math.hypot(fx.px, fx.py) < fx.R;
+  txt("fx-flux", f2(lp[0]) + (fd.sing === "q" && inside ? " · yük içeride, 2π" : ""));
+  txt("fx-circ", f2(lp[1]) + (fd.sing === "i" && inside ? " · tel içeride, 2π" : ""));
+  txt("fx-area", "π r² = " + (Math.PI*fx.R*fx.R).toFixed(3));
+}
+var fxSeg = NF.seg($("fx-pre"), function(v){ fx.key = v; fxRead(); drawFx(); fxKick(); });
+function fxLoopAnim(now){
+  fx.raf = 0;
+  var cu = fxCurlNow();
+  if (!fx.visible || NF.reduceMotion || Math.abs(cu) < 1e-3){ return; }
+  var dt = fx.last ? Math.min(0.05, (now - fx.last)/1000) : 0; fx.last = now;
+  fx.ang += 0.5*Math.max(-8, Math.min(8, cu))*dt*1.6;
+  drawFx();
+  fx.raf = requestAnimationFrame(fxLoopAnim);
+}
+function fxKick(){ if (!fx.raf && fx.visible && !NF.reduceMotion){ fx.last = 0; fx.raf = requestAnimationFrame(fxLoopAnim); } }
+NF.whenVisible(fxc, function(v){ fx.visible = v; if (v) fxKick(); });
+(function(){
+  function toMath(e){
+    var r = fxc.getBoundingClientRect(), g = fx.geom; if (!g) return null;
+    return [(e.clientX - r.left - g.cx)/g.S, (g.cy - (e.clientY - r.top))/g.S];
+  }
+  function clampP(){
+    var g = fx.geom; if (!g) return;
+    var xr = (g.w/2 - 6)/g.S, yr = (g.h/2 - 6)/g.S;
+    fx.px = Math.max(-xr, Math.min(xr, fx.px)); fx.py = Math.max(-yr, Math.min(yr, fx.py));
+  }
+  fxc.addEventListener("pointerdown", function(e){ var m = toMath(e); if (!m) return; fx.drag = true; try{ fxc.setPointerCapture(e.pointerId); }catch(_){} fx.px = m[0]; fx.py = m[1]; clampP(); fxRead(); drawFx(); fxKick(); });
+  fxc.addEventListener("pointermove", function(e){ if (!fx.drag) return; var m = toMath(e); if (!m) return; fx.px = m[0]; fx.py = m[1]; clampP(); fxRead(); drawFx(); });
+  fxc.addEventListener("pointerup", function(){ fx.drag = false; fxKick(); });
+  fxc.addEventListener("pointercancel", function(){ fx.drag = false; });
+  fxc.addEventListener("keydown", function(e){
+    var d = {ArrowLeft:[-0.05,0], ArrowRight:[0.05,0], ArrowUp:[0,0.05], ArrowDown:[0,-0.05]}[e.key];
+    if (!d) return; e.preventDefault(); fx.px += d[0]; fx.py += d[1]; clampP(); fxRead(); drawFx(); fxKick();
+  });
+  fxc.style.cursor = "crosshair";
+})();
+
+/* ---------- D2: divergence and Stokes theorems ---------- */
+function drawThm(){
+  var svg = $("thm"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 470 : 250; }), W = s.W, H = s.H, narrow = W < 600;
+  var c1 = narrow ? [W/2, 120] : [W*0.25, H/2 + 4];
+  var c2 = narrow ? [W/2, 350] : [W*0.73, H/2 + 18];
+  var R = Math.min(78, (narrow ? W : W/2)*0.26);
+  label(svg, c1[0], c1[1] - R - 26, "kapalı yüzey S, hacim V", "ink", "middle");
+  function rr(t){ return R*(1 + 0.12*Math.sin(3*t) + 0.05*Math.cos(2*t)); }
+  var pts = [];
+  for (var i = 0; i <= 120; i++){ var t = i/120*TAU; pts.push([c1[0] + rr(t)*Math.cos(t), c1[1] + 0.78*rr(t)*Math.sin(t)]); }
+  NF.el("path", {d:NF.path(pts) + "Z", class:"w-blue"}, svg);
+  NF.el("path", {d:NF.path(pts) + "Z", class:"s-ink", "stroke-width":1.5}, svg);
+  for (var k = 0; k < 8; k++){
+    var t0 = k/8*TAU + 0.2, e = 0.001;
+    var x0 = c1[0] + rr(t0)*Math.cos(t0), y0 = c1[1] + 0.78*rr(t0)*Math.sin(t0);
+    var x1 = c1[0] + rr(t0 + e)*Math.cos(t0 + e), y1 = c1[1] + 0.78*rr(t0 + e)*Math.sin(t0 + e);
+    var tx = x1 - x0, ty = y1 - y0, tl = Math.hypot(tx, ty), nx = ty/tl, ny = -tx/tl;
+    arrow(svg, x0, y0, x0 + 24*nx, y0 + 24*ny, "s-mag", "f-mag", 1.8);
+    if (k === 1) label(svg, x0 + 28*nx + 4, y0 + 28*ny + 4, "da", "strong");
+  }
+  [[-0.3, -0.2], [0.25, -0.05], [-0.05, 0.28], [0.35, 0.3]].forEach(function(o){
+    NF.el("text", {x:c1[0] + o[0]*R, y:c1[1] + o[1]*R + 4, "text-anchor":"middle", class:"lab", style:"fill:var(--magenta);font-weight:600"}, svg, "+");
+  });
+  label(svg, c1[0] - 0.05*R, c1[1] - 0.05*R + 4, "V", "strong", "middle");
+  label(svg, c1[0] - R - 18, c1[1] + 4, "S", "strong", "end");
+  label(svg, c2[0], c2[1] - R - 40, "açık yüzey S, sınırı C", "ink", "middle");
+  var ry = R*0.4;
+  NF.el("ellipse", {cx:c2[0], cy:c2[1], rx:R*1.1, ry:ry, class:"w-blue"}, svg);
+  NF.el("ellipse", {cx:c2[0], cy:c2[1], rx:R*1.1, ry:ry, fill:"none", class:"s-ink", "stroke-width":1.6}, svg);
+  [0.15, 1.75, 3.35, 4.95].forEach(function(t){
+    var x = c2[0] + R*1.1*Math.cos(t), y = c2[1] + ry*Math.sin(t);
+    head(svg, x, y, Math.atan2(-ry*Math.cos(t), R*1.1*Math.sin(t)), "f-ink");
+  });
+  [[-0.45, 0.05], [0.1, -0.15], [0.5, 0.1]].forEach(function(o){
+    var ex = c2[0] + o[0]*R, ey = c2[1] + o[1]*ry*2.2, sr = 10, sy = 4, pp = [];
+    for (var q = 0; q <= 20; q++){ var a = 0.4 + (TAU - 1.0) - q/20*(TAU - 1.0); pp.push([ex + sr*Math.cos(a), ey + sy*Math.sin(a)]); }
+    NF.el("path", {d:NF.path(pp), class:"s-mag", "stroke-width":1.3}, svg);
+    var pe = pp[pp.length - 1], pb = pp[pp.length - 2];
+    head(svg, pe[0], pe[1], Math.atan2(pe[1] - pb[1], pe[0] - pb[0]), "f-mag");
+  });
+  arrow(svg, c2[0], c2[1] - 2, c2[0], c2[1] - R - 14, "s-blue", "f-blue", 2);
+  label(svg, c2[0] + 8, c2[1] - R - 12, "da", "strong");
+  label(svg, c2[0] + R*1.1 + 10, c2[1] + 4, "C", "strong");
+  label(svg, c2[0] - R*0.15, c2[1] + ry*0.75, "S", "strong", "middle");
+}
+
+/* ---------- I2: phasor and wave ---------- */
+var ph = {w:2, k:2.5, t:0, d:false, playing:!NF.reduceMotion, visible:true, raf:0, last:0};
+var phc = $("ph-c");
+function drawPh(){
+  var f = NF.fitCanvas(phc, function(w){ return w < 560 ? 400 : 250; });
+  var ctx = f.ctx, w = f.w, h = f.h, narrow = w < 560;
+  ctx.clearRect(0, 0, w, h);
+  var Rr = narrow ? 70 : Math.min(76, h*0.3);
+  var ccx = narrow ? w/2 : 34 + Rr + 28, ccy = narrow ? 18 + Rr + 30 : h/2 + 6;
+  var wx0 = narrow ? 24 : ccx + Rr + 60, wx1 = w - 18, wy = narrow ? h - 24 - Rr : ccy;
+  var ink2 = NF.tok("--ink-2"), ink3 = NF.tok("--ink-3"), rule = NF.tok("--rule"), mag = NF.tok("--magenta"), blue = NF.tok("--blue");
+  ctx.strokeStyle = rule; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(ccx, ccy, Rr, 0, TAU); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ccx, ccy - Rr - 16); ctx.lineTo(ccx, ccy + Rr + 10); ctx.moveTo(ccx - Rr - 16, ccy); ctx.lineTo(ccx + Rr + 10, ccy); ctx.stroke();
+  ctx.fillStyle = ink3; ctx.font = mono(11);
+  ctx.fillText("Re", ccx + 6, ccy - Rr - 6); ctx.fillText("Im", ccx - Rr - 26, ccy - 6);
+  var phi = -ph.w*ph.t;
+  var tipx = ccx - Math.sin(phi)*Rr, tipy = ccy - Math.cos(phi)*Rr;
+  ctx.strokeStyle = mag; ctx.fillStyle = mag; cArrow(ctx, ccx, ccy, tipx, tipy, 2.4, 9);
+  if (ph.d){
+    var dl = Rr*ph.w/3.2, dre = Math.sin(phi), dim = -Math.cos(phi);
+    ctx.strokeStyle = blue; ctx.fillStyle = blue;
+    cArrow(ctx, ccx, ccy, ccx - dim*dl, ccy - dre*dl, 2, 8);
+    ctx.font = mono(11, "600"); ctx.fillStyle = ink2;
+    ctx.fillText("−iω eⁱᵠ", ccx - dim*dl + 6, ccy - dre*dl - 4);
+  }
+  ctx.fillStyle = ink2; ctx.font = mono(11, "600");
+  ctx.fillText("eⁱᵠ", tipx + 8, tipy - 6);
+  var X = 6;
+  function WX(x){ return wx0 + x/X*(wx1 - wx0); }
+  ctx.strokeStyle = rule; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(wx0, wy); ctx.lineTo(wx1, wy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(wx0, wy - Rr - 8); ctx.lineTo(wx0, wy + Rr + 8); ctx.stroke();
+  ctx.strokeStyle = NF.tok("--ink"); ctx.lineWidth = 2; ctx.lineJoin = "round";
+  ctx.beginPath();
+  for (var i = 0; i <= 300; i++){ var x = X*i/300; ctx.lineTo(WX(x), wy - Rr*Math.cos(ph.k*x - ph.w*ph.t)); }
+  ctx.stroke();
+  var y0 = wy - Rr*Math.cos(phi);
+  if (!narrow){
+    ctx.setLineDash([4, 4]); ctx.strokeStyle = mag; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(tipx, tipy); ctx.lineTo(wx0, y0); ctx.stroke(); ctx.setLineDash([]);
+  } else {
+    ctx.setLineDash([4, 4]); ctx.strokeStyle = mag; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(tipx, tipy); ctx.lineTo(tipx, Math.min(tipy, ccy) - 4); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.beginPath(); ctx.arc(wx0, y0, 5, 0, TAU); ctx.fillStyle = mag; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = NF.tok("--sheet"); ctx.stroke();
+  ctx.fillStyle = ink3; ctx.font = mono(11);
+  ctx.fillText("u(x, t) = cos(kx − ωt)", wx0 + 10, narrow ? wy - Rr - 14 : 18);
+  ctx.fillText("x →", wx1 - 26, wy + 16);
+}
+function phRead(){
+  txt("ph-wo", ph.w.toFixed(2)); txt("ph-ko", ph.k.toFixed(2));
+  txt("ph-l", (TAU/ph.k).toFixed(2) + " birim"); txt("ph-t", (TAU/ph.w).toFixed(2) + " s"); txt("ph-v", (ph.w/ph.k).toFixed(2) + " birim/s");
+}
+function phLoop(now){
+  ph.raf = 0;
+  if (!ph.playing || !ph.visible) return;
+  var dt = ph.last ? Math.min(0.05, (now - ph.last)/1000) : 0; ph.last = now;
+  ph.t += dt; drawPh();
+  ph.raf = requestAnimationFrame(phLoop);
+}
+function phKick(){ if (!ph.raf && ph.playing && ph.visible){ ph.last = 0; ph.raf = requestAnimationFrame(phLoop); } }
+NF.whenVisible(phc, function(v){ ph.visible = v; if (v) phKick(); });
+$("ph-w").addEventListener("input", function(e){ ph.w = +e.target.value; phRead(); drawPh(); });
+$("ph-k").addEventListener("input", function(e){ ph.k = +e.target.value; phRead(); drawPh(); });
+$("ph-d").addEventListener("change", function(e){ ph.d = e.target.checked; drawPh(); });
+$("ph-play").addEventListener("click", function(){ ph.playing = !ph.playing; $("ph-play").textContent = ph.playing ? "Duraklat" : "Oynat"; if (ph.playing) phKick(); });
+if (!ph.playing){ $("ph-play").textContent = "Oynat"; ph.t = 0.45; }
+
+/* ---------- I3: Gauss's law lab ---------- */
+var START = [{x:-0.55, y:0.12, q:1}, {x:0.62, y:-0.3, q:-1}, {x:0.18, y:0.52, q:1}];
+var gl = {charges: START.map(function(c){ return {x:c.x, y:c.y, q:c.q}; }), cx:-0.3, cy:0.05, R:0.5, drag:null, geom:null};
+var glc = $("gl-c");
+function E(x, y){
+  var ex = 0, ey = 0;
+  gl.charges.forEach(function(c){ var dx = x - c.x, dy = y - c.y, r2 = dx*dx + dy*dy + 1e-6; ex += c.q*dx/(TAU*r2); ey += c.q*dy/(TAU*r2); });
+  return [ex, ey];
+}
+function glFlux(){
+  var N = 720, s = 0;
+  for (var i = 0; i < N; i++){
+    var a = (i + 0.5)/N*TAU, v = E(gl.cx + gl.R*Math.cos(a), gl.cy + gl.R*Math.sin(a));
+    s += (v[0]*Math.cos(a) + v[1]*Math.sin(a))*gl.R*TAU/N;
+  }
+  return s;
+}
+function glRead(){
+  var qin = 0, qout = 0, near = false;
+  gl.charges.forEach(function(c){
+    var d = Math.hypot(c.x - gl.cx, c.y - gl.cy);
+    if (Math.abs(d - gl.R) < 0.03) near = true;
+    if (d < gl.R) qin += c.q; else qout += c.q;
+  });
+  txt("gl-in", (qin > 0 ? "+" : "") + qin);
+  var fl = glFlux();
+  txt("gl-flux", near ? "yük çemberin üstünde, belirsiz" : (Math.abs(fl) < 0.005 ? "0.00" : fl.toFixed(2)));
+  txt("gl-out", (qout > 0 ? "+" : "") + qout);
+  txt("gl-ro", gl.R.toFixed(2));
+}
+function drawGl(){
+  var f = NF.fitCanvas(glc, function(w){ return w < 560 ? 330 : 380; });
+  var ctx = f.ctx, w = f.w, h = f.h, S = h/2.3, cx = w/2, cy = h/2;
+  gl.geom = {S:S, cx:cx, cy:cy, w:w, h:h};
+  function X(x){ return cx + x*S; } function Y(y){ return cy - y*S; }
+  ctx.clearRect(0, 0, w, h);
+  var ink = NF.tok("--ink"), ink3 = NF.tok("--ink-3"), mag = NF.tok("--magenta"), blue = NF.tok("--blue"), sheet = NF.tok("--sheet");
+  var gp = w < 560 ? 26 : 30, mref = 1/(TAU*0.35);
+  ctx.fillStyle = ink3; ctx.strokeStyle = ink3;
+  for (var gx = gp/2; gx < w; gx += gp) for (var gy = gp/2; gy < h; gy += gp){
+    var x = (gx - cx)/S, y = (cy - gy)/S, skip = false;
+    gl.charges.forEach(function(c){ if (Math.hypot(x - c.x, y - c.y) < 0.09) skip = true; });
+    if (skip) continue;
+    var v = E(x, y), m = Math.hypot(v[0], v[1]); if (m < 1e-9) continue;
+    var L = gp*0.78*Math.min(1, Math.sqrt(m/mref)), ux = v[0]/m, uy = -v[1]/m;
+    ctx.globalAlpha = 0.3 + 0.6*Math.min(1, m/mref);
+    cArrow(ctx, gx - ux*L/2, gy - uy*L/2, gx + ux*L/2, gy + uy*L/2, 1.2, 5);
+  }
+  ctx.globalAlpha = 1;
+  var pcx = X(gl.cx), pcy = Y(gl.cy), pr = gl.R*S;
+  ctx.fillStyle = NF.tok("--blue-wash"); ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.fill();
+  for (var i = 0; i < 48; i++){
+    var a = i/48*TAU, bx = gl.cx + gl.R*Math.cos(a), by = gl.cy + gl.R*Math.sin(a), near = false;
+    gl.charges.forEach(function(c){ if (Math.hypot(bx - c.x, by - c.y) < 0.06) near = true; });
+    if (near) continue;
+    var v2 = E(bx, by), fn = v2[0]*Math.cos(a) + v2[1]*Math.sin(a);
+    var len = Math.max(-1, Math.min(1, fn/mref))*18;
+    if (Math.abs(len) < 0.6) continue;
+    ctx.strokeStyle = len > 0 ? mag : blue; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(X(bx), Y(by)); ctx.lineTo(X(bx) + len*Math.cos(a), Y(by) - len*Math.sin(a)); ctx.stroke();
+  }
+  ctx.setLineDash([6, 5]); ctx.strokeStyle = ink; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
+  ctx.strokeStyle = ink3; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.moveTo(pcx - 6, pcy); ctx.lineTo(pcx + 6, pcy); ctx.moveTo(pcx, pcy - 6); ctx.lineTo(pcx, pcy + 6); ctx.stroke();
+  gl.charges.forEach(function(c){
+    var x3 = X(c.x), y3 = Y(c.y);
+    ctx.beginPath(); ctx.arc(x3, y3, 11, 0, TAU); ctx.fillStyle = c.q > 0 ? mag : blue; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = sheet; ctx.stroke();
+    ctx.fillStyle = sheet; ctx.font = mono(15, "600"); ctx.textAlign = "center";
+    ctx.fillText(c.q > 0 ? "+" : "−", x3, y3 + 5); ctx.textAlign = "left";
+  });
+  ctx.fillStyle = NF.tok("--ink-2"); ctx.font = mono(11);
+  ctx.fillText("S", pcx + pr*0.72 + 6, pcy - pr*0.72 - 4);
+}
+(function(){
+  function toMath(e){ var r = glc.getBoundingClientRect(), g = gl.geom; return [(e.clientX - r.left - g.cx)/g.S, (g.cy - (e.clientY - r.top))/g.S]; }
+  function clamp(o){ var g = gl.geom, xr = (g.w/2 - 12)/g.S, yr = (g.h/2 - 12)/g.S; o.x = Math.max(-xr, Math.min(xr, o.x)); o.y = Math.max(-yr, Math.min(yr, o.y)); }
+  glc.addEventListener("pointerdown", function(e){
+    if (!gl.geom) return;
+    var m = toMath(e), best = null, bd = 18/gl.geom.S;
+    gl.charges.forEach(function(c){ var d = Math.hypot(c.x - m[0], c.y - m[1]); if (d < bd){ bd = d; best = c; } });
+    if (best) gl.drag = {type:"q", obj:best, ox:best.x - m[0], oy:best.y - m[1]};
+    else if (Math.hypot(m[0] - gl.cx, m[1] - gl.cy) < gl.R + 0.06) gl.drag = {type:"c", ox:gl.cx - m[0], oy:gl.cy - m[1]};
+    else { gl.cx = m[0]; gl.cy = m[1]; gl.drag = {type:"c", ox:0, oy:0}; }
+    try{ glc.setPointerCapture(e.pointerId); }catch(_){}
+    glRead(); drawGl();
+  });
+  glc.addEventListener("pointermove", function(e){
+    if (!gl.drag) return;
+    var m = toMath(e);
+    if (gl.drag.type === "q"){ gl.drag.obj.x = m[0] + gl.drag.ox; gl.drag.obj.y = m[1] + gl.drag.oy; clamp(gl.drag.obj); }
+    else { var o = {x:m[0] + gl.drag.ox, y:m[1] + gl.drag.oy}; clamp(o); gl.cx = o.x; gl.cy = o.y; }
+    glRead(); drawGl();
+  });
+  function up(){ gl.drag = null; }
+  glc.addEventListener("pointerup", up); glc.addEventListener("pointercancel", up);
+  glc.addEventListener("keydown", function(e){
+    var d = {ArrowLeft:[-0.05,0], ArrowRight:[0.05,0], ArrowUp:[0,0.05], ArrowDown:[0,-0.05]}[e.key];
+    if (!d) return; e.preventDefault(); var o = {x:gl.cx + d[0], y:gl.cy + d[1]}; clamp(o); gl.cx = o.x; gl.cy = o.y; glRead(); drawGl();
+  });
+  glc.style.cursor = "grab";
+  var seed = 3;
+  function rnd(){ seed = (seed*9301 + 49297) % 233280; return seed/233280; }
+  function add(q){
+    if (gl.charges.length >= 10) return;
+    var g = gl.geom, xr = g ? (g.w/2 - 30)/g.S : 1.2;
+    gl.charges.push({x:(rnd()*2 - 1)*xr*0.9, y:(rnd()*2 - 1)*0.85, q:q});
+    glRead(); drawGl();
+  }
+  $("gl-plus").addEventListener("click", function(){ add(1); });
+  $("gl-minus").addEventListener("click", function(){ add(-1); });
+  $("gl-reset").addEventListener("click", function(){
+    gl.charges = START.map(function(c){ return {x:c.x, y:c.y, q:c.q}; }); gl.cx = -0.3; gl.cy = 0.05; gl.R = 0.5; $("gl-r").value = 0.5;
+    glRead(); drawGl();
+  });
+  $("gl-r").addEventListener("input", function(e){ gl.R = +e.target.value; glRead(); drawGl(); });
+})();
+
+/* ---------- D3: field of a straight wire ---------- */
+function drawWire(){
+  var svg = $("wire"); if (!svg) return;
+  var s = sizeSvg(svg, 260), W = s.W, H = s.H, cx = W/2, cy = H/2 + 6;
+  [32, 60, 94].forEach(function(r){
+    NF.el("circle", {cx:cx, cy:cy, r:r, fill:"none", class:"s-mut", "stroke-width":1}, svg);
+    var n = r < 40 ? 3 : r < 70 ? 5 : 7, span = 1000/(r*r);
+    for (var i = 0; i < n; i++){
+      var t0 = i/n*TAU + 0.5, pts = [];
+      for (var q = 0; q <= 12; q++){ var t = t0 + span*q/12; pts.push([cx + r*Math.cos(t), cy - r*Math.sin(t)]); }
+      NF.el("path", {d:NF.path(pts.slice(0, -1)), class:"s-blue", "stroke-width":2}, svg);
+      var pe = pts[pts.length - 1], pb = pts[pts.length - 2];
+      head(svg, pe[0], pe[1], Math.atan2(pe[1] - pb[1], pe[0] - pb[0]), "f-blue");
+    }
+  });
+  NF.el("circle", {cx:cx, cy:cy, r:10, class:"f-sheet s-ink", "stroke-width":1.8}, svg);
+  NF.el("circle", {cx:cx, cy:cy, r:3, class:"f-ink"}, svg);
+  label(svg, cx + 13, cy - 12, "I", "strong");
+  label(svg, 12, 20, "B = μ₀I / 2πr", "ink");
+  label(svg, W - 12, 20, "akım sayfadan dışarı ⊙", "", "end");
+}
+
+/* ---------- I4: induction ---------- */
+var ind = {f:0.3, t:0, playing:!NF.reduceMotion, visible:true, raf:0, last:0};
+var indc = $("ind-c");
+function drawInd(){
+  var fr = NF.fitCanvas(indc, function(w){ return w < 560 ? 420 : 250; });
+  var ctx = fr.ctx, w = fr.w, h = fr.h, narrow = w < 560;
+  ctx.clearRect(0, 0, w, h);
+  var ink = NF.tok("--ink"), ink2 = NF.tok("--ink-2"), ink3 = NF.tok("--ink-3"), mag = NF.tok("--magenta"), blue = NF.tok("--blue"), rule = NF.tok("--rule");
+  var om = TAU*ind.f, B = Math.sin(om*ind.t), dB = Math.cos(om*ind.t), emf = -dB;
+  var Rl = narrow ? 78 : Math.min(84, h*0.34), lcx = narrow ? w/2 : 30 + Rl + 30, lcy = narrow ? 16 + Rl + 26 : h/2 + 4;
+  var gn = Math.floor((Rl + 12)/26);
+  for (var gi = -gn; gi <= gn; gi++) for (var gj = -gn; gj <= gn; gj++){
+    var px = lcx + gi*26, py = lcy + gj*26, sz = 1.5 + 5.5*Math.abs(B);
+    ctx.strokeStyle = ink3; ctx.fillStyle = ink3; ctx.globalAlpha = 0.35 + 0.55*Math.abs(B); ctx.lineWidth = 1.3;
+    if (B >= 0){ ctx.beginPath(); ctx.arc(px, py, sz, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.arc(px, py, 1.3, 0, TAU); ctx.fill(); }
+    else { ctx.beginPath(); ctx.moveTo(px - sz*0.7, py - sz*0.7); ctx.lineTo(px + sz*0.7, py + sz*0.7); ctx.moveTo(px + sz*0.7, py - sz*0.7); ctx.lineTo(px - sz*0.7, py + sz*0.7); ctx.stroke(); }
+  }
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = ink; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(lcx, lcy, Rl, 0, TAU); ctx.stroke();
+  if (Math.abs(emf) > 0.04){
+    ctx.fillStyle = mag; ctx.strokeStyle = mag; ctx.globalAlpha = 0.35 + 0.65*Math.abs(emf);
+    var ccw = emf > 0;
+    for (var i = 0; i < 4; i++){
+      var a = i/4*TAU + 0.4, x = lcx + Rl*Math.cos(a), y = lcy - Rl*Math.sin(a);
+      var tx = ccw ? -Math.sin(a) : Math.sin(a), ty = ccw ? -Math.cos(a) : Math.cos(a);
+      cArrow(ctx, x - tx*10, y - ty*10, x + tx*10, y + ty*10, 3, 11);
+    }
+    ctx.globalAlpha = 1;
+  }
+  ctx.fillStyle = ink2; ctx.font = mono(11);
+  ctx.fillText("B " + (B >= 0 ? "⊙ dışarı" : "⊗ içeri"), lcx - Rl, lcy + Rl + 26);
+  var px0 = narrow ? 34 : lcx + Rl + 70, px1 = w - 16, py0 = narrow ? h - 150 : 22, py1 = narrow ? h - 30 : h - 36;
+  var pmid = (py0 + py1)/2, amp = (py1 - py0)/2 - 6, Tw = 2/ind.f;
+  ctx.strokeStyle = rule; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(px0, pmid); ctx.lineTo(px1, pmid); ctx.moveTo(px0, py0); ctx.lineTo(px0, py1); ctx.stroke();
+  function curve(fn, color, wdt){
+    ctx.strokeStyle = color; ctx.lineWidth = wdt; ctx.beginPath();
+    for (var j = 0; j <= 200; j++){ var tt = ind.t - Tw + Tw*j/200; ctx.lineTo(px0 + (px1 - px0)*j/200, pmid - amp*fn(tt)); }
+    ctx.stroke();
+  }
+  curve(function(tt){ return Math.sin(om*tt); }, ink, 2);
+  curve(function(tt){ return -Math.cos(om*tt); }, mag, 2);
+  ctx.beginPath(); ctx.arc(px1, pmid - amp*B, 4.5, 0, TAU); ctx.fillStyle = ink; ctx.fill();
+  ctx.beginPath(); ctx.arc(px1, pmid - amp*emf, 4.5, 0, TAU); ctx.fillStyle = mag; ctx.fill();
+  ctx.fillStyle = ink3; ctx.font = mono(11);
+  ctx.fillText("son iki periyot · şimdi →", px0 + 6, py1 + 16);
+  txt("ind-b", (B >= 0 ? "+" : "") + B.toFixed(2) + (B >= 0 ? " · dışarı" : " · içeri"));
+  txt("ind-d", Math.abs(dB) < 0.04 ? "anlık durgun" : (dB > 0 ? "artıyor (dışarı yönde)" : "azalıyor (dışarı yönde)"));
+  txt("ind-i", Math.abs(emf) < 0.04 ? "yok denecek kadar az" : (emf > 0 ? "saatin tersine" : "saat yönünde"));
+  txt("ind-own", Math.abs(emf) < 0.04 ? "–" : (emf > 0 ? "⊙ dışarı" : "⊗ içeri"));
+}
+function indLoop(now){
+  ind.raf = 0;
+  if (!ind.playing || !ind.visible) return;
+  var dt = ind.last ? Math.min(0.05, (now - ind.last)/1000) : 0; ind.last = now;
+  ind.t += dt; drawInd();
+  ind.raf = requestAnimationFrame(indLoop);
+}
+function indKick(){ if (!ind.raf && ind.playing && ind.visible){ ind.last = 0; ind.raf = requestAnimationFrame(indLoop); } }
+NF.whenVisible(indc, function(v){ ind.visible = v; if (v) indKick(); });
+$("ind-f").addEventListener("input", function(e){ var ph0 = ind.f*ind.t; ind.f = +e.target.value; ind.t = ph0/ind.f; txt("ind-fo", ind.f.toFixed(2)); drawInd(); });
+$("ind-play").addEventListener("click", function(){ ind.playing = !ind.playing; $("ind-play").textContent = ind.playing ? "Duraklat" : "Oynat"; if (ind.playing) indKick(); });
+if (!ind.playing){ $("ind-play").textContent = "Oynat"; ind.t = 0.35/ind.f*0.25; }
+
+/* ---------- D4: capacitor and the two surfaces ---------- */
+function drawCap0(){
+  var svg = $("cap0"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 300 : 250; }), W = s.W, H = s.H, narrow = W < 600;
+  var cy = H/2 + 10, xp = W*0.58, gap = 34, ph = 62, lx = W*0.24;
+  NF.el("line", {x1:14, y1:cy, x2:xp, y2:cy, class:"s-ink", "stroke-width":2.5}, svg);
+  NF.el("line", {x1:xp + gap, y1:cy, x2:W - 14, y2:cy, class:"s-ink", "stroke-width":2.5}, svg);
+  NF.el("line", {x1:xp, y1:cy - ph, x2:xp, y2:cy + ph, class:"s-ink", "stroke-width":5}, svg);
+  NF.el("line", {x1:xp + gap, y1:cy - ph, x2:xp + gap, y2:cy + ph, class:"s-ink", "stroke-width":5}, svg);
+  for (var i = -2; i <= 2; i++){
+    label(svg, xp - 9, cy + i*24 + 4, "+", "strong", "middle");
+    label(svg, xp + gap + 10, cy + i*24 + 4, "−", "strong", "middle");
+  }
+  [-36, 0, 36].forEach(function(dy){ arrow(svg, xp + 6, cy + dy, xp + gap - 6, cy + dy, "s-blue", "f-blue", 1.6); });
+  label(svg, xp + gap + 24, cy - ph + 2, "E artıyor", "ink");
+  arrow(svg, 30, cy - 12, 80, cy - 12, "s-ink", "f-ink", 1.6);
+  label(svg, 34, cy - 20, "I", "strong");
+  var bag = "M" + lx + " " + (cy - 46) + "C" + (lx + 60) + " " + (cy - 110) + " " + (xp + gap/2) + " " + (cy - 96) + " " + (xp + gap/2) + " " + (cy - 40)
+          + "L" + (xp + gap/2) + " " + (cy + 40) + "C" + (xp + gap/2) + " " + (cy + 96) + " " + (lx + 60) + " " + (cy + 110) + " " + lx + " " + (cy + 46) + "Z";
+  NF.el("path", {d:bag, class:"w-mag"}, svg);
+  NF.el("path", {d:bag, fill:"none", class:"s-mag s-dash", "stroke-width":1.4}, svg);
+  NF.el("ellipse", {cx:lx, cy:cy, rx:12, ry:46, class:"w-blue"}, svg);
+  NF.el("ellipse", {cx:lx, cy:cy, rx:12, ry:46, fill:"none", class:"s-ink", "stroke-width":2}, svg);
+  label(svg, lx - 18, cy - 50, "C", "strong", "end");
+  label(svg, lx - 16, cy + 64, narrow ? "S₁" : "S₁ · düz disk, I geçiyor", "ink", "end");
+  label(svg, (lx + xp)/2 + 10, cy - 104, narrow ? "S₂" : "S₂ · torba, akım yok, değişen E var", "ink", "middle");
+}
+
+/* ---------- D5: concept map ---------- */
+function drawMap(){
+  var svg = $("map"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 330 : 300; }), W = s.W, H = s.H, narrow = W < 600;
+  var xl = narrow ? W*0.16 : W*0.17, xr = narrow ? W*0.62 : W*0.68, yt = H*0.28, yb = H*0.74, bw = narrow ? 64 : 92, bh = 44;
+  var oxx = narrow ? 28 : 40, rl = xr - bw/2 - oxx - (narrow ? 14 : 89), rr = xr + bw/2 + oxx + (narrow ? 14 : 62);
+  NF.el("rect", {x:rl, y:yt - bh/2 - 26, width:rr - rl, height:yb - yt + bh + 50, rx:16, class:"w-mag"}, svg);
+  NF.el("rect", {x:rl, y:yt - bh/2 - 26, width:rr - rl, height:yb - yt + bh + 50, rx:16, fill:"none", class:"s-mag s-dash", "stroke-width":1.2}, svg);
+  label(svg, xr, yt - bh/2 - 32, narrow ? "boş uzayda kalan döngü" : "boş uzayda kalan döngü: ışık", "ink", "middle");
+  function node(x, y, big, small){
+    NF.el("rect", {x:x - bw/2, y:y - bh/2, width:bw, height:bh, rx:10, class:"f-sheet s-ink", "stroke-width":1.4}, svg);
+    NF.el("text", {x:x, y:y + 5, "text-anchor":"middle", class:"lab strong", style:"font-size:15px"}, svg, big);
+    if (small) label(svg, x, y + bh/2 + 15, small, "", "middle");
+  }
+  arrow(svg, xl + bw/2 + 4, yt, xr - bw/2 - 6, yt, "s-mut", "f-mut", 1.8);
+  arrow(svg, xl + bw/2 + 4, yb, xr - bw/2 - 6, yb, "s-mut", "f-mut", 1.8);
+  var lxm = narrow ? (xl + bw/2 + rl)/2 : (xl + xr)/2 - 20;
+  label(svg, lxm, yt - 8, narrow ? "Gauss" : "Gauss · ∇·E = ρ/ε₀", "ink", "middle");
+  label(svg, lxm, yb + 18, narrow ? "Ampère" : "Ampère · μ₀J", "ink", "middle");
+  var ox = narrow ? 28 : 40;
+  NF.el("path", {d:"M" + (xr + bw/2) + " " + (yb - 8) + "C" + (xr + bw/2 + ox) + " " + (yb - 20) + " " + (xr + bw/2 + ox) + " " + (yt + 20) + " " + (xr + bw/2 + 4) + " " + (yt + 8), class:"s-mag", "stroke-width":2}, svg);
+  head(svg, xr + bw/2 + 2, yt + 9, Math.atan2(-12, -ox), "f-mag");
+  NF.el("path", {d:"M" + (xr - bw/2) + " " + (yt + 8) + "C" + (xr - bw/2 - ox) + " " + (yt + 20) + " " + (xr - bw/2 - ox) + " " + (yb - 20) + " " + (xr - bw/2 - 4) + " " + (yb - 8), class:"s-mag", "stroke-width":2}, svg);
+  head(svg, xr - bw/2 - 2, yb - 9, Math.atan2(12, ox), "f-mag");
+  if (narrow){
+    label(svg, xr - bw/2 - ox + 12, (yt + yb)/2 - 6, "Maxwell", "strong");
+    label(svg, xr + bw/2 + ox - 12, (yt + yb)/2 + 12, "Faraday", "strong", "end");
+  } else {
+    label(svg, xr + bw/2 + ox + 6, (yt + yb)/2 - 2, "Faraday", "strong");
+    label(svg, xr + bw/2 + ox + 6, (yt + yb)/2 + 13, "−∂B/∂t", "ink");
+    label(svg, xr - bw/2 - ox - 6, (yt + yb)/2 - 2, "Maxwell", "strong", "end");
+    label(svg, xr - bw/2 - ox - 6, (yt + yb)/2 + 13, "μ₀ε₀ ∂E/∂t", "ink", "end");
+  }
+  node(xl, yt, "ρ", "yük"); node(xl, yb, "J", "akım");
+  node(xr, yt, "E", ""); node(xr, yb, "B", "");
+  label(svg, xr, yb + bh/2 + 15, narrow ? "∇·B = 0" : "∇·B = 0, kaynağı yok", "", "middle");
+}
+
+/* ---------- boot ---------- */
+function drawAll(){ drawVec(); drawFx(); drawThm(); drawPh(); drawGl(); drawWire(); drawInd(); drawCap0(); drawMap(); }
+fxRead(); phRead(); glRead();
+txt("ind-fo", ind.f.toFixed(2));
+drawAll();
+NF.onResize(document.querySelector(".prose"), drawAll);
+NF.onTheme(drawAll);
+fxKick();
+})();
+
+</script>
+
+</body></html>

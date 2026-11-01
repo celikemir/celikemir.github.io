@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Schrödinger Equation ve Born Rule · KBM 601 Hafta 2</title>
+<meta name="description" content="Ders iki parçalı. İlk yarı Chapter 1&#x27;i kapatıyor: state, eigenstate expansion ve Born rule. İkinci yarı Chapter 2&#x27;ye giriyor: Schrödinger equation…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<link rel="stylesheet" href="../../kbm.css">
+<script>
+window.MathJax = {
+  options: { enableMenu: false },
+  svg: { fontCache: 'local' },
+  startup: {
+    typeset: false,
+    pageReady: function () {
+      document.head.appendChild(MathJax.svgStylesheet());
+      var chain = Promise.resolve();
+      document.querySelectorAll('.eq[data-tex]').forEach(function (el) {
+        var tex = el.textContent;
+        chain = chain
+          .then(function () { return MathJax.tex2svgPromise(tex, { display: true }); })
+          .then(function (node) { el.replaceChildren(node); el.classList.add('ok'); })
+          .catch(function () {});
+      });
+      return chain;
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">601</a> › Hafta 2</nav>
+  <p class="eyebrow">KBM 601 · Hafta 2 · ders notu</p>
+  <h1>Schrödinger Equation ve Born Rule</h1>
+<p>Ders iki parçalı. İlk yarı Chapter 1&#39;i kapatıyor: state, eigenstate expansion ve Born rule. İkinci yarı Chapter 2&#39;ye giriyor: Schrödinger equation, continuity, separation of variables ve stationary states.</p>
+<p>Transkript otomatik çeviriden geçmiş ve yer yer Türkçe-İngilizce karışık, bağlamdan toparlandı. Bozulmuş terimlerin karşılıkları şöyle: &quot;emission/amission/a machine&quot; Hermitian, &quot;orto-mimic/autoclonic&quot; orthonormal, &quot;you backspace&quot; Hilbert space, &quot;Macy&#39;s Vipers&quot; basis vectors, &quot;body exclusion&quot; Pauli exclusion, &quot;famions/pozons&quot; fermions/bosons, &quot;sure-hitting equation&quot; Schrödinger equation, &quot;Antonin/homicomino operator&quot; Hamiltonian, &quot;bunny probability&quot; Born, &quot;Jew&quot; J yani probability current, &quot;antiquity equation&quot; continuity equation.</p>
+<nav class="toc" aria-label="Bu sayfada"><p>Bu sayfada</p><ol><li><a href="#1-matrix-formalism-ve-hermitian-matrix">1. Matrix formalism ve Hermitian matrix</a></li><li><a href="#2-neden-hermitian">2. Neden Hermitian?</a></li><li><a href="#3-yan-soru-bosons-fermions-ve-pauli">3. Yan soru: bosons, fermions ve Pauli</a></li><li><a href="#4-statei-tarif-etmek-klasik-ve-kuantum">4. State&#39;i tarif etmek: klasik ve kuantum</a></li><li><a href="#5-eigenvalue-equation-ve-dirac-notation">5. Eigenvalue equation ve Dirac notation</a></li><li><a href="#6-genel-state-ve-katsayıyı-bulmak">6. Genel state ve katsayıyı bulmak</a></li><li><a href="#7-hilbert-space">7. Hilbert space</a></li><li><a href="#8-born-rule-ve-expectation-value">8. Born rule ve expectation value</a></li><li><a href="#9-chapter-2-schrödinger-equation">9. Chapter 2: Schrödinger equation</a></li><li><a href="#10-initial-ve-boundary-conditions">10. Initial ve boundary conditions</a></li><li><a href="#11-probability-density-probability-current-ve-birim-kontrolü">11. Probability density, probability current ve birim kontrolü</a></li><li><a href="#12-continuity-equation">12. Continuity equation</a></li><li><a href="#13-separation-of-variables">13. Separation of variables</a></li><li><a href="#14-stationary-state">14. Stationary state</a></li><li><a href="#lojistik">Lojistik</a></li><li><a href="#kendini-yokla">Kendini yokla</a></li></ol></nav>
+<h2 id="1-matrix-formalism-ve-hermitian-matrix">1. Matrix formalism ve Hermitian matrix</h2>
+<p>Hoca iki eşdeğer dili hatırlatarak başladı. Schrödinger&#39;in wave mechanics&#39;inde state bir fonksiyon, dinamik de bir differential equation. Heisenberg&#39;in matrix mechanics&#39;inde state bir column vector, operatörler square matrix. Matrix tarafında Hermitian&#39;ın tanımı şu:</p>
+<div class="eq" data-tex>A^\dagger \equiv (A^T)^* = A \quad\Longleftrightarrow\quad A_{ij} = A_{ji}^*</div>
+<p>Transpose alıp complex conjugate aldığında matrisin kendisi geri geliyorsa Hermitian. Pratik sonucu şu: diagonal elemanlar gerçel olmak zorunda, diagonal dışı elemanlar da birbirinin conjugate&#39;ı. Örnek:</p>
+<div class="eq" data-tex>A = \begin{pmatrix} 1 &amp; 2-i \\ 2+i &amp; 3 \end{pmatrix}</div>
+<p>Gerçel sayılarla çalışıyorsan Hermitian ile symmetric aynı şey. Kovaryans matrisi gibi symmetric matrislerin complex genellemesi bu.</p>
+<h2 id="2-neden-hermitian">2. Neden Hermitian?</h2>
+<p>Atalay sordu. Klasik büyüklükler kuantumda operatöre dönüşüyor (x → x̂, p → p̂, E → Ĥ), ölçümde çıkan sonuçlar da o operatörün eigenvalue&#39;ları. Ölçüm sonucu gerçel bir sayı olmak zorunda ve Hermitian olmak bunu garanti ediyor. Hoca ispata girmedi ama iki satırlık bir şey:</p>
+<div class="eq" data-tex>\hat A|a\rangle = a|a\rangle \;\Rightarrow\; \langle a|\hat A|a\rangle = a\langle a|a\rangle</div>
+<p>İki tarafın complex conjugate&#39;ını alırsan:</p>
+<div class="eq" data-tex>\langle a|\hat A^\dagger|a\rangle = a^*\langle a|a\rangle</div>
+<p>Â† = Â olduğu için sol taraflar aynı. ⟨a|a⟩ ≠ 0 olduğu için de a = a*.</p>
+<p>Bonus olarak, farklı eigenvalue&#39;lara ait eigenvector&#39;lar orthogonal çıkıyor. Aşağıda kullanılan orthonormal basis buradan geliyor.</p>
+<h2 id="3-yan-soru-bosons-fermions-ve-pauli">3. Yan soru: bosons, fermions ve Pauli</h2>
+<p>Biri creation ve annihilation operator&#39;larının bosons ve fermions için neden aynı yazıldığını sordu. Hocanın cevabı şuydu: ikisi de harmonic oscillator&#39;dan gelen aynı yapı ve state&#39;e benzer şekilde etki ediyorlar, yani occupation number&#39;ı bir artırıp bir azaltıyorlar. Ama tarif ettikleri field farklı. Bosonda photon sayısı, fermionda electron sayısı. Ayrıntıyı field quantization&#39;da göreceksiniz dedi.</p>
+<p>Ardından &quot;Pauli exclusion bu operatörlerden ispatlanabilir mi&quot; sorusu geldi. Hoca evet deyip geçti. Aslında fark tek bir işarette. Bosonlar commutator, fermionlar anticommutator ile tanımlanıyor:</p>
+<div class="eq" data-tex>[\hat a, \hat a^\dagger] = 1 \qquad\qquad \{\hat b, \hat b^\dagger\} = 1,\quad \{\hat b^\dagger, \hat b^\dagger\} = 0</div>
+<p>Sonuncusu 2(b̂†)² = 0 demek, yani (b̂†)² = 0. Aynı state&#39;e ikinci bir fermion koymaya çalışırsan sıfır vektörünü alıyorsun, dolayısıyla occupation number sadece 0 ya da 1 olabiliyor. Bosonda böyle bir kısıt yok, (â†)ⁿ|0⟩ ∝ |n⟩ her n için sıfırdan farklı. Exclusion principle doğrudan cebirden çıkıyor.</p>
+<h2 id="4-statei-tarif-etmek-klasik-ve-kuantum">4. State&#39;i tarif etmek: klasik ve kuantum</h2>
+<p>Hocanın ders ortasındaki özetinin çerçevesi bu. Klasik bir parçacığın state&#39;i nedir? Newton&#39;un ikinci yasası zamanda ikinci mertebeden bir vector equation:</p>
+<div class="eq" data-tex>m\ddot{\vec r} = \vec F</div>
+<p>Çözmek için başlangıçtaki position&#39;ı ve velocity&#39;yi bilmen gerekiyor. İkisini bildiğinde gelecek tamamen belirleniyor. Uzay istasyonu örneği buydu: (r, v) çifti state&#39;in kendisi.</p>
+<p>Kuantumda (hocanın örneği hydrogen atom&#39;u) state tek bir nesne: Hilbert space&#39;te bir state vector |ψ⟩. Ölçüm sonuçları da genelde deterministik değil, olasılıklı. Dersin geri kalanı bu vektörü nasıl yazdığımız ve ondan olasılıkları nasıl çektiğimiz üzerine.</p>
+<h2 id="5-eigenvalue-equation-ve-dirac-notation">5. Eigenvalue equation ve Dirac notation</h2>
+<p>Ölçmek istediğin büyüklüğe, örneğin energy&#39;ye, bir operatör Â karşılık geliyor:</p>
+<div class="eq" data-tex>\hat A|a_n\rangle = a_n|a_n\rangle</div>
+<p>|aₙ⟩ eigenstate, aₙ eigenvalue. Hoca Dirac notation&#39;ı burada ilk kez tanıttı. |·⟩ ket, ⟨·| bra, ikisi yan yana gelince ⟨aₘ|aₙ⟩ bracket, yani inner product oluyor. Eigenstate&#39;ler orthonormal:</p>
+<div class="eq" data-tex>\langle a_m|a_n\rangle = \delta_{mn}</div>
+<p>Fiziksel anlamı şu: sistem tam olarak |aₙ⟩&#39;deyse ve Â&#39;yı ölçersen kesinlikle aₙ buluyorsun. Ama sistem her zaman bir eigenstate&#39;te olmak zorunda değil.</p>
+<h2 id="6-genel-state-ve-katsayıyı-bulmak">6. Genel state ve katsayıyı bulmak</h2>
+<p>Normalize edilmiş genel bir |ψ⟩&#39;yi eigenstate&#39;lerin superposition&#39;ı olarak yazıyoruz:</p>
+<div class="eq" data-tex>|\psi\rangle = \sum_n c_n|a_n\rangle</div>
+<p>Hoca bunu düz 3D vektörle kurdu. r = x î + y ĵ + z k̂ ifadesinde x̂₁ = î, x̂₂ = ĵ, x̂₃ = k̂ ve c₁ = x vs. dersen r = Σ cₙ x̂ₙ elde ediyorsun (n = 1, 2, 3). Basis vector&#39;lar normalized ve orthogonal, yani x̂ₘ · x̂ₙ = δₘₙ. Hocanın sorusu şuydu: r verilmişse c₁&#39;i nasıl bulursun? Cevap dot product, yani projection:</p>
+<div class="eq" data-tex>\hat x_1\cdot\vec r = \sum_n c_n\,\hat x_1\cdot\hat x_n = \sum_n c_n\,\delta_{1n} = c_1</div>
+<p>Delta toplamdan sadece n = 1 terimini bırakıyor, gerisi sıfır. Kuantumdaki karşılığı birebir aynı:</p>
+<div class="eq" data-tex>\langle a_m|\psi\rangle = \sum_n c_n\langle a_m|a_n\rangle = \sum_n c_n\delta_{mn} = c_m</div>
+<p>cₘ = ⟨aₘ|ψ⟩&#39;ye probability amplitude deniyor. Hoca &quot;henüz probability değil, amplitude&quot; diye özellikle vurguladı, çünkü cₘ complex olabilir.</p>
+<h2 id="7-hilbert-space">7. Hilbert space</h2>
+<p>{|aₙ⟩} complete bir basis olmalı, yani her |ψ⟩&#39;yi span edebilmeli. Bu vektörlerin yaşadığı yer Hilbert space: inner product tanımlı bir vector space. 3D&#39;de sadece î ve ĵ kullanırsan yalnızca düzlemi tarif edebilirsin, uzay için k̂ de lazım. Kuantum sistemlerinde basis genelde çok daha büyük, çoğu zaman sonsuz boyutlu.</p>
+<p>Hoca matematiksel tanıma şimdilik gerek olmadığını, terminolojiye alışmanın yeteceğini söyledi. Asıl önemli nokta, inner product&#39;ın olasılıkları hesaplamak için kullandığın araç olması.</p>
+<h2 id="8-born-rule-ve-expectation-value">8. Born rule ve expectation value</h2>
+<p>cₙ complex olduğu için doğrudan olasılık olamaz. Born rule genliğin karesini alıyor:</p>
+<div class="eq" data-tex>P(a_n) = |c_n|^2 = |\langle a_n|\psi\rangle|^2</div>
+<p>⟨ψ|ψ⟩ = 1 normalizasyonu Σ|cₙ|² = 1 demek, yani olasılıkların toplamı 1. Expectation value da klasik beklenen değerin aynısı:</p>
+<div class="eq" data-tex>\langle\hat A\rangle = \langle\psi|\hat A|\psi\rangle = \sum_n a_n|c_n|^2</div>
+<p>Hocanın yazı tura örneği burayla ilgiliydi. Yazıda 1 lira kazanıp turada 1 lira kaybettiğin bir oyunda beklenen değer 0, ama hiçbir atışta 0 çıkmıyor. Kuantumda da aynısı geçerli: ⟨Â⟩ bir eigenvalue olmak zorunda değil, çok sayıda özdeş ölçümün ortalaması.</p>
+<h2 id="9-chapter-2-schrödinger-equation">9. Chapter 2: Schrödinger equation</h2>
+<p>Chapter 1 (temel tanımlar ve tarihsel gelişim) burada kapandı. Chapter 2 time-dependent Schrödinger equation ile açıldı. Bu denklem wave function&#39;ın zamanla nasıl evrildiğini veriyor. Transkriptte &quot;electron around the photon&quot; geçiyor, çekirdek etrafındaki electron olmalı. 1D position representation&#39;da:</p>
+<div class="eq" data-tex>i\hbar\frac{\partial\psi(x,t)}{\partial t} = -\frac{\hbar^2}{2m}\frac{\partial^2\psi(x,t)}{\partial x^2} + V(x)\psi(x,t) = \hat H\psi</div>
+<p>Burada Ĥ = p̂²/2m + V Hamiltonian, p̂ = −iħ ∂/∂x.</p>
+<h2 id="10-initial-ve-boundary-conditions">10. Initial ve boundary conditions</h2>
+<p>Denklem zamanda birinci, uzayda ikinci mertebeden. Zamanda birinci mertebe olduğu için tek bir initial condition yetiyor: ψ(x,0). Bunu 4. bölümle karşılaştır. Klasikte position ve velocity&#39;yi ayrı ayrı vermen gerekiyordu, burada ψ(x,0)&#39;ı bilmek geleceği tamamen belirliyor. Uzayda ikinci mertebe olduğu için iki boundary condition gerekiyor: ya iki ayrı noktada ψ, ya da tek bir noktada hem ψ hem ∂ψ/∂x.</p>
+<p>Denklem lineer. ψ₁ ve ψ₂ çözümse αψ₁ + βψ₂ de çözüm. Superposition principle&#39;ın dinamik tarafı bu.</p>
+<h2 id="11-probability-density-probability-current-ve-birim-kontrolü">11. Probability density, probability current ve birim kontrolü</h2>
+<p>Born interpretation&#39;ın continuous hali şu: ρ(x,t) = |ψ|² = ψ*ψ probability density. Buna bağlı bir de probability current var:</p>
+<div class="eq" data-tex>J(x,t) = \frac{\hbar}{2mi}\left(\psi^*\frac{\partial\psi}{\partial x} - \psi\frac{\partial\psi^*}{\partial x}\right)</div>
+<p>Hoca tahtada birim kontrolü yaparken fazladan bir kilogram buldu ve paydadaki m&#39;yi unuttuğunu fark etti. Paydada 2 değil 2m olmalı, çünkü bu çarpan p̂²/2m&#39;den geliyor. Notlarında 2 yazdıysan düzelt.</p>
+<p>Kontrolü kendin yapmak istersen: 1D&#39;de ρ&#39;nun birimi 1/m, J&#39;nin birimi 1/s olmalı, çünkü J birim zamanda bir noktadan geçen olasılık. ħ/m&#39;nin birimi m²/s, parantez içininki 1/m², çarpımları 1/s.</p>
+<h2 id="12-continuity-equation">12. Continuity equation</h2>
+<p>Bölümün ana sonucu:</p>
+<div class="eq" data-tex>\frac{\partial\rho}{\partial t} + \frac{\partial J}{\partial x} = 0</div>
+<p>Hocanın sınıf benzetmesi şuydu: sınıftaki öğrenci sayısı ancak kapıdan giren ya da çıkan öğrencilerle değişebilir, kimse yoktan var olmuyor ya da yok olmuyor. Kütle ve yük için bildiğin continuity equation&#39;ın aynısı, sadece korunan şey olasılık.</p>
+<p>Önemli olan bunun lokal olması. Toplam olasılığın 1 kalması yetmiyor, bir noktadaki olasılık ancak komşu noktalara akarak değişebiliyor. Bir noktada ρ azalıyorsa oradan dışarı net bir akış var. Outflow&#39;da ∂J/∂x pozitif, bu yüzden ∂ρ/∂t negatif çıkıyor.</p>
+<p>Türetme ödev. Tarif şu: Schrödinger equation&#39;ı ψ* ile, complex conjugate&#39;ını da ψ ile çarpıp birbirinden çıkar. Dikkat etmen gereken iki şey var. V gerçel olduğu için potansiyel terimleri birbirini götürüyor. İkinci türevli terimler ise bir total derivative&#39;de toplanıyor. Hangisinde toplandığını J&#39;nin tanımına bakarak tahmin edebilirsin.</p>
+<h2 id="13-separation-of-variables">13. Separation of variables</h2>
+<p>V zamana bağlı değilse çözümü ψ(x,t) = T(t) u(x) şeklinde arıyoruz. Denkleme koyunca zaman türevi sadece T&#39;ye, uzay türevi sadece u&#39;ya etki ediyor. İki tarafı Tu&#39;ya bölünce:</p>
+<div class="eq" data-tex>i\hbar\frac{1}{T}\frac{dT}{dt} = \frac{1}{u}\left[-\frac{\hbar^2}{2m}\frac{d^2u}{dx^2} + V(x)u\right]</div>
+<p>Sol taraf yalnızca t&#39;nin, sağ taraf yalnızca x&#39;in fonksiyonu. Her t ve her x için eşit olabilmeleri için ikisinin de aynı sabite eşit olması gerekiyor. Birim analizi bu sabitin enerji olduğunu söylüyor, ona E diyoruz. Ortaya iki ayrı denklem çıkıyor.</p>
+<p>Uzay kısmı time-independent Schrödinger equation:</p>
+<div class="eq" data-tex>\hat H u_n(x) = E_n u_n(x)</div>
+<p>Şekline bakarsan bu, ilk saatteki eigenvalue equation&#39;ın ta kendisi. Operatör Hamiltonian, eigenvalue enerji. Hocanın &quot;ayrı ayrı görünen şeyler ileride birbirine bağlanacak&quot; dediği an tam burası, dersin iki yarısı bu noktada birleşiyor.</p>
+<p>Zaman kısmı ise 1/i = −i kullanılarak basit bir integralle çözülüyor:</p>
+<div class="eq" data-tex>\frac{dT}{dt} = -\frac{iE_n}{\hbar}T \quad\Rightarrow\quad T(t) = e^{-iE_nt/\hbar}</div>
+<p>Toplamda:</p>
+<div class="eq" data-tex>\psi_n(x,t) = e^{-iE_nt/\hbar}\,u_n(x)</div>
+<h2 id="14-stationary-state">14. Stationary state</h2>
+<p>Dersin bittiği nokta:</p>
+<div class="eq" data-tex>|\psi_n(x,t)|^2 = e^{+iE_nt/\hbar}e^{-iE_nt/\hbar}|u_n(x)|^2 = |u_n(x)|^2</div>
+<p>Zaman kısmı saf bir phase ve mutlak değerinin karesi 1. Olasılık dağılımı başlangıçta neyse hep o kalıyor, adı da buradan geliyor. Dikkat et: ψ&#39;nin kendisi değişiyor, değişmeyen sadece ölçülebilir dağılım. 3. derste bunların superposition&#39;ına bakınca hareketin nereden geldiği ortaya çıkıyor.</p>
+<h2 id="lojistik">Lojistik</h2>
+<p>İki ödev var. Birincisi ilk saatteki probability ve expectation value sonuçlarının explicit representation ile türetilmesi, ikincisi continuity equation&#39;ın türetilmesi. Hoca en geç ertesi gün atacağını söyledi. Ders sırasında yoklama açıldı ve yarım saat açık kaldı.</p>
+<h2 id="kendini-yokla">Kendini yokla</h2>
+<p>ψ(x,t) = A e^{i(kx − ωt)} plane wave&#39;i için J ne çıkar, ve sonucu ρ cinsinden yazınca klasik olarak nasıl yorumlarsın?</p>
+  <nav class="pager" aria-label="Diğer sayfalar"><a href="../">← 601'in haftaları</a><a href="../hafta-3/">Hafta 3 →</a></nav>
+</main>
+</body>
+</html>

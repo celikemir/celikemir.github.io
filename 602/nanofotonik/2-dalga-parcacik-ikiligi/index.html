@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Dalga-Parçacık İkiliği</title>
+<meta name="description" content="Elektron gibi parçacıkların dalga boyu var, ışığın da parçacık yüzü var. İki tarafın formülleri, defterdeki iki örnek adım adım, ve dalga boyu ile enerjiyi…">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<style>
+/* Layout: graph-paper masthead with a spectral rule, one serif reading column (~68ch),
+   margin notes beside it on wide screens, figures and tools on graph-paper panels. */
+:root{
+  --paper:#F7F8F6;
+  --sheet:#FCFCFB;
+  --grid:rgba(39,112,194,.085);
+  --ink:#16203A;
+  --ink-2:#4A5570;
+  --ink-3:#636C80;
+  --rule:#DCE1E7;
+  --magenta:#B8236A;
+  --blue:#2770C2;
+  --red:#B83226;
+  --mag-wash:rgba(184,35,106,.075);
+  --blue-wash:rgba(39,112,194,.085);
+  --red-wash:rgba(184,50,38,.07);
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+    --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+    --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+    --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+  --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+  --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+  --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:1.0625rem;line-height:1.62;
+  font-optical-sizing:auto;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:var(--mag-wash)}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+.wrap{
+  max-width:1180px;margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:22px 22px;
+  border-bottom:1px solid var(--rule);
+}
+.masthead .wrap{padding-block:clamp(28px,5vw,56px) 22px;display:grid;gap:14px}
+.kicker{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);margin:0;display:flex;flex-wrap:wrap;gap:.35rem 1rem;
+}
+.kicker b{color:var(--magenta);font-weight:600}
+h1{
+  font-family:var(--font-display);font-weight:760;font-stretch:112%;
+  font-variation-settings:"wdth" 112;
+  font-size:clamp(2.15rem, 1.25rem + 3.8vw, 3.55rem);line-height:1.02;letter-spacing:-.018em;
+  margin:0;text-wrap:balance;max-width:20ch;
+}
+.lede{font-size:1.16rem;line-height:1.55;color:var(--ink-2);margin:0;max-width:62ch}
+.series{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.series a,.series span.item{
+  display:inline-flex;align-items:baseline;gap:.5rem;
+  font-family:var(--font-display);font-size:.88rem;font-weight:560;
+  padding:.38rem .7rem .38rem .55rem;border:1px solid var(--rule);border-radius:999px;
+  color:var(--ink-2);text-decoration:none;background:var(--paper);
+}
+.series .n{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-3)}
+.series a:hover{border-color:var(--ink-3);color:var(--ink)}
+.series .is-current{border-color:var(--magenta);color:var(--ink);background:var(--mag-wash)}
+.series .is-current .n{color:var(--magenta)}
+.spectrum{height:7px;position:relative}
+.spectrum-scale{
+  position:relative;height:18px;font-family:var(--font-mono);font-size:.62rem;color:var(--ink-3);overflow:hidden;
+}
+.spectrum-scale span{position:absolute;top:3px;transform:translateX(-50%);white-space:nowrap}
+
+/* ---------- page layout ---------- */
+.layout{display:block;padding-block:28px 72px}
+.toc{
+  font-family:var(--font-display);font-size:.86rem;margin:0 0 28px;
+  display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--ink-3);
+}
+.toc .toc-title{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;width:100%;color:var(--ink-3)}
+.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--magenta)}
+.prose{max-width:700px;min-width:0}
+.prose > section{padding-top:18px;margin-top:30px;border-top:1px solid var(--rule)}
+.prose > section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.prose::after{content:"";display:block;clear:both}
+
+@media (min-width:1240px){
+  .layout{display:grid;grid-template-columns:184px minmax(0,1fr);gap:40px}
+  .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;flex-direction:column;flex-wrap:nowrap;gap:9px;margin:0;max-height:calc(100vh - 48px);overflow-y:auto;padding-bottom:12px}
+  .toc a{border-bottom:0}
+  .toc a.on{color:var(--magenta)}
+  .prose{margin-right:300px}
+}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 4px;
+}
+h2{
+  font-family:var(--font-display);font-weight:690;font-stretch:104%;font-variation-settings:"wdth" 104;
+  font-size:clamp(1.42rem, 1.1rem + 1.1vw, 1.75rem);line-height:1.15;letter-spacing:-.01em;
+  margin:0 0 .7rem;text-wrap:balance;scroll-margin-top:20px;
+}
+h3{font-family:var(--font-display);font-weight:650;font-size:1.1rem;line-height:1.25;margin:1.6rem 0 .4rem;text-wrap:balance}
+p{margin:.75rem 0}
+.prose ul,.prose ol{padding-left:1.25rem;margin:.6rem 0}
+.prose li{margin:.3rem 0}
+strong{font-weight:640}
+.mono{font-family:var(--font-mono);font-size:.88em}
+.en{font-style:italic;color:var(--ink-2)}
+sub,sup{line-height:0}
+
+/* ---------- math ---------- */
+mjx-container[jax="SVG"][display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:3px 0;margin:.9em 0 !important}
+mjx-container[jax="SVG"]{outline:none}
+mjx-container .cE{fill:var(--magenta);stroke:var(--magenta)}
+mjx-container .cB{fill:var(--blue);stroke:var(--blue)}
+mjx-container .cR{fill:var(--red);stroke:var(--red)}
+mjx-container .cM{fill:var(--ink-3);stroke:var(--ink-3)}
+.key{
+  border:1.5px solid var(--magenta);border-radius:28px;
+  padding:0 1.3rem;width:fit-content;max-width:100%;margin:1.1rem auto;overflow-x:auto;
+  background:var(--sheet);
+}
+.key mjx-container[jax="SVG"][display="true"]{margin:.55em 0 !important}
+.key.blue{border-color:var(--blue)}
+
+/* ---------- notes ---------- */
+.note{
+  font-size:.9rem;line-height:1.5;color:var(--ink-2);
+  background:var(--sheet);border:1px solid var(--rule);border-radius:var(--radius);
+  padding:.8rem 1rem;margin:1rem 0;
+}
+.note p{margin:.35rem 0 0}
+.note .tag{
+  display:block;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+}
+.note.fix{background:var(--red-wash);border-color:transparent}
+.note.fix .tag{color:var(--red)}
+.note.more .tag{color:var(--blue)}
+.note.tip .tag{color:var(--magenta)}
+@media (min-width:1240px){
+  .note,.note.fix{float:right;clear:right;width:262px;margin:.2rem -300px 1rem 0;background:none;border:0;border-top:1px solid var(--rule);border-radius:0;padding:.55rem 0 0}
+  .wide{margin-right:-300px;clear:right}
+}
+
+/* ---------- lists of quantities ---------- */
+.defs{display:grid;gap:10px;margin:1rem 0;padding:0}
+.defs > div{display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:4px 14px;align-items:baseline}
+.defs dt{font-size:1.15rem;text-align:center}
+.defs dd{margin:0}
+.defs dd b{font-family:var(--font-display);font-weight:640;font-size:.95rem}
+
+/* ---------- panels, figures, tools ---------- */
+figure{margin:1.4rem 0}
+.panel{
+  border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet);
+  overflow:hidden;
+}
+.graph{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:20px 20px;background-position:-1px -1px;
+}
+.panel-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;
+  padding:12px 16px 10px;border-bottom:1px solid var(--rule);background:var(--sheet);
+}
+.panel-head h3{margin:0;font-size:1rem}
+.panel-head .hint{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
+figcaption{
+  font-family:var(--font-display);font-size:.84rem;line-height:1.45;color:var(--ink-2);
+  padding:10px 16px 12px;border-top:1px solid var(--rule);background:var(--sheet);
+}
+figure.bare figcaption{border-top:0;padding:8px 2px 0;background:none}
+.svgbox{display:block;width:100%;height:auto}
+.scroll-x{overflow-x:auto}
+canvas.sim{display:block;width:100%;touch-action:pan-y}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule);background:var(--sheet)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.seg button,.btn{
+  font-family:var(--font-display);font-size:.84rem;font-weight:560;color:var(--ink-2);
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:.32rem .75rem;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.seg button:hover,.btn:hover{border-color:var(--ink-3);color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--magenta);color:var(--magenta);background:var(--mag-wash)}
+.btn.icon{display:inline-flex;align-items:center;gap:.4rem}
+.slider{display:grid;grid-template-columns:auto minmax(110px,1fr) 4.6rem;gap:10px;align-items:center;flex:1 1 260px;min-width:0}
+.slider .lbl{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-2);white-space:nowrap}
+.slider output{font-family:var(--font-mono);font-size:.8rem;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--magenta);margin:0;min-width:0}
+.check{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-display);font-size:.84rem;color:var(--ink-2);cursor:pointer}
+.check input{accent-color:var(--magenta)}
+
+.readout{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;margin:0;
+  background:var(--sheet);border-top:1px solid var(--rule);
+}
+.readout > div{background:var(--sheet);padding:9px 14px 10px;min-width:0;box-shadow:0 0 0 1px var(--rule)}
+.readout dt{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-3)}
+.readout dd{margin:2px 0 0;font-family:var(--font-mono);font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere}
+.readout dd small{font-size:.74rem;color:var(--ink-3)}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 16px 0;font-family:var(--font-display);font-size:.82rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid currentColor}
+.legend i.ink{border-color:var(--ink)} .legend i.mag{border-color:var(--magenta)} .legend i.blue{border-color:var(--blue)} .legend i.mut{border-color:var(--ink-3)}
+.legend i.dash{border-top-style:dashed}
+
+/* SVG chart chrome (colors from tokens, never literals) */
+.ax line,.ax path{stroke:var(--rule);stroke-width:1;fill:none}
+.ax text,.lab{fill:var(--ink-3);font-family:var(--font-mono);font-size:11px}
+.lab.ink{fill:var(--ink-2)}
+.lab.strong{fill:var(--ink);font-weight:600}
+.grid-line{stroke:var(--rule);stroke-width:1}
+.s-mag{stroke:var(--magenta);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-blue{stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-ink{stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.s-mut{stroke:var(--ink-3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.s-dash{stroke-dasharray:5 5}
+.f-mag{fill:var(--magenta)} .f-blue{fill:var(--blue)} .f-ink{fill:var(--ink)} .f-mut{fill:var(--ink-3)}
+.f-sheet{fill:var(--sheet)} .f-paper{fill:var(--paper)}
+.w-mag{fill:var(--mag-wash)} .w-blue{fill:var(--blue-wash)} .w-red{fill:var(--red-wash)}
+.ring{stroke:var(--sheet);stroke-width:2}
+.ttip{
+  position:absolute;pointer-events:none;z-index:3;min-width:150px;
+  background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;
+  font-family:var(--font-mono);font-size:.74rem;color:var(--ink-2);box-shadow:0 6px 18px rgba(10,20,40,.12);
+}
+.ttip .row{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ttip .row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ttip .k{display:inline-block;width:12px;border-top:2px solid var(--ink-3)}
+.ttip .k.mag{border-color:var(--magenta)} .ttip .k.blue{border-color:var(--blue)}
+.ttip .h{color:var(--ink-3);margin-bottom:3px}
+.chartwrap{position:relative}
+
+/* ---------- tables ---------- */
+.tablebox{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet)}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem}
+table.data th,table.data td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--rule);vertical-align:baseline}
+table.data tr:last-child td{border-bottom:0}
+table.data th{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.02em;color:var(--ink-3);font-weight:600}
+table.data td.num{font-family:var(--font-mono);font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;padding:0;margin:1rem 0;counter-reset:st;display:grid;gap:4px}
+ol.steps > li{counter-increment:st;display:grid;grid-template-columns:2rem minmax(0,1fr);gap:0 12px;margin:0}
+ol.steps > li::before{
+  content:counter(st);font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--red);
+  border:1px solid var(--rule);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;margin-top:.2rem;
+  background:var(--sheet);
+}
+ol.steps > li > div{min-width:0}
+ol.steps > li p{margin:.2rem 0}
+
+/* ---------- quiz ---------- */
+.quiz details{border-top:1px solid var(--rule);padding:.15rem 0}
+.quiz details:last-of-type{border-bottom:1px solid var(--rule)}
+.quiz summary{cursor:pointer;padding:.6rem 2rem .6rem 0;list-style:none;position:relative;font-weight:560}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::after{
+  content:"+";position:absolute;right:4px;top:.45rem;font-family:var(--font-mono);font-size:1.1rem;color:var(--magenta);
+}
+.quiz details[open] summary::after{content:"−"}
+.quiz .ans{padding:0 0 .8rem;color:var(--ink-2)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding-block:22px 40px;font-family:var(--font-display);font-size:.84rem;color:var(--ink-3)}
+.foot p{margin:.3rem 0;max-width:80ch}
+
+@media (max-width:600px){
+  body{font-size:1.02rem}
+  .defs > div{grid-template-columns:2.6rem minmax(0,1fr)}
+  .slider{grid-template-columns:auto minmax(80px,1fr) 4.2rem;flex-basis:100%}
+  .key{padding:0 .8rem;border-radius:20px}
+}
+@media print{.toc,.controls,.series{display:none}}
+
+.next{margin-top:2.2rem;font-family:var(--font-display);font-size:.95rem}
+.next a{font-weight:600}
+.pk-bottom{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule)}
+.pk-bottom .legend{padding-bottom:6px}
+.disp-cell{min-width:0;background:var(--sheet)}
+@media (min-width:760px){
+  .pk-bottom{grid-template-columns:minmax(0,3fr) minmax(220px,2fr)}
+  .pk-read{border-top:0;border-left:1px solid var(--rule);grid-template-columns:repeat(2,minmax(0,1fr));align-content:stretch}
+}
+
+.nw{white-space:nowrap}
+
+.calc{display:grid;grid-template-columns:minmax(0,1fr)}
+.calc-col{min-width:0;display:flex;flex-direction:column}
+.calc-col .readout{flex:1;align-content:start}
+.calc-col + .calc-col{border-top:1px solid var(--rule)}
+@media (min-width:760px){
+  .calc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .calc-col + .calc-col{border-top:0;border-left:1px solid var(--rule)}
+}
+.calc .readout{grid-template-columns:repeat(2,minmax(0,1fr))}
+.dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;margin-right:.45em;vertical-align:.05em}
+.dot.mag{background:var(--magenta)} .dot.blue{background:var(--blue)}
+#le-wrap{border-top:1px solid var(--rule)}
+
+</style>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [["\\(","\\)"]], displayMath: [["\\[","\\]"]]},
+  svg: {fontCache: "global"},
+  options: {enableMenu: false}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+<header class="masthead" lang="tr">
+  <div class="wrap">
+    <nav class="kbm-crumbs" aria-label="Konum"><a href="../../../">KBM notları</a> › <a href="../../">602</a> › <a href="../../#nanofotonik">Nanofotonik</a> › Bölüm 2</nav>
+    <p class="kicker"><b>Nanofotonik</b><span>Ders notları · 25.09.2026</span><span>Bölüm 2 / 4</span></p>
+    <h1>Dalga-Parçacık İkiliği</h1>
+    <p class="lede">Elektron gibi parçacıkların dalga boyu var, ışığın da parçacık yüzü var. İki tarafın formülleri, defterdeki iki örnek adım adım, ve dalga boyu ile enerjiyi karşılaştıran bir hesaplayıcı.</p>
+    <nav class="series" aria-label="Notların bölümleri">
+      <a href="../0-sifirdan-em-teorisi/"><span class="n">0</span><span>Sıfırdan EM teorisi</span></a>
+      <a href="../1-faz-ve-grup-hizi/"><span class="n">1</span><span>Faz ve grup hızı</span></a>
+      <span class="item is-current" aria-current="page"><span class="n">2</span><span>Dalga-parçacık ikiliği</span></span>
+      <a href="../3-maddede-isik/"><span class="n">3</span><span>Maddede ışık</span></a>
+      <a href="../4-maxwellden-dalga-denklemine/"><span class="n">4</span><span>Maxwell’den dalga denklemine</span></a>
+    </nav>
+  </div>
+</header>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="spectrum-scale" aria-hidden="true"></div>
+<div class="wrap layout" lang="tr">
+  <nav class="toc" aria-label="Bu sayfada">
+    <span class="toc-title">Bu sayfada</span>
+    <a href="#de-broglie">de Broglie</a>
+    <a href="#elektron">Serbest elektron</a>
+    <a href="#ornek">Örnek: 10 eV</a>
+    <a href="#foton">Foton</a>
+    <a href="#kural-1240">1240 kuralı</a>
+    <a href="#hesaplayici">Hesaplayıcı</a>
+    <a href="#test">Kendini test et</a>
+  </nav>
+  <article class="prose">
+<section id="de-broglie">
+  <p class="eyebrow" lang="en">Matter waves</p>
+  <h2>Parçacıkların dalga boyu</h2>
+  <p>1924’te de Broglie her parçacığa bir dalganın eşlik ettiğini önerdi. Üç yıl sonra Davisson ve Germer bunu deneyle gösterdi: nikel kristaline gönderilen 54 eV’luk elektronlar, X-ışınları gibi kırınım deseni oluşturdu. Defterdeki not: kuantum parçacıklar, örneğin elektronlar, dalga özellikleri gösterir.</p>
+  <p>Göreli olmayan <span class="en">non-relativistic</span> bölgede momentum dalga vektörüyle orantılıdır:</p>
+  \[ \vec p = \hbar\vec k, \qquad \hbar = \frac{h}{2\pi} \]
+  <p>\(k = 2\pi/\lambda\) yerine konunca \(p = h/\lambda\) çıkar. Ters çevirince de Broglie dalga boyu:</p>
+  <div class="key">\[ \lambda = \frac{h}{p} \]</div>
+  <aside class="note tip"><span class="tag">Sınav için</span><p>Defterde 6.625×10⁻³⁴ J·s değeri <span class="nw">\(h\)’ye</span> ait (daire içindeki h). \(\hbar\) bunun <span class="nw">\(2\pi\)’de</span> biri, 1.055×10⁻³⁴ J·s. \(\lambda = h/p\) ama <span class="nw">\(p = \hbar k\);</span> ikisini karıştırmak sonucu 2π kadar kaydırır.</p></aside>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Sabit</th><th>Değer</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td>Planck sabiti \(h\)</td><td class="num">6.626×10⁻³⁴ J·s</td><td>tanım gereği tam</td></tr>
+        <tr><td>İndirgenmiş Planck \(\hbar\)</td><td class="num">1.055×10⁻³⁴ J·s</td><td>\(h/2\pi\)</td></tr>
+        <tr><td>Elektron kütlesi \(m_e\)</td><td class="num">9.109×10⁻³¹ kg</td><td>\(m_ec^2 = 511\) keV</td></tr>
+        <tr><td>Temel yük \(e\)</td><td class="num">1.602×10⁻¹⁹ C</td><td>1 eV = 1.602×10⁻¹⁹ J</td></tr>
+        <tr><td>\(hc\)</td><td class="num">1.986×10⁻²⁵ J·m</td><td>= 1239.84 eV·nm</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="elektron">
+  <p class="eyebrow" lang="en">Free electron</p>
+  <h2>Serbest elektron: enerji ve dalga boyu</h2>
+  <p>Serbest bir elektronun enerjisi tamamen kinetiktir:</p>
+  \[ E = \frac{p^2}{2m} = \frac{\hbar^2k^2}{2m} \]
+  <p>\(p = \sqrt{2mE}\) ile \(\lambda = h/p\) birleşince:</p>
+  <div class="key">\[ \lambda = \frac{h}{\sqrt{2mE}} \]</div>
+  <p>Elektron için sabitleri yerine koyunca pratik bir kısayol çıkar:</p>
+  \[ \lambda\,[\mathrm{nm}] \approx \frac{1.226}{\sqrt{E\,[\mathrm{eV}]}} \]
+  <h3>Bu da bir dispersiyon bağıntısı</h3>
+  <p>\(E = \hbar\omega\) yazınca serbest elektron için \(\omega(k) = \hbar k^2/2m\) çıkar. Fotonun \(\omega = ck\) doğrusunun aksine bu bir parabol: elektron dalgası vakumda bile dispersiftir. 1. bölümdeki tanımlar burada şunu verir:</p>
+  \[ v_g = \frac{d\omega}{dk} = \frac{\hbar k}{m} = \frac{p}{m} = v, \qquad v_p = \frac{\omega}{k} = \frac{\hbar k}{2m} = \frac{v}{2} \]
+  <p>Parçacığın bildiğimiz klasik hızı <strong>grup hızıdır</strong>; faz hızı bunun yarısı. Elektronu bir dalga paketi olarak düşünmek bu yüzden tutarlı: paket, parçacığın kendisi gibi hareket eder.</p>
+</section>
+
+<section id="ornek">
+  <p class="eyebrow" lang="en">Worked example</p>
+  <h2>Örnek: 10 eV’luk elektron</h2>
+  <p>Defterdeki örnek: enerjisi \(E = 10\) eV olan bir elektronun de Broglie dalga boyunu bul.</p>
+  <ol class="steps">
+    <li><div><p>Enerjiyi joule’e çevir.</p>\[ E = 10 \times 1.602\times10^{-19}\ \mathrm{J} = 1.602\times10^{-18}\ \mathrm J \]</div></li>
+    <li><div><p>Momentumu bul.</p>\[ p = \sqrt{2m_eE} = \sqrt{2\times 9.11\times10^{-31}\times 1.602\times10^{-18}} = 1.708\times10^{-24}\ \mathrm{kg\,m/s} \]</div></li>
+    <li><div><p>Dalga boyunu bul.</p><div class="key">\[ \lambda = \frac{h}{p} = \frac{6.626\times10^{-34}}{1.708\times10^{-24}} = 3.88\times10^{-10}\ \mathrm m \approx 0.39\ \mathrm{nm} \]</div></div></li>
+    <li><div><p>Kısayolla kontrol et: \(1.226/\sqrt{10} = 0.388\) nm. Tutuyor.</p></div></li>
+  </ol>
+  <p>Bu elektron yaklaşık \(1.9\times10^6\) m/s hızla gider, c’nin %0.6’sı. Göreli olmayan formül rahatlıkla geçerli.</p>
+  <h3>Neden önemli: maddede hapsolma</h3>
+  <p>Örnekte gelen ışığın dalga boyu 1000 nm verilmiş. Karşılaştırınca elektronun dalga boyu yaklaşık 2600 kat küçük. 0.39 nm atomlar arası mesafelerle aynı mertebede. Bu yüzden elektron dalgası atom ölçeğindeki yapıları hisseder: kristalden kırınıma uğrar ve birkaç nm’lik yapılara hapsedilince (kuantum kuyusu, kuantum noktası) enerji seviyeleri kesikli hale gelir. Defterdeki “confinement in matter” notu bunu anlatıyor. Işık için benzer etkiler ancak yüzlerce nm’lik yapılarda başlar; nanofotoniğin ölçeği budur.</p>
+  <p>Aynı enerjide karşılaştırmak daha da çarpıcı. 1000 nm’lik bir fotonun enerjisi 1.24 eV. Aynı 1.24 eV’luk bir elektronun dalga boyu 1.10 nm, yani yaklaşık 900 kat daha kısa. Aşağıdaki hesaplayıcıda “aynı enerji” satırı bu oranı her değer için gösteriyor.</p>
+</section>
+
+<section id="foton">
+  <p class="eyebrow" lang="en">Photon</p>
+  <h2>Foton: ışığın parçacık yüzü</h2>
+  <p>Vakumda ışığın dispersiyon bağıntısı <span class="nw">\(\omega = ck\).</span> İki tarafı \(\hbar\) ile çarpınca enerji ve momentum arasındaki ilişki çıkar:</p>
+  \[ \hbar\omega = \hbar c k \quad\Rightarrow\quad E = pc \]
+  <p>Bu, fotonun dispersiyon yasası. Fotonun durgun kütlesi sıfır olduğu için enerjisinin tamamı momentumundan gelir. Frekans cinsinden, \(c = \lambda\nu\) kullanarak:</p>
+  <div class="key">\[ E = \hbar\omega = \frac{h}{2\pi}\,2\pi\nu = h\nu = \frac{hc}{\lambda} \]</div>
+  <p>Momentum için de <span class="nw">\(p = E/c = h/\lambda\):</span> elektronla aynı de Broglie bağıntısı. İki parçacığı ayıran şey dispersiyon bağıntılarıdır.</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th></th><th>Foton</th><th>Serbest elektron</th></tr></thead>
+      <tbody>
+        <tr><td>Dispersiyon</td><td><span class="nw">\(\omega = ck\),</span> doğru</td><td><span class="nw">\(\omega = \hbar k^2/2m\),</span> parabol</td></tr>
+        <tr><td>Enerji ve momentum</td><td>\(E = pc\)</td><td>\(E = p^2/2m\)</td></tr>
+        <tr><td>Dalga boyu</td><td>\(\lambda = hc/E\)</td><td>\(\lambda = h/\sqrt{2mE}\)</td></tr>
+        <tr><td>Grup hızı</td><td>\(c\)</td><td>\(p/m = v\)</td></tr>
+        <tr><td>Faz hızı</td><td>\(c\)</td><td>\(v/2\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="kural-1240">
+  <p class="eyebrow" lang="en">Unit shortcut</p>
+  <h2>1240 kuralı</h2>
+  <p>\(hc = 1.986\times10^{-25}\) J·m. Bunu 1 eV = 1.602×10⁻¹⁹ J’e bölüp metreyi nanometreye çevirince:</p>
+  <div class="key">\[ hc = 1239.84\ \mathrm{eV\cdot nm} \quad\Rightarrow\quad E\,[\mathrm{eV}] = \frac{1240}{\lambda\,[\mathrm{nm}]} \]</div>
+  <p>Defterdeki örnek: \(\lambda = 400\) nm için \(E = 1240/400 = 3.10\) eV. Defterde 3.097 eV yazıyor; fark sabitin yuvarlanmasından geliyor.</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Dalga boyu</th><th>Foton enerjisi</th><th>Bağlam</th></tr></thead>
+      <tbody>
+        <tr><td class="num">400 nm</td><td class="num">3.10 eV</td><td>görünürün mor ucu</td></tr>
+        <tr><td class="num">530 nm</td><td class="num">2.34 eV</td><td>yeşil</td></tr>
+        <tr><td class="num">700 nm</td><td class="num">1.77 eV</td><td>görünürün kırmızı ucu</td></tr>
+        <tr><td class="num">1000 nm</td><td class="num">1.24 eV</td><td>defterdeki örnekte gelen ışık</td></tr>
+        <tr><td class="num">1550 nm</td><td class="num">0.80 eV</td><td>telekom C bandı</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Bant aralığından kesim dalga boyuna</h3>
+  <p>Bir yarıiletken, enerjisi bant aralığından \(E_g\) küçük olan fotonları soğuramaz. Kural tersinden okununca kesim dalga boyu verir: <span class="nw">\(\lambda_c = 1240/E_g\).</span></p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Malzeme</th><th>\(E_g\)</th><th>\(\lambda_c\)</th></tr></thead>
+      <tbody>
+        <tr><td>GaN</td><td class="num">3.4 eV</td><td class="num">365 nm</td></tr>
+        <tr><td>GaAs</td><td class="num">1.42 eV</td><td class="num">873 nm</td></tr>
+        <tr><td>Si</td><td class="num">1.12 eV</td><td class="num">1107 nm</td></tr>
+        <tr><td>In₀.₅₃Ga₀.₄₇As</td><td class="num">0.75 eV</td><td class="num">1653 nm</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>1550 nm’lik foton 0.80 eV taşır ve silisyumun 1.12 eV’luk bant aralığını aşamaz: silisyum bu dalga boyunda şeffaftır. Silisyum fotonik dalga kılavuzlarının 1550 nm’de çalışması da, telekom dedektörlerinin silisyumdan değil InGaAs’tan yapılması da bu yüzden.</p>
+</section>
+
+<section id="hesaplayici">
+  <p class="eyebrow" lang="en">Calculator</p>
+  <h2>Hesaplayıcı: foton ve elektron</h2>
+  <p>Solda bir fotonun dalga boyunu, sağda bir elektronun enerjisini seç. İkisi de alttaki grafikte işaretleniyor. Varsayılan değerler defterdeki iki örnek: 400 nm’lik foton ve 10 eV’luk elektron.</p>
+  <figure class="panel wide">
+    <div class="calc">
+      <div class="calc-col">
+        <div class="panel-head"><h3><span class="dot mag"></span>Foton</h3><span class="hint">λ seç</span></div>
+        <div class="controls">
+          <label class="slider" for="ph-l"><span class="lbl">λ</span><input type="range" id="ph-l" min="0" max="1000" step="1" value="463"><output id="ph-lo" for="ph-l">400 nm</output></label>
+          <div class="seg" id="ph-pre" role="group" aria-label="Hazır dalga boyları"><button data-v="400" aria-pressed="true">400</button><button data-v="530" aria-pressed="false">530</button><button data-v="700" aria-pressed="false">700</button><button data-v="1000" aria-pressed="false">1000</button><button data-v="1550" aria-pressed="false">1550</button></div>
+        </div>
+        <dl class="readout">
+          <div><dt>Enerji E</dt><dd id="ph-e">–</dd></div>
+          <div><dt>E (joule)</dt><dd id="ph-ej">–</dd></div>
+          <div><dt>Frekans ν</dt><dd id="ph-nu">–</dd></div>
+          <div><dt>Açısal frekans ω</dt><dd id="ph-w">–</dd></div>
+          <div><dt>Momentum p</dt><dd id="ph-p">–</dd></div>
+          <div><dt>Bölge</dt><dd id="ph-reg">–</dd></div>
+        </dl>
+      </div>
+      <div class="calc-col">
+        <div class="panel-head"><h3><span class="dot blue"></span>Elektron</h3><span class="hint">E seç</span></div>
+        <div class="controls">
+          <label class="slider" for="el-e"><span class="lbl">E</span><input type="range" id="el-e" min="0" max="1000" step="1" value="500"><output id="el-eo" for="el-e">10 eV</output></label>
+          <div class="seg" id="el-pre" role="group" aria-label="Hazır enerjiler"><button data-v="1.24" aria-pressed="false">1.24 eV</button><button data-v="10" aria-pressed="true">10 eV</button><button data-v="54" aria-pressed="false">54 eV</button><button data-v="10000" aria-pressed="false">10 keV</button></div>
+        </div>
+        <dl class="readout">
+          <div><dt>Dalga boyu λ</dt><dd id="el-l">–</dd></div>
+          <div><dt>Dalga sayısı k</dt><dd id="el-k">–</dd></div>
+          <div><dt>Momentum p</dt><dd id="el-p">–</dd></div>
+          <div><dt>Hız v</dt><dd id="el-v">–</dd></div>
+          <div><dt>Aynı enerjide foton</dt><dd id="el-same">–</dd></div>
+          <div><dt>Göreli düzeltme</dt><dd id="el-rel">–</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="legend" aria-hidden="true"><span><i class="mag"></i><span>foton, λ = hc/E</span></span><span><i class="blue"></i><span>elektron, λ = h/√(2mE)</span></span></div>
+    <div class="graph chartwrap" id="le-wrap"><svg id="le" class="svgbox" role="img" aria-label="Log-log grafik: dalga boyuna karşı enerji. Foton doğrusu eğim eksi bir, elektron doğrusu eğim eksi yarım; her enerjide elektronun dalga boyu fotonunkinden çok daha kısa."></svg></div>
+    <figcaption>Log-log eksenler. Foton doğrusu <span class="nw">\(\lambda \propto E^{-1}\),</span> elektron doğrusu \(\lambda\propto E^{-1/2}\) eğiminde. Aynı enerjide elektronun dalga boyu her zaman çok daha kısa; aradaki dikey çizgi seçili elektron enerjisindeki farkı gösteriyor. Elektron eğrisi göreli formülle çizildi, <span class="nw">\(\lambda = hc/\sqrt{E(E+2m_ec^2)}\);</span> 10 keV’e kadar göreli olmayan formülden farkı %0.5’in altında. Değerleri okumak için grafiğin üstünde gezin.</figcaption>
+  </figure>
+</section>
+
+<section id="test" class="quiz">
+  <p class="eyebrow" lang="en">Self-check</p>
+  <h2>Kendini test et</h2>
+  <details><summary>100 eV’luk bir elektronun de Broglie dalga boyu nedir?</summary><div class="ans"><p>Kısayolla \(1.226/\sqrt{100} = 0.123\) nm. Uzun yoldan: \(p = \sqrt{2 m_e E} = 5.40\times10^{-24}\) kg·m/s, \(\lambda = h/p = 1.23\times10^{-10}\) m.</p></div></details>
+  <details><summary>1550 nm’lik bir fotonun enerjisi kaç eV?</summary><div class="ans"><p>\(E = 1240/1550 = 0.80\) eV.</p></div></details>
+  <details><summary>Foton için \(v_p = v_g\) olmasının sebebi nedir?</summary><div class="ans"><p>Dispersiyon bağıntısı doğrusal: <span class="nw">\(\omega = ck\).</span> Eğri bir doğru olduğu için <span class="nw">\(\omega/k = d\omega/dk = c\).</span></p></div></details>
+  <details><summary>Serbest bir elektron dalgasında grup hızı ve faz hızı parçacığın hızıyla nasıl ilişkili?</summary><div class="ans"><p>\(\omega = \hbar k^2/2m\) olduğundan \(v_g = \hbar k/m = v\) ve <span class="nw">\(v_p = \hbar k/2m = v/2\).</span> Parçacık hızı grup hızıdır.</p></div></details>
+  <details><summary>Bir problemde \(p = \hbar k\) yerine \(p = h k\) yazarsan sonuç ne kadar kayar?</summary><div class="ans"><p>\(2\pi\) kat. \(\lambda = h/p\) ile \(p = \hbar k\) birlikte tutarlıdır; \(k = 2\pi/\lambda\) olduğu için <span class="nw">\(\hbar k = h/\lambda\).</span></p></div></details>
+  <details><summary>Silisyum 1550 nm’lik ışığı soğurur mu?</summary><div class="ans"><p>Hayır. Fotonun enerjisi 0.80 eV, silisyumun bant aralığı 1.12 eV. Foton elektronu iletim bandına çıkaramaz; silisyum bu dalga boyunda şeffaftır.</p></div></details>
+</section>
+
+<p class="next">Sonraki bölüm: <a href="../3-maddede-isik/">Maddede ışık →</a></p>
+  </article>
+</div>
+<footer class="wrap foot" lang="tr">
+  <p class="kbm-back"><a href="../../#nanofotonik">← Nanofotonik serisi</a> · <a href="../../">602’nin haftaları</a></p>
+  
+  <p>Kaynak: Nanofotonik dersi, 25.09.2026 tarihli defter notları ve tahta fotoğrafları. “Defterde düzeltme” etiketli notlar defterdeki bir ifadeyi düzeltir ya da netleştirir. Malzeme sabitleri yaklaşık değerlerdir.</p>
+</footer>
+<script>
+(function(){
+"use strict";
+var NF = window.NF = {};
+var root = document.documentElement;
+var tokCache = {};
+NF.tok = function(name){
+  if (tokCache[name] === undefined) tokCache[name] = getComputedStyle(root).getPropertyValue(name).trim();
+  return tokCache[name];
+};
+var themeCbs = [];
+NF.onTheme = function(cb){ themeCbs.push(cb); };
+function themeChanged(){ tokCache = {}; themeCbs.forEach(function(cb){ try{ cb(); }catch(e){} }); }
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeChanged); } catch(e){}
+try { new MutationObserver(themeChanged).observe(root, {attributes:true, attributeFilter:["data-theme","class","style"]}); } catch(e){}
+
+NF.reduceMotion = false;
+try { NF.reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+
+NF.fitCanvas = function(canvas, cssH){
+  var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  var w = Math.max(240, Math.round(canvas.parentNode.getBoundingClientRect().width));
+  var h = typeof cssH === "function" ? cssH(w) : cssH;
+  if (canvas._w !== w || canvas._h !== h || canvas._dpr !== dpr){
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    canvas.style.height = h + "px";
+    canvas._w = w; canvas._h = h; canvas._dpr = dpr;
+  }
+  var ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {ctx: ctx, w: w, h: h};
+};
+NF.onResize = function(el, cb){
+  var t = null;
+  try { new ResizeObserver(function(){ clearTimeout(t); t = setTimeout(cb, 40); }).observe(el); }
+  catch(e){ window.addEventListener("resize", cb); }
+};
+NF.whenVisible = function(el, cb){
+  try {
+    new IntersectionObserver(function(es){ es.forEach(function(e){ cb(e.isIntersecting); }); }, {rootMargin:"80px"}).observe(el);
+  } catch(e){ cb(true); }
+};
+
+var SUP = {"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+NF.sup = function(n){ return String(n).split("").map(function(c){ return SUP[c] || c; }).join(""); };
+NF.sci = function(x, d){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var e = Math.floor(Math.log10(Math.abs(x)));
+  var m = x / Math.pow(10, e);
+  if (Math.abs(m) >= 9.9995 && d <= 3) { m /= 10; e += 1; }
+  return m.toFixed(d) + "×10" + NF.sup(e);
+};
+NF.num = function(x, d){
+  if (!isFinite(x)) return "∞";
+  var a = Math.abs(x);
+  if (a !== 0 && (a >= 1e5 || a < 1e-3)) return NF.sci(x, Math.max(1, d - 1));
+  return x.toFixed(d);
+};
+NF.sig = function(x, s){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var a = Math.abs(x);
+  if (a >= 1e5 || a < 1e-3) return NF.sci(x, s - 1);
+  var d = Math.max(0, s - 1 - Math.floor(Math.log10(a)));
+  return x.toFixed(d);
+};
+NF.logFrom = function(t, lo, hi){ return lo * Math.pow(hi / lo, t); };
+NF.logTo = function(v, lo, hi){ return Math.log(v / lo) / Math.log(hi / lo); };
+
+var SVGNS = "http://www.w3.org/2000/svg";
+NF.el = function(tag, attrs, parent, text){
+  var e = document.createElementNS(SVGNS, tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+};
+NF.path = function(pts){
+  var s = "";
+  for (var i = 0; i < pts.length; i++) s += (i ? "L" : "M") + pts[i][0].toFixed(2) + " " + pts[i][1].toFixed(2);
+  return s;
+};
+NF.clear = function(node){ while (node.firstChild) node.removeChild(node.firstChild); };
+
+/* wavelength (nm) to sRGB, Bruton's approximation with edge falloff */
+NF.wl2rgb = function(wl){
+  var r=0,g=0,b=0;
+  if (wl>=380&&wl<440){r=-(wl-440)/60;b=1}
+  else if (wl<490){g=(wl-440)/50;b=1}
+  else if (wl<510){g=1;b=-(wl-510)/20}
+  else if (wl<580){r=(wl-510)/70;g=1}
+  else if (wl<645){r=1;g=-(wl-645)/65}
+  else if (wl<=780){r=1}
+  var f = 1;
+  if (wl < 380 || wl > 780) f = 0;
+  else if (wl < 420) f = .3 + .7*(wl-380)/40;
+  else if (wl > 700) f = .3 + .7*(780-wl)/80;
+  function c(v){ return Math.round(255 * Math.pow(v * f, .8)); }
+  return [c(r), c(g), c(b)];
+};
+NF.wlName = function(wl){
+  if (wl < 380) return "morötesi (UV)";
+  if (wl < 450) return "mor";
+  if (wl < 495) return "mavi";
+  if (wl < 570) return "yeşil";
+  if (wl < 590) return "sarı";
+  if (wl < 620) return "turuncu";
+  if (wl <= 750) return "kırmızı";
+  if (wl <= 1400) return "yakın kızılötesi";
+  return "kızılötesi (telekom)";
+};
+
+/* tooltip helper: rows = [{k:"mag"|"blue"|"", label:"", value:""}] */
+NF.tooltip = function(wrap){
+  var tip = document.createElement("div");
+  tip.className = "ttip"; tip.hidden = true; tip.setAttribute("role","status");
+  wrap.appendChild(tip);
+  return {
+    show: function(x, y, head, rows){
+      NF.clear(tip);
+      var h = document.createElement("div"); h.className = "h"; h.textContent = head; tip.appendChild(h);
+      rows.forEach(function(r){
+        var row = document.createElement("div"); row.className = "row";
+        var k = document.createElement("i"); k.className = "k " + (r.k || ""); row.appendChild(k);
+        var v = document.createElement("b"); v.textContent = r.value; row.appendChild(v);
+        var l = document.createElement("span"); l.textContent = r.label; row.appendChild(l);
+        tip.appendChild(row);
+      });
+      tip.hidden = false;
+      var W = wrap.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+      var left = x + 14; if (left + tw > W - 4) left = x - tw - 14; if (left < 4) left = 4;
+      var top = y - th - 10; if (top < 4) top = y + 14;
+      tip.style.left = left + "px"; tip.style.top = top + "px";
+    },
+    hide: function(){ tip.hidden = true; }
+  };
+};
+
+/* spectral rule under the masthead */
+(function(){
+  var bar = document.querySelector(".spectrum");
+  if (!bar) return;
+  var stops = [];
+  for (var wl = 380; wl <= 750; wl += 10){
+    var c = NF.wl2rgb(wl);
+    stops.push("rgb(" + c.join(",") + ") " + ((wl - 380) / 370 * 100).toFixed(1) + "%");
+  }
+  bar.style.background = "linear-gradient(90deg," + stops.join(",") + ")";
+  var sc = document.querySelector(".spectrum-scale");
+  if (sc) [400,500,600,700].forEach(function(wl){
+    var s = document.createElement("span");
+    s.style.left = ((wl - 380) / 370 * 100) + "%";
+    s.textContent = wl + " nm";
+    sc.appendChild(s);
+  });
+})();
+
+/* table of contents: mark the section in view */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  var map = {};
+  links.forEach(function(a){ var s = document.getElementById(a.getAttribute("href").slice(1)); if (s) map[s.id] = a; });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){
+        links.forEach(function(a){ a.classList.remove("on"); });
+        if (map[e.target.id]) map[e.target.id].classList.add("on");
+      }
+    });
+  }, {rootMargin:"-20% 0px -70% 0px"});
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+
+/* segmented buttons: one pressed at a time */
+NF.seg = function(group, onPick){
+  var btns = Array.prototype.slice.call(group.querySelectorAll("button"));
+  btns.forEach(function(b){
+    b.addEventListener("click", function(){
+      btns.forEach(function(o){ o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      onPick(b.dataset.v, b);
+    });
+  });
+  return {
+    clear: function(){ btns.forEach(function(o){ o.setAttribute("aria-pressed","false"); }); },
+    set: function(v){ btns.forEach(function(o){ o.setAttribute("aria-pressed", o.dataset.v === v ? "true" : "false"); }); }
+  };
+};
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+var TAU = Math.PI*2;
+var H_ = 6.62607015e-34, Q = 1.602176634e-19, ME = 9.1093837015e-31, C = 299792458;
+var MEC2 = 510998.95;                 // eV
+var HC = H_*C/Q*1e9;                  // eV·nm, 1239.84
+var KNR = H_/Math.sqrt(2*ME*Q)*1e9;   // nm·√eV, 1.2264
+function lamRel(E){ return HC/Math.sqrt(E*(E + 2*MEC2)); }
+function lamNR(E){ return KNR/Math.sqrt(E); }
+
+var phL = 400, elE = 10;
+var phIn = document.getElementById("ph-l"), elIn = document.getElementById("el-e");
+var phSeg = NF.seg(document.getElementById("ph-pre"), function(v){ setPh(+v); });
+var elSeg = NF.seg(document.getElementById("el-pre"), function(v){ setEl(+v); });
+function txt(id, s){ document.getElementById(id).textContent = s; }
+
+function setPh(l, fromSlider){
+  phL = Math.max(100, Math.min(2000, Math.round(l)));
+  if (!fromSlider) phIn.value = Math.round(NF.logTo(phL, 100, 2000)*1000);
+  phSeg.set(String(phL));
+  txt("ph-lo", phL + " nm");
+  var E = HC/phL, lm = phL*1e-9, nu = C/lm;
+  txt("ph-e", E.toFixed(3) + " eV");
+  txt("ph-ej", NF.sci(E*Q, 3) + " J");
+  txt("ph-nu", (nu/1e12).toFixed(1) + " THz");
+  txt("ph-w", NF.sci(TAU*nu, 3) + " rad/s");
+  txt("ph-p", NF.sci(H_/lm, 3) + " kg·m/s");
+  var reg = document.getElementById("ph-reg"); NF.clear(reg);
+  if (phL >= 380 && phL <= 750){
+    var chip = document.createElement("span");
+    chip.style.cssText = "display:inline-block;width:.8em;height:.8em;border-radius:50%;margin-right:.4em;vertical-align:-.05em;background:rgb(" + NF.wl2rgb(phL).join(",") + ")";
+    reg.appendChild(chip);
+  }
+  reg.appendChild(document.createTextNode(NF.wlName(phL)));
+  drawLE();
+}
+function fmtE(E){ return E >= 1000 ? (E/1000).toPrecision(3).replace(/\.?0+$/, "") + " keV" : NF.sig(E, 3) + " eV"; }
+function setEl(E, fromSlider){
+  elE = Math.max(0.01, Math.min(10000, E));
+  if (!fromSlider) elIn.value = Math.round(NF.logTo(elE, 0.01, 10000)*1000);
+  elSeg.set(String(E));
+  txt("el-eo", fmtE(elE));
+  var l = lamRel(elE), lnr = lamNR(elE);
+  txt("el-l", NF.sig(l, 3) + " nm");
+  txt("el-k", NF.sig(TAU/l, 3) + " rad/nm");
+  txt("el-p", NF.sci(H_/(l*1e-9), 3) + " kg·m/s");
+  var g = 1 + elE/MEC2, b = Math.sqrt(1 - 1/(g*g));
+  txt("el-v", NF.sci(b*C, 2) + " m/s · %" + (b*100).toFixed(b < 0.1 ? 2 : 1) + " c");
+  var lp = HC/elE;
+  txt("el-same", NF.sig(lp, 3) + " nm · ×" + Math.round(lp/l));
+  var corr = (lnr - l)/l*100;
+  txt("el-rel", corr < 0.01 ? "ihmal edilir, < %0.01" : "%" + corr.toFixed(2) + " (göreli olmayan λ biraz uzun)");
+  drawLE();
+}
+phIn.addEventListener("input", function(){ setPh(NF.logFrom(phIn.value/1000, 100, 2000), true); });
+elIn.addEventListener("input", function(){
+  var E = NF.logFrom(elIn.value/1000, 0.01, 10000);
+  var d = Math.pow(10, Math.floor(Math.log10(E)) - 2);
+  setEl(Math.round(E/d)*d, true);
+});
+
+/* ---------- log-log chart ---------- */
+var tip = null, hoverE = null;
+function drawLE(){
+  var svg = document.getElementById("le"), wrap = document.getElementById("le-wrap");
+  if (!svg) return;
+  var W = Math.max(300, Math.round(wrap.getBoundingClientRect().width));
+  var H = W < 560 ? 310 : 370;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  NF.clear(svg);
+  var narrow = W < 560;
+  var L = 50, R = W - 14, T = 26, B = H - 40;
+  var x0 = -2, x1 = 4, y0 = -2, y1 = 5;
+  function X(E){ return L + (Math.log10(E) - x0)/(x1 - x0)*(R - L); }
+  function Y(l){ return B - (Math.log10(l) - y0)/(y1 - y0)*(B - T); }
+  function lab(v){ return v === 0 ? "1" : v === 1 ? "10" : "10" + NF.sup(v); }
+  NF.el("rect", {x:L, y:Y(2000), width:R-L, height:Y(100)-Y(2000), class:"w-mag"}, svg);
+  NF.el("rect", {x:L, y:Y(0.5), width:R-L, height:Y(0.1)-Y(0.5), class:"w-blue"}, svg);
+  var defs = NF.el("defs", {}, svg);
+  var g = NF.el("linearGradient", {id:"visy", gradientUnits:"userSpaceOnUse", x1:0, x2:0, y1:Y(380), y2:Y(750)}, defs);
+  for (var wl = 380; wl <= 750; wl += 10){
+    NF.el("stop", {offset: ((Y(wl)-Y(380))/(Y(750)-Y(380))).toFixed(4), "stop-color":"rgb(" + NF.wl2rgb(wl).join(",") + ")"}, g);
+  }
+  NF.el("rect", {x:L+1, y:Y(750), width:5, height:Y(380)-Y(750), fill:"url(#visy)"}, svg);
+  var ax = NF.el("g", {class:"ax"}, svg);
+  for (var v = x0; v <= x1; v++){
+    NF.el("line", {x1:X(Math.pow(10,v)), y1:T, x2:X(Math.pow(10,v)), y2:B}, ax);
+    if (!narrow || (v - x0) % 2 === 0) NF.el("text", {x:X(Math.pow(10,v)), y:B+17, "text-anchor":"middle"}, ax, lab(v));
+  }
+  for (v = y0; v <= y1; v++){
+    NF.el("line", {x1:L, y1:Y(Math.pow(10,v)), x2:R, y2:Y(Math.pow(10,v))}, ax);
+    NF.el("text", {x:L-8, y:Y(Math.pow(10,v))+4, "text-anchor":"end"}, ax, lab(v));
+  }
+  NF.el("text", {x:R, y:B+33, "text-anchor":"end"}, ax, "E (eV)");
+  NF.el("text", {x:L-44, y:T-11}, ax, "λ (nm)");
+  NF.el("text", {x:R-6, y:Y(2000)+15, "text-anchor":"end", class:"lab ink"}, svg, narrow ? "nanofotonik" : "nanofotonik penceresi · 100 nm – 2 µm");
+  NF.el("text", {x:L+12, y:Y(0.5)+15, class:"lab ink"}, svg, narrow ? "atom ölçeği" : "atomlar arası mesafe · 0.1–0.5 nm");
+  var ph = [], el = [];
+  for (var i = 0; i <= 240; i++){
+    var E = Math.pow(10, x0 + (x1 - x0)*i/240);
+    var lp = HC/E; if (lp <= Math.pow(10, y1)) ph.push([X(E), Y(lp)]);
+    el.push([X(E), Y(lamRel(E))]);
+  }
+  NF.el("path", {d:NF.path(ph), class:"s-mag"}, svg);
+  NF.el("path", {d:NF.path(el), class:"s-blue"}, svg);
+  var Ea = 0.05;
+  NF.el("text", {x:X(Ea)+8, y:Y(HC/Ea)-6, class:"lab strong"}, svg, "foton");
+  var Eb = narrow ? 200 : 300;
+  NF.el("text", {x:X(Eb)-6, y:Y(lamRel(Eb))+18, "text-anchor":"end", class:"lab strong"}, svg, "elektron");
+  var xe = X(elE), ye = Y(lamRel(elE)), yp = Y(HC/elE);
+  if (HC/elE <= Math.pow(10, y1)){
+    NF.el("line", {x1:xe, y1:yp+6, x2:xe, y2:ye-6, class:"s-mut s-dash", "stroke-width":1.2}, svg);
+    NF.el("text", {x:xe+7, y:(ye+yp)/2+4, class:"lab ink"}, svg, "×" + Math.round((HC/elE)/lamRel(elE)));
+  }
+  NF.el("circle", {cx:X(HC/phL), cy:Y(phL), r:5, class:"f-mag ring"}, svg);
+  NF.el("circle", {cx:xe, cy:ye, r:5, class:"f-blue ring"}, svg);
+  var hov = NF.el("g", {}, svg);
+  if (!tip) tip = NF.tooltip(wrap);
+  function show(E){
+    E = Math.max(0.0124, Math.min(1e4, E));
+    hoverE = E;
+    NF.clear(hov);
+    var lp2 = HC/E, le2 = lamRel(E);
+    NF.el("line", {x1:X(E), y1:T, x2:X(E), y2:B, class:"s-mut", "stroke-width":1}, hov);
+    NF.el("circle", {cx:X(E), cy:Y(lp2), r:4, class:"f-mag ring"}, hov);
+    NF.el("circle", {cx:X(E), cy:Y(le2), r:4, class:"f-blue ring"}, hov);
+    tip.show(X(E), Y(Math.sqrt(lp2*le2)), "E = " + fmtE(E), [
+      {k:"mag", label:"foton", value:NF.sig(lp2, 3) + " nm"},
+      {k:"blue", label:"elektron", value:NF.sig(le2, 3) + " nm"},
+      {k:"", label:"oran", value:"×" + Math.round(lp2/le2)}
+    ]);
+  }
+  svg.onpointermove = function(e){
+    var r = svg.getBoundingClientRect();
+    show(Math.pow(10, x0 + (e.clientX - r.left - L)/(R - L)*(x1 - x0)));
+  };
+  svg.onpointerleave = function(){ NF.clear(hov); tip.hide(); };
+  svg.setAttribute("tabindex", "0");
+  svg.onfocus = function(){ show(hoverE || elE); };
+  svg.onblur = function(){ NF.clear(hov); tip.hide(); };
+  svg.onkeydown = function(e){
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+      e.preventDefault();
+      show((hoverE || elE) * Math.pow(10, e.key === "ArrowRight" ? 0.1 : -0.1));
+    }
+  };
+}
+
+setPh(400); setEl(10);
+NF.onResize(document.querySelector(".prose"), drawLE);
+NF.onTheme(drawLE);
+})();
+
+</script>
+
+</body></html>

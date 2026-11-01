@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Operators, Matrices ve Change of Basis · KBM 601 Hafta 5</title>
+<meta name="description" content="Bu hafta yeni fizik yok: bir baz seçince ket sütun vektörüne, operatör matrise, Â|ψ⟩ de matris çarpımına dönüşüyor. Bu, SLAM&#x27;de her gün kullanılan lineer…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<link rel="stylesheet" href="../../kbm.css">
+<script>
+window.MathJax = {
+  options: { enableMenu: false },
+  svg: { fontCache: 'local' },
+  startup: {
+    typeset: false,
+    pageReady: function () {
+      document.head.appendChild(MathJax.svgStylesheet());
+      var chain = Promise.resolve();
+      document.querySelectorAll('.eq[data-tex]').forEach(function (el) {
+        var tex = el.textContent;
+        chain = chain
+          .then(function () { return MathJax.tex2svgPromise(tex, { display: true }); })
+          .then(function (node) { el.replaceChildren(node); el.classList.add('ok'); })
+          .catch(function () {});
+      });
+      return chain;
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">601</a> › Hafta 5</nav>
+  <p class="eyebrow">KBM 601 · Hafta 5 · ders notu</p>
+  <h1>Operators, Matrices ve Change of Basis</h1>
+<nav class="toc" aria-label="Bu sayfada"><p>Bu sayfada</p><ol><li><a href="#büyük-resim">Büyük resim</a></li><li><a href="#kopya-kağıdı">Kopya kağıdı</a></li><li><a href="#haftanın-tek-hilesi-araya-1-koymak">Haftanın tek hilesi: araya 1 koymak</a></li><li><a href="#61-operatör-bir-makine-matris-onun-kullanım-kılavuzu">6.1 Operatör bir makine, matris onun kullanım kılavuzu</a></li><li><a href="#62-hermitian-dürüst-operatör">6.2 Hermitian: dürüst operatör</a></li><li><a href="#63-unitary-kompleks-dünyanın-rotasyon-matrisi">6.3 Unitary: kompleks dünyanın rotasyon matrisi</a></li><li><a href="#matris-özdeğer-problemi">Matris özdeğer problemi</a></li><li><a href="#spektral-teorem-köşegenleştirme">Spektral teorem: köşegenleştirme</a></li><li><a href="#65-baz-değişimi-nokta-kıpırdamıyor-sen-kafanı-çeviriyorsun">6.5 Baz değişimi: nokta kıpırdamıyor, sen kafanı çeviriyorsun</a></li><li><a href="#hepsini-birleştiren-örnek">Hepsini birleştiren örnek</a></li><li><a href="#üç-cümlelik-özet">Üç cümlelik özet</a></li><li><a href="#kendini-dene">Kendini dene</a></li></ol></nav>
+<h2 id="büyük-resim">Büyük resim</h2>
+<p>Bu hafta yeni fizik yok: bir baz seçince ket sütun vektörüne, operatör matrise, Â|ψ⟩ de matris çarpımına dönüşüyor. Bu, SLAM&#39;de her gün kullanılan lineer cebirin aynısı, sadece reel yerine kompleks sayılarla.</p>
+<p>İlk iki tahta 4. haftanın özeti: harmonik osilatör, Dirac notasyonu, completeness ve projektörler. Burada sadece lazım oldukları yerde çağrılıyorlar. Tahtadaki küçük hatalar geldikleri yerde işaretli.</p>
+<h2 id="kopya-kağıdı">Kopya kağıdı</h2>
+<p>Dersin özü bu çeviri tablosu: soldaki her reel kavramın sağda kompleks bir karşılığı var.</p>
+<div class="tbl"><table><thead><tr><th>SLAM&#39;de (reel)</th><th>Bu hafta (kompleks)</th></tr></thead><tbody><tr><td>transpose Rᵀ</td><td>dagger U†, yani transpose + kompleks eşlenik</td></tr><tr><td>bir noktanın koordinatları, 3×1</td><td>bir ketin koordinatları, N×1 sütun c⃗</td></tr><tr><td>dot product aᵀb</td><td>iç çarpım c⃗†d⃗</td></tr><tr><td>kovaryans, Σ = Σᵀ</td><td>Hermitian, A = A†</td></tr><tr><td>rotasyon, RᵀR = I</td><td>unitary, U†U = I</td></tr><tr><td>PCA, Σ = RΛRᵀ</td><td>spektral teorem, A = U diag(aₙ) U†</td></tr><tr><td>frame değişimi, p(B) = R p(A)</td><td>baz değişimi, c⃗(f) = U c⃗(e)</td></tr><tr><td>kovaryansı taşımak, Σ(B) = R Σ(A) Rᵀ</td><td>operatörü taşımak, A(f) = U A(e) U†</td></tr></tbody></table></div>
+<p>Dagger&#39;da eşlenik almak şart. Düz toplamla (1, i) vektörünün boyu 1² + i² = 0 çıkar, sıfır olmayan bir vektöre sıfır boy saçma. Eşlenikle |1|² + |i|² = 2 olur ve her şey yerine oturur.</p>
+<h2 id="haftanın-tek-hilesi-araya-1-koymak">Haftanın tek hilesi: araya 1 koymak</h2>
+<p>Bu haftaki türetmelerin neredeyse hepsi, completeness ilişkisini araya sıkıştırmaktan çıkıyor.</p>
+<div class="eq" data-tex>\sum_n |n\rangle\langle n| = \hat I</div>
+<p>1 ile çarpmak hiçbir şeyi değiştirmez, ama bu 1 açılınca her şey bileşenlerine ayrılır:</p>
+<div class="eq" data-tex>|\psi\rangle = \hat I|\psi\rangle = \sum_n |n\rangle\langle n|\psi\rangle \quad\Rightarrow\quad c_n = \langle n|\psi\rangle</div>
+<p>Takıldığın yerde kendine tek bir soru sor: araya hangi 1&#39;i koyarsam açılır?</p>
+<h2 id="61-operatör-bir-makine-matris-onun-kullanım-kılavuzu">6.1 Operatör bir makine, matris onun kullanım kılavuzu</h2>
+<p>Operatör bir ket alıp başka bir ket veren lineer bir makine, matrisi de baz vektörlerine ne yaptığının tablosu. Lineerlik şu demek:</p>
+<div class="eq" data-tex>\hat A\big(\alpha|\psi\rangle + \beta|\phi\rangle\big) = \alpha\hat A|\psi\rangle + \beta\hat A|\phi\rangle</div>
+<p>Yani superposition&#39;a saygı duyuyor. Bu yüzden baz vektörlerine ne yaptığını bilmek, her şeye ne yaptığını bilmeye yetiyor. Rotasyon matrisinde de sütunlar, eksenlerin döndükten sonra nereye gittiğini söylüyor.</p>
+<p>Â&#39;nın iki yanına 1 koyunca matris elemanları çıkıyor:</p>
+<div class="eq" data-tex>\hat A = \hat I\hat A\hat I = \sum_{m,n} |m\rangle\underbrace{\langle m|\hat A|n\rangle}_{A_{mn}}\langle n|</div>
+<p>Aₘₙ&#39;yi şöyle oku: Â&#39;yı |n⟩&#39;ye uygula, çıkan ketin m. bileşenine bak. Yani matrisin n. sütunu, Â|n⟩&#39;nin koordinatları.</p>
+<p>Örnek, kuantum bilgisayardaki NOT kapısı: X̂|0⟩ = |1⟩ ve X̂|1⟩ = |0⟩. Birinci sütun |0⟩&#39;ın gittiği yer (0, 1)ᵀ, ikinci sütun |1⟩&#39;in gittiği yer (1, 0)ᵀ:</p>
+<div class="eq" data-tex>X = \begin{pmatrix}0 &amp; 1\\ 1 &amp; 0\end{pmatrix}</div>
+<p>Â|ψ⟩ = |φ⟩ için |ψ⟩&#39;nin katsayıları cₙ, |φ⟩&#39;ninkiler dₘ olsun. Yine 1 hilesiyle:</p>
+<div class="eq" data-tex>d_m = \langle m|\hat A|\psi\rangle = \sum_n \langle m|\hat A|n\rangle\langle n|\psi\rangle = \sum_n A_{mn}c_n \quad\Rightarrow\quad \vec d = A\vec c</div>
+<p>Tahtadaki koca çift toplam, satır çarpı sütundan ibaret.</p>
+<p>Özet tahtasındaki üç dil için frame benzetmesi işe yarıyor: Schrödinger&#39;in ψ(x)&#39;i, Dirac&#39;ın Â|ψ⟩&#39;si ve matrislerle Ac⃗. Ket noktanın kendisi, frame&#39;den bağımsız. c⃗ kesikli bir bazdaki koordinatlar, ψ(x) = ⟨x|ψ⟩ ise konum bazındaki koordinatlar.</p>
+<p>Konum bazında her x için ayrı bir eksen var. O yüzden ψ(x)&#39;i x ile indekslenmiş, sonsuz uzun bir sütun vektörü gibi düşünebilirsin. İleride zaman evrimiyle ilgili Heisenberg picture diye ayrı bir kavram gelecek, buradaki Heisenberg&#39;s way (matris mekaniği) ile karıştırma.</p>
+<p><strong>Tuzak.</strong> Özet tahtası, operatörün duruma etki etmesini durumun bir özelliğini gözlemlemek diye anlatıyor ve bu kelimesi kelimesine doğru değil. Â|ψ⟩ sadece yeni bir vektör, çoğu zaman normalize bile değil. Ölçümde sonuçlar Â&#39;nın özdeğerleri, olasılıklar |cₙ|².</p>
+<p>Mesela X̂|0⟩ = |1⟩, ama |0⟩ durumunda X ölçersen sonuç asla |1⟩ olmaz. Ne olduğu son örnekte hesaplanıyor.</p>
+<h2 id="62-hermitian-dürüst-operatör">6.2 Hermitian: dürüst operatör</h2>
+<p>Hermitian operatör kendi dagger&#39;ına eşit ve her gözlemlenebilir büyüklük (konum, momentum, enerji, spin) böyle bir operatör. Tanım Â† = Â, matris dilinde:</p>
+<div class="eq" data-tex>A_{mn} = A_{nm}^{*}</div>
+<p>Köşegene ayna tut, karşıdaki elemanın eşleniğini görürsün. Köşegen elemanlar kendi eşleniklerine eşit, yani reel olmak zorunda. Örnek:</p>
+<div class="eq" data-tex>\sigma_y = \begin{pmatrix}0 &amp; -i\\ i &amp; 0\end{pmatrix},\qquad A_{21} = i = (-i)^{*} = A_{12}^{*}</div>
+<p>Türetmenin arkasında tek bir kural var, hoca bunu unitary kısmından sonraki beyaz tahtada yazıyor. Bir ketin bra&#39;sını alırken önündeki operatör dagger&#39;lanıp sağa geçer:</p>
+<div class="eq" data-tex>\big(\hat A|\psi\rangle\big)^{\dagger} = \langle\psi|\hat A^{\dagger}</div>
+<p>Bu, (Ax)ᵀ = xᵀAᵀ kuralının eşlenikli hali. İç çarpımın ⟨φ|ψ⟩ = ⟨ψ|φ⟩∗ simetrisiyle birleşince:</p>
+<div class="eq" data-tex>\langle\phi|\hat A|\psi\rangle = \langle\psi|\hat A^{\dagger}|\phi\rangle^{*}</div>
+<p>Sağdaki yıldızı unutma. Hermitian tahtasının sol altında bu formül yıldızsız yazılmış gibi görünüyor, ana satırdaki Aₘₙ = ⟨n|Â†|m⟩∗ doğru olan.</p>
+<p>Hermitian operatör üç hediyeyle geliyor:</p>
+<ol><li><p>Beklenen değer reel. ⟨ψ|Â|ψ⟩ = ⟨ψ|Â†|ψ⟩∗ = ⟨ψ|Â|ψ⟩∗ ve kendi eşleniğine eşit sayı reeldir. Hiçbir cetvel sana 3+2i metre demez.</p></li><li><p>Özdeğerler reel. Bir özvektör için ⟨a|Â|a⟩ = a⟨a|a⟩, sol taraf reel ve ⟨a|a⟩ pozitif, o halde a reel.</p></li><li><p>Özvektörler ortonormal bir baz oluşturuyor. Her durum bu bazda açılabiliyor ve geçen haftanın |cₙ|² olasılıkları buradan geliyor.</p></li></ol>
+<p>SLAM karşılığı birebir: kovaryans matrisi simetrik, özdeğerleri reel, özvektörleri dik ve belirsizlik elipsoidinin ana eksenlerini veriyor. Nokta bulutunda düzlem normalini lokal kovaryansın en küçük özdeğerli özvektöründen çekmek de aynı matematik. Hermitian operatör, kovaryans matrisinin kompleks kuzeni.</p>
+<p><strong>Spektral ayrışım.</strong> Baz olarak operatörün kendi özvektörlerini seçersen matris köşegen olur:</p>
+<div class="eq" data-tex>\hat A = \sum_n a_n|n\rangle\langle n| = \sum_n a_n\hat P_n,\qquad A_{mn} = a_n\delta_{mn}</div>
+<p>Yani A = diag(a₁, a₂, …). Kendi özbazında operatör eksenleri karıştırmıyor, her ekseni kendi özdeğeriyle ölçekliyor. Kovaryansı ana eksenlerinde yazınca diag(σ₁², σ₂², σ₃²) çıkması gibi.</p>
+<p>Tahtada bunun discrete ve nondegenerate spektrum için geçerli olduğu yazıyor, derste ele alınan durum bu. Dejenere durumda da çalışıyor, sadece P̂ₙ o özdeğere ait bütün alt uzaya projeksiyon yapıyor.</p>
+<p>Spektral ayrışımı beklenen değerin içine koyunca, adın nereden geldiği görünüyor:</p>
+<div class="eq" data-tex>\langle A\rangle = \sum_n a_n\langle\psi|n\rangle\langle n|\psi\rangle = \sum_n a_n|c_n|^2</div>
+<p>Bu, ölçüm sonuçlarının olasılıklarla ağırlıklı ortalaması. Hocanın zar örneğindeki Σ k·(1/6) ile aynı şey.</p>
+<h2 id="63-unitary-kompleks-dünyanın-rotasyon-matrisi">6.3 Unitary: kompleks dünyanın rotasyon matrisi</h2>
+<p>Unitary operatör iç çarpımı korur, yani olasılık sızdırmayan kompleks bir rotasyon. Tanım Û†Û = Î, yani Û⁻¹ = Û†. Tersini almak bedava, tıpkı rotasyonda R⁻¹ = Rᵀ olması gibi.</p>
+<p>Û|φ⟩&#39;nin bra&#39;sı ⟨φ|Û† olduğu için:</p>
+<div class="eq" data-tex>\langle\hat U\phi|\hat U\psi\rangle = \langle\phi|\hat U^{\dagger}\hat U|\psi\rangle = \langle\phi|\psi\rangle</div>
+<p>Ortadaki Û†Û birbirini yiyip 1 oluyor. İç çarpım korunuyorsa boylar da korunuyor ve toplam olasılık 1 kalıyor. Zaman evrimi de, kuantum bilgisayardaki her kapı da bu yüzden unitary.</p>
+<p><strong>Tahtadaki kısayol hatası.</strong> Hoca Û†Û = Î&#39;nın dagger&#39;ını alıp ÛÛ† = Î elde ediyor. Ama dagger almak aynı denklemi geri veriyor, yeni bir şey çıkmıyor:</p>
+<div class="eq" data-tex>(\hat U^{\dagger}\hat U)^{\dagger} = \hat U^{\dagger}(\hat U^{\dagger})^{\dagger} = \hat U^{\dagger}\hat U</div>
+<p>Sonuç doğru, Û kendi dagger&#39;ıyla komüt ediyor, ama sebebi başka. Sonlu boyutta kare bir matrisin sol tersi aynı zamanda sağ tersidir. Sınavda sorulursa gerekçe bu.</p>
+<p>Sonsuz boyutta bu bedava değil, iki koşulu ayrı ayrı istemek gerekiyor. En sevimli örnek Hilbert uzayında Hilbert&#39;in Oteli: her misafiri bir üst odaya taşıyan Ŝ|n⟩ = |n+1⟩ için Ŝ†Ŝ = Î ama ŜŜ† ≠ Î. Çünkü Ŝ† herkesi bir alt odaya indirirken 1 numaradaki misafiri koyacak yer bulamıyor ve onu sıfıra gönderiyor.</p>
+<h2 id="matris-özdeğer-problemi">Matris özdeğer problemi</h2>
+<p>Özdeğerler karakteristik determinantın kökleri. Â|aₙ⟩ = aₙ|aₙ⟩ matris dilinde (A − aₙI)a⃗ₙ = 0 demek. Matrisin tersi olsaydı a⃗ₙ = 0 çıkardı, sıfırdan farklı çözüm için tersi olmamalı:</p>
+<div class="eq" data-tex>\det(A - a_n I) = 0</div>
+<p>Tarif üç adım:</p>
+<ol><li><p>Determinanttan özdeğerleri bul.</p></li><li><p>Her özdeğeri geri koyup özvektörü çıkar.</p></li><li><p>Normalize et.</p></li></ol>
+<p>X üzerinde:</p>
+<div class="eq" data-tex>\det\begin{pmatrix}-\lambda &amp; 1\\ 1 &amp; -\lambda\end{pmatrix} = \lambda^2 - 1 = 0 \;\Rightarrow\; \lambda = \pm 1</div>
+<p>λ = +1 için |+⟩ = (1, 1)ᵀ/√2, λ = −1 için |−⟩ = (1, −1)ᵀ/√2. Özdeğerler reel, özvektörler dik, Hermitian sözünü tuttu.</p>
+<h2 id="spektral-teorem-köşegenleştirme">Spektral teorem: köşegenleştirme</h2>
+<p>Özvektörleri sütun olarak dizen unitary U, Hermitian matrisi köşegenleştirir. AU&#39;nun her sütunu Aa⃗ₙ = aₙa⃗ₙ, yani AU = U diag(aₙ). Sütunlar ortonormal olduğu için U unitary, soldan U† ile çarpınca:</p>
+<div class="eq" data-tex>U^{\dagger}AU = \mathrm{diag}(a_n) \quad\Longleftrightarrow\quad A = U\,\mathrm{diag}(a_n)\,U^{\dagger}</div>
+<p>X için bu U, Hadamard kapısı:</p>
+<div class="eq" data-tex>U = \frac{1}{\sqrt 2}\begin{pmatrix}1 &amp; 1\\ 1 &amp; -1\end{pmatrix} = H</div>
+<p>Yani HXH = Z = diag(1, −1). Kuantum hesaplamanın en meşhur özdeşliklerinden biri, X&#39;i kendi özbazında yazmaktan ibaret. PCA&#39;daki Σ = RΛRᵀ ile aynı cümle.</p>
+<h2 id="65-baz-değişimi-nokta-kıpırdamıyor-sen-kafanı-çeviriyorsun">6.5 Baz değişimi: nokta kıpırdamıyor, sen kafanı çeviriyorsun</h2>
+<p>Baz değiştirmek koordinatları değiştirir, fiziği değiştirmez. İki ortonormal baz {|eₙ⟩} ve {|fₘ⟩} için baz değişim matrisi:</p>
+<div class="eq" data-tex>U_{mn} = \langle f_m|e_n\rangle</div>
+<p>Bu tam olarak direction cosine matrix, sadece iç çarpım kompleks:</p>
+<div class="eq" data-tex>(R_{BA})_{ij} = \hat b_i\cdot\hat a_j</div>
+<p>Durumun koordinatları için araya e bazının 1&#39;ini koy:</p>
+<div class="eq" data-tex>c_{m,f} = \langle f_m|\psi\rangle = \sum_n \langle f_m|e_n\rangle\langle e_n|\psi\rangle = \sum_n U_{mn}\,c_{n,e} \quad\Rightarrow\quad \vec c_f = U\vec c_e</div>
+<p>Operatörde aynı hileyi iki yana uygulayınca:</p>
+<div class="eq" data-tex>A_f = U A_e U^{\dagger}</div>
+<p>Bu, kovaryansı frame&#39;den frame&#39;e taşırken yazılan Σ(B) = R Σ(A) Rᵀ&#39;nin ta kendisi.</p>
+<p>Fiziğin değişmediğinin kanıtı, U&#39;ların birbirini yemesi:</p>
+<div class="eq" data-tex>\vec c_f^{\,\dagger}A_f\vec c_f = \vec c_e^{\,\dagger}\underbrace{U^{\dagger}U}_{I}A_e\underbrace{U^{\dagger}U}_{I}\vec c_e = \vec c_e^{\,\dagger}A_e\vec c_e = \langle\psi|\hat A|\psi\rangle</div>
+<p>Son yeşil tahta ⟨A⟩ = c⃗†Ac⃗&#39;nin nereden geldiğini gösteriyor. ⟨ψ|ÎÂÎ|ψ⟩ yazıp iki 1&#39;i açınca Σ cₙ∗ Aₙₖ cₖ çıkıyor. Boyutlar (1×N)(N×N)(N×1), sonuç tek bir sayı.</p>
+<p>O tahtada küçük bir yazım hatası var: Î(f) için Σ |eₘ⟩⟨eₘ| yazılmış, doğrusu Σ |fₘ⟩⟨fₘ|.</p>
+<p><strong>Sınavda insanı kandıran tuzak.</strong> Hoca aynı U harfini iki iş için kullanıyor. Spektral teoremdeki U&#39;nun sütunlarında özvektörler var ve formül U†AU.</p>
+<p>Baz değişimindeki Uₘₙ = ⟨fₘ|eₙ⟩&#39;de ise satırlarda yeni bazın bra&#39;ları duruyor ve formül UAU†. Yeni baz özbaz olunca bu iki U birbirinin dagger&#39;ı oluyor, ikisi de aynı köşegen matrise varıyor.</p>
+<p>Akılda kalsın diye: sütunlarda ketler varsa U†AU, satırlarda bra&#39;lar varsa UAU†. X örneğinde fark görünmüyordu çünkü H† = H. Kompleks özvektörlü bir matriste, mesela Pauli Y&#39;de, fark ortaya çıkar.</p>
+<h2 id="hepsini-birleştiren-örnek">Hepsini birleştiren örnek</h2>
+<p>X&#39;i |0⟩ durumunda ölçersen yarı yarıya +1 ya da −1 alırsın ve beklenen değer iki bazda da 0 çıkar. e bazı {|0⟩, |1⟩}, f bazı X&#39;in özbazı {|+⟩, |−⟩}, baz değişim matrisi U = H.</p>
+<p>e bazında:</p>
+<div class="eq" data-tex>\vec c_e = (1,0)^T,\qquad \langle X\rangle = \vec c_e^{\,\dagger}X\vec c_e = 0</div>
+<p>f bazında:</p>
+<div class="eq" data-tex>\vec c_f = H\vec c_e = \tfrac{1}{\sqrt 2}(1,1)^T,\qquad X_f = HXH = Z,\qquad \langle X\rangle = \vec c_f^{\,\dagger}Z\vec c_f = \tfrac12 - \tfrac12 = 0</div>
+<p>Aynı sayı, iki farklı frame. f bazındaki hesap fiziği açıkça okuyor: |c₊|² = |c₋|² = 1/2, yani yarı yarıya +1 ya da −1 ölçersin. Ortalama (+1)(1/2) + (−1)(1/2) = 0.</p>
+<p>Sonuç hiçbir zaman |1⟩ değil. X̂|0⟩ = |1⟩ bir vektör hesabı, ölçümle ilgisi yok.</p>
+<h2 id="üç-cümlelik-özet">Üç cümlelik özet</h2>
+<p>Baz seçince ket sütun vektörüne, operatör matrise, Â|ψ⟩ de matris çarpımına dönüşüyor ve bunların hepsi araya 1 koyma hilesinden çıkıyor. Hermitian, gözlemlenebilir demek: reel özdeğerler, ortonormal özbaz, kendi özbazında köşegen matris. Unitary kompleks rotasyon demek: iç çarpımı korur, bu yüzden baz değiştirmek koordinatları değiştirir ama fiziği değiştirmez.</p>
+<h2 id="kendini-dene">Kendini dene</h2>
+<p>X hem Hermitian hem unitary, yani iki kulübe birden üye. Bu iki kulübe birden üye olan herhangi bir operatörün özdeğerleri ne olabilir?</p>
+<p>İpucu: her kulüp özdeğerlere kendi kuralını koyuyor.</p>
+  <nav class="pager" aria-label="Diğer sayfalar"><a href="../hafta-4/">← Hafta 4</a><a href="../hafta-6/">Hafta 6 →</a></nav>
+</main>
+</body>
+</html>
