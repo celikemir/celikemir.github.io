@@ -1,0 +1,1348 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Elektromanyetik Dalga Denklemi</title>
+<meta name="description" content="Maxwell denklemlerinden dalga denklemine, oradan düzlem dalgalara, enerjiye, arayüz sınır koşullarına ve potansiyellere uzanan ders. Bu derste tahta…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: same notebook as the Ders 4 page. One reading column on whiteboard-white paper,
+   graph-paper hero, blue marker for English terms, red-pen dashed boxes for errors. */
+:root {
+  --paper: #f5f7fa;
+  --panel: #ffffff;
+  --ink: #141c26;
+  --ink-2: #4a5665;
+  --muted: #687586;
+  --rule: #d6dde6;
+  --grid: #e2e8ef;
+  --gridline: #e8edf2;
+  --axis: #b4bfcc;
+  --marker: #1d56bd;
+  --redpen: #be3129;
+  --redtint: #fdf2f1;
+  --tag: #eaeff5;
+  --band: rgba(29, 86, 189, 0.07);
+  --s1: #2a78d6;
+  --s2: #e0602a;
+  --f-display: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e131a;
+    --panel: #161d26;
+    --ink: #e3e8ee;
+    --ink-2: #a8b3c0;
+    --muted: #8590a0;
+    --rule: #29333f;
+    --grid: #19212b;
+    --gridline: #222b36;
+    --axis: #3d4957;
+    --marker: #7aa8f3;
+    --redpen: #f0817a;
+    --redtint: #24181a;
+    --tag: #1c2531;
+    --band: rgba(122, 168, 243, 0.10);
+    --s1: #4a93ec;
+    --s2: #f07a45;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e131a;
+  --panel: #161d26;
+  --ink: #e3e8ee;
+  --ink-2: #a8b3c0;
+  --muted: #8590a0;
+  --rule: #29333f;
+  --grid: #19212b;
+  --gridline: #222b36;
+  --axis: #3d4957;
+  --marker: #7aa8f3;
+  --redpen: #f0817a;
+  --redtint: #24181a;
+  --tag: #1c2531;
+  --band: rgba(122, 168, 243, 0.10);
+  --s1: #4a93ec;
+  --s2: #f07a45;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.62;
+}
+.wrap {
+  box-sizing: content-box;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--marker); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible, svg:focus-visible {
+  outline: 2px solid var(--marker);
+  outline-offset: 2px;
+}
+p { margin: 0 0 1rem; }
+strong { font-weight: 600; }
+
+/* hero */
+.hero {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero .wrap { padding-block: 2.6rem 2rem; }
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 0.6rem;
+}
+h1 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 7vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.9rem;
+  text-wrap: balance;
+}
+.lede { font-size: 1.06rem; color: var(--ink-2); max-width: 38rem; }
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.4rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+}
+.chain li { display: flex; align-items: center; gap: 0.4rem; }
+.chain li span.step {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.18rem 0.5rem;
+}
+.chain li:not(:last-child)::after { content: "→"; color: var(--muted); }
+
+/* toc */
+.toc {
+  margin: 2rem 0 0.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.toc h2 {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 0.6rem;
+}
+.toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.25rem 1.5rem;
+  font-size: 0.95rem;
+}
+.toc .n { font-family: var(--f-mono); color: var(--muted); display: inline-block; min-width: 1.6rem; font-size: 0.82rem; }
+.toc a { color: var(--ink); text-decoration: none; }
+.toc a:hover { color: var(--marker); text-decoration: underline; }
+
+/* sections */
+section { padding-block: 2.2rem 0.6rem; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: 0; }
+.sec-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.8rem;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+.sec-head .num {
+  font-family: var(--f-mono);
+  font-size: 0.85rem;
+  color: var(--marker);
+  grid-row: span 2;
+}
+.sec-head h2 {
+  font-family: var(--f-display);
+  font-weight: 650;
+  font-size: 1.55rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+  min-width: 0;
+}
+.sec-head .stamp {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+  grid-column: 2;
+}
+h3 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 1.12rem;
+  margin: 1.6rem 0 0.5rem;
+  text-wrap: balance;
+}
+.en {
+  font-family: var(--f-mono);
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--marker);
+  letter-spacing: 0;
+}
+h2 .en, h3 .en { font-size: 0.55em; vertical-align: 0.15em; margin-left: 0.25em; display: inline-block; max-width: 100%; }
+.extra {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.02rem 0.5rem;
+  vertical-align: 0.12em;
+  white-space: nowrap;
+}
+.eq {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0.4rem 0 1.1rem;
+  padding: 0.2rem 0;
+}
+mjx-container[display="true"] { margin: 0.5em 0 !important; }
+.note { font-size: 0.92rem; color: var(--ink-2); }
+
+/* red-pen error box */
+.err {
+  border: 1.5px dashed var(--redpen);
+  border-radius: 6px;
+  background: var(--redtint);
+  padding: 0.85rem 1rem 0.2rem;
+  margin: 1.2rem 0 1.4rem;
+}
+.err .label {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--redpen);
+  margin-bottom: 0.35rem;
+}
+.err p { font-size: 0.97rem; }
+
+/* tables */
+.tbl { overflow-x: auto; margin: 0.6rem 0 1.3rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-align: left;
+  padding: 0.45rem 0.7rem 0.45rem 0;
+  border-bottom: 1px solid var(--axis);
+  white-space: nowrap;
+}
+td {
+  padding: 0.5rem 0.7rem 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+td .en { font-size: 0.85rem; }
+table.bc td:first-child { font-family: var(--f-mono); font-size: 0.8rem; color: var(--ink-2); white-space: nowrap; }
+
+/* figures */
+figure { margin: 1.2rem 0 1.6rem; }
+figure .scroll { overflow-x: auto; }
+figure svg.diagram { display: block; width: 100%; max-width: 620px; height: auto; color: var(--ink); }
+.fig-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem 1.4rem;
+}
+.fig-pair > div { min-width: 0; }
+.fig-pair svg.diagram { max-width: 360px; }
+.fig-pair .sub { font-family: var(--f-mono); font-size: 0.78rem; color: var(--ink-2); margin: 0 0 0.3rem; }
+figcaption { font-size: 0.88rem; color: var(--ink-2); margin-top: 0.5rem; }
+.dg-text { font-family: var(--f-mono); font-size: 12px; fill: currentColor; }
+.dg-big { font-family: var(--f-display); font-size: 17px; font-weight: 600; }
+.dg-band { fill: var(--band); }
+.dg-paper { fill: var(--panel); }
+.dg-marker { stroke: var(--marker); }
+.dg-marker-fill { fill: var(--marker); }
+.dg-marker-text { font-family: var(--f-mono); font-size: 12px; fill: var(--marker); }
+.dg-s1 { stroke: var(--s1); }
+.dg-s2 { stroke: var(--s2); }
+.dg-s1-fill { fill: var(--s1); }
+.dg-s2-fill { fill: var(--s2); }
+.dg-s1-text { font-family: var(--f-display); font-size: 17px; font-weight: 600; fill: var(--s1); }
+.dg-s2-text { font-family: var(--f-display); font-size: 17px; font-weight: 600; fill: var(--s2); }
+.dg-red-stroke { stroke: var(--redpen); }
+.dg-red-fill { fill: var(--redpen); }
+.dg-red-text { font-family: var(--f-mono); font-size: 13px; fill: var(--redpen); }
+
+/* interactive lab */
+.lab {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1rem 1rem 0.6rem;
+  margin: 1.2rem 0 1.6rem;
+}
+.lab-title { font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; margin: 0 0 0.2rem; }
+.lab-sub { font-size: 0.88rem; color: var(--ink-2); margin: 0 0 0.9rem; }
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.8rem 1.4rem;
+  margin-bottom: 0.7rem;
+}
+.ctrl label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  margin-bottom: 0.2rem;
+}
+.ctrl output { color: var(--ink); font-variant-numeric: tabular-nums; }
+.ctrl input[type="range"] { width: 100%; accent-color: var(--marker); }
+.presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+.presets button, .play {
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  color: var(--ink);
+  background: var(--tag);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+.presets button:hover, .play:hover { border-color: var(--marker); color: var(--marker); }
+.play { background: var(--panel); border-color: var(--marker); color: var(--marker); }
+.play[aria-pressed="true"] { background: var(--marker); color: var(--panel); }
+.lab-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.4rem 1rem; margin-bottom: 0.3rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-family: var(--f-mono); font-size: 0.78rem; color: var(--ink-2); }
+.legend span.key { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 0.4rem; }
+.key.s1 { border-color: var(--s1); }
+.key.s2 { border-color: var(--s2); border-top-style: dashed !important; }
+.key.ref { border-color: var(--muted); border-top-style: dashed !important; }
+.chart { position: relative; margin-bottom: 0.6rem; }
+.chart svg { display: block; width: 100%; height: auto; }
+.grid-l { stroke: var(--gridline); stroke-width: 1; }
+.axis-l { stroke: var(--axis); stroke-width: 1; }
+.zero-l { stroke: var(--axis); stroke-width: 1.4; }
+.ref-l { fill: none; stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 4 4; }
+.ln { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.ln.s1 { stroke: var(--s1); }
+.ln.env { stroke: var(--s2); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.tick { font-family: var(--f-mono); font-size: 11px; fill: var(--muted); }
+.axis-title { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-2); }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.6rem;
+  margin: 0.7rem 0 0.6rem;
+}
+.stat { border-top: 1px solid var(--rule); padding-top: 0.45rem; min-width: 0; }
+.stat .k { font-family: var(--f-mono); font-size: 0.72rem; color: var(--ink-2); }
+.stat .v { font-family: var(--f-mono); font-size: 1.02rem; font-variant-numeric: tabular-nums; }
+.stat .s { font-size: 0.78rem; color: var(--muted); }
+
+/* quiz */
+.q { border-top: 1px solid var(--rule); padding: 0.9rem 0 0.4rem; }
+.q .qhead { display: flex; gap: 0.7rem; align-items: baseline; }
+.q .qn { font-family: var(--f-mono); font-size: 0.8rem; color: var(--marker); flex: none; }
+.q .lvl { font-family: var(--f-mono); font-size: 0.68rem; color: var(--muted); margin-left: auto; white-space: nowrap; }
+.q p.qt { margin: 0 0 0.5rem; min-width: 0; }
+.q details { margin: 0 0 0.6rem 1.6rem; }
+.q summary { font-family: var(--f-mono); font-size: 0.78rem; color: var(--marker); cursor: pointer; }
+.q details[open] summary { margin-bottom: 0.5rem; }
+
+footer .wrap { padding-block: 1.6rem 2.6rem; font-size: 0.85rem; color: var(--ink-2); }
+
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .sec-head h2 { font-size: 1.32rem; }
+  .q details { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+  svg: { fontCache: "global" },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" async></script>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="kbm-crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">602</a> › Hafta 3</nav>
+    <p class="eyebrow">602 · Ders 3 · Ders notu</p>
+    <h1>Elektromanyetik Dalga Denklemi</h1>
+    <p class="lede">Maxwell denklemlerinden dalga denklemine, oradan düzlem dalgalara, enerjiye, arayüz sınır koşullarına ve potansiyellere uzanan ders. Bu derste tahta fotoğrafı yok, formüller transkriptten ve standart türetmelerden yeniden kuruldu. Mavi yazılar İngilizce terimler, kırmızı kesik çizgili kutular derste ya da transkriptte bulunan hatalar. <span class="extra">derste yok</span> etiketli kısımlar dersin dışından eklenen bilgiler.</p>
+    <ol class="chain" aria-label="Dersin akışı">
+      <li><span class="step">Maxwell</span></li>
+      <li><span class="step">∇×(∇×E)</span></li>
+      <li><span class="step">∇²E = μ₀ε₀ ∂²E/∂t²</span></li>
+      <li><span class="step">düzlem dalga</span></li>
+      <li><span class="step">u, S</span></li>
+      <li><span class="step">sınır koşulları</span></li>
+      <li><span class="step">φ, A</span></li>
+      <li><span class="step">□²A = −μ₀J</span></li>
+    </ol>
+  </div>
+</header>
+
+<main class="wrap">
+
+<nav class="toc" aria-label="İçindekiler">
+  <h2>İçindekiler</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">1</span>Dalga denkleminin türetilmesi</a></li>
+    <li><a href="#s2"><span class="n">2</span>Kaç koşul gerekiyor</a></li>
+    <li><a href="#s3"><span class="n">3</span>Kavite ve modlar</a></li>
+    <li><a href="#s4"><span class="n">4</span>Düzlem dalga çözümü</a></li>
+    <li><a href="#s5"><span class="n">5</span>Düzlem dalga fiziksel değil</a></li>
+    <li><a href="#s6"><span class="n">6</span>Dielektrik ortam</a></li>
+    <li><a href="#s7"><span class="n">7</span>Enerji yoğunluğu</a></li>
+    <li><a href="#s8"><span class="n">8</span>Eşbölüşüm ve kayıplı ortam</a></li>
+    <li><a href="#s9"><span class="n">9</span>Poynting vektörü</a></li>
+    <li><a href="#s10"><span class="n">10</span>Arayüz sınır koşulları</a></li>
+    <li><a href="#s11"><span class="n">11</span>Skaler ve vektör potansiyel</a></li>
+    <li><a href="#s12"><span class="n">12</span>Ayar serbestliği</a></li>
+    <li><a href="#s13"><span class="n">13</span>Potansiyeller için dalga denklemi</a></li>
+    <li><a href="#ekA"><span class="n">A</span>Hata listesi</a></li>
+    <li><a href="#ekB"><span class="n">B</span>Kendini test et</a></li>
+    <li><a href="#ekC"><span class="n">C</span>Sözlük</a></li>
+  </ol>
+</nav>
+
+<!-- 1 -->
+<section id="s1">
+  <div class="sec-head">
+    <span class="num">1</span>
+    <h2>Dalga denkleminin türetilmesi <span class="en">wave equation</span></h2>
+    <span class="stamp">ilk parça 0:00 – 0:06</span>
+  </div>
+  <p>Boş uzayda, serbest yük ve akım olmadan <span class="en">no free charges, no free currents</span> Maxwell denklemleri:</p>
+  <div class="eq">\[ \nabla\cdot\mathbf E = 0, \qquad \nabla\cdot\mathbf B = 0, \qquad \nabla\times\mathbf E = -\frac{\partial\mathbf B}{\partial t}, \qquad \nabla\times\mathbf B = \mu_0\varepsilon_0\frac{\partial\mathbf E}{\partial t} \]</div>
+  <p>Faraday yasasının <span class="en">Faraday's law</span> curl'ü alınıyor. Sağ tarafta uzay türevi ile zaman türevi yer değiştirebiliyor, \(\nabla\times\mathbf B\) yerine Ampère–Maxwell yasası <span class="en">Ampère–Maxwell law</span> konuyor. \(\mu_0\varepsilon_0\) sabit olduğu için türevin dışına çıkıyor ve türevin türevi ikinci türev oluyor:</p>
+  <div class="eq">\[ \nabla\times(\nabla\times\mathbf E) = -\frac{\partial}{\partial t}\left(\nabla\times\mathbf B\right) = -\mu_0\varepsilon_0\frac{\partial^2\mathbf E}{\partial t^2} \]</div>
+
+  <h3>Sol taraf: BAC-CAB kuralı <span class="en">vector triple product</span></h3>
+  <p>Hoca sınıfa curl'ün curl'ünün neye eşit olduğunu sordu, cevap "Laplasyan" geldi. Hoca önce vektör özdeşliğini istedi:</p>
+  <div class="eq">\[ \mathbf A\times(\mathbf B\times\mathbf C) = \mathbf B\,(\mathbf A\cdot\mathbf C) - \mathbf C\,(\mathbf A\cdot\mathbf B) \]</div>
+  <p>\(\mathbf A = \mathbf B = \nabla\) ve \(\mathbf C = \mathbf E\) konuyor. Sıradan vektörlerde \(\mathbf C(\mathbf A\cdot\mathbf B)\) ile \((\mathbf A\cdot\mathbf B)\mathbf C\) aynı şey, çünkü \(\mathbf A\cdot\mathbf B\) sadece bir sayı. Operatörde öyle değil: \(\nabla\) sağındakine etki ettiği için \(\mathbf E\) en sağda durmak zorunda.</p>
+  <div class="eq">\[ \nabla\times(\nabla\times\mathbf E) = \nabla(\nabla\cdot\mathbf E) - (\nabla\cdot\nabla)\,\mathbf E = \nabla(\nabla\cdot\mathbf E) - \nabla^2\mathbf E \]</div>
+  <p>İlk terim Gauss yasasından <span class="en">Gauss's law</span> sıfır. \(\nabla\cdot\nabla\) Kartezyende açılınca çapraz terimler \(\hat x\cdot\hat y = 0\) olduğu için düşüyor, \(\hat x\cdot\hat x = 1\) kalıyor:</p>
+  <div class="eq">\[ \nabla^2 = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} + \frac{\partial^2}{\partial z^2} \]</div>
+  <p>Buna Laplasyan <span class="en">Laplacian, nabla squared</span> deniyor. Sonuç:</p>
+  <div class="eq">\[ \boxed{\;\nabla^2\mathbf E = \mu_0\varepsilon_0\,\frac{\partial^2\mathbf E}{\partial t^2}, \qquad \nabla^2\mathbf B = \mu_0\varepsilon_0\,\frac{\partial^2\mathbf B}{\partial t^2}\;} \]</div>
+  <p>\(\mathbf B\) için aynı yol Ampère–Maxwell yasasının curl'ünü alarak çıkıyor.</p>
+
+  <div class="err">
+    <span class="label">Transkriptte · nokta, çarpı değil</span>
+    <p>Transkriptte "i cross i = 1" geçiyor. Birim vektörün kendisiyle çarpı çarpımı sıfır. 1 veren nokta çarpım: \(\hat x\cdot\hat x = 1\), \(\hat x\cdot\hat y = 0\).</p>
+  </div>
+  <p>Hocanın notu: Kartezyende \(\nabla^2\mathbf E\) her bileşenin ayrı Laplasyanı. Küresel ve silindirik koordinatta <span class="en">spherical, cylindrical coordinates</span> ifade çok daha karmaşık. <span class="extra">derste yok</span> Sebebi birim vektörlerin de konumla değişmesi. O koordinatlarda \(\nabla^2\mathbf E \equiv \nabla(\nabla\cdot\mathbf E) - \nabla\times(\nabla\times\mathbf E)\) tanımından gitmek gerekiyor.</p>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <div class="sec-head">
+    <span class="num">2</span>
+    <h2>Kaç koşul gerekiyor? <span class="en">boundary and initial conditions</span></h2>
+    <span class="stamp">kayıt 0:00 – 0:12</span>
+  </div>
+  <p>Ders Poisson denklemiyle <span class="en">Poisson equation</span> açıldı (transkriptte "person equation"): sınırlarda yük varsa herhangi bir noktadaki potansiyeli bulmak için Poisson denklemi çözülüyor. Aynı Laplasyan yapısı kararlı durumdaki sıcaklık dağılımında da var. Bu bağlantı Bölüm 13'te kapanıyor.</p>
+  <p>Ardından hocanın sorusu: dalga denklemini çözmek için kaç sınır ya da başlangıç koşulu lazım? Denklem \(x\), \(y\) ve \(z\)'de ikinci mertebeden, her yön için 2 sınır koşulu, toplam 6. Zamanda da ikinci mertebeden, 2 başlangıç koşulu. Kâğıt üzerinde 8 koşul.</p>
+
+  <h3>Bileşenler bağımsız değil</h3>
+  <p>\(\mathbf E\) ve \(\mathbf B\) için iki dalga denklemi var ama bunlar birbirinden bağımsız çözülemiyor. Hocanın tahtaya yazdığı örnek:</p>
+  <div class="eq">\[ \frac{\partial B_x}{\partial x} + \frac{\partial B_y}{\partial y} + \frac{\partial B_z}{\partial z} = 0 \]</div>
+  <p>\(B_x\) ve \(B_y\) bulunursa \(B_z\) bu denklemden belirleniyor. Aynısı \(\mathbf E\) için Gauss yasasıyla geçerli. Faraday yasası da \(\mathbf E\) ile \(\mathbf B\)'yi bağlıyor, \(\mathbf E\) bulununca \(\mathbf B\) kendiliğinden geliyor. Dalga denklemini sağlayan her çözüm Maxwell denklemlerini de sağlamak zorunda.</p>
+
+  <h3>Boş uzayda iki uzay koşulu</h3>
+  <p>Hocanın vardığı sonuç: pratikte 2 sınır ve 2 başlangıç koşulu yeterli. Uzay koşulları şunlar. Birincisi alan sonsuzda ıraksamamalı. İkincisi Sommerfeld ışıma koşulu <span class="en">Sommerfeld radiation condition</span>: kaynaktan ışınan enerji sonsuza gider, sonsuzdan ortama enerji gelmez.</p>
+  <p>Transkriptte formül okunmuyor. Standart hali, \(e^{-i\omega t}\) konvansiyonunda bir alan bileşeni \(u\) için:</p>
+  <div class="eq">\[ \lim_{r\to\infty} r\left(\frac{\partial u}{\partial r} - iku\right) = 0 \]</div>
+  <p>Bu koşul giden küresel dalgayı \(e^{ikr}/r\) tutuyor, gelen \(e^{-ikr}/r\)'yi eliyor <span class="en">outgoing vs incoming spherical wave</span>. Hoca bunun Helmholtz denklemini <span class="en">Helmholtz equation</span> çözerken gerekeceğini söyledi. Transkriptte "hand-most equation" diye geçiyor.</p>
+
+  <h3>Başlangıç koşulları <span class="en">initial conditions</span></h3>
+  <p>\(t = 0\)'da \(\mathbf E(\mathbf r, 0)\) ve \(\mathbf B(\mathbf r, 0)\) veriliyor. Hocanın alternatifi \(\mathbf E(\mathbf r, 0)\) ile \(\partial\mathbf E/\partial t\,|_{t=0}\): alan başlangıçta hangi yöne ve ne hızla değişiyor.</p>
+  <p><span class="extra">derste yok</span> İki seçenek aslında aynı bilgiyi taşıyor. Ampère–Maxwell yasasından \(\partial\mathbf E/\partial t = c^2\,\nabla\times\mathbf B\), yani \(t = 0\)'da \(\mathbf B\)'yi bilmek \(\partial\mathbf E/\partial t\)'yi bilmek demek.</p>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <div class="sec-head">
+    <span class="num">3</span>
+    <h2>Kavite ve modlar <span class="en">cavity modes</span></h2>
+    <span class="stamp">kayıt 0:12 – 0:14</span>
+  </div>
+  <p>Hocanın sorusu: dalga denklemini sonsuz uzay yerine sınırlı bir bölgede, örneğin metal bir kutuda, dalga kılavuzunda <span class="en">waveguide</span> ya da kavitede <span class="en">cavity</span> çözersek ne olur? Sadece sınır koşullarını sağlayan belirli çözümler ayakta kalıyor. Bunlara özdurum <span class="en">eigenstate</span> ya da mod <span class="en">mode</span> deniyor ve her birinin kendine ait ayrık bir frekansı var. Hocanın analojisi kutudaki parçacık <span class="en">particle in a box</span>: parçacık kutuya konunca enerji seviyeleri kesikli hale geliyor.</p>
+
+  <figure>
+    <div class="scroll">
+    <svg class="diagram" viewBox="0 0 620 262" role="img" aria-label="İki iletken duvar arasında ilk üç duran dalga modu. m eşit 1'de yarım dalga, m eşit 2'de tam dalga, m eşit 3'te bir buçuk dalga sığıyor. Hepsi duvarlarda sıfır.">
+      <defs>
+        <marker id="arrD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+        </marker>
+      </defs>
+      <rect x="56" y="14" width="14" height="222" fill="currentColor" opacity="0.14"></rect>
+      <rect x="520" y="14" width="14" height="222" fill="currentColor" opacity="0.14"></rect>
+      <line x1="70" y1="14" x2="70" y2="236" stroke="currentColor" stroke-width="2"></line>
+      <line x1="520" y1="14" x2="520" y2="236" stroke="currentColor" stroke-width="2"></line>
+      <line x1="70" y1="50" x2="520" y2="50" stroke="currentColor" opacity="0.25"></line>
+      <line x1="70" y1="125" x2="520" y2="125" stroke="currentColor" opacity="0.25"></line>
+      <line x1="70" y1="200" x2="520" y2="200" stroke="currentColor" opacity="0.25"></line>
+      <polyline points="70.0,50.0 73.8,50.7 77.5,51.4 81.2,52.0 85.0,52.7 88.8,53.4 92.5,54.1 96.2,54.7 100.0,55.4 103.8,56.1 107.5,56.7 111.2,57.4 115.0,58.0 118.8,58.7 122.5,59.3 126.2,59.9 130.0,60.6 133.8,61.2 137.5,61.8 141.2,62.4 145.0,63.0 148.8,63.6 152.5,64.2 156.2,64.7 160.0,65.3 163.8,65.8 167.5,66.4 171.2,66.9 175.0,67.4 178.8,67.9 182.5,68.4 186.2,68.9 190.0,69.3 193.8,69.8 197.5,70.2 201.2,70.6 205.0,71.0 208.8,71.4 212.5,71.8 216.2,72.2 220.0,72.5 223.8,72.8 227.5,73.2 231.2,73.5 235.0,73.8 238.8,74.0 242.5,74.3 246.2,74.5 250.0,74.7 253.8,74.9 257.5,75.1 261.2,75.3 265.0,75.4 268.8,75.6 272.5,75.7 276.2,75.8 280.0,75.9 283.8,75.9 287.5,76.0 291.2,76.0 295.0,76.0 298.8,76.0 302.5,76.0 306.2,75.9 310.0,75.9 313.8,75.8 317.5,75.7 321.2,75.6 325.0,75.4 328.8,75.3 332.5,75.1 336.2,74.9 340.0,74.7 343.8,74.5 347.5,74.3 351.2,74.0 355.0,73.8 358.8,73.5 362.5,73.2 366.2,72.8 370.0,72.5 373.8,72.2 377.5,71.8 381.2,71.4 385.0,71.0 388.8,70.6 392.5,70.2 396.2,69.8 400.0,69.3 403.8,68.9 407.5,68.4 411.2,67.9 415.0,67.4 418.8,66.9 422.5,66.4 426.2,65.8 430.0,65.3 433.8,64.7 437.5,64.2 441.2,63.6 445.0,63.0 448.8,62.4 452.5,61.8 456.2,61.2 460.0,60.6 463.8,59.9 467.5,59.3 471.2,58.7 475.0,58.0 478.8,57.4 482.5,56.7 486.2,56.1 490.0,55.4 493.8,54.7 497.5,54.1 501.2,53.4 505.0,52.7 508.8,52.0 512.5,51.4 516.2,50.7 520.0,50.0" fill="none" class="dg-s1" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"></polyline>
+      <polyline points="70.0,50.0 73.8,49.3 77.5,48.6 81.2,48.0 85.0,47.3 88.8,46.6 92.5,45.9 96.2,45.3 100.0,44.6 103.8,43.9 107.5,43.3 111.2,42.6 115.0,42.0 118.8,41.3 122.5,40.7 126.2,40.1 130.0,39.4 133.8,38.8 137.5,38.2 141.2,37.6 145.0,37.0 148.8,36.4 152.5,35.8 156.2,35.3 160.0,34.7 163.8,34.2 167.5,33.6 171.2,33.1 175.0,32.6 178.8,32.1 182.5,31.6 186.2,31.1 190.0,30.7 193.8,30.2 197.5,29.8 201.2,29.4 205.0,29.0 208.8,28.6 212.5,28.2 216.2,27.8 220.0,27.5 223.8,27.2 227.5,26.8 231.2,26.5 235.0,26.2 238.8,26.0 242.5,25.7 246.2,25.5 250.0,25.3 253.8,25.1 257.5,24.9 261.2,24.7 265.0,24.6 268.8,24.4 272.5,24.3 276.2,24.2 280.0,24.1 283.8,24.1 287.5,24.0 291.2,24.0 295.0,24.0 298.8,24.0 302.5,24.0 306.2,24.1 310.0,24.1 313.8,24.2 317.5,24.3 321.2,24.4 325.0,24.6 328.8,24.7 332.5,24.9 336.2,25.1 340.0,25.3 343.8,25.5 347.5,25.7 351.2,26.0 355.0,26.2 358.8,26.5 362.5,26.8 366.2,27.2 370.0,27.5 373.8,27.8 377.5,28.2 381.2,28.6 385.0,29.0 388.8,29.4 392.5,29.8 396.2,30.2 400.0,30.7 403.8,31.1 407.5,31.6 411.2,32.1 415.0,32.6 418.8,33.1 422.5,33.6 426.2,34.2 430.0,34.7 433.8,35.3 437.5,35.8 441.2,36.4 445.0,37.0 448.8,37.6 452.5,38.2 456.2,38.8 460.0,39.4 463.8,40.1 467.5,40.7 471.2,41.3 475.0,42.0 478.8,42.6 482.5,43.3 486.2,43.9 490.0,44.6 493.8,45.3 497.5,45.9 501.2,46.6 505.0,47.3 508.8,48.0 512.5,48.6 516.2,49.3 520.0,50.0" fill="none" class="dg-s1" stroke-width="2.2"></polyline>
+      <polyline points="70.0,125.0 73.8,126.4 77.5,127.7 81.2,129.1 85.0,130.4 88.8,131.7 92.5,133.0 96.2,134.3 100.0,135.6 103.8,136.8 107.5,138.0 111.2,139.2 115.0,140.3 118.8,141.4 122.5,142.4 126.2,143.4 130.0,144.3 133.8,145.2 137.5,146.0 141.2,146.8 145.0,147.5 148.8,148.2 152.5,148.8 156.2,149.3 160.0,149.7 163.8,150.1 167.5,150.4 171.2,150.7 175.0,150.9 178.8,151.0 182.5,151.0 186.2,151.0 190.0,150.9 193.8,150.7 197.5,150.4 201.2,150.1 205.0,149.7 208.8,149.3 212.5,148.8 216.2,148.2 220.0,147.5 223.8,146.8 227.5,146.0 231.2,145.2 235.0,144.3 238.8,143.4 242.5,142.4 246.2,141.4 250.0,140.3 253.8,139.2 257.5,138.0 261.2,136.8 265.0,135.6 268.8,134.3 272.5,133.0 276.2,131.7 280.0,130.4 283.8,129.1 287.5,127.7 291.2,126.4 295.0,125.0 298.8,123.6 302.5,122.3 306.2,120.9 310.0,119.6 313.8,118.3 317.5,117.0 321.2,115.7 325.0,114.4 328.8,113.2 332.5,112.0 336.2,110.8 340.0,109.7 343.8,108.6 347.5,107.6 351.2,106.6 355.0,105.7 358.8,104.8 362.5,104.0 366.2,103.2 370.0,102.5 373.8,101.8 377.5,101.2 381.2,100.7 385.0,100.3 388.8,99.9 392.5,99.6 396.2,99.3 400.0,99.1 403.8,99.0 407.5,99.0 411.2,99.0 415.0,99.1 418.8,99.3 422.5,99.6 426.2,99.9 430.0,100.3 433.8,100.7 437.5,101.2 441.2,101.8 445.0,102.5 448.8,103.2 452.5,104.0 456.2,104.8 460.0,105.7 463.8,106.6 467.5,107.6 471.2,108.6 475.0,109.7 478.8,110.8 482.5,112.0 486.2,113.2 490.0,114.4 493.8,115.7 497.5,117.0 501.2,118.3 505.0,119.6 508.8,120.9 512.5,122.3 516.2,123.6 520.0,125.0" fill="none" class="dg-s1" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"></polyline>
+      <polyline points="70.0,125.0 73.8,123.6 77.5,122.3 81.2,120.9 85.0,119.6 88.8,118.3 92.5,117.0 96.2,115.7 100.0,114.4 103.8,113.2 107.5,112.0 111.2,110.8 115.0,109.7 118.8,108.6 122.5,107.6 126.2,106.6 130.0,105.7 133.8,104.8 137.5,104.0 141.2,103.2 145.0,102.5 148.8,101.8 152.5,101.2 156.2,100.7 160.0,100.3 163.8,99.9 167.5,99.6 171.2,99.3 175.0,99.1 178.8,99.0 182.5,99.0 186.2,99.0 190.0,99.1 193.8,99.3 197.5,99.6 201.2,99.9 205.0,100.3 208.8,100.7 212.5,101.2 216.2,101.8 220.0,102.5 223.8,103.2 227.5,104.0 231.2,104.8 235.0,105.7 238.8,106.6 242.5,107.6 246.2,108.6 250.0,109.7 253.8,110.8 257.5,112.0 261.2,113.2 265.0,114.4 268.8,115.7 272.5,117.0 276.2,118.3 280.0,119.6 283.8,120.9 287.5,122.3 291.2,123.6 295.0,125.0 298.8,126.4 302.5,127.7 306.2,129.1 310.0,130.4 313.8,131.7 317.5,133.0 321.2,134.3 325.0,135.6 328.8,136.8 332.5,138.0 336.2,139.2 340.0,140.3 343.8,141.4 347.5,142.4 351.2,143.4 355.0,144.3 358.8,145.2 362.5,146.0 366.2,146.8 370.0,147.5 373.8,148.2 377.5,148.8 381.2,149.3 385.0,149.7 388.8,150.1 392.5,150.4 396.2,150.7 400.0,150.9 403.8,151.0 407.5,151.0 411.2,151.0 415.0,150.9 418.8,150.7 422.5,150.4 426.2,150.1 430.0,149.7 433.8,149.3 437.5,148.8 441.2,148.2 445.0,147.5 448.8,146.8 452.5,146.0 456.2,145.2 460.0,144.3 463.8,143.4 467.5,142.4 471.2,141.4 475.0,140.3 478.8,139.2 482.5,138.0 486.2,136.8 490.0,135.6 493.8,134.3 497.5,133.0 501.2,131.7 505.0,130.4 508.8,129.1 512.5,127.7 516.2,126.4 520.0,125.0" fill="none" class="dg-s1" stroke-width="2.2"></polyline>
+      <polyline points="70.0,200.0 73.8,202.0 77.5,204.1 81.2,206.1 85.0,208.0 88.8,209.9 92.5,211.8 96.2,213.6 100.0,215.3 103.8,216.9 107.5,218.4 111.2,219.8 115.0,221.0 118.8,222.2 122.5,223.2 126.2,224.0 130.0,224.7 133.8,225.3 137.5,225.7 141.2,225.9 145.0,226.0 148.8,225.9 152.5,225.7 156.2,225.3 160.0,224.7 163.8,224.0 167.5,223.2 171.2,222.2 175.0,221.0 178.8,219.8 182.5,218.4 186.2,216.9 190.0,215.3 193.8,213.6 197.5,211.8 201.2,209.9 205.0,208.0 208.8,206.1 212.5,204.1 216.2,202.0 220.0,200.0 223.8,198.0 227.5,195.9 231.2,193.9 235.0,192.0 238.8,190.1 242.5,188.2 246.2,186.4 250.0,184.7 253.8,183.1 257.5,181.6 261.2,180.2 265.0,179.0 268.8,177.8 272.5,176.8 276.2,176.0 280.0,175.3 283.8,174.7 287.5,174.3 291.2,174.1 295.0,174.0 298.8,174.1 302.5,174.3 306.2,174.7 310.0,175.3 313.8,176.0 317.5,176.8 321.2,177.8 325.0,179.0 328.8,180.2 332.5,181.6 336.2,183.1 340.0,184.7 343.8,186.4 347.5,188.2 351.2,190.1 355.0,192.0 358.8,193.9 362.5,195.9 366.2,198.0 370.0,200.0 373.8,202.0 377.5,204.1 381.2,206.1 385.0,208.0 388.8,209.9 392.5,211.8 396.2,213.6 400.0,215.3 403.8,216.9 407.5,218.4 411.2,219.8 415.0,221.0 418.8,222.2 422.5,223.2 426.2,224.0 430.0,224.7 433.8,225.3 437.5,225.7 441.2,225.9 445.0,226.0 448.8,225.9 452.5,225.7 456.2,225.3 460.0,224.7 463.8,224.0 467.5,223.2 471.2,222.2 475.0,221.0 478.8,219.8 482.5,218.4 486.2,216.9 490.0,215.3 493.8,213.6 497.5,211.8 501.2,209.9 505.0,208.0 508.8,206.1 512.5,204.1 516.2,202.0 520.0,200.0" fill="none" class="dg-s1" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"></polyline>
+      <polyline points="70.0,200.0 73.8,198.0 77.5,195.9 81.2,193.9 85.0,192.0 88.8,190.1 92.5,188.2 96.2,186.4 100.0,184.7 103.8,183.1 107.5,181.6 111.2,180.2 115.0,179.0 118.8,177.8 122.5,176.8 126.2,176.0 130.0,175.3 133.8,174.7 137.5,174.3 141.2,174.1 145.0,174.0 148.8,174.1 152.5,174.3 156.2,174.7 160.0,175.3 163.8,176.0 167.5,176.8 171.2,177.8 175.0,179.0 178.8,180.2 182.5,181.6 186.2,183.1 190.0,184.7 193.8,186.4 197.5,188.2 201.2,190.1 205.0,192.0 208.8,193.9 212.5,195.9 216.2,198.0 220.0,200.0 223.8,202.0 227.5,204.1 231.2,206.1 235.0,208.0 238.8,209.9 242.5,211.8 246.2,213.6 250.0,215.3 253.8,216.9 257.5,218.4 261.2,219.8 265.0,221.0 268.8,222.2 272.5,223.2 276.2,224.0 280.0,224.7 283.8,225.3 287.5,225.7 291.2,225.9 295.0,226.0 298.8,225.9 302.5,225.7 306.2,225.3 310.0,224.7 313.8,224.0 317.5,223.2 321.2,222.2 325.0,221.0 328.8,219.8 332.5,218.4 336.2,216.9 340.0,215.3 343.8,213.6 347.5,211.8 351.2,209.9 355.0,208.0 358.8,206.1 362.5,204.1 366.2,202.0 370.0,200.0 373.8,198.0 377.5,195.9 381.2,193.9 385.0,192.0 388.8,190.1 392.5,188.2 396.2,186.4 400.0,184.7 403.8,183.1 407.5,181.6 411.2,180.2 415.0,179.0 418.8,177.8 422.5,176.8 426.2,176.0 430.0,175.3 433.8,174.7 437.5,174.3 441.2,174.1 445.0,174.0 448.8,174.1 452.5,174.3 456.2,174.7 460.0,175.3 463.8,176.0 467.5,176.8 471.2,177.8 475.0,179.0 478.8,180.2 482.5,181.6 486.2,183.1 490.0,184.7 493.8,186.4 497.5,188.2 501.2,190.1 505.0,192.0 508.8,193.9 512.5,195.9 516.2,198.0 520.0,200.0" fill="none" class="dg-s1" stroke-width="2.2"></polyline>
+      <text x="546" y="46" class="dg-text">m = 1</text>
+      <text x="546" y="62" class="dg-text" opacity="0.75">ω₁ = πc/L</text>
+      <text x="546" y="121" class="dg-text">m = 2</text>
+      <text x="546" y="137" class="dg-text" opacity="0.75">ω₂ = 2ω₁</text>
+      <text x="546" y="196" class="dg-text">m = 3</text>
+      <text x="546" y="212" class="dg-text" opacity="0.75">ω₃ = 3ω₁</text>
+      <line x1="72" y1="248" x2="518" y2="248" stroke="currentColor" stroke-width="1.2" marker-start="url(#arrD)" marker-end="url(#arrD)"></line>
+      <rect x="282" y="240" width="26" height="16" class="dg-paper"></rect>
+      <text x="295" y="253" text-anchor="middle" class="dg-text">L</text>
+      <text x="40" y="20" text-anchor="middle" class="dg-text" opacity="0.75">iletken</text>
+    </svg>
+    </div>
+    <figcaption>İki iletken duvar arasındaki ilk üç mod. Düz çizgi bir andaki alan, kesik çizgi yarım periyot sonrası. Duvarlarda alan her zaman sıfır, bu yüzden aralığa sadece tam sayıda yarım dalga sığıyor.</figcaption>
+  </figure>
+
+  <p><span class="extra">derste yok</span> En basit örnek \(L\) aralıklı iki mükemmel iletken duvar. Duvarlarda \(E_\parallel = 0\) olmak zorunda (Bölüm 10), bu yüzden duvarlarda sıfırlanan duran dalgalar <span class="en">standing waves</span> kalıyor:</p>
+  <div class="eq">\[ E_m(z,t) \propto \sin(k_m z)\cos(\omega_m t), \qquad k_m L = m\pi, \qquad \omega_m = \frac{m\pi c}{L}, \qquad m = 1, 2, 3, \dots \]</div>
+
+  <div class="err">
+    <span class="label">Derste kavram karışıklığı · "ışığın kuantizasyonu"</span>
+    <p>Hoca bu sonucu "ışığın kuantizasyonu" diye sundu ve "ışığın enerjisi belirli değerler alabilir, bunlara mod denir" dedi. Kavitede ayrık olan frekanslar ve bu tamamen klasik bir özdeğer problemi <span class="en">eigenvalue problem</span>, gitar telinin harmonikleri gibi. Klasik olarak her modun enerjisi genliğe bağlı ve sürekli bir değer alabiliyor.</p>
+    <p>Enerjinin ayrık olması, yani foton kavramı, ancak her mod bir kuantum harmonik osilatör olarak kuantize edilince geliyor:</p>
+    <div class="eq">\[ E_{m,n} = \hbar\omega_m\left(n + \tfrac12\right), \qquad n = 0, 1, 2, \dots \]</div>
+    <p>Kuantum optikte ikisi birleşiyor: önce klasik modlar bulunuyor, sonra her mod kuantize ediliyor. Ama "modların ayrık olması" ile "foton" aynı şey değil.</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <div class="sec-head">
+    <span class="num">4</span>
+    <h2>Düzlem dalga çözümü <span class="en">plane wave</span></h2>
+    <span class="stamp">kayıt 0:14 – 0:30</span>
+  </div>
+  <p>Hoca çözüm için öneri istedi, sınıftan "üstel" cevabı geldi <span class="en">complex exponentials</span>. Genel deneme çözümü:</p>
+  <div class="eq">\[ \mathbf E(\mathbf r, t) = \mathbf E_0\,e^{i(\mathbf k\cdot\mathbf r - \omega t)} \]</div>
+  <p>\(\mathbf k\) dalga vektörü <span class="en">wave vector</span>, yönü yayılma yönünü <span class="en">direction of propagation</span> gösteriyor. Hoca yayılma yönünü \(z\) seçti: \(\mathbf k = k\hat z\).</p>
+
+  <h3>E neden yayılma yönüne dik</h3>
+  <p>Hoca "elektrik alan yayılma yönüne dik olmalı" deyip polarizasyonu <span class="en">polarization</span> \(xy\) düzlemine koydu ve eksenleri döndürerek \(x\)'e hizaladı. Sebebi Gauss yasası. Düzlem dalgada her \(\nabla\) bir \(i\mathbf k\) indiriyor:</p>
+  <div class="eq">\[ \nabla\cdot\mathbf E = i\mathbf k\cdot\mathbf E_0\,e^{i(\mathbf k\cdot\mathbf r-\omega t)} = 0 \;\Rightarrow\; \mathbf k\cdot\mathbf E_0 = 0 \]</div>
+  <div class="eq">\[ \mathbf E = E_0\,e^{i(kz-\omega t)}\,\hat x \]</div>
+
+  <h3>Dispersiyon bağıntısı <span class="en">dispersion relation</span></h3>
+  <p>Alan sadece \(z\)'ye bağlı, Laplasyandan sadece \(\partial^2/\partial z^2\) kalıyor. Her \(z\) türevi bir \(ik\) indiriyor, iki türev \((ik)^2 = -k^2\). Zamanda her türev \(-i\omega\), iki türev \((-i\omega)^2 = -\omega^2\):</p>
+  <div class="eq">\[ -k^2\,E_0\,e^{i(kz-\omega t)}\,\hat x = -\mu_0\varepsilon_0\,\omega^2\,E_0\,e^{i(kz-\omega t)}\,\hat x \]</div>
+  <p>Üstel ve \(E_0\) sıfır olamaz, yoksa alan yok. Geriye kalan:</p>
+  <div class="eq">\[ \boxed{\;k^2 = \omega^2\mu_0\varepsilon_0, \qquad v_p = \frac{\omega}{k} = \frac{1}{\sqrt{\mu_0\varepsilon_0}}\;} \]</div>
+  <p>\(\omega/k\) faz hızı <span class="en">phase velocity</span>. Hocanın sayısal kontrolü:</p>
+  <div class="eq">\[ \mu_0\varepsilon_0 = \left(1.257\times10^{-6}\ \tfrac{\mathrm N}{\mathrm A^2}\right)\left(8.854\times10^{-12}\ \tfrac{\mathrm C^2}{\mathrm{N\,m^2}}\right) = 1.113\times10^{-17}\ \tfrac{\mathrm s^2}{\mathrm m^2} \;\Rightarrow\; v_p = 2.998\times10^{8}\ \tfrac{\mathrm m}{\mathrm s} = c \]</div>
+  <p>Birim kontrolünde \(1\ \mathrm A = 1\ \mathrm{C/s}\) kullanılıyor: \(\mathrm{N\,s^2/C^2}\times\mathrm{C^2/(N\,m^2)} = \mathrm{s^2/m^2}\), karekökün tersi m/s. Transkriptte kaba mertebe olarak "\(10^{-18}\)'in karekökü \(10^{-9}\)" geçiyor. Mantisler de girince \(\sqrt{11.13} \approx 3.34\) çıkıyor ve sonuç tam \(c\)'ye oturuyor.</p>
+
+  <h3>Manyetik alan <span class="extra">derste yok</span></h3>
+  <p>\(\mathbf B\) Faraday yasasından geliyor. \(\nabla\times\mathbf E = ikE_0\,e^{i(kz-\omega t)}\,\hat y\) ve \(-\partial\mathbf B/\partial t = i\omega\mathbf B\):</p>
+  <div class="eq">\[ \mathbf B = \frac{1}{\omega}\,\mathbf k\times\mathbf E = \frac{E_0}{c}\,e^{i(kz-\omega t)}\,\hat y \]</div>
+  <p>\(\mathbf E\), \(\mathbf B\) ve \(\mathbf k\) karşılıklı dik, \(\mathbf E\) ile \(\mathbf B\) aynı fazda ve \(|\mathbf B| = |\mathbf E|/c\). Böyle dalgaya enine dalga <span class="en">transverse wave</span> deniyor. Bölüm 8'deki eşbölüşüm bu orandan geliyor.</p>
+
+  <figure>
+    <div class="scroll">
+    <svg class="diagram" viewBox="0 0 620 240" role="img" aria-label="Düzlem dalganın eğik izdüşümü. Elektrik alan dikey x ekseninde, manyetik alan çapraz y ekseninde, ikisi aynı fazda sinüs eğrileri olarak z yönünde ilerliyor.">
+      <defs>
+        <marker id="arrW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+        </marker>
+        <marker id="arrK" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="dg-marker-fill"></path>
+        </marker>
+      </defs>
+      <path d="M91.8,130V107.8M103.5,130V87.7M115.2,130V71.8M127.0,130V61.5M138.8,130V58.0M150.5,130V61.5M162.2,130V71.8M174.0,130V87.7M185.8,130V107.8M209.2,130V152.2M221.0,130V172.3M232.8,130V188.2M244.5,130V198.5M256.2,130V202.0M268.0,130V198.5M279.8,130V188.2M291.5,130V172.3M303.2,130V152.2M326.8,130V107.8M338.5,130V87.7M350.2,130V71.8M362.0,130V61.5M373.8,130V58.0M385.5,130V61.5M397.2,130V71.8M409.0,130V87.7M420.8,130V107.8M444.2,130V152.2M456.0,130V172.3M467.8,130V188.2M479.5,130V198.5M491.2,130V202.0M503.0,130V198.5M514.8,130V188.2M526.5,130V172.3M538.2,130V152.2" fill="none" class="dg-s1" stroke-width="1" opacity="0.45"></path>
+      <path d="M91.8,130L83.7,140.5M103.5,130L88.2,150.0M115.2,130L94.2,157.6M127.0,130L102.2,162.4M138.8,130L112.7,164.1M150.5,130L125.7,162.4M162.2,130L141.2,157.6M174.0,130L158.7,150.0M185.8,130L177.7,140.5M209.2,130L217.3,119.5M221.0,130L236.3,110.0M232.8,130L253.8,102.4M244.5,130L269.3,97.6M256.2,130L282.3,95.9M268.0,130L292.8,97.6M279.8,130L300.8,102.4M291.5,130L306.8,110.0M303.2,130L311.3,119.5M326.8,130L318.7,140.5M338.5,130L323.2,150.0M350.2,130L329.2,157.6M362.0,130L337.2,162.4M373.8,130L347.7,164.1M385.5,130L360.7,162.4M397.2,130L376.2,157.6M409.0,130L393.7,150.0M420.8,130L412.7,140.5M444.2,130L452.3,119.5M456.0,130L471.3,110.0M467.8,130L488.8,102.4M479.5,130L504.3,97.6M491.2,130L517.3,95.9M503.0,130L527.8,97.6M514.8,130L535.8,102.4M526.5,130L541.8,110.0M538.2,130L546.3,119.5" fill="none" class="dg-s2" stroke-width="1" opacity="0.45"></path>
+      <line x1="80" y1="130" x2="588" y2="130" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrW)"></line>
+      <line x1="80" y1="130" x2="80" y2="34" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrW)"></line>
+      <line x1="80" y1="130" x2="36" y2="188" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrW)"></line>
+      <polyline points="80.0,130.0 82.9,124.4 85.9,118.7 88.8,113.2 91.8,107.8 94.7,102.4 97.6,97.3 100.6,92.4 103.5,87.7 106.4,83.2 109.4,79.1 112.3,75.3 115.2,71.8 118.2,68.6 121.1,65.8 124.1,63.5 127.0,61.5 129.9,60.0 132.9,58.9 135.8,58.2 138.8,58.0 141.7,58.2 144.6,58.9 147.6,60.0 150.5,61.5 153.4,63.5 156.4,65.8 159.3,68.6 162.2,71.8 165.2,75.3 168.1,79.1 171.1,83.2 174.0,87.7 176.9,92.4 179.9,97.3 182.8,102.4 185.8,107.8 188.7,113.2 191.6,118.7 194.6,124.4 197.5,130.0 200.4,135.6 203.4,141.3 206.3,146.8 209.2,152.2 212.2,157.6 215.1,162.7 218.1,167.6 221.0,172.3 223.9,176.8 226.9,180.9 229.8,184.7 232.8,188.2 235.7,191.4 238.6,194.2 241.6,196.5 244.5,198.5 247.4,200.0 250.4,201.1 253.3,201.8 256.2,202.0 259.2,201.8 262.1,201.1 265.1,200.0 268.0,198.5 270.9,196.5 273.9,194.2 276.8,191.4 279.8,188.2 282.7,184.7 285.6,180.9 288.6,176.8 291.5,172.3 294.4,167.6 297.4,162.7 300.3,157.6 303.2,152.2 306.2,146.8 309.1,141.3 312.1,135.6 315.0,130.0 317.9,124.4 320.9,118.7 323.8,113.2 326.8,107.8 329.7,102.4 332.6,97.3 335.6,92.4 338.5,87.7 341.4,83.2 344.4,79.1 347.3,75.3 350.2,71.8 353.2,68.6 356.1,65.8 359.1,63.5 362.0,61.5 364.9,60.0 367.9,58.9 370.8,58.2 373.8,58.0 376.7,58.2 379.6,58.9 382.6,60.0 385.5,61.5 388.4,63.5 391.4,65.8 394.3,68.6 397.2,71.8 400.2,75.3 403.1,79.1 406.1,83.2 409.0,87.7 411.9,92.4 414.9,97.3 417.8,102.4 420.8,107.8 423.7,113.2 426.6,118.7 429.6,124.4 432.5,130.0 435.4,135.6 438.4,141.3 441.3,146.8 444.2,152.2 447.2,157.6 450.1,162.7 453.1,167.6 456.0,172.3 458.9,176.8 461.9,180.9 464.8,184.7 467.8,188.2 470.7,191.4 473.6,194.2 476.6,196.5 479.5,198.5 482.4,200.0 485.4,201.1 488.3,201.8 491.2,202.0 494.2,201.8 497.1,201.1 500.1,200.0 503.0,198.5 505.9,196.5 508.9,194.2 511.8,191.4 514.8,188.2 517.7,184.7 520.6,180.9 523.6,176.8 526.5,172.3 529.4,167.6 532.4,162.7 535.3,157.6 538.2,152.2 541.2,146.8 544.1,141.3 547.1,135.6 550.0,130.0" fill="none" class="dg-s1" stroke-width="2.2" stroke-linejoin="round"></polyline>
+      <polyline points="80.0,130.0 80.9,132.7 81.8,135.3 82.7,138.0 83.7,140.5 84.7,143.0 85.8,145.5 87.0,147.8 88.2,150.0 89.5,152.1 91.0,154.1 92.5,155.9 94.2,157.6 96.0,159.1 97.9,160.4 100.0,161.5 102.2,162.4 104.6,163.2 107.2,163.7 109.9,164.0 112.7,164.1 115.7,164.0 118.9,163.7 122.2,163.2 125.7,162.4 129.4,161.5 133.2,160.4 137.1,159.1 141.2,157.6 145.4,155.9 149.7,154.1 154.2,152.1 158.7,150.0 163.3,147.8 168.1,145.5 172.8,143.0 177.7,140.5 182.6,138.0 187.6,135.3 192.5,132.7 197.5,130.0 202.5,127.3 207.4,124.7 212.4,122.0 217.3,119.5 222.2,117.0 226.9,114.5 231.7,112.2 236.3,110.0 240.8,107.9 245.3,105.9 249.6,104.1 253.8,102.4 257.9,100.9 261.8,99.6 265.6,98.5 269.3,97.6 272.8,96.8 276.1,96.3 279.3,96.0 282.3,95.9 285.1,96.0 287.8,96.3 290.4,96.8 292.8,97.6 295.0,98.5 297.1,99.6 299.0,100.9 300.8,102.4 302.5,104.1 304.0,105.9 305.5,107.9 306.8,110.0 308.0,112.2 309.2,114.5 310.3,117.0 311.3,119.5 312.3,122.0 313.2,124.7 314.1,127.3 315.0,130.0 315.9,132.7 316.8,135.3 317.7,138.0 318.7,140.5 319.7,143.0 320.8,145.5 322.0,147.8 323.2,150.0 324.5,152.1 326.0,154.1 327.5,155.9 329.2,157.6 331.0,159.1 332.9,160.4 335.0,161.5 337.2,162.4 339.6,163.2 342.2,163.7 344.9,164.0 347.7,164.1 350.7,164.0 353.9,163.7 357.2,163.2 360.7,162.4 364.4,161.5 368.2,160.4 372.1,159.1 376.2,157.6 380.4,155.9 384.7,154.1 389.2,152.1 393.7,150.0 398.3,147.8 403.1,145.5 407.8,143.0 412.7,140.5 417.6,138.0 422.6,135.3 427.5,132.7 432.5,130.0 437.5,127.3 442.4,124.7 447.4,122.0 452.3,119.5 457.2,117.0 461.9,114.5 466.7,112.2 471.3,110.0 475.8,107.9 480.3,105.9 484.6,104.1 488.8,102.4 492.9,100.9 496.8,99.6 500.6,98.5 504.3,97.6 507.8,96.8 511.1,96.3 514.3,96.0 517.3,95.9 520.1,96.0 522.8,96.3 525.4,96.8 527.8,97.6 530.0,98.5 532.1,99.6 534.0,100.9 535.8,102.4 537.5,104.1 539.0,105.9 540.5,107.9 541.8,110.0 543.0,112.2 544.2,114.5 545.3,117.0 546.3,119.5 547.3,122.0 548.2,124.7 549.1,127.3 550.0,130.0" fill="none" class="dg-s2" stroke-width="2.2" stroke-linejoin="round"></polyline>
+      <text x="598" y="134" class="dg-text">z</text>
+      <text x="86" y="38" class="dg-text">x</text>
+      <text x="24" y="204" class="dg-text">y</text>
+      <text x="146" y="52" class="dg-s1-text">E</text>
+      <text x="96" y="206" class="dg-s2-text">B</text>
+      <line x1="470" y1="26" x2="560" y2="26" class="dg-marker" stroke-width="2.4" marker-end="url(#arrK)"></line>
+      <text x="456" y="31" text-anchor="end" class="dg-marker-text">k</text>
+    </svg>
+    </div>
+    <figcaption>\(\mathbf E\) (mavi) \(x\) yönünde, \(\mathbf B\) (turuncu) \(y\) yönünde, ikisi aynı fazda ve dalga \(z\) yönünde ilerliyor. \(\mathbf B\) görünsün diye ölçeklendi, gerçekte \(|\mathbf B| = |\mathbf E|/c\).</figcaption>
+  </figure>
+
+  <h3>Neden "düzlem" dalga</h3>
+  <p>Faz \(kz - \omega t\). Belirli bir anda faz sadece \(z\)'ye bağlı, yani \(z = \text{sabit}\) düzlemlerinin her noktasında faz aynı. Sabit faz yüzeyleri <span class="en">wavefronts, surfaces of constant phase</span> yayılma yönüne dik düzlemler.</p>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <div class="sec-head">
+    <span class="num">5</span>
+    <h2>Düzlem dalga fiziksel değil <span class="en">superposition</span></h2>
+    <span class="stamp">kayıt 0:30 – 0:37</span>
+  </div>
+  <p>Hocanın sorusu: doğada düzlem dalga var mı? Cevap hayır, düzlem dalga bir idealizasyon <span class="en">idealization</span>. Sonsuz büyüklükteki düzlemler üzerinde sonsuza uzanıyor. Enerji yoğunluğu her yerde sonlu ama tüm uzaya integrali sonsuz, yani sonsuz enerji taşıyor. Sonsuzda sönmediği için Bölüm 2'deki sınır koşulunu da sağlamıyor.</p>
+  <p>Buna karşın baz fonksiyonları <span class="en">basis functions</span> olarak çok kullanışlı. Dalga denklemi lineer, çözümlerin toplamı da çözüm. Her fiziksel dalga paketi <span class="en">wave packet</span> düzlem dalgaların süperpozisyonu olarak yazılabiliyor. Bu bir Fourier integrali <span class="en">Fourier expansion</span>:</p>
+  <div class="eq">\[ \mathbf E(\mathbf r, t) = \int \tilde{\mathbf E}(\mathbf k)\,e^{i(\mathbf k\cdot\mathbf r - \omega(\mathbf k)\,t)}\,d^3k, \qquad \omega = c\,|\mathbf k| \]</div>
+  <p>Tek bir düzlem dalga fiziksel değil. Sonlu bir bölgede yoğunlaşan ve sonsuzda sönen bir paket oluşturacak şekilde toplanınca fiziksel oluyor.</p>
+  <p>Hoca Türkçe olarak kuantum mekaniğindeki karşılığını anlattı: dalga fonksiyonunu düzlem dalgalarla ya da enerji özdurumlarıyla açıyoruz <span class="en">expand</span>. Tek tek fiziksel olmayan fonksiyonlar toplam halinde fiziksel durumu veriyor.</p>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <div class="sec-head">
+    <span class="num">6</span>
+    <h2>Dielektrik ortam <span class="en">dielectric medium</span></h2>
+    <span class="stamp">kayıt 0:38 – 0:45</span>
+  </div>
+  <p>Boş uzay yerine dielektrik bir ortam, yine serbest yük ve akım yok. Ortam lineer, izotrop ve homojen <span class="en">linear, isotropic, homogeneous</span>: \(\mathbf D = \varepsilon\mathbf E\), \(\mathbf B = \mu\mathbf H\).</p>
+  <div class="eq">\[ \nabla\cdot\mathbf D = 0, \qquad \nabla\cdot\mathbf B = 0, \qquad \nabla\times\mathbf E = -\frac{\partial\mathbf B}{\partial t}, \qquad \nabla\times\mathbf H = \frac{\partial\mathbf D}{\partial t} \]</div>
+  <p>Türetme birebir aynı, hoca bunu evde yapmayı bıraktı. Tek fark \(\mu_0 \to \mu\), \(\varepsilon_0 \to \varepsilon\):</p>
+  <div class="eq">\[ \nabla^2\mathbf E = \mu\varepsilon\,\frac{\partial^2\mathbf E}{\partial t^2}, \qquad k^2 = \omega^2\mu\varepsilon \]</div>
+  <p>\(\mu = \mu_0\mu_r\) ve \(\varepsilon = \varepsilon_0\varepsilon_r\) yazıp terimler ayrılınca:</p>
+  <div class="eq">\[ \boxed{\;v_p = \frac{1}{\sqrt{\mu_0\mu_r\,\varepsilon_0\varepsilon_r}} = \frac{c}{\sqrt{\mu_r\varepsilon_r}} = \frac{c}{n}, \qquad n = \sqrt{\varepsilon_r\mu_r}\;} \]</div>
+  <p>\(n\) kırılma indisi <span class="en">refractive index</span>. Optik frekanslarda çoğu malzeme için \(\mu_r \approx 1\), dolayısıyla \(n \approx \sqrt{\varepsilon_r}\). Ortam değişince frekans değişmiyor, dalga boyu \(\lambda_0/n\)'ye kısalıyor.</p>
+
+  <h3>Kompleks kırılma indisi <span class="en">complex refractive index</span></h3>
+  <p>Kayıplı ortamda \(\varepsilon_r\) kompleks, buna dielektrik fonksiyon <span class="en">dielectric function</span> deniyor (transkriptte "punitive function"). Kırılma indisi de kompleks oluyor:</p>
+  <div class="eq">\[ \tilde n = n + i\kappa, \qquad \tilde n^2 = \varepsilon_r = \varepsilon_1 + i\varepsilon_2 \]</div>
+  <p>\(n\) kırılmayı, \(\kappa\) sönüm katsayısı <span class="en">extinction coefficient</span> ortamın ışığı ne kadar soğurduğunu veriyor (transkriptte "abomination of light", yani <span class="en">attenuation</span>).</p>
+  <p><span class="extra">derste yok</span> Kare açılınca \(\varepsilon_1 = n^2 - \kappa^2\) ve \(\varepsilon_2 = 2n\kappa\). Dalgaya konunca:</p>
+  <div class="eq">\[ E = E_0\,e^{i(\tilde n\omega z/c - \omega t)} = E_0\,e^{-\kappa\omega z/c}\;e^{i(n\omega z/c - \omega t)} \]</div>
+  <p>Genlik \(e^{-\kappa\omega z/c}\), şiddet \(e^{-\alpha z}\) ile düşüyor. \(\alpha = 2\kappa\omega/c = 4\pi\kappa/\lambda_0\) soğurma katsayısı <span class="en">absorption coefficient</span>. 4. dersteki "soğurmayı \(\varepsilon_2\) belirliyor" sonucu buraya bağlanıyor.</p>
+
+  <div class="lab" id="lab">
+    <p class="lab-title">Ortamdaki dalga</p>
+    <p class="lab-sub">\(n\) ve \(\kappa\)'yı değiştir. Kesik gri çizgi aynı frekansta vakumdaki dalga. Oynat'a basınca iki dalganın tepeleri farklı hızlarda ilerliyor, ortamdaki faz hızı \(c/n\). Başlangıç ayarı örnek bir değer.</p>
+    <div class="controls">
+      <div class="ctrl">
+        <label for="n-in"><span>kırılma indisi n</span><output id="n-out" for="n-in">2.00</output></label>
+        <input id="n-in" type="range" min="0.2" max="4.5" step="0.01" value="2">
+      </div>
+      <div class="ctrl">
+        <label for="k-in"><span>sönüm katsayısı κ</span><output id="k-out" for="k-in">0.080</output></label>
+        <input id="k-in" type="range" min="0" max="1000" step="1" value="537">
+      </div>
+    </div>
+    <div class="presets" role="group" aria-label="Hazır ayarlar">
+      <button type="button" data-n="1" data-k="0">Vakum</button>
+      <button type="button" data-n="1.5" data-k="0">Cam · 1.5</button>
+      <button type="button" data-n="4.3" data-k="0.044">Silisyum · ~500 nm</button>
+      <button type="button" data-n="0.25" data-k="3.0">Altın · ~600 nm</button>
+    </div>
+    <div class="lab-row">
+      <div class="legend" aria-hidden="true">
+        <span><span class="key s1"></span>ortamda Re E</span>
+        <span><span class="key s2"></span>zarf ±e^(−κk₀z)</span>
+        <span><span class="key ref"></span>vakum</span>
+      </div>
+      <button type="button" class="play" id="play" aria-pressed="false">Oynat</button>
+    </div>
+    <div class="chart" id="chart-wave">
+      <svg role="img" aria-label="Ortamdaki dalganın gerçek kısmı, z/λ₀'a karşı. Sönüm zarfı ve vakum referansı da çizili."></svg>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="k">λ / λ₀ = 1/n</div><div class="v" id="st-lam">0.500</div><div class="s">faz hızı da c/n</div></div>
+      <div class="stat"><div class="k">ε₁ = n² − κ²</div><div class="v" id="st-e1">3.99</div><div class="s">kırılma</div></div>
+      <div class="stat"><div class="k">ε₂ = 2nκ</div><div class="v" id="st-e2">0.320</div><div class="s">soğurma</div></div>
+      <div class="stat"><div class="k">1/α = λ₀/4πκ</div><div class="v" id="st-d">0.99 λ₀</div><div class="s">şiddet 1/e</div></div>
+      <div class="stat"><div class="k">R, dik geliş</div><div class="v" id="st-r">11.2 %</div><div class="s">havadan</div></div>
+    </div>
+    <p class="note">Silisyum ve altın değerleri yaklaşık, dalga boyuna göre değişiyor. \(n &lt; 1\) olunca faz hızı \(c\)'yi geçiyor. Bu bilgi taşıyan hız değil, görelilikle çelişmiyor. Yansıma \(R = [(n-1)^2+\kappa^2]/[(n+1)^2+\kappa^2]\) <span class="extra">derste yok</span>.</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <div class="sec-head">
+    <span class="num">7</span>
+    <h2>Enerji yoğunluğu <span class="en">energy density</span></h2>
+    <span class="stamp">kayıt 0:46 – 0:59</span>
+  </div>
+  <p>Hoca toplam enerji yerine birim hacim başına enerjiyle konuşmanın daha anlamlı olduğunu söyledi: enerji yoğunluğu, birimi J/m³.</p>
+
+  <h3>Elektrik kısmı: kondansatör</h3>
+  <p>Paralel plakalı kondansatör <span class="en">parallel-plate capacitor</span>, plaka alanı \(A\), aralık \(d\), arası \(\varepsilon\) geçirgenlikli dielektrik <span class="en">permittivity</span>. Depolanan enerji \(\tfrac12 CV^2\), hacim \(Ad\):</p>
+  <div class="eq">\[ C = \frac{\varepsilon A}{d}, \qquad V = Ed \;\Rightarrow\; u_E = \frac{\tfrac12\,(\varepsilon A/d)\,(Ed)^2}{Ad} = \frac12\,\varepsilon E^2 \]</div>
+
+  <h3>Manyetik kısım: solenoid <span class="en">solenoid, inductor</span></h3>
+  <p>Hoca bunu evde türetmeyi istedi. Transkriptte "7 minutes" solenoid, "cell of the internet" inductor. Kalıp aynı: bobinde depolanan enerji \(\tfrac12 LI^2\), hacim \(A\ell\).</p>
+  <div class="eq">\[ L = \frac{\mu N^2 A}{\ell}, \qquad B = \frac{\mu N I}{\ell} \;\Rightarrow\; u_B = \frac{B^2}{2\mu} \]</div>
+  <p>\(I\)'yı \(B\) cinsinden yazıp hacme bölmek yetiyor.</p>
+
+  <h3>Toplam</h3>
+  <div class="eq">\[ \boxed{\;u = \frac12\left(\varepsilon E^2 + \frac{B^2}{\mu}\right) = \frac12\left(\mathbf E\cdot\mathbf D + \mathbf B\cdot\mathbf H\right)\;} \]</div>
+  <p>İkinci form hocanın "ezberlemesi kolay" dediği. \(\mathbf D = \varepsilon\mathbf E\) ve \(\mathbf H = \mathbf B/\mu\) konunca birinciye dönüyor.</p>
+
+  <h3>Boyut kontrolü <span class="en">dimensional analysis</span></h3>
+  <p>Sınıf içi soru: iki terimin de J/m³ olduğunu göster. Tesla \(F = I\ell B\)'den \(\mathrm{N/(A\,m)}\).</p>
+  <div class="eq">\[ [\varepsilon_0E^2] = \frac{\mathrm C^2}{\mathrm{N\,m^2}}\cdot\frac{\mathrm N^2}{\mathrm C^2} = \frac{\mathrm N}{\mathrm m^2} = \frac{\mathrm{N\,m}}{\mathrm m^3} = \frac{\mathrm J}{\mathrm m^3}, \qquad \left[\frac{B^2}{\mu_0}\right] = \frac{\mathrm N^2/(\mathrm A^2\mathrm m^2)}{\mathrm N/\mathrm A^2} = \frac{\mathrm N}{\mathrm m^2} = \frac{\mathrm J}{\mathrm m^3} \]</div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <div class="sec-head">
+    <span class="num">8</span>
+    <h2>Eşbölüşüm ve kayıplı ortam <span class="en">equipartition, lossy medium</span></h2>
+    <span class="stamp">kayıt 1:01 – 1:07</span>
+  </div>
+  <p>Boş uzayda \(B = E/c\) olduğu için:</p>
+  <div class="eq">\[ u_B = \frac{B^2}{2\mu_0} = \frac{E^2}{2\mu_0c^2} = \frac12\,\varepsilon_0E^2 = u_E \]</div>
+  <p>Enerji elektrik ve manyetik alan arasında eşit paylaşılıyor <span class="en">equipartition</span>. Kayıpsız ve dağınımsız ortamda <span class="en">lossless, non-dispersive</span> da aynı: \(B = E/v\) ve \(1/v^2 = \mu\varepsilon\).</p>
+  <p>Kayıplı ortamda <span class="en">lossy medium</span> (transkriptte "most medium" ve "boolean medium") hoca \(u_B &gt; u_E\) dedi. Gerekçesi: elektrik alan ortamdaki yüklerle etkileşip enerjisini Joule ısınmasına <span class="en">Joule heating</span> kaybediyor, güç yoğunluğu \(\sigma E^2\). Manyetik alan yüke iş yapmadığı için onunki kaybolmuyor.</p>
+
+  <div class="err">
+    <span class="label">Derste sezgisel gerekçe · asıl mekanizma</span>
+    <p>Sonuç doğru ama gerekçe asıl mekanizmayı vermiyor. Fark iletim akımından <span class="en">conduction current</span> geliyor. İletken ortamda Ampère–Maxwell yasasına \(\mathbf J = \sigma\mathbf E\) ekleniyor:</p>
+    <div class="eq">\[ \nabla\times\mathbf H = \sigma\mathbf E + \varepsilon\frac{\partial\mathbf E}{\partial t} \]</div>
+    <p>Ek terim aynı \(\mathbf E\) için daha büyük bir \(\mathbf H\) üretiyor. Kompleks dalga sayısı \(\tilde k^2 = \mu\varepsilon\omega^2\left(1 + i\sigma/\varepsilon\omega\right)\) ile hesaplanınca zaman ortalamalı oran:</p>
+    <div class="eq">\[ \frac{\langle u_B\rangle}{\langle u_E\rangle} = \frac{|\tilde k|^2}{\mu\varepsilon\omega^2} = \sqrt{1 + \left(\frac{\sigma}{\varepsilon\omega}\right)^2} \]</div>
+    <p>\(\sigma \to 0\)'da eşbölüşüme dönüyor. İyi iletkende \(\sigma \gg \varepsilon\omega\), oran yaklaşık \(\sigma/\varepsilon\omega\) ve enerjinin neredeyse tamamı manyetik alanda (Ek B, S8). Manyetik alanın iş yapmaması doğru bir bilgi ama bu oranı o belirlemiyor.</p>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <div class="sec-head">
+    <span class="num">9</span>
+    <h2>Poynting vektörü <span class="en">Poynting vector</span></h2>
+    <span class="stamp">kayıt 1:07 – 1:09</span>
+  </div>
+  <p>Hoca enerji akısının <span class="en">energy flux</span> adını sordu, sınıf hatırladı. Birim zamanda birim alandan geçen enerji, birimi W/m²:</p>
+  <div class="eq">\[ \boxed{\;\mathbf S = \frac{1}{\mu_0}\,\mathbf E\times\mathbf B = \mathbf E\times\mathbf H\;} \]</div>
+  <div class="err">
+    <span class="label">Transkriptte · D × B</span>
+    <p>Transkriptte "S = D cross B" geçiyor. Doğrusu \(\mathbf E\times\mathbf H\). \(\mathbf D\times\mathbf B\) başka bir büyüklük: ortamdaki elektromanyetik momentum yoğunluğu <span class="en">momentum density</span>, birimi \(\mathrm{N\,s/m^3}\).</p>
+  </div>
+  <p><span class="extra">derste yok</span> Düzlem dalgada \(\mathbf S\), \(\mathbf k\) yönünde. Zaman ortalaması şiddeti <span class="en">intensity</span> veriyor:</p>
+  <div class="eq">\[ I = \langle S\rangle = \frac12\,c\,\varepsilon_0E_0^2 = c\,\langle u\rangle \]</div>
+  <p>Şiddet, enerji yoğunluğu çarpı hız. Enerji \(c\) hızıyla akıyor.</p>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <div class="sec-head">
+    <span class="num">10</span>
+    <h2>Arayüz sınır koşulları <span class="en">interface boundary conditions</span></h2>
+    <span class="stamp">kayıt 1:09 – 1:33</span>
+  </div>
+  <p>Bunlar iki ortam arasındaki gerçek fiziksel sınırlar. Bölüm 2'deki matematiksel sınır koşullarıyla karıştırma, hoca da bunu ayrıca vurguladı. Üstte \(\varepsilon_1, \mu_1\) ortamı, altta \(\varepsilon_2, \mu_2\). Maxwell denklemlerinin integral halleri iki küçük şekle uygulanıyor: Gauss kutusu <span class="en">Gaussian pillbox</span> ve Amper halkası <span class="en">Amperian loop</span>. İkisinde de yükseklik \(h \to 0\).</p>
+
+  <figure>
+    <div class="fig-pair">
+      <div>
+        <p class="sub">Gauss kutusu · dik bileşenler</p>
+        <svg class="diagram" viewBox="0 0 330 262" role="img" aria-label="Arayüzü kesen silindir biçiminde Gauss kutusu. Üst yüzeye yukarıdan D bir dik, alt yüzeye aşağıdan D iki dik bileşeni giriyor. Arayüzde yüzey yükü işaretleri var.">
+          <defs>
+            <marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="dg-marker-fill"></path>
+            </marker>
+          </defs>
+          <rect x="0" y="0" width="330" height="130" class="dg-paper"></rect>
+          <rect x="0" y="130" width="330" height="132" fill="currentColor" opacity="0.06"></rect>
+          <text x="12" y="22" class="dg-text">ortam 1 · ε₁, μ₁</text>
+          <text x="12" y="252" class="dg-text">ortam 2 · ε₂, μ₂</text>
+          <path d="M103,100 V160 A62,13 0 0 0 227,160 V100 A62,13 0 0 1 103,100 Z" class="dg-band"></path>
+          <line x1="0" y1="130" x2="330" y2="130" stroke="currentColor" stroke-width="1.6"></line>
+          <ellipse cx="165" cy="100" rx="62" ry="13" fill="none" stroke="currentColor" stroke-width="2"></ellipse>
+          <path d="M103,160 A62,13 0 0 0 227,160" fill="none" stroke="currentColor" stroke-width="2"></path>
+          <path d="M103,160 A62,13 0 0 1 227,160" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4" opacity="0.6"></path>
+          <line x1="103" y1="100" x2="103" y2="160" stroke="currentColor" stroke-width="2"></line>
+          <line x1="227" y1="100" x2="227" y2="160" stroke="currentColor" stroke-width="2"></line>
+          <text x="165" y="126" text-anchor="middle" class="dg-red-text">+ + + + +</text>
+          <text x="196" y="104" class="dg-text">A</text>
+          <line x1="165" y1="90" x2="165" y2="40" class="dg-marker" stroke-width="2.4" marker-end="url(#arrP)"></line>
+          <text x="174" y="56" class="dg-marker-text">D₁⊥</text>
+          <line x1="165" y1="224" x2="165" y2="178" class="dg-marker" stroke-width="2.4" marker-end="url(#arrP)"></line>
+          <text x="174" y="212" class="dg-marker-text">D₂⊥</text>
+          <line x1="246" y1="100" x2="246" y2="160" stroke="currentColor" stroke-width="1"></line>
+          <line x1="241" y1="100" x2="251" y2="100" stroke="currentColor" stroke-width="1"></line>
+          <line x1="241" y1="160" x2="251" y2="160" stroke="currentColor" stroke-width="1"></line>
+          <text x="256" y="148" class="dg-text">h → 0</text>
+          <text x="256" y="122" class="dg-red-text">σ_f</text>
+        </svg>
+      </div>
+      <div>
+        <p class="sub">Amper halkası · paralel bileşenler</p>
+        <svg class="diagram" viewBox="0 0 330 262" role="img" aria-label="Arayüzü kesen dikdörtgen Amper halkası. Üst kenarın üstünde E bir paralel, alt kenarın altında E iki paralel bileşeni sağa doğru. Arayüzde sayfadan dışarı akan yüzey akımı işaretleri var.">
+          <defs>
+            <marker id="arrL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" class="dg-marker-fill"></path>
+            </marker>
+            <marker id="arrC" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+            </marker>
+          </defs>
+          <rect x="0" y="0" width="330" height="130" class="dg-paper"></rect>
+          <rect x="0" y="130" width="330" height="132" fill="currentColor" opacity="0.06"></rect>
+          <text x="12" y="22" class="dg-text">ortam 1 · ε₁, μ₁</text>
+          <text x="12" y="252" class="dg-text">ortam 2 · ε₂, μ₂</text>
+          <rect x="80" y="105" width="170" height="50" class="dg-band"></rect>
+          <line x1="0" y1="130" x2="330" y2="130" stroke="currentColor" stroke-width="1.6"></line>
+          <rect x="80" y="105" width="170" height="50" fill="none" stroke="currentColor" stroke-width="2"></rect>
+          <line x1="176" y1="105" x2="166" y2="105" stroke="currentColor" stroke-width="2" marker-end="url(#arrC)"></line>
+          <line x1="156" y1="155" x2="166" y2="155" stroke="currentColor" stroke-width="2" marker-end="url(#arrC)"></line>
+          <circle cx="130" cy="130" r="6" class="dg-paper dg-red-stroke" stroke-width="1.5"></circle>
+          <circle cx="130" cy="130" r="1.8" class="dg-red-fill"></circle>
+          <circle cx="165" cy="130" r="6" class="dg-paper dg-red-stroke" stroke-width="1.5"></circle>
+          <circle cx="165" cy="130" r="1.8" class="dg-red-fill"></circle>
+          <circle cx="200" cy="130" r="6" class="dg-paper dg-red-stroke" stroke-width="1.5"></circle>
+          <circle cx="200" cy="130" r="1.8" class="dg-red-fill"></circle>
+          <line x1="100" y1="80" x2="210" y2="80" class="dg-marker" stroke-width="2.4" marker-end="url(#arrL)"></line>
+          <text x="218" y="85" class="dg-marker-text">E₁∥</text>
+          <line x1="100" y1="182" x2="210" y2="182" class="dg-marker" stroke-width="2.4" marker-end="url(#arrL)"></line>
+          <text x="218" y="187" class="dg-marker-text">E₂∥</text>
+          <text x="165" y="100" text-anchor="middle" class="dg-text">ℓ</text>
+          <line x1="64" y1="105" x2="64" y2="155" stroke="currentColor" stroke-width="1"></line>
+          <line x1="59" y1="105" x2="69" y2="105" stroke="currentColor" stroke-width="1"></line>
+          <line x1="59" y1="155" x2="69" y2="155" stroke="currentColor" stroke-width="1"></line>
+          <text x="40" y="134" text-anchor="middle" class="dg-text">h</text>
+          <text x="262" y="134" class="dg-red-text">K_f ⊙</text>
+        </svg>
+      </div>
+    </div>
+    <figcaption>Solda \(h \to 0\) iken yan yüzeylerin akısı düşüyor, sadece alan \(A\) olan üst ve alt yüzey kalıyor. Sağda halkanın alanı ve içinden geçen akı sıfırlanıyor, sadece \(\ell\) uzunluğundaki iki kenar kalıyor. ⊙ yüzeyde sayfadan dışarı akan yüzey akımı.</figcaption>
+  </figure>
+
+  <h3>Dik bileşenler: kutu</h3>
+  <p>Dielektrik ortamda serbest yükle doğrudan ilişkili olan \(\mathbf D\) olduğu için kutu \(\mathbf D\)'ye uygulanıyor: \(\oint\mathbf D\cdot d\mathbf a = Q_{f,\text{enc}}\). \(h \to 0\) olunca sol, sağ, ön ve arka yüzeylerin akısı sıfırlanıyor, sadece üst ve alt yüzey kalıyor. Skaler çarpım bu yüzeylerde sadece dik bileşeni görüyor. Kutu küçük, \(\mathbf D\) yüzey üzerinde uniform:</p>
+  <div class="eq">\[ D_{1\perp}A - D_{2\perp}A = \sigma_f A \;\Rightarrow\; D_{1\perp} - D_{2\perp} = \sigma_f \]</div>
+  <p>\(\sigma_f = Q_f/A\) yüzey yük yoğunluğu <span class="en">surface charge density</span>. Yüzeyde serbest yük varsa \(\mathbf D\)'nin dik bileşeni sıçrıyor <span class="en">jump condition</span>. Sınıftaki soru: bu fark bir vektör mü? Hayır, bir bileşen farkı, yani skaler.</p>
+  <p>\(\mathbf B\) için aynı kutu, \(\oint\mathbf B\cdot d\mathbf a = 0\). Manyetik yük yok, sağ taraf hep sıfır:</p>
+  <div class="eq">\[ B_{1\perp} = B_{2\perp} \]</div>
+  <p>Hocanın Türkçe vurgusu: yüzeyde akım olsa bile \(\mathbf B\)'nin dik bileşeni sürekli.</p>
+
+  <h3>Paralel bileşenler: halka</h3>
+  <p>Faraday yasası halkaya uygulanıyor: \(\oint\mathbf E\cdot d\mathbf l = -d\Phi_B/dt\). \(h \to 0\) olunca halkanın alanı, dolayısıyla içinden geçen akı sıfırlanıyor. Kısa kenarların katkısı da düşüyor. Halka küçük, \(\mathbf E\) kenar boyunca uniform:</p>
+  <div class="eq">\[ E_{1\parallel}\,\ell - E_{2\parallel}\,\ell = 0 \;\Rightarrow\; E_{1\parallel} = E_{2\parallel} \]</div>
+  <p>Yüzeyde yük ya da akım olsun olmasın, \(\mathbf E\)'nin paralel bileşeni her zaman sürekli.</p>
+  <p>Ampère–Maxwell yasası aynı halkaya: \(\oint\mathbf H\cdot d\mathbf l = I_{f,\text{enc}} + d\Phi_D/dt\). Akı terimi yine sıfır. Geriye halkadan geçen serbest akım kalıyor, bu da yüzey akım yoğunluğu \(K_f\) <span class="en">surface current density</span>:</p>
+  <div class="eq">\[ H_{1\parallel} - H_{2\parallel} = K_f \]</div>
+  <p>\(K\)'nın birimi A/m: akış yönüne dik birim uzunluk başına akım. \(J\) ise A/m², birim alan başına akım. Hoca da "J değil" diye uyardı.</p>
+  <p><span class="extra">derste yok</span> Skaler yazımda işaret, bileşenlerin yönüne bağlı. Kesin hali vektörel: \(\hat n\) 2'den 1'e bakan birim normal olmak üzere \(\hat n\times(\mathbf H_1 - \mathbf H_2) = \mathbf K_f\) ve \(\hat n\cdot(\mathbf D_1 - \mathbf D_2) = \sigma_f\). Sıçrayan paralel bileşen \(\mathbf K\)'ya dik olan. \(\mathbf K\)'ya paralel bileşen sürekli.</p>
+
+  <div class="tbl">
+    <table class="bc">
+      <thead><tr><th></th><th>Dik bileşen</th><th>Paralel bileşen</th></tr></thead>
+      <tbody>
+        <tr><td>Elektrik</td><td>\(D_{1\perp} - D_{2\perp} = \sigma_f\)</td><td>\(E_{1\parallel} = E_{2\parallel}\)</td></tr>
+        <tr><td>Manyetik</td><td>\(B_{1\perp} = B_{2\perp}\)</td><td>\(\hat n\times(\mathbf H_1 - \mathbf H_2) = \mathbf K_f\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Özet: her alanın bir bileşeni her zaman sürekli, diğeri ancak yüzeyde serbest yük ya da akım varsa sıçrıyor.</p>
+  <p><span class="extra">derste yok</span> Yük ve akım yokken \(D_\perp\) ve \(E_\parallel\) sürekli olduğu için alan çizgileri arayüzde kırılıyor: \(\tan\theta_1/\tan\theta_2 = \varepsilon_1/\varepsilon_2\), açılar normalden ölçülüyor (Ek B, S6).</p>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+  <div class="sec-head">
+    <span class="num">11</span>
+    <h2>Skaler ve vektör potansiyel <span class="en">scalar and vector potential</span></h2>
+    <span class="stamp">kayıt 1:34 – 1:46</span>
+  </div>
+  <h3>Skaler potansiyel <span class="en">electrostatic potential</span></h3>
+  <p>Hocanın sorusu: \(\mathbf E = -\nabla\phi\) tanımının arkasındaki matematik ne? Cevap sınıftan geldi: elektrostatikte manyetik alan değişmiyor, Faraday yasasının sağ tarafı sıfır, yani \(\nabla\times\mathbf E = 0\). Herhangi bir skaler fonksiyon için şu özdeşlik geçerli:</p>
+  <div class="eq">\[ \nabla\times(\nabla f) \equiv 0 \]</div>
+  <p>Curl'ü sıfır olan bir alan bir skalerin gradyanı olarak yazılabiliyor:</p>
+  <div class="eq">\[ \mathbf E = -\nabla\phi \]</div>
+  <div class="err">
+    <span class="label">Transkriptte · gradyan, diverjans değil</span>
+    <p>1:37:45'te "curl of divergence" geçiyor. Doğrusu "curl of gradient". Diverjans skaler bir sonuç veriyor, onun curl'ü alınamaz. Hemen ardından 1:37:54'teki Türkçe cümle tamamen Whisper uydurması.</p>
+  </div>
+
+  <h3>Vektör potansiyel <span class="en">vector potential</span></h3>
+  <p>Aynı mantık \(\mathbf B\) için işliyor. \(\nabla\cdot\mathbf B = 0\) her zaman geçerli ve her vektör alanı için:</p>
+  <div class="eq">\[ \nabla\cdot(\nabla\times\mathbf A) \equiv 0 \;\Rightarrow\; \mathbf B = \nabla\times\mathbf A \]</div>
+  <p>Hocanın uyarısı: \(\phi\) skaler, \(\mathbf A\) vektör. Bazı problemlerde önce \(\mathbf A\)'yı bulup curl almak, \(\mathbf B\)'yi doğrudan hesaplamaktan çok daha kolay.</p>
+
+  <h3>Zamana bağlı durumda E</h3>
+  <p>Faraday yasasına \(\mathbf B = \nabla\times\mathbf A\) konunca:</p>
+  <div class="eq">\[ \nabla\times\mathbf E = -\frac{\partial}{\partial t}(\nabla\times\mathbf A) \;\Rightarrow\; \nabla\times\left(\mathbf E + \frac{\partial\mathbf A}{\partial t}\right) = 0 \;\Rightarrow\; \boxed{\;\mathbf E = -\nabla\phi - \frac{\partial\mathbf A}{\partial t}\;} \]</div>
+  <p>Parantezin curl'ü sıfır olduğu için o da bir gradyan olarak yazılabiliyor. Statik durumda \(\partial\mathbf A/\partial t = 0\) ve eski \(\mathbf E = -\nabla\phi\)'ye dönülüyor.</p>
+</section>
+
+<!-- 12 -->
+<section id="s12">
+  <div class="sec-head">
+    <span class="num">12</span>
+    <h2>Ayar serbestliği <span class="en">gauge freedom</span></h2>
+    <span class="stamp">kayıt 1:47 – 1:53</span>
+  </div>
+  <p>Hocanın Türkçe anlattığı kısım. Potansiyelin mutlak bir değeri yok, sadece farkı ölçülüyor. Prizdeki 220 V toprağa göre bir potansiyel fark, bazen de sonsuzu sıfır alıp ona göre konuşuyoruz. \(\phi\)'ye bir sabit eklemek \(\mathbf E\)'yi değiştirmiyor, çünkü sabitin gradyanı sıfır.</p>
+  <p>\(\mathbf A\)'da hikaye aynı, sadece vektör olduğu için biraz daha karışık. Herhangi bir skaler fonksiyon \(\lambda\)'nın gradyanı eklenirse curl değişmiyor ve \(\mathbf B\) aynı kalıyor, çünkü \(\nabla\times\nabla\lambda \equiv 0\). \(\mathbf E\)'nin de değişmemesi için \(\phi\) birlikte kaydırılıyor:</p>
+  <div class="eq">\[ \boxed{\;\mathbf A' = \mathbf A + \nabla\lambda, \qquad \phi' = \phi - \frac{\partial\lambda}{\partial t}\;} \]</div>
+  <p>Kontrol:</p>
+  <div class="eq">\[ \mathbf E' = -\nabla\phi' - \frac{\partial\mathbf A'}{\partial t} = -\nabla\phi + \nabla\frac{\partial\lambda}{\partial t} - \frac{\partial\mathbf A}{\partial t} - \frac{\partial}{\partial t}\nabla\lambda = \mathbf E \]</div>
+  <p>Buna ayar dönüşümü <span class="en">gauge transformation</span> deniyor. Bu serbestlik \(\nabla\cdot\mathbf A\)'yı istediğimiz gibi seçmemize izin veriyor <span class="en">gauge fixing</span>. İki yaygın seçim:</p>
+  <div class="eq">\[ \text{Coulomb:}\;\; \nabla\cdot\mathbf A = 0, \qquad\qquad \text{Lorenz:}\;\; \nabla\cdot\mathbf A + \mu_0\varepsilon_0\,\frac{\partial\phi}{\partial t} = 0 \]</div>
+  <p>Hocanın ısrarla vurguladığı nokta: Lorenz ayarı Danimarkalı Ludvig Lorenz'in. Lorentz kuvveti, Lorentz dönüşümü ve 4. dersteki Lorentz osilatörü Hollandalı Hendrik Lorentz'in. İki farklı kişi. Transkriptte "low-end gauge" diye geçiyor.</p>
+</section>
+
+<!-- 13 -->
+<section id="s13">
+  <div class="sec-head">
+    <span class="num">13</span>
+    <h2>Potansiyeller için dalga denklemi <span class="en">inhomogeneous wave equation</span></h2>
+    <span class="stamp">kayıt 1:46, 1:53 – 1:59</span>
+  </div>
+  <p>Hoca \(\mathbf A\) için dalga denklemini evde türetmeyi istedi ve türetmede bir terimi yok etmek gerektiğini, bunu Lorenz ayarının yaptığını söyledi. Ampère–Maxwell yasasından başlanıyor:</p>
+  <div class="eq">\[ \nabla\times\mathbf B = \mu_0\mathbf J + \mu_0\varepsilon_0\,\frac{\partial\mathbf E}{\partial t} \]</div>
+  <p>\(\mathbf B = \nabla\times\mathbf A\) ve \(\mathbf E = -\nabla\phi - \partial\mathbf A/\partial t\) konuyor, sol tarafa yine BAC-CAB:</p>
+  <div class="eq">\[ \nabla(\nabla\cdot\mathbf A) - \nabla^2\mathbf A = \mu_0\mathbf J - \mu_0\varepsilon_0\,\nabla\frac{\partial\phi}{\partial t} - \mu_0\varepsilon_0\,\frac{\partial^2\mathbf A}{\partial t^2} \]</div>
+  <p>Terimler toplanınca:</p>
+  <div class="eq">\[ \nabla^2\mathbf A - \mu_0\varepsilon_0\,\frac{\partial^2\mathbf A}{\partial t^2} - \nabla\!\left(\nabla\cdot\mathbf A + \mu_0\varepsilon_0\,\frac{\partial\phi}{\partial t}\right) = -\mu_0\mathbf J \]</div>
+  <p>Yok edilmesi gereken terim parantezin içi ve Lorenz ayarında tam olarak sıfır:</p>
+  <div class="eq">\[ \boxed{\;\nabla^2\mathbf A - \frac{1}{c^2}\frac{\partial^2\mathbf A}{\partial t^2} = -\mu_0\mathbf J, \qquad \nabla^2\phi - \frac{1}{c^2}\frac{\partial^2\phi}{\partial t^2} = -\frac{\rho}{\varepsilon_0}\;} \]</div>
+  <p>\(\phi\) denklemi aynı yolla Gauss yasasından çıkıyor, türetmesi Ek B'de (S9). Coulomb ayarında denklemler bu kadar temiz ayrışmıyor, Lorenz ayarının tercih sebebi bu.</p>
+
+  <h3>d'Alembert operatörü <span class="en">d'Alembertian</span></h3>
+  <p>Hocanın sorup sınıfın hatırlayamadığı operatör:</p>
+  <div class="eq">\[ \Box^2 \equiv \nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2} \;\Rightarrow\; \Box^2\mathbf A = -\mu_0\mathbf J, \qquad \Box^2\phi = -\frac{\rho}{\varepsilon_0} \]</div>
+  <p>Dört bileşenin her biri aynı formda, birbirinden ayrık bir skaler denklem sağlıyor. İşaret konvansiyonu kitaba göre değişiyor, bazı kaynaklar \(\Box^2 = c^{-2}\partial_t^2 - \nabla^2\) yazıyor.</p>
+
+  <h3>Dersin başına dönüş</h3>
+  <p>Statik durumda zaman türevleri düşüyor:</p>
+  <div class="eq">\[ \nabla^2\phi = -\frac{\rho}{\varepsilon_0}, \qquad \nabla^2\mathbf A = -\mu_0\mathbf J \]</div>
+  <p>Dersin ilk dakikasında sorulan Poisson denklemi bu. Kaynak yoksa (\(\rho = 0\), \(\mathbf J = 0\)) denklem homojen <span class="en">homogeneous</span>, çözümleri Bölüm 4'teki düzlem dalgalar. Kaynak varsa homojen değil <span class="en">inhomogeneous</span>. Hocanın son sorusu bunun hangi yöntemle çözüleceğiydi, bir öğrenci "nümerik" dedi.</p>
+  <p><span class="extra">derste yok</span> Analitik yol Green fonksiyonu yöntemi <span class="en">Green's function method</span>. Sonucu gecikmeli potansiyeller <span class="en">retarded potentials</span>:</p>
+  <div class="eq">\[ \phi(\mathbf r,t) = \frac{1}{4\pi\varepsilon_0}\int\frac{\rho(\mathbf r', t_r)}{|\mathbf r - \mathbf r'|}\,d^3r', \qquad \mathbf A(\mathbf r,t) = \frac{\mu_0}{4\pi}\int\frac{\mathbf J(\mathbf r', t_r)}{|\mathbf r - \mathbf r'|}\,d^3r', \qquad t_r = t - \frac{|\mathbf r - \mathbf r'|}{c} \]</div>
+  <p>Kaynaktaki bir değişiklik gözlem noktasına anında değil, ışık hızıyla gecikmeli ulaşıyor. Statik limitte \(t_r = t\) olunca elektrostatik ve manyetostatiğin bilinen potansiyel integralleri çıkıyor.</p>
+</section>
+
+<!-- Ek A -->
+<section id="ekA">
+  <div class="sec-head">
+    <span class="num">A</span>
+    <h2>Hata listesi</h2>
+    <span class="stamp">ders ve transkript</span>
+  </div>
+  <p>Yukarıdaki kırmızı kutuların ve transkriptteki yanlış tanımaların tek tabloda özeti. Transkript satırlarında fizik hatası yok, sadece Whisper'ın yanlış duyduğu terimler var.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Nerede</th><th>Yazılan ya da söylenen</th><th>Doğrusu</th></tr></thead>
+      <tbody>
+        <tr><td>Ders 0:12 · kavite</td><td>Kavite modları ışığın kuantizasyonu</td><td>Ayrık olan klasik mod frekansları. Foton, her modun ayrıca kuantize edilmesinden geliyor</td></tr>
+        <tr><td>Ders 1:04 · kayıplı ortam</td><td>\(u_B &gt; u_E\), çünkü E Joule ısınmasıyla enerji kaybediyor</td><td>Sonuç doğru, sebep iletim akımı terimi. \(\langle u_B\rangle/\langle u_E\rangle = \sqrt{1+(\sigma/\varepsilon\omega)^2}\)</td></tr>
+        <tr><td>İlk parça 0:05</td><td>i cross i = 1</td><td>\(\hat x\cdot\hat x = 1\), nokta çarpım</td></tr>
+        <tr><td>Transkript 1:08</td><td>S = D × B</td><td>\(\mathbf S = \mathbf E\times\mathbf H\). \(\mathbf D\times\mathbf B\) momentum yoğunluğu</td></tr>
+        <tr><td>Transkript 1:37</td><td>curl of divergence</td><td>curl of gradient</td></tr>
+        <tr><td>Transkript 0:00</td><td>person equation</td><td><span class="en">Poisson equation</span></td></tr>
+        <tr><td>Transkript 0:10</td><td>hand-most equation</td><td><span class="en">Helmholtz equation</span></td></tr>
+        <tr><td>Transkript 0:13</td><td>condensation of light, skin states</td><td><span class="en">quantization of light, eigenstates</span></td></tr>
+        <tr><td>Transkript 0:38</td><td>DLH3 medium</td><td><span class="en">dielectric medium</span></td></tr>
+        <tr><td>Transkript 0:44</td><td>punitive function, abomination of light</td><td><span class="en">permittivity function, attenuation</span></td></tr>
+        <tr><td>Transkript 0:55</td><td>cell of the internet, 7 minutes</td><td><span class="en">inductor, solenoid</span></td></tr>
+        <tr><td>Transkript 1:03</td><td>most medium, boolean medium</td><td><span class="en">lossy medium</span></td></tr>
+        <tr><td>Transkript 1:07</td><td>Pointing vector</td><td><span class="en">Poynting vector</span></td></tr>
+        <tr><td>Transkript 1:10 – 1:24</td><td>Gaussian p-box, Go Slow, unparable</td><td><span class="en">Gaussian pillbox, Gauss's law, Amperian loop</span></td></tr>
+        <tr><td>Transkript 1:11</td><td>field of consciousness</td><td><span class="en">continuity of the fields</span></td></tr>
+        <tr><td>Transkript 1:47</td><td>low-end gauge</td><td><span class="en">Lorenz gauge</span></td></tr>
+        <tr><td>Transkript 1:32, 1:37:54</td><td>Lehçe satırlar, Türkçe cümle</td><td>Whisper uydurması, derste geçmiyor</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Ek B -->
+<section id="ekB">
+  <div class="sec-head">
+    <span class="num">B</span>
+    <h2>Kendini test et</h2>
+    <span class="stamp">kolaydan zora</span>
+  </div>
+  <p>Cevabı açmadan önce kâğıtta çöz. Son üç soru derste anlatılanın bir adım ötesine geçiyor.</p>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S1</span><p class="qt">Boş uzayda düzlem dalga için \(\mathbf E\)'nin neden \(\mathbf k\)'ya dik olması gerektiğini göster. \(\mathbf B\) için de aynısı geçerli mi?</p><span class="lvl">ısınma</span></div>
+    <details><summary>Cevap</summary>
+      <p>\(\nabla\cdot\mathbf E = 0\) ve \(\nabla\), \(e^{i\mathbf k\cdot\mathbf r}\) üzerinde \(i\mathbf k\) ile çarpıyor: \(i\mathbf k\cdot\mathbf E_0 = 0\). \(\mathbf B\) için \(\nabla\cdot\mathbf B = 0\) aynı sonucu veriyor: \(\mathbf k\cdot\mathbf B_0 = 0\). Ayrıca Faraday'dan \(\mathbf B_0 = \mathbf k\times\mathbf E_0/\omega\), yani \(\mathbf B\), \(\mathbf E\)'ye de dik. Dalga enine.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S2</span><p class="qt">\(\mathbf E = E_0\cos(kz - \omega t)\,\hat x\) için \(\mathbf B\)'yi Faraday yasasından bul. Yönü ve büyüklüğü ne?</p><span class="lvl">ısınma</span></div>
+    <details><summary>Cevap</summary>
+      <div class="eq">\[ \nabla\times\mathbf E = \hat y\,\frac{\partial E_x}{\partial z} = -kE_0\sin(kz-\omega t)\,\hat y = -\frac{\partial\mathbf B}{\partial t} \;\Rightarrow\; \mathbf B = \frac{E_0}{c}\cos(kz - \omega t)\,\hat y \]</div>
+      <p>\(\mathbf E\) ile aynı fazda, \(y\) yönünde, büyüklüğü \(E_0/c\). \(\mathbf E\times\mathbf B\) \(\hat z\) yönünde, yani enerji yayılma yönünde akıyor.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S3</span><p class="qt">1 cm aralıklı iki iletken duvar arasındaki en düşük modun frekansı ve dalga boyu ne?</p><span class="lvl">ısınma</span></div>
+    <details><summary>Cevap</summary>
+      <div class="eq">\[ \omega_1 = \frac{\pi c}{L} \;\Rightarrow\; f_1 = \frac{c}{2L} = \frac{3\times10^8}{0.02} \approx 15\ \mathrm{GHz}, \qquad \lambda_1 = 2L = 2\ \mathrm{cm} \]</div>
+      <p>Mikrodalga bandı. Aralığa tam yarım dalga sığıyor.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S4</span><p class="qt">Kayıpsız, dağınımsız bir dielektrikte \(u_E = u_B\) olduğunu göster.</p><span class="lvl">orta</span></div>
+    <details><summary>Cevap</summary>
+      <p>Faraday'dan \(B_0 = kE_0/\omega = E_0/v\), \(v = 1/\sqrt{\mu\varepsilon}\):</p>
+      <div class="eq">\[ u_B = \frac{B^2}{2\mu} = \frac{E^2}{2\mu v^2} = \frac{E^2\,\mu\varepsilon}{2\mu} = \frac12\,\varepsilon E^2 = u_E \]</div>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S5</span><p class="qt">1 mW'lık bir lazerin hüzme kesiti 1 mm². Hüzmeyi düzlem dalga kabul edip \(E_0\) ve \(B_0\)'ı bul.</p><span class="lvl">orta</span></div>
+    <details><summary>Cevap</summary>
+      <div class="eq">\[ I = \frac{10^{-3}\ \mathrm W}{10^{-6}\ \mathrm m^2} = 10^3\ \frac{\mathrm W}{\mathrm m^2}, \qquad E_0 = \sqrt{\frac{2I}{c\,\varepsilon_0}} \approx 868\ \frac{\mathrm V}{\mathrm m}, \qquad B_0 = \frac{E_0}{c} \approx 2.9\ \mu\mathrm T \]</div>
+      <p>Karşılaştırma için Dünya'nın manyetik alanı yaklaşık 50 μT. Ortalama enerji yoğunluğu \(\langle u\rangle = I/c \approx 3.3\times10^{-6}\ \mathrm{J/m^3}\).</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S6</span><p class="qt">Hava (\(\varepsilon_r = 1\)) ile \(\varepsilon_r = 4\) olan bir dielektrik arasındaki arayüzde yüzey yükü yok. Havadaki alan normalle 45° açı yapıyor, büyüklüğü \(E_1\). Dielektrikteki alanın büyüklüğü ve normalle açısı ne?</p><span class="lvl">orta</span></div>
+    <details><summary>Cevap</summary>
+      <p>\(E_\parallel\) sürekli: \(E_{2\parallel} = E_1\sin45° \approx 0.707\,E_1\). \(D_\perp\) sürekli: \(E_{2\perp} = E_{1\perp}/4 \approx 0.177\,E_1\).</p>
+      <div class="eq">\[ |\mathbf E_2| \approx 0.729\,E_1, \qquad \tan\theta_2 = \frac{E_{2\parallel}}{E_{2\perp}} = 4 \;\Rightarrow\; \theta_2 \approx 76° \]</div>
+      <p>Genel kural \(\tan\theta_1/\tan\theta_2 = \varepsilon_1/\varepsilon_2\). Yüksek \(\varepsilon\) tarafında alan çizgileri yüzeye doğru yatıyor ve alan zayıflıyor.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S7</span><p class="qt">\(\lambda_0 = 500\) nm'de \(\kappa = 0.01\) olan bir malzemede soğurma katsayısı \(\alpha\) ve şiddetin 1/e'ye düştüğü derinlik ne?</p><span class="lvl">orta</span></div>
+    <details><summary>Cevap</summary>
+      <div class="eq">\[ \alpha = \frac{4\pi\kappa}{\lambda_0} = \frac{4\pi(0.01)}{500\times10^{-9}\ \mathrm m} \approx 2.5\times10^{5}\ \mathrm m^{-1}, \qquad \frac{1}{\alpha} \approx 4.0\ \mu\mathrm m \]</div>
+      <p>Sayfadaki silisyum ayarı (\(\kappa \approx 0.044\)) için bu derinlik yaklaşık 0.9 μm.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S8</span><p class="qt">Bakırda \(\sigma = 5.96\times10^{7}\) S/m. 1 GHz'lik bir dalga için \(\langle u_B\rangle/\langle u_E\rangle\) oranı ne? \(\varepsilon \approx \varepsilon_0\) al.</p><span class="lvl">zor</span></div>
+    <details><summary>Cevap</summary>
+      <div class="eq">\[ \frac{\sigma}{\varepsilon_0\omega} = \frac{5.96\times10^{7}}{(8.854\times10^{-12})(2\pi\times10^{9})} \approx 1.07\times10^{9} \;\Rightarrow\; \frac{\langle u_B\rangle}{\langle u_E\rangle} \approx 1.07\times10^{9} \]</div>
+      <p>Enerjinin neredeyse tamamı manyetik alanda. İletkenin içinde \(\mathbf E\) çok küçük kalırken akım taşınıyor ve \(\mathbf H\) görece büyük.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S9</span><p class="qt">\(\phi\) için dalga denklemini Lorenz ayarında türet. Coulomb ayarında ne çıkardı?</p><span class="lvl">zor</span></div>
+    <details><summary>Cevap</summary>
+      <p>Gauss yasasına \(\mathbf E = -\nabla\phi - \partial\mathbf A/\partial t\) konuyor:</p>
+      <div class="eq">\[ \nabla\cdot\mathbf E = -\nabla^2\phi - \frac{\partial}{\partial t}(\nabla\cdot\mathbf A) = \frac{\rho}{\varepsilon_0} \]</div>
+      <p>Lorenz ayarından \(\nabla\cdot\mathbf A = -\mu_0\varepsilon_0\,\partial\phi/\partial t\):</p>
+      <div class="eq">\[ -\nabla^2\phi + \mu_0\varepsilon_0\frac{\partial^2\phi}{\partial t^2} = \frac{\rho}{\varepsilon_0} \;\Rightarrow\; \nabla^2\phi - \frac{1}{c^2}\frac{\partial^2\phi}{\partial t^2} = -\frac{\rho}{\varepsilon_0} \]</div>
+      <p>Coulomb ayarında \(\nabla\cdot\mathbf A = 0\) ve geriye \(\nabla^2\phi = -\rho/\varepsilon_0\) kalıyor, zamana bağlı durumda bile Poisson denklemi. Bu ayarda \(\phi\) kaynaktaki değişimi anında hissediyor gibi görünüyor. Ölçülen \(\mathbf E\) yine gecikmeli çıkıyor, çünkü \(\mathbf A\)'nın katkısı bu anlık kısmı dengeliyor.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S10</span><p class="qt">Potansiyeller Lorenz ayarını sağlıyor. \(\mathbf A' = \mathbf A + \nabla\lambda\), \(\phi' = \phi - \partial\lambda/\partial t\) dönüşümünden sonra da Lorenz ayarında kalmak için \(\lambda\) hangi denklemi sağlamalı?</p><span class="lvl">zor</span></div>
+    <details><summary>Cevap</summary>
+      <div class="eq">\[ \nabla\cdot\mathbf A' + \mu_0\varepsilon_0\frac{\partial\phi'}{\partial t} = \underbrace{\left(\nabla\cdot\mathbf A + \mu_0\varepsilon_0\frac{\partial\phi}{\partial t}\right)}_{0} + \nabla^2\lambda - \mu_0\varepsilon_0\frac{\partial^2\lambda}{\partial t^2} \;\Rightarrow\; \Box^2\lambda = 0 \]</div>
+      <p>Lorenz ayarı potansiyelleri tek başına belirlemiyor. Homojen dalga denklemini sağlayan her \(\lambda\) ile hâlâ kaydırma yapılabiliyor. Buna kısıtlı ayar dönüşümü deniyor <span class="en">restricted gauge transformation</span>.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Ek C -->
+<section id="ekC">
+  <div class="sec-head">
+    <span class="num">C</span>
+    <h2>Sözlük</h2>
+    <span class="stamp">Türkçe → İngilizce</span>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Türkçe</th><th>İngilizce</th></tr></thead>
+      <tbody>
+        <tr><td>dalga denklemi</td><td><span class="en">wave equation</span></td></tr>
+        <tr><td>rotasyonel, diverjans, gradyan</td><td><span class="en">curl, divergence, gradient</span></td></tr>
+        <tr><td>Laplasyan</td><td><span class="en">Laplacian</span></td></tr>
+        <tr><td>BAC-CAB kuralı</td><td><span class="en">BAC-CAB rule, vector triple product</span></td></tr>
+        <tr><td>sınır koşulu, başlangıç koşulu</td><td><span class="en">boundary condition, initial condition</span></td></tr>
+        <tr><td>Sommerfeld ışıma koşulu</td><td><span class="en">Sommerfeld radiation condition</span></td></tr>
+        <tr><td>Helmholtz denklemi</td><td><span class="en">Helmholtz equation</span></td></tr>
+        <tr><td>kavite, dalga kılavuzu</td><td><span class="en">cavity, waveguide</span></td></tr>
+        <tr><td>mod, özdurum, duran dalga</td><td><span class="en">mode, eigenstate, standing wave</span></td></tr>
+        <tr><td>düzlem dalga, dalga paketi</td><td><span class="en">plane wave, wave packet</span></td></tr>
+        <tr><td>dalga vektörü, dalga sayısı</td><td><span class="en">wave vector, wave number</span></td></tr>
+        <tr><td>polarizasyon, enine dalga</td><td><span class="en">polarization, transverse wave</span></td></tr>
+        <tr><td>dispersiyon bağıntısı, faz hızı</td><td><span class="en">dispersion relation, phase velocity</span></td></tr>
+        <tr><td>dalga cephesi</td><td><span class="en">wavefront</span></td></tr>
+        <tr><td>süperpozisyon, Fourier açılımı</td><td><span class="en">superposition, Fourier expansion</span></td></tr>
+        <tr><td>kırılma indisi</td><td><span class="en">refractive index</span></td></tr>
+        <tr><td>sönüm katsayısı, soğurma katsayısı</td><td><span class="en">extinction coefficient, absorption coefficient</span></td></tr>
+        <tr><td>dielektrik fonksiyon, geçirgenlik</td><td><span class="en">dielectric function, permittivity</span></td></tr>
+        <tr><td>manyetik geçirgenlik</td><td><span class="en">permeability</span></td></tr>
+        <tr><td>enerji yoğunluğu, eşbölüşüm</td><td><span class="en">energy density, equipartition</span></td></tr>
+        <tr><td>kayıplı ortam, iletkenlik</td><td><span class="en">lossy medium, conductivity</span></td></tr>
+        <tr><td>Joule ısınması, iletim akımı</td><td><span class="en">Joule heating, conduction current</span></td></tr>
+        <tr><td>Poynting vektörü, şiddet</td><td><span class="en">Poynting vector, intensity</span></td></tr>
+        <tr><td>Gauss kutusu, Amper halkası</td><td><span class="en">Gaussian pillbox, Amperian loop</span></td></tr>
+        <tr><td>yüzey yük yoğunluğu</td><td><span class="en">surface charge density</span></td></tr>
+        <tr><td>yüzey akım yoğunluğu</td><td><span class="en">surface current density</span></td></tr>
+        <tr><td>sıçrama koşulu</td><td><span class="en">jump condition</span></td></tr>
+        <tr><td>skaler potansiyel, vektör potansiyel</td><td><span class="en">scalar potential, vector potential</span></td></tr>
+        <tr><td>ayar serbestliği, ayar dönüşümü</td><td><span class="en">gauge freedom, gauge transformation</span></td></tr>
+        <tr><td>Lorenz ayarı, Coulomb ayarı</td><td><span class="en">Lorenz gauge, Coulomb gauge</span></td></tr>
+        <tr><td>d'Alembert operatörü</td><td><span class="en">d'Alembertian</span></td></tr>
+        <tr><td>homojen olmayan denklem</td><td><span class="en">inhomogeneous equation</span></td></tr>
+        <tr><td>Green fonksiyonu, gecikmeli potansiyel</td><td><span class="en">Green's function, retarded potential</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+  <p class="kbm-back"><a href="../">← 602’nin diğer haftaları</a></p>
+  Kaynak: 602 dersinin 3. hafta transkripti, iki parça. Tahta fotoğrafı yok, denklemler transkriptten ve standart türetmelerden yeniden kuruldu. Bölüm başlıklarındaki zamanlar kayıttaki yeri gösteriyor.</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var nIn = document.getElementById("n-in");
+  var kIn = document.getElementById("k-in");
+  var nOut = document.getElementById("n-out");
+  var kOut = document.getElementById("k-out");
+  var playBtn = document.getElementById("play");
+  var svg = document.querySelector("#chart-wave svg");
+  if (!nIn || !kIn || !svg) return;
+
+  var W = 640, H = 260, ML = 42, MR = 12, MT = 14, MB = 40;
+  var ZMAX = 3, YMIN = -1.15, YMAX = 1.15, N = 720;
+  var KMAXLOG = Math.log10(3.5);
+  var state = { n: 2, k: 0.08, phase: 0, playing: false, last: 0, raf: 0 };
+
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var a in attrs) e.setAttribute(a, attrs[a]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function sx(z) { return ML + (W - ML - MR) * z / ZMAX; }
+  function sy(y) { return MT + (H - MT - MB) * (YMAX - y) / (YMAX - YMIN); }
+
+  function sliderToK(s) {
+    s = +s;
+    if (s <= 0) return 0;
+    return Math.pow(10, -3 + (3 + KMAXLOG) * s / 1000);
+  }
+  function kToSlider(k) {
+    if (k <= 0) return 0;
+    var s = 1000 * (Math.log10(k) + 3) / (3 + KMAXLOG);
+    return Math.max(1, Math.min(1000, Math.round(s)));
+  }
+
+  var pVac, pEnvU, pEnvL, pWave;
+  function buildAxes() {
+    var cw = svg.parentNode.clientWidth || 640;
+    W = Math.max(320, Math.min(720, Math.round(cw)));
+    H = W < 480 ? 240 : 270;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    var gGrid = el("g", {}, svg);
+    [-1, -0.5, 0.5, 1].forEach(function (y) {
+      el("line", { x1: ML, x2: W - MR, y1: sy(y), y2: sy(y), "class": "grid-l" }, gGrid);
+    });
+    [0.5, 1, 1.5, 2, 2.5, 3].forEach(function (z) {
+      el("line", { x1: sx(z), x2: sx(z), y1: MT, y2: H - MB, "class": "grid-l" }, gGrid);
+    });
+    el("line", { x1: ML, x2: W - MR, y1: sy(0), y2: sy(0), "class": "zero-l" }, svg);
+    el("line", { x1: ML, x2: ML, y1: MT, y2: H - MB, "class": "axis-l" }, svg);
+    el("line", { x1: ML, x2: W - MR, y1: H - MB, y2: H - MB, "class": "axis-l" }, svg);
+    [[1, "+1"], [0, "0"], [-1, "−1"]].forEach(function (t) {
+      var tx = el("text", { x: ML - 8, y: sy(t[0]) + 4, "text-anchor": "end", "class": "tick" }, svg);
+      tx.textContent = t[1];
+    });
+    var zt = W < 480 ? [0, 1, 2, 3] : [0, 0.5, 1, 1.5, 2, 2.5, 3];
+    zt.forEach(function (z) {
+      var tx = el("text", { x: sx(z), y: H - MB + 15, "text-anchor": z === 3 ? "end" : "middle", "class": "tick" }, svg);
+      tx.textContent = z === 0 ? "0" : (z + "λ₀");
+    });
+    var at = el("text", { x: W - MR, y: H - 6, "text-anchor": "end", "class": "axis-title" }, svg);
+    at.textContent = "z, vakum dalga boyu λ₀ cinsinden";
+    var yt = el("text", { x: ML + 6, y: MT + 11, "class": "axis-title" }, svg);
+    yt.textContent = "Re E / E₀";
+    pVac = el("path", { "class": "ref-l" }, svg);
+    pEnvU = el("path", { "class": "ln env" }, svg);
+    pEnvL = el("path", { "class": "ln env" }, svg);
+    pWave = el("path", { "class": "ln s1" }, svg);
+  }
+  buildAxes();
+  var rsT = 0, lastW = W;
+  window.addEventListener("resize", function () {
+    clearTimeout(rsT);
+    rsT = setTimeout(function () {
+      var cw = Math.max(320, Math.min(720, Math.round(svg.parentNode.clientWidth || 640)));
+      if (cw !== lastW) { lastW = cw; buildAxes(); drawCurves(); }
+    }, 120);
+  });
+
+  var stLam = document.getElementById("st-lam");
+  var stE1 = document.getElementById("st-e1");
+  var stE2 = document.getElementById("st-e2");
+  var stD = document.getElementById("st-d");
+  var stR = document.getElementById("st-r");
+
+  function fmt(v, d) { return v.toFixed(d).replace("-", "−"); }
+  function fmtK(k) {
+    if (k === 0) return "0";
+    if (k < 0.01) return k.toFixed(4);
+    if (k < 0.1) return k.toFixed(3);
+    if (k < 1) return k.toFixed(3);
+    return k.toFixed(2);
+  }
+
+  function drawCurves() {
+    var n = state.n, k = state.k, ph = state.phase, TWO_PI = 2 * Math.PI;
+    var dV = "", dW = "", dU = "", dL = "";
+    for (var i = 0; i <= N; i++) {
+      var z = ZMAX * i / N;
+      var env = Math.exp(-TWO_PI * k * z);
+      var w = env * Math.cos(TWO_PI * n * z - ph);
+      var v = Math.cos(TWO_PI * z - ph);
+      var X = sx(z).toFixed(1);
+      var c = i === 0 ? "M" : "L";
+      dV += c + X + "," + sy(v).toFixed(1);
+      dW += c + X + "," + sy(w).toFixed(1);
+      dU += c + X + "," + sy(env).toFixed(1);
+      dL += c + X + "," + sy(-env).toFixed(1);
+    }
+    pVac.setAttribute("d", dV);
+    pWave.setAttribute("d", dW);
+    pEnvU.setAttribute("d", dU);
+    pEnvL.setAttribute("d", dL);
+  }
+
+  function updateStats() {
+    var n = state.n, k = state.k;
+    stLam.textContent = fmt(1 / n, 3);
+    stE1.textContent = fmt(n * n - k * k, 2);
+    stE2.textContent = fmt(2 * n * k, 3);
+    if (k === 0) {
+      stD.textContent = "∞";
+    } else {
+      var d = 1 / (4 * Math.PI * k);
+      stD.textContent = (d >= 100 ? d.toFixed(0) : d >= 10 ? d.toFixed(1) : d >= 0.1 ? d.toFixed(2) : d.toFixed(3)) + " λ₀";
+    }
+    var R = ((n - 1) * (n - 1) + k * k) / ((n + 1) * (n + 1) + k * k);
+    stR.textContent = (100 * R).toFixed(1) + " %";
+  }
+
+  function readInputs() {
+    state.n = +nIn.value;
+    state.k = sliderToK(kIn.value);
+    nOut.textContent = state.n.toFixed(2);
+    kOut.textContent = fmtK(state.k);
+    drawCurves();
+    updateStats();
+  }
+
+  nIn.addEventListener("input", readInputs);
+  kIn.addEventListener("input", readInputs);
+
+  Array.prototype.forEach.call(document.querySelectorAll(".presets button"), function (b) {
+    b.addEventListener("click", function () {
+      nIn.value = b.getAttribute("data-n");
+      kIn.value = kToSlider(+b.getAttribute("data-k"));
+      readInputs();
+      state.k = +b.getAttribute("data-k");
+      kOut.textContent = fmtK(state.k);
+      drawCurves();
+      updateStats();
+    });
+  });
+
+  function tick(t) {
+    if (!state.playing) return;
+    if (state.last) {
+      var dt = Math.min(t - state.last, 100);
+      state.phase = (state.phase + 2 * Math.PI * dt / 2000) % (2 * Math.PI);
+      drawCurves();
+    }
+    state.last = t;
+    state.raf = requestAnimationFrame(tick);
+  }
+  playBtn.addEventListener("click", function () {
+    state.playing = !state.playing;
+    playBtn.setAttribute("aria-pressed", state.playing ? "true" : "false");
+    playBtn.textContent = state.playing ? "Durdur" : "Oynat";
+    if (state.playing) {
+      state.last = 0;
+      state.raf = requestAnimationFrame(tick);
+    } else {
+      cancelAnimationFrame(state.raf);
+    }
+  });
+
+  readInputs();
+})();
+</script>
+
+</body></html>

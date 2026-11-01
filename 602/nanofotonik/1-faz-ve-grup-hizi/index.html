@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Faz ve Grup Hızı</title>
+<meta name="description" content="Bir dalgayı tanımlayan büyüklüklerden başlayıp tek frekanslı dalganın neden bilgi taşıyamadığına, dalga paketine ve dispersiyon bağıntısına kadar.…">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<style>
+/* Layout: graph-paper masthead with a spectral rule, one serif reading column (~68ch),
+   margin notes beside it on wide screens, figures and tools on graph-paper panels. */
+:root{
+  --paper:#F7F8F6;
+  --sheet:#FCFCFB;
+  --grid:rgba(39,112,194,.085);
+  --ink:#16203A;
+  --ink-2:#4A5570;
+  --ink-3:#636C80;
+  --rule:#DCE1E7;
+  --magenta:#B8236A;
+  --blue:#2770C2;
+  --red:#B83226;
+  --mag-wash:rgba(184,35,106,.075);
+  --blue-wash:rgba(39,112,194,.085);
+  --red-wash:rgba(184,50,38,.07);
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+    --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+    --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+    --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+  --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+  --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+  --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:1.0625rem;line-height:1.62;
+  font-optical-sizing:auto;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:var(--mag-wash)}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+.wrap{
+  max-width:1180px;margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:22px 22px;
+  border-bottom:1px solid var(--rule);
+}
+.masthead .wrap{padding-block:clamp(28px,5vw,56px) 22px;display:grid;gap:14px}
+.kicker{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);margin:0;display:flex;flex-wrap:wrap;gap:.35rem 1rem;
+}
+.kicker b{color:var(--magenta);font-weight:600}
+h1{
+  font-family:var(--font-display);font-weight:760;font-stretch:112%;
+  font-variation-settings:"wdth" 112;
+  font-size:clamp(2.15rem, 1.25rem + 3.8vw, 3.55rem);line-height:1.02;letter-spacing:-.018em;
+  margin:0;text-wrap:balance;max-width:20ch;
+}
+.lede{font-size:1.16rem;line-height:1.55;color:var(--ink-2);margin:0;max-width:62ch}
+.series{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.series a,.series span.item{
+  display:inline-flex;align-items:baseline;gap:.5rem;
+  font-family:var(--font-display);font-size:.88rem;font-weight:560;
+  padding:.38rem .7rem .38rem .55rem;border:1px solid var(--rule);border-radius:999px;
+  color:var(--ink-2);text-decoration:none;background:var(--paper);
+}
+.series .n{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-3)}
+.series a:hover{border-color:var(--ink-3);color:var(--ink)}
+.series .is-current{border-color:var(--magenta);color:var(--ink);background:var(--mag-wash)}
+.series .is-current .n{color:var(--magenta)}
+.spectrum{height:7px;position:relative}
+.spectrum-scale{
+  position:relative;height:18px;font-family:var(--font-mono);font-size:.62rem;color:var(--ink-3);overflow:hidden;
+}
+.spectrum-scale span{position:absolute;top:3px;transform:translateX(-50%);white-space:nowrap}
+
+/* ---------- page layout ---------- */
+.layout{display:block;padding-block:28px 72px}
+.toc{
+  font-family:var(--font-display);font-size:.86rem;margin:0 0 28px;
+  display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--ink-3);
+}
+.toc .toc-title{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;width:100%;color:var(--ink-3)}
+.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--magenta)}
+.prose{max-width:700px;min-width:0}
+.prose > section{padding-top:18px;margin-top:30px;border-top:1px solid var(--rule)}
+.prose > section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.prose::after{content:"";display:block;clear:both}
+
+@media (min-width:1240px){
+  .layout{display:grid;grid-template-columns:184px minmax(0,1fr);gap:40px}
+  .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;flex-direction:column;flex-wrap:nowrap;gap:9px;margin:0;max-height:calc(100vh - 48px);overflow-y:auto;padding-bottom:12px}
+  .toc a{border-bottom:0}
+  .toc a.on{color:var(--magenta)}
+  .prose{margin-right:300px}
+}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 4px;
+}
+h2{
+  font-family:var(--font-display);font-weight:690;font-stretch:104%;font-variation-settings:"wdth" 104;
+  font-size:clamp(1.42rem, 1.1rem + 1.1vw, 1.75rem);line-height:1.15;letter-spacing:-.01em;
+  margin:0 0 .7rem;text-wrap:balance;scroll-margin-top:20px;
+}
+h3{font-family:var(--font-display);font-weight:650;font-size:1.1rem;line-height:1.25;margin:1.6rem 0 .4rem;text-wrap:balance}
+p{margin:.75rem 0}
+.prose ul,.prose ol{padding-left:1.25rem;margin:.6rem 0}
+.prose li{margin:.3rem 0}
+strong{font-weight:640}
+.mono{font-family:var(--font-mono);font-size:.88em}
+.en{font-style:italic;color:var(--ink-2)}
+sub,sup{line-height:0}
+
+/* ---------- math ---------- */
+mjx-container[jax="SVG"][display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:3px 0;margin:.9em 0 !important}
+mjx-container[jax="SVG"]{outline:none}
+mjx-container .cE{fill:var(--magenta);stroke:var(--magenta)}
+mjx-container .cB{fill:var(--blue);stroke:var(--blue)}
+mjx-container .cR{fill:var(--red);stroke:var(--red)}
+mjx-container .cM{fill:var(--ink-3);stroke:var(--ink-3)}
+.key{
+  border:1.5px solid var(--magenta);border-radius:28px;
+  padding:0 1.3rem;width:fit-content;max-width:100%;margin:1.1rem auto;overflow-x:auto;
+  background:var(--sheet);
+}
+.key mjx-container[jax="SVG"][display="true"]{margin:.55em 0 !important}
+.key.blue{border-color:var(--blue)}
+
+/* ---------- notes ---------- */
+.note{
+  font-size:.9rem;line-height:1.5;color:var(--ink-2);
+  background:var(--sheet);border:1px solid var(--rule);border-radius:var(--radius);
+  padding:.8rem 1rem;margin:1rem 0;
+}
+.note p{margin:.35rem 0 0}
+.note .tag{
+  display:block;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+}
+.note.fix{background:var(--red-wash);border-color:transparent}
+.note.fix .tag{color:var(--red)}
+.note.more .tag{color:var(--blue)}
+.note.tip .tag{color:var(--magenta)}
+@media (min-width:1240px){
+  .note,.note.fix{float:right;clear:right;width:262px;margin:.2rem -300px 1rem 0;background:none;border:0;border-top:1px solid var(--rule);border-radius:0;padding:.55rem 0 0}
+  .wide{margin-right:-300px;clear:right}
+}
+
+/* ---------- lists of quantities ---------- */
+.defs{display:grid;gap:10px;margin:1rem 0;padding:0}
+.defs > div{display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:4px 14px;align-items:baseline}
+.defs dt{font-size:1.15rem;text-align:center}
+.defs dd{margin:0}
+.defs dd b{font-family:var(--font-display);font-weight:640;font-size:.95rem}
+
+/* ---------- panels, figures, tools ---------- */
+figure{margin:1.4rem 0}
+.panel{
+  border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet);
+  overflow:hidden;
+}
+.graph{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:20px 20px;background-position:-1px -1px;
+}
+.panel-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;
+  padding:12px 16px 10px;border-bottom:1px solid var(--rule);background:var(--sheet);
+}
+.panel-head h3{margin:0;font-size:1rem}
+.panel-head .hint{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
+figcaption{
+  font-family:var(--font-display);font-size:.84rem;line-height:1.45;color:var(--ink-2);
+  padding:10px 16px 12px;border-top:1px solid var(--rule);background:var(--sheet);
+}
+figure.bare figcaption{border-top:0;padding:8px 2px 0;background:none}
+.svgbox{display:block;width:100%;height:auto}
+.scroll-x{overflow-x:auto}
+canvas.sim{display:block;width:100%;touch-action:pan-y}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule);background:var(--sheet)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.seg button,.btn{
+  font-family:var(--font-display);font-size:.84rem;font-weight:560;color:var(--ink-2);
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:.32rem .75rem;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.seg button:hover,.btn:hover{border-color:var(--ink-3);color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--magenta);color:var(--magenta);background:var(--mag-wash)}
+.btn.icon{display:inline-flex;align-items:center;gap:.4rem}
+.slider{display:grid;grid-template-columns:auto minmax(110px,1fr) 4.6rem;gap:10px;align-items:center;flex:1 1 260px;min-width:0}
+.slider .lbl{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-2);white-space:nowrap}
+.slider output{font-family:var(--font-mono);font-size:.8rem;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--magenta);margin:0;min-width:0}
+.check{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-display);font-size:.84rem;color:var(--ink-2);cursor:pointer}
+.check input{accent-color:var(--magenta)}
+
+.readout{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;margin:0;
+  background:var(--sheet);border-top:1px solid var(--rule);
+}
+.readout > div{background:var(--sheet);padding:9px 14px 10px;min-width:0;box-shadow:0 0 0 1px var(--rule)}
+.readout dt{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-3)}
+.readout dd{margin:2px 0 0;font-family:var(--font-mono);font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere}
+.readout dd small{font-size:.74rem;color:var(--ink-3)}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 16px 0;font-family:var(--font-display);font-size:.82rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid currentColor}
+.legend i.ink{border-color:var(--ink)} .legend i.mag{border-color:var(--magenta)} .legend i.blue{border-color:var(--blue)} .legend i.mut{border-color:var(--ink-3)}
+.legend i.dash{border-top-style:dashed}
+
+/* SVG chart chrome (colors from tokens, never literals) */
+.ax line,.ax path{stroke:var(--rule);stroke-width:1;fill:none}
+.ax text,.lab{fill:var(--ink-3);font-family:var(--font-mono);font-size:11px}
+.lab.ink{fill:var(--ink-2)}
+.lab.strong{fill:var(--ink);font-weight:600}
+.grid-line{stroke:var(--rule);stroke-width:1}
+.s-mag{stroke:var(--magenta);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-blue{stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-ink{stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.s-mut{stroke:var(--ink-3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.s-dash{stroke-dasharray:5 5}
+.f-mag{fill:var(--magenta)} .f-blue{fill:var(--blue)} .f-ink{fill:var(--ink)} .f-mut{fill:var(--ink-3)}
+.f-sheet{fill:var(--sheet)} .f-paper{fill:var(--paper)}
+.w-mag{fill:var(--mag-wash)} .w-blue{fill:var(--blue-wash)} .w-red{fill:var(--red-wash)}
+.ring{stroke:var(--sheet);stroke-width:2}
+.ttip{
+  position:absolute;pointer-events:none;z-index:3;min-width:150px;
+  background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;
+  font-family:var(--font-mono);font-size:.74rem;color:var(--ink-2);box-shadow:0 6px 18px rgba(10,20,40,.12);
+}
+.ttip .row{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ttip .row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ttip .k{display:inline-block;width:12px;border-top:2px solid var(--ink-3)}
+.ttip .k.mag{border-color:var(--magenta)} .ttip .k.blue{border-color:var(--blue)}
+.ttip .h{color:var(--ink-3);margin-bottom:3px}
+.chartwrap{position:relative}
+
+/* ---------- tables ---------- */
+.tablebox{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet)}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem}
+table.data th,table.data td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--rule);vertical-align:baseline}
+table.data tr:last-child td{border-bottom:0}
+table.data th{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.02em;color:var(--ink-3);font-weight:600}
+table.data td.num{font-family:var(--font-mono);font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;padding:0;margin:1rem 0;counter-reset:st;display:grid;gap:4px}
+ol.steps > li{counter-increment:st;display:grid;grid-template-columns:2rem minmax(0,1fr);gap:0 12px;margin:0}
+ol.steps > li::before{
+  content:counter(st);font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--red);
+  border:1px solid var(--rule);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;margin-top:.2rem;
+  background:var(--sheet);
+}
+ol.steps > li > div{min-width:0}
+ol.steps > li p{margin:.2rem 0}
+
+/* ---------- quiz ---------- */
+.quiz details{border-top:1px solid var(--rule);padding:.15rem 0}
+.quiz details:last-of-type{border-bottom:1px solid var(--rule)}
+.quiz summary{cursor:pointer;padding:.6rem 2rem .6rem 0;list-style:none;position:relative;font-weight:560}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::after{
+  content:"+";position:absolute;right:4px;top:.45rem;font-family:var(--font-mono);font-size:1.1rem;color:var(--magenta);
+}
+.quiz details[open] summary::after{content:"−"}
+.quiz .ans{padding:0 0 .8rem;color:var(--ink-2)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding-block:22px 40px;font-family:var(--font-display);font-size:.84rem;color:var(--ink-3)}
+.foot p{margin:.3rem 0;max-width:80ch}
+
+@media (max-width:600px){
+  body{font-size:1.02rem}
+  .defs > div{grid-template-columns:2.6rem minmax(0,1fr)}
+  .slider{grid-template-columns:auto minmax(80px,1fr) 4.2rem;flex-basis:100%}
+  .key{padding:0 .8rem;border-radius:20px}
+}
+@media print{.toc,.controls,.series{display:none}}
+
+.next{margin-top:2.2rem;font-family:var(--font-display);font-size:.95rem}
+.next a{font-weight:600}
+.pk-bottom{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule)}
+.pk-bottom .legend{padding-bottom:6px}
+.disp-cell{min-width:0;background:var(--sheet)}
+@media (min-width:760px){
+  .pk-bottom{grid-template-columns:minmax(0,3fr) minmax(220px,2fr)}
+  .pk-read{border-top:0;border-left:1px solid var(--rule);grid-template-columns:repeat(2,minmax(0,1fr));align-content:stretch}
+}
+
+.nw{white-space:nowrap}
+
+</style>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [["\\(","\\)"]], displayMath: [["\\[","\\]"]]},
+  svg: {fontCache: "global"},
+  options: {enableMenu: false}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+<header class="masthead" lang="tr">
+  <div class="wrap">
+    <nav class="kbm-crumbs" aria-label="Konum"><a href="../../../">KBM notları</a> › <a href="../../">602</a> › <a href="../../#nanofotonik">Nanofotonik</a> › Bölüm 1</nav>
+    <p class="kicker"><b>Nanofotonik</b><span>Ders notları · 25.09.2026</span><span>Bölüm 1 / 4</span></p>
+    <h1>Faz ve Grup Hızı</h1>
+    <p class="lede">Bir dalgayı tanımlayan büyüklüklerden başlayıp tek frekanslı dalganın neden bilgi taşıyamadığına, dalga paketine ve dispersiyon bağıntısına kadar. Simülasyonda tepeler faz hızıyla, zarf grup hızıyla ilerliyor.</p>
+    <nav class="series" aria-label="Notların bölümleri">
+      <a href="../0-sifirdan-em-teorisi/"><span class="n">0</span><span>Sıfırdan EM teorisi</span></a>
+      <span class="item is-current" aria-current="page"><span class="n">1</span><span>Faz ve grup hızı</span></span>
+      <a href="../2-dalga-parcacik-ikiligi/"><span class="n">2</span><span>Dalga-parçacık ikiliği</span></a>
+      <a href="../3-maddede-isik/"><span class="n">3</span><span>Maddede ışık</span></a>
+      <a href="../4-maxwellden-dalga-denklemine/"><span class="n">4</span><span>Maxwell’den dalga denklemine</span></a>
+    </nav>
+  </div>
+</header>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="spectrum-scale" aria-hidden="true"></div>
+<div class="wrap layout" lang="tr">
+  <nav class="toc" aria-label="Bu sayfada">
+    <span class="toc-title">Bu sayfada</span>
+    <a href="#parametreler">Dalga parametreleri</a>
+    <a href="#spektrum">Spektrum ve 1550 nm</a>
+    <a href="#isik-hizi">Işık hızı</a>
+    <a href="#faz-hizi">Faz hızı</a>
+    <a href="#gorelilik">Görelilik sorusu</a>
+    <a href="#grup-hizi">Dalga paketi</a>
+    <a href="#simulasyon">Simülasyon</a>
+    <a href="#dispersiyon">Dispersiyon bağıntısı</a>
+    <a href="#test">Kendini test et</a>
+  </nav>
+  <article class="prose">
+<section id="parametreler">
+  <p class="eyebrow" lang="en">Wave parameters</p>
+  <h2>Bir dalgayı ne tanımlar?</h2>
+  <p>Derste bir dalga üç büyüklükle tanımlandı. Geri kalan her şey bu üçünden türetilir.</p>
+  <dl class="defs">
+    <div><dt>\(\nu\)</dt><dd><b>Frekans</b> <span class="en">frequency</span>. Saniyedeki salınım sayısı. Optikte birimi genelde THz: görünür ışık kabaca 430 ile 750 THz arasında.</dd></div>
+    <div><dt>\(A\)</dt><dd><b>Genlik</b> <span class="en">amplitude</span>. Alanın ulaştığı en büyük değer. Ölçtüğümüz yoğunluk genliğin karesiyle orantılıdır, <span class="nw">\(I \propto A^2\).</span></dd></div>
+    <div><dt>\(\vec k\)</dt><dd><b>Dalga vektörü</b> <span class="en">wave vector</span>. Yönü yayılma yönünü, büyüklüğü dalga sayısını <span class="en">wavenumber</span> verir. Bileşenleriyle \(\vec k=(k_x,k_y,k_z)\) ve <span class="nw">\(k=|\vec k|\).</span></dd></div>
+  </dl>
+  <p>Bu üçünden türeyen büyüklükler:</p>
+  <div class="key">\[ k=\frac{2\pi}{\lambda}\ \ [\mathrm{rad/m}] \qquad T=\frac{1}{\nu} \qquad \omega = 2\pi\nu \]</div>
+  <aside class="note fix"><span class="tag">Defterde düzeltme</span><p>Defterde \(k\) için “number of oscillations per unit wavelength” yazıyor. Doğrusu: <span class="nw">\(k=2\pi/\lambda\),</span> birim uzunluk başına faz değişimidir (rad/m). Birim uzunluktaki dalga sayısı <span class="nw">\(1/\lambda\)’dır;</span> spektroskopide cm⁻¹ ile verilen “dalga sayısı” budur.</p></aside>
+  <figure class="panel">
+    <div class="graph"><svg id="snap" class="svgbox" role="img" aria-label="Solda kosinüs dalgasının konuma göre anlık görüntüsü, tepeler arası λ. Sağda aynı dalganın sabit bir noktada zamana göre değişimi, tepeler arası T."></svg></div>
+    <figcaption>Aynı dalga iki açıdan. Uzayda kendini tekrar eden uzunluk <span class="nw">\(\lambda\),</span> sabit bir noktada kendini tekrar eden süre <span class="nw">\(T\).</span> \(k\) ve \(\omega\) bu iki periyodun açısal (radyan cinsinden) karşılıkları: <span class="nw">\(k = 2\pi/\lambda\),</span> <span class="nw">\(\omega = 2\pi/T\).</span></figcaption>
+  </figure>
+</section>
+
+<section id="spektrum">
+  <p class="eyebrow" lang="en">Spectrum</p>
+  <h2>Nanofotonik spektrumun neresinde?</h2>
+  <p>Görünür ışık yaklaşık 400 ile 700 nm arasında. Nanofotonik daha geniş bir pencereyle ilgilenir: kabaca <strong>100 nm ile 2 µm</strong> arası. Bu dalga boyları üretebildiğimiz nanoyapılarla aynı mertebede olduğu için ışığı yapının geometrisiyle yönlendirmek mümkün hale gelir.</p>
+  <figure class="panel wide" id="ruler-fig">
+    <div class="panel-head"><h3>Spektrum cetveli</h3><span class="hint">100 nm – 2 µm · logaritmik eksen · cetvele dokunarak da seçebilirsin</span></div>
+    <div class="graph"><svg id="ruler" class="svgbox" role="img" aria-label="100 nm ile 2 mikrometre arası logaritmik spektrum cetveli; görünür bant renkli, 1310 ve 1550 nm telekom dalga boyları işaretli."></svg></div>
+    <div class="controls">
+      <label class="slider" for="lam1"><span class="lbl">λ</span><input type="range" id="lam1" min="0" max="1000" step="1" value="878"><output id="lam1o" for="lam1">1550 nm</output></label>
+      <div class="seg" id="lam1-pre" role="group" aria-label="Hazır dalga boyları">
+        <button data-v="400" aria-pressed="false">400</button><button data-v="530" aria-pressed="false">530</button><button data-v="700" aria-pressed="false">700</button><button data-v="1310" aria-pressed="false">1310</button><button data-v="1550" aria-pressed="true">1550</button>
+      </div>
+    </div>
+    <dl class="readout">
+      <div><dt>Frekans ν</dt><dd id="r-nu">–</dd></div>
+      <div><dt>Periyot T</dt><dd id="r-T">–</dd></div>
+      <div><dt>Açısal frekans ω</dt><dd id="r-w">–</dd></div>
+      <div><dt>Dalga sayısı k</dt><dd id="r-k">–</dd></div>
+      <div><dt>1/λ</dt><dd id="r-inv">–</dd></div>
+      <div><dt>Bölge</dt><dd id="r-reg">–</dd></div>
+    </dl>
+    <figcaption>Hesaplar <span class="nw">\(\nu = c/\lambda\),</span> <span class="nw">\(T=1/\nu\),</span> <span class="nw">\(\omega=2\pi\nu\),</span> \(k=2\pi/\lambda\) ile yapılıyor. 1550 nm için periyot yaklaşık 5 femtosaniye: ışık bir saniyede 193 trilyon kez salınıyor.</figcaption>
+  </figure>
+
+  <h3>Neden 1550 nm?</h3>
+  <p>Fiber optik haberleşmenin ana dalga boyu 1550 nm. Fiber silikadan (SiO₂) yapılır ve silikanın kaybı bu civarda en düşük seviyesindedir, yaklaşık <strong>0.2 dB/km</strong>. Kısa dalga boylarında Rayleigh saçılması baskındır ve \(\lambda^{-4}\) ile artar. Uzun dalga boylarında Si–O bağlarının kızılötesi soğurması hızla yükselir. 1550 nm iki etkinin arasındaki vadide kalır.</p>
+  <p>Defterdeki “emission/absorption” notu iki tarafı da karşılıyor. Soğurma tarafı silikanın kayıp minimumu. Emisyon tarafı erbiyum katkılı fiber yükselteçler (EDFA): Er³⁺ iyonları 1530–1565 nm bandında (C bandı) ışık yayarak sinyali elektroniğe çevirmeden güçlendirir.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>Silika fiberde kayıp</h3><span class="hint">şematik model · tipik tek modlu fiber</span></div>
+    <div class="legend" aria-hidden="true"><span><i class="mag"></i>Toplam kayıp (modern fiber)</span><span><i class="mut"></i>Bileşenler</span></div>
+    <div class="graph chartwrap" id="loss-wrap"><svg id="loss" class="svgbox" role="img" aria-label="Dalga boyuna karşı silika fiber kaybı: Rayleigh saçılması kısa dalga boyunda, kızılötesi soğurma uzun dalga boyunda artıyor; toplam kayıp 1550 nm civarında yaklaşık 0.19 dB/km ile en düşük."></svg></div>
+    <figcaption>Model: Rayleigh <span class="nw">\(0.8/\lambda^4\),</span> kızılötesi soğurma \(7.8\times10^{11}e^{-48.5/\lambda}\) (λ µm, sonuç dB/km) ve yapısal kayıplar için sabit 0.03 dB/km. Gri tepe eski fiberlerdeki OH⁻ (su) soğurmasıdır; bugünkü düşük su tepeli fiberlerde yok. Değerleri okumak için grafiğin üstünde gezin.</figcaption>
+  </figure>
+</section>
+
+<section id="isik-hizi">
+  <p class="eyebrow" lang="en">Speed of light</p>
+  <h2>Işık hızı</h2>
+  <p>Vakumda, frekansı ne olursa olsun bütün elektromanyetik dalgalar aynı hızla yayılır:</p>
+  <div class="key">\[ c = 299\,792\,458\ \mathrm{m/s} \approx 3\times10^{8}\ \mathrm{m/s} \]</div>
+  <p>Bu değer 1983’ten beri tanım gereği tamdır; metre, ışığın vakumda 1/299 792 458 saniyede aldığı yol olarak tanımlanır. Hesaplarda \(3\times10^8\) m/s yeterli. Bu sayının \(\mu_0\) ve <span class="nw">\(\varepsilon_0\)’dan</span> nasıl çıktığını 4. bölümde Maxwell denklemlerinden türetiyoruz.</p>
+</section>
+
+<section id="faz-hizi">
+  <p class="eyebrow" lang="en">Phase velocity</p>
+  <h2>Faz hızı</h2>
+  <p>Tek frekanslı (monokromatik) bir dalga \(A\cos(kx-\omega t)\) üzerinde sabit fazlı bir noktayı, örneğin bir tepeyi takip et. Faz \(\phi = kx-\omega t\) sabit kalacaksa:</p>
+  \[ k\,dx - \omega\,dt = 0 \quad\Rightarrow\quad \frac{dx}{dt} = \frac{\omega}{k} \]
+  <p>Bu hıza faz hızı denir. Defterdeki zincir:</p>
+  <div class="key">\[ v_p = \frac{\lambda}{T} = \lambda\nu = \frac{2\pi}{k}\,\nu = \frac{\omega}{k} \]</div>
+  <p>Faz hızı dalganın bütününe değil, tek bir faz noktasının uzayda ilerleme hızına bakar. Bir ortamda <span class="nw">\(v_p = c/n\);</span> burada \(n\) kırılma indisidir (3. bölüm).</p>
+
+  <h3>Faz hızı c’yi aşabilir</h3>
+  <p>Bu bir yazım hatası değil. Kırılma indisinin 1’den küçük olduğu her durumda \(v_p = c/n > c\) olur. Buna <strong>süperlüminal faz hızı</strong> <span class="en">superluminal phase velocity</span> denir. Örnekler:</p>
+  <ul>
+    <li>Plazma ve plazma frekansının üstündeki metal: <span class="nw">\(n \lt 1\).</span></li>
+    <li>X-ışınları: çoğu malzemede \(n\) 1’in biraz altında.</li>
+    <li>Metal dalga kılavuzunda kesim frekansının üstünde: <span class="nw">\(v_p = c/\sqrt{1-\omega_c^2/\omega^2} > c\).</span></li>
+  </ul>
+</section>
+
+<section id="gorelilik">
+  <p class="eyebrow" lang="en">Relativity</p>
+  <h2>Görelilikle çelişiyor mu?</h2>
+  <p>Özel görelilik sinyal, bilgi ya da enerji taşıyan hiçbir şeyin uzayda c’den hızlı gidemeyeceğini söyler. Faz hızının c’yi aşması bununla <strong>çelişmez</strong>, çünkü tek frekanslı bir dalga sinyal taşıyamaz.</p>
+  <p>Saf bir \(A\cos(kx-\omega t)\) dalgası uzayda ve zamanda sonsuza uzanır. Başı yoktur, sonu yoktur, her noktada aynı şekilde salınır. Bir mesaj göndermek için dalgada bir değişiklik yapman gerekir: açıp kapatmak, genliği ya da fazı değiştirmek. Bu değişiklik ancak farklı frekansları üst üste bindirerek <span class="en">superposition</span> yapılabilir. Ortaya çıkan yerel yapıya <strong>dalga paketi</strong> <span class="en">wave packet</span> denir. Bilgi paketin zarfıyla taşınır, tek tek tepelerle değil.</p>
+  <aside class="note fix"><span class="tag">Defterde düzeltme</span><p>Defterde “constant wave: no information or energy can be carried” yazıyor. Enerji kısmı fazla katı: sonsuz monokromatik dalga da enerji akısı taşır, Poynting vektörü sıfır değildir. Taşıyamadığı şey bilgidir. Sınavda “bilgi ya da sinyal taşıyamaz” demek güvenli.</p></aside>
+</section>
+
+<section id="grup-hizi">
+  <p class="eyebrow" lang="en">Wave packet · Group velocity</p>
+  <h2>Dalga paketi ve grup hızı</h2>
+  <p>En basit paket, frekansları birbirine yakın iki dalganın toplamıdır. Trigonometrik toplam formülüyle:</p>
+  \[ \begin{aligned} &\cos(k_1x-\omega_1t)+\cos(k_2x-\omega_2t) \\ &\qquad = 2\,\underbrace{\cos\!\Big(\tfrac{\Delta k}{2}x-\tfrac{\Delta\omega}{2}t\Big)}_{\text{zarf}}\;\underbrace{\cos(\bar k x-\bar\omega t)}_{\text{taşıyıcı}} \end{aligned} \]
+  <p>Burada <span class="nw">\(\bar k\),</span> \(\bar\omega\) ortalamalar, <span class="nw">\(\Delta k\),</span> \(\Delta\omega\) farklar. Taşıyıcı \(\bar\omega/\bar k\) ile, yani faz hızıyla ilerler. Zarf ise \(\Delta\omega/\Delta k\) ile ilerler. İki frekans birbirine yaklaştıkça bu oran türeve dönüşür:</p>
+  <div class="key blue">\[ v_g = \frac{d\omega}{dk}\bigg|_{k_0} \]</div>
+  <p>Grup hızı paketin zarfının, yani bütün şeklin yayılma hızıdır. Defterdeki benzetmeyle: \(v_g\) bütün demet <span class="en">overall bundle</span>, \(v_p\) içindeki tek tek dalgacıklar <span class="en">individual ripples</span>. Aşağıdaki simülasyonda magenta noktalar tepeleri (<span class="nw">\(v_p\)),</span> mavi üçgen zarfın tepesini (<span class="nw">\(v_g\))</span> izliyor.</p>
+</section>
+
+<section id="simulasyon">
+  <p class="eyebrow" lang="en">Simulation</p>
+  <h2>Dalga paketi simülasyonu</h2>
+  <p>Paket, merkez dalga sayısı \(k_0\) etrafında 64 düzlem dalganın toplamı olarak her karede yeniden hesaplanıyor. Ortamı \(\omega(k) = \omega_0 + v_g(k-k_0) + \tfrac12\,\omega''(k-k_0)^2\) ile tanımlıyoruz; kaydırıcılar bu üç sayıyı değiştiriyor. Uzunluk birimi <span class="nw">\(\lambda_0\),</span> hız birimi <span class="nw">\(c\).</span></p>
+  <figure class="panel wide" id="packet">
+    <div class="panel-head"><h3>Faz ve grup hızı</h3><span class="hint"><span style="color:var(--magenta)">●</span> tepe · v<sub>p</sub> &nbsp; <span style="color:var(--blue)">▼</span> zarfın tepesi · v<sub>g</sub></span></div>
+    <div class="graph"><canvas id="pk" class="sim" role="img" aria-label="Hareketli dalga paketi: taşıyıcı dalga, zarf, tepeleri gösteren noktalar ve zarfın tepesini gösteren üçgen."></canvas></div>
+    <div class="controls">
+      <div class="seg" id="pk-pre" role="group" aria-label="Ortam">
+        <button data-v="vac" aria-pressed="true">Vakum</button>
+        <button data-v="normal" aria-pressed="false">Normal dispersiyon</button>
+        <button data-v="plasma" aria-pressed="false">Plazma, n &lt; 1</button>
+        <button data-v="anom" aria-pressed="false">Anormal dispersiyon</button>
+      </div>
+      <div class="seg">
+        <button class="btn" id="pk-play" type="button">Duraklat</button>
+        <button class="btn" id="pk-reset" type="button">Baştan</button>
+      </div>
+    </div>
+    <div class="controls">
+      <label class="slider" for="pk-vp"><span class="lbl">v<sub>p</sub> / c</span><input type="range" id="pk-vp" min="0.3" max="2" step="0.01" value="1"><output id="pk-vpo" for="pk-vp">1.00</output></label>
+      <label class="slider" for="pk-vg"><span class="lbl">v<sub>g</sub> / c</span><input type="range" id="pk-vg" min="0.2" max="1" step="0.01" value="1"><output id="pk-vgo" for="pk-vg">1.00</output></label>
+      <label class="slider" for="pk-b"><span class="lbl">yayılma ω″</span><input type="range" id="pk-b" min="-1.5" max="1.5" step="0.01" value="0"><output id="pk-bo" for="pk-b">0.00</output></label>
+      <label class="slider" for="pk-sp"><span class="lbl">animasyon</span><input type="range" id="pk-sp" min="0.25" max="2" step="0.05" value="1"><output id="pk-spo" for="pk-sp">1.00×</output></label>
+    </div>
+    <div class="pk-bottom">
+      <div class="disp-cell">
+        <div class="legend" aria-hidden="true"><span><i class="ink"></i><span>ω(k)</span></span><span><i class="mag"></i><span>orijinden doğru · eğim v<sub>p</sub></span></span><span><i class="blue"></i><span>teğet · eğim v<sub>g</sub></span></span><span><i class="mut dash"></i><span>ışık doğrusu ω = ck</span></span></div>
+        <div class="graph"><svg id="disp" class="svgbox" role="img" aria-label="Dispersiyon eğrisi ω(k): orijinden çizilen doğrunun eğimi faz hızı, teğetin eğimi grup hızı."></svg></div>
+      </div>
+      <dl class="readout pk-read">
+        <div><dt>Faz hızı v<sub>p</sub></dt><dd id="pk-r1">–</dd></div>
+        <div><dt>Grup hızı v<sub>g</sub></dt><dd id="pk-r2">–</dd></div>
+        <div><dt>n = c / v<sub>p</sub></dt><dd id="pk-r3">–</dd></div>
+        <div><dt>n<sub>g</sub> = c / v<sub>g</sub></dt><dd id="pk-r4">–</dd></div>
+        <div><dt>v<sub>p</sub> · v<sub>g</sub></dt><dd id="pk-r5">–</dd></div>
+        <div><dt>Paket</dt><dd id="pk-r6">–</dd></div>
+      </dl>
+    </div>
+    <figcaption>Vakumda tepeler ve zarf birlikte gider, paket şeklini korur. Plazmada tepeler zarfın arkasında doğup içinden hızla geçerek önde kaybolur: \(v_p>c\) ama <span class="nw">\(v_g \lt c\).</span> Anormal dispersiyonda tersi olur. “Yayılma” ω″ sıfırdan farklıysa paket ilerlerken genişler. Normal ve anormal hazır ayarlardaki farklar görünür olsun diye abartıldı; camda gerçek fark yüzde birkaç mertebesinde.</figcaption>
+  </figure>
+</section>
+
+<section id="dispersiyon">
+  <p class="eyebrow" lang="en">Dispersion relation</p>
+  <h2>Dispersiyon bağıntısı</h2>
+  <p><span class="nw">\(\omega(k)\),</span> zamandaki frekansı uzaydaki dalga sayısına bağlayan fonksiyondur <span class="en">dispersion function</span>. Ortamın dalgalara nasıl davrandığının özeti budur. İki hız da aynı eğriden okunur: \(v_p\) orijinden eğrideki noktaya çizilen doğrunun eğimi, \(v_g\) o noktadaki teğetin eğimi. Simülasyonun altındaki grafik tam olarak bunu gösteriyor.</p>
+  <h3>Vakum: dispersiyonsuz ortam</h3>
+  <div class="key">\[ \omega = ck \quad\Rightarrow\quad v_g=\frac{d\omega}{dk} = c = \frac{\omega}{k} = v_p \]</div>
+  <p>Eğri bir doğru olduğu için secant ve teğet çakışır. Paketteki her frekans bileşeni aynı hızla gider; paket ve içindeki dalgalar c ile ilerler, paket şeklini korur. Böyle ortama dispersiyonsuz <span class="en">non-dispersive</span> denir.</p>
+  <h3>Dispersif ortam: \(v_g \neq v_p\)</h3>
+  <p>Maddede kırılma indisi frekansa bağlıdır, <span class="nw">\(k = n(\omega)\,\omega/c\).</span> Bunun türevini alınca grup hızı için kullanışlı bir form çıkar:</p>
+  \[ \frac{dk}{d\omega} = \frac{1}{c}\Big(n + \omega\frac{dn}{d\omega}\Big) \quad\Rightarrow\quad v_g = \frac{c}{n_g},\qquad n_g = n + \omega\frac{dn}{d\omega} \]
+  <p>\(n_g\) grup indisidir. <strong>Normal dispersiyonda</strong> (<span class="nw">\(dn/d\omega>0\),</span> görünür bölgede cam) \(n_g>n\) olur ve paket tepelerden yavaş gider. <strong>Anormal dispersiyonda</strong>, soğurma çizgilerinin yakınında, tersi olur. Eğrinin bükülmesi, yani <span class="nw">\(d^2\omega/dk^2 \neq 0\),</span> farklı frekansların birbirinden ayrılması demektir; fiberde darbelerin yol boyunca genişlemesinin sebebi budur.</p>
+  <aside class="note more"><span class="tag">Bir adım ötesi</span><p>Grup hızı c’yi aşabilir mi? Güçlü anormal dispersiyonun olduğu dar bantlarda evet, hatta negatif olabilir; deneylerde gösterildi. Bilgi yine de c’den hızlı gitmez. Bir sinyalin en ön cephesi her ortamda tam c ile ilerler, çünkü çok yüksek frekanslarda her ortam vakum gibi davranır (<span class="nw">\(n\to1\)).</span> Zarfın tepesinin öne geçmesi paketin ön kısmının yeniden şekillenmesinden ibarettir (Sommerfeld ve Brillouin, 1914).</p></aside>
+  <p>Plazma iyi bir örnek: <span class="nw">\(\omega^2 = \omega_p^2 + c^2k^2\).</span> Buradan \(v_p = \omega/k > c\) ve <span class="nw">\(v_g = c^2k/\omega < c\),</span> çarpımları tam olarak <span class="nw">\(v_p\,v_g = c^2\).</span> Simülasyonda “Plazma” ayarı bu değerleri kullanıyor.</p>
+</section>
+
+<section id="test" class="quiz">
+  <p class="eyebrow" lang="en">Self-check</p>
+  <h2>Kendini test et</h2>
+  <details><summary>λ = 1550 nm için ν ve T nedir?</summary><div class="ans"><p>\(\nu = c/\lambda = 3\times10^8 / 1.55\times10^{-6} \approx 193.4\) THz. \(T = 1/\nu \approx 5.17\) fs.</p></div></details>
+  <details><summary>Vakumda faz hızı ve grup hızı nedir? Paket şeklini korur mu?</summary><div class="ans"><p>\(\omega = ck\) doğrusal olduğu için \(v_p = \omega/k = c\) ve <span class="nw">\(v_g = d\omega/dk = c\).</span> Bütün bileşenler aynı hızla gittiğinden paket şeklini korur.</p></div></details>
+  <details><summary>Bir plazmada <span class="nw">\(\omega^2 = \omega_p^2 + c^2k^2\).</span> \(v_p v_g\) çarpımı nedir?</summary><div class="ans"><p><span class="nw">\(v_p = \omega/k\).</span> Türev: <span class="nw">\(2\omega\,d\omega = 2c^2k\,dk\),</span> yani <span class="nw">\(v_g = c^2k/\omega\).</span> Çarpım <span class="nw">\(v_p v_g = c^2\).</span> \(v_p > c\) iken <span class="nw">\(v_g < c\).</span></p></div></details>
+  <details><summary>Sonsuz bir kosinüs dalgası neden bilgi taşıyamaz?</summary><div class="ans"><p>Hiçbir yerde değişmez; başlangıcı ya da sonu yoktur. Bilgi kodlamak için dalgayı değiştirmek (modülasyon) gerekir, bu da birden fazla frekansın üst üste binmesi, yani bir dalga paketi demektir. Bilgi zarfla taşınır.</p></div></details>
+  <details><summary>\(k = n\omega/c\) bağıntısından grup indisini türet.</summary><div class="ans"><p><span class="nw">\(dk/d\omega = (n + \omega\,dn/d\omega)/c\).</span> <span class="nw">\(v_g = d\omega/dk = c/(n + \omega\,dn/d\omega)\),</span> yani <span class="nw">\(n_g = n + \omega\,dn/d\omega\).</span></p></div></details>
+  <details><summary>Faz hızının c’den büyük olduğu bir ortamda grup hızı da c’den büyük olmak zorunda mı?</summary><div class="ans"><p>Hayır. Plazma örneğinde \(v_p > c\) iken <span class="nw">\(v_g = c^2/v_p < c\).</span> İkisi farklı şeyleri ölçer.</p></div></details>
+</section>
+
+<p class="next">Sonraki bölüm: <a href="../2-dalga-parcacik-ikiligi/">Dalga-parçacık ikiliği →</a></p>
+  </article>
+</div>
+<footer class="wrap foot" lang="tr">
+  <p class="kbm-back"><a href="../../#nanofotonik">← Nanofotonik serisi</a> · <a href="../../">602’nin haftaları</a></p>
+  
+  <p>Kaynak: Nanofotonik dersi, 25.09.2026 tarihli defter notları ve tahta fotoğrafları. “Defterde düzeltme” etiketli notlar defterdeki bir ifadeyi düzeltir ya da netleştirir. Malzeme sabitleri yaklaşık değerlerdir.</p>
+</footer>
+<script>
+(function(){
+"use strict";
+var NF = window.NF = {};
+var root = document.documentElement;
+var tokCache = {};
+NF.tok = function(name){
+  if (tokCache[name] === undefined) tokCache[name] = getComputedStyle(root).getPropertyValue(name).trim();
+  return tokCache[name];
+};
+var themeCbs = [];
+NF.onTheme = function(cb){ themeCbs.push(cb); };
+function themeChanged(){ tokCache = {}; themeCbs.forEach(function(cb){ try{ cb(); }catch(e){} }); }
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeChanged); } catch(e){}
+try { new MutationObserver(themeChanged).observe(root, {attributes:true, attributeFilter:["data-theme","class","style"]}); } catch(e){}
+
+NF.reduceMotion = false;
+try { NF.reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+
+NF.fitCanvas = function(canvas, cssH){
+  var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  var w = Math.max(240, Math.round(canvas.parentNode.getBoundingClientRect().width));
+  var h = typeof cssH === "function" ? cssH(w) : cssH;
+  if (canvas._w !== w || canvas._h !== h || canvas._dpr !== dpr){
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    canvas.style.height = h + "px";
+    canvas._w = w; canvas._h = h; canvas._dpr = dpr;
+  }
+  var ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {ctx: ctx, w: w, h: h};
+};
+NF.onResize = function(el, cb){
+  var t = null;
+  try { new ResizeObserver(function(){ clearTimeout(t); t = setTimeout(cb, 40); }).observe(el); }
+  catch(e){ window.addEventListener("resize", cb); }
+};
+NF.whenVisible = function(el, cb){
+  try {
+    new IntersectionObserver(function(es){ es.forEach(function(e){ cb(e.isIntersecting); }); }, {rootMargin:"80px"}).observe(el);
+  } catch(e){ cb(true); }
+};
+
+var SUP = {"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+NF.sup = function(n){ return String(n).split("").map(function(c){ return SUP[c] || c; }).join(""); };
+NF.sci = function(x, d){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var e = Math.floor(Math.log10(Math.abs(x)));
+  var m = x / Math.pow(10, e);
+  if (Math.abs(m) >= 9.9995 && d <= 3) { m /= 10; e += 1; }
+  return m.toFixed(d) + "×10" + NF.sup(e);
+};
+NF.num = function(x, d){
+  if (!isFinite(x)) return "∞";
+  var a = Math.abs(x);
+  if (a !== 0 && (a >= 1e5 || a < 1e-3)) return NF.sci(x, Math.max(1, d - 1));
+  return x.toFixed(d);
+};
+NF.sig = function(x, s){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var a = Math.abs(x);
+  if (a >= 1e5 || a < 1e-3) return NF.sci(x, s - 1);
+  var d = Math.max(0, s - 1 - Math.floor(Math.log10(a)));
+  return x.toFixed(d);
+};
+NF.logFrom = function(t, lo, hi){ return lo * Math.pow(hi / lo, t); };
+NF.logTo = function(v, lo, hi){ return Math.log(v / lo) / Math.log(hi / lo); };
+
+var SVGNS = "http://www.w3.org/2000/svg";
+NF.el = function(tag, attrs, parent, text){
+  var e = document.createElementNS(SVGNS, tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+};
+NF.path = function(pts){
+  var s = "";
+  for (var i = 0; i < pts.length; i++) s += (i ? "L" : "M") + pts[i][0].toFixed(2) + " " + pts[i][1].toFixed(2);
+  return s;
+};
+NF.clear = function(node){ while (node.firstChild) node.removeChild(node.firstChild); };
+
+/* wavelength (nm) to sRGB, Bruton's approximation with edge falloff */
+NF.wl2rgb = function(wl){
+  var r=0,g=0,b=0;
+  if (wl>=380&&wl<440){r=-(wl-440)/60;b=1}
+  else if (wl<490){g=(wl-440)/50;b=1}
+  else if (wl<510){g=1;b=-(wl-510)/20}
+  else if (wl<580){r=(wl-510)/70;g=1}
+  else if (wl<645){r=1;g=-(wl-645)/65}
+  else if (wl<=780){r=1}
+  var f = 1;
+  if (wl < 380 || wl > 780) f = 0;
+  else if (wl < 420) f = .3 + .7*(wl-380)/40;
+  else if (wl > 700) f = .3 + .7*(780-wl)/80;
+  function c(v){ return Math.round(255 * Math.pow(v * f, .8)); }
+  return [c(r), c(g), c(b)];
+};
+NF.wlName = function(wl){
+  if (wl < 380) return "morötesi (UV)";
+  if (wl < 450) return "mor";
+  if (wl < 495) return "mavi";
+  if (wl < 570) return "yeşil";
+  if (wl < 590) return "sarı";
+  if (wl < 620) return "turuncu";
+  if (wl <= 750) return "kırmızı";
+  if (wl <= 1400) return "yakın kızılötesi";
+  return "kızılötesi (telekom)";
+};
+
+/* tooltip helper: rows = [{k:"mag"|"blue"|"", label:"", value:""}] */
+NF.tooltip = function(wrap){
+  var tip = document.createElement("div");
+  tip.className = "ttip"; tip.hidden = true; tip.setAttribute("role","status");
+  wrap.appendChild(tip);
+  return {
+    show: function(x, y, head, rows){
+      NF.clear(tip);
+      var h = document.createElement("div"); h.className = "h"; h.textContent = head; tip.appendChild(h);
+      rows.forEach(function(r){
+        var row = document.createElement("div"); row.className = "row";
+        var k = document.createElement("i"); k.className = "k " + (r.k || ""); row.appendChild(k);
+        var v = document.createElement("b"); v.textContent = r.value; row.appendChild(v);
+        var l = document.createElement("span"); l.textContent = r.label; row.appendChild(l);
+        tip.appendChild(row);
+      });
+      tip.hidden = false;
+      var W = wrap.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+      var left = x + 14; if (left + tw > W - 4) left = x - tw - 14; if (left < 4) left = 4;
+      var top = y - th - 10; if (top < 4) top = y + 14;
+      tip.style.left = left + "px"; tip.style.top = top + "px";
+    },
+    hide: function(){ tip.hidden = true; }
+  };
+};
+
+/* spectral rule under the masthead */
+(function(){
+  var bar = document.querySelector(".spectrum");
+  if (!bar) return;
+  var stops = [];
+  for (var wl = 380; wl <= 750; wl += 10){
+    var c = NF.wl2rgb(wl);
+    stops.push("rgb(" + c.join(",") + ") " + ((wl - 380) / 370 * 100).toFixed(1) + "%");
+  }
+  bar.style.background = "linear-gradient(90deg," + stops.join(",") + ")";
+  var sc = document.querySelector(".spectrum-scale");
+  if (sc) [400,500,600,700].forEach(function(wl){
+    var s = document.createElement("span");
+    s.style.left = ((wl - 380) / 370 * 100) + "%";
+    s.textContent = wl + " nm";
+    sc.appendChild(s);
+  });
+})();
+
+/* table of contents: mark the section in view */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  var map = {};
+  links.forEach(function(a){ var s = document.getElementById(a.getAttribute("href").slice(1)); if (s) map[s.id] = a; });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){
+        links.forEach(function(a){ a.classList.remove("on"); });
+        if (map[e.target.id]) map[e.target.id].classList.add("on");
+      }
+    });
+  }, {rootMargin:"-20% 0px -70% 0px"});
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+
+/* segmented buttons: one pressed at a time */
+NF.seg = function(group, onPick){
+  var btns = Array.prototype.slice.call(group.querySelectorAll("button"));
+  btns.forEach(function(b){
+    b.addEventListener("click", function(){
+      btns.forEach(function(o){ o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      onPick(b.dataset.v, b);
+    });
+  });
+  return {
+    clear: function(){ btns.forEach(function(o){ o.setAttribute("aria-pressed","false"); }); },
+    set: function(v){ btns.forEach(function(o){ o.setAttribute("aria-pressed", o.dataset.v === v ? "true" : "false"); }); }
+  };
+};
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+var TAU = Math.PI * 2;
+
+function sizeSvg(svg, H){
+  var W = Math.max(300, Math.round(svg.parentNode.getBoundingClientRect().width));
+  if (typeof H === "function") H = H(W);
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  NF.clear(svg);
+  return {W: W, H: H};
+}
+function arrowHead(svg, x, y, dir, cls){
+  // dir in radians, tip at (x,y)
+  var a = 7, b = 3.6;
+  var p1 = [x - a*Math.cos(dir) + b*Math.sin(dir), y - a*Math.sin(dir) - b*Math.cos(dir)];
+  var p2 = [x - a*Math.cos(dir) - b*Math.sin(dir), y - a*Math.sin(dir) + b*Math.cos(dir)];
+  NF.el("polygon", {points: x+","+y+" "+p1.join(",")+" "+p2.join(","), class: cls}, svg);
+}
+
+/* ---------- 1. snapshot figure ---------- */
+function drawSnap(){
+  var svg = document.getElementById("snap"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 340 : 200; });
+  var W = s.W, H = s.H, narrow = W < 600;
+  var panels = narrow
+    ? [{x:0, y:0, w:W, h:H/2}, {x:0, y:H/2, w:W, h:H/2}]
+    : [{x:0, y:0, w:W/2, h:H}, {x:W/2, y:0, w:W/2, h:H}];
+  panel(svg, panels[0], "λ", "konum x", "f-mag", "s-mag", true, "E(x) · t sabit");
+  panel(svg, panels[1], "T", "zaman t", "f-blue", "s-blue", false, "E(t) · x sabit");
+}
+function panel(svg, p, per, axis, fcls, scls, showA, title){
+  var L = p.x + 26, R = p.x + p.w - 16, mid = p.y + p.h*0.58, amp = p.h*0.25;
+  var u0 = -0.25, u1 = 2.3;
+  function X(u){ return L + (u - u0)/(u1 - u0)*(R - L); }
+  NF.el("line", {x1:L-8, y1:mid, x2:R+4, y2:mid, class:"s-mut", "stroke-width":1}, svg);
+  arrowHead(svg, R+8, mid, 0, "f-mut");
+  NF.el("text", {x:R+4, y:mid+17, "text-anchor":"end", class:"lab"}, svg, axis);
+  NF.el("text", {x:L-8, y:p.y+18, class:"lab ink"}, svg, title);
+  var pts = [];
+  for (var i = 0; i <= 260; i++){ var u = u0 + (u1-u0)*i/260; pts.push([X(u), mid - amp*Math.cos(TAU*u)]); }
+  NF.el("path", {d: NF.path(pts), class:"s-ink"}, svg);
+  var yb = mid - amp - 13;
+  [0,1].forEach(function(u){ NF.el("line", {x1:X(u), y1:mid-amp-4, x2:X(u), y2:yb-5, class:scls, "stroke-width":1}, svg); });
+  NF.el("line", {x1:X(0)+2, y1:yb, x2:X(1)-2, y2:yb, class:scls, "stroke-width":1.5}, svg);
+  arrowHead(svg, X(0), yb, Math.PI, fcls); arrowHead(svg, X(1), yb, 0, fcls);
+  NF.el("text", {x:(X(0)+X(1))/2, y:yb-6, "text-anchor":"middle", class:"lab strong"}, svg, per);
+  if (showA){
+    var xa = X(2);
+    NF.el("line", {x1:xa, y1:mid-2, x2:xa, y2:mid-amp+6, class:"s-mut", "stroke-width":1.3}, svg);
+    arrowHead(svg, xa, mid-amp+1, -Math.PI/2, "f-mut");
+    NF.el("text", {x:xa+7, y:mid-amp/2+4, class:"lab strong"}, svg, "A");
+  }
+}
+
+/* ---------- 2. spectrum ruler ---------- */
+var LO = 100, HI = 2000, lam = 1550;
+var lamIn = document.getElementById("lam1"), lamOut = document.getElementById("lam1o");
+var pre = NF.seg(document.getElementById("lam1-pre"), function(v){ setLam(+v); });
+function setLam(v, fromSlider){
+  lam = Math.max(LO, Math.min(HI, Math.round(v)));
+  if (!fromSlider) lamIn.value = Math.round(NF.logTo(lam, LO, HI)*1000);
+  pre.set(String(lam));
+  lamOut.textContent = lam + " nm";
+  var nu = 299792.458 / lam;                 // THz
+  document.getElementById("r-nu").textContent = nu.toFixed(nu < 1000 ? 1 : 0) + " THz";
+  document.getElementById("r-T").textContent = (lam / 299.792458).toFixed(3) + " fs";
+  document.getElementById("r-w").textContent = NF.sci(TAU*nu*1e12, 3) + " rad/s";
+  document.getElementById("r-k").textContent = (TAU / (lam/1000)).toFixed(3) + " rad/µm";
+  document.getElementById("r-inv").textContent = Math.round(1e7/lam) + " cm⁻¹";
+  var reg = document.getElementById("r-reg"); NF.clear(reg);
+  if (lam >= 380 && lam <= 750){
+    var chip = document.createElement("span");
+    chip.style.cssText = "display:inline-block;width:.8em;height:.8em;border-radius:50%;margin-right:.4em;vertical-align:-.05em;background:rgb(" + NF.wl2rgb(lam).join(",") + ")";
+    reg.appendChild(chip);
+  }
+  reg.appendChild(document.createTextNode(NF.wlName(lam)));
+  drawRuler();
+}
+lamIn.addEventListener("input", function(){ setLam(NF.logFrom(lamIn.value/1000, LO, HI), true); });
+
+function drawRuler(){
+  var svg = document.getElementById("ruler");
+  var s = sizeSvg(svg, 128), W = s.W;
+  var L = 18, R = W - 18, y0 = 40, y1 = 74;
+  function X(nm){ return L + NF.logTo(nm, LO, HI)*(R - L); }
+  var defs = NF.el("defs", {}, svg);
+  var g = NF.el("linearGradient", {id:"visgrad", gradientUnits:"userSpaceOnUse", x1:X(380), x2:X(750), y1:0, y2:0}, defs);
+  for (var wl = 380; wl <= 750; wl += 10){
+    NF.el("stop", {offset: ((X(wl)-X(380))/(X(750)-X(380))).toFixed(4), "stop-color":"rgb(" + NF.wl2rgb(wl).join(",") + ")"}, g);
+  }
+  NF.el("rect", {x:L, y:y0, width:R-L, height:y1-y0, class:"w-mag"}, svg);
+  NF.el("rect", {x:X(380), y:y0, width:X(750)-X(380), height:y1-y0, fill:"url(#visgrad)"}, svg);
+  NF.el("text", {x:L, y:16, class:"lab ink"}, svg, "nanofotonik penceresi · 100 nm – 2 µm");
+  NF.el("text", {x:(X(100)+X(380))/2, y:y0-7, "text-anchor":"middle", class:"lab"}, svg, "UV");
+  NF.el("text", {x:(X(380)+X(750))/2, y:y0-7, "text-anchor":"middle", class:"lab"}, svg, "görünür");
+  NF.el("text", {x:(X(750)+X(2000))/2, y:y0-7, "text-anchor":"middle", class:"lab"}, svg, "kızılötesi");
+  var minor = [100,200,300,400,500,600,700,800,900,1000,2000];
+  minor.forEach(function(v){ NF.el("line", {x1:X(v), y1:y1, x2:X(v), y2:y1+5, class:"s-mut", "stroke-width":1}, svg); });
+  var major = W < 520 ? [100,300,1000,2000] : [100,200,400,700,1000,2000];
+  major.forEach(function(v){
+    NF.el("line", {x1:X(v), y1:y1, x2:X(v), y2:y1+8, class:"s-mut", "stroke-width":1}, svg);
+    NF.el("text", {x:X(v), y:y1+20, "text-anchor": v===100 ? "start" : v===2000 ? "end" : "middle", class:"lab"}, svg, v >= 1000 ? (v/1000) + " µm" : String(v));
+  });
+  [[1310,"O"],[1550,"C"]].forEach(function(b){
+    NF.el("line", {x1:X(b[0]), y1:y0, x2:X(b[0]), y2:y1, class:"s-mut", "stroke-width":1}, svg);
+    NF.el("text", {x:X(b[0])+3, y:y1-4, class:"lab"}, svg, b[1]);
+  });
+  var xm = X(lam);
+  NF.el("line", {x1:xm, y1:y0-4, x2:xm, y2:y1+30, class:"s-mag", "stroke-width":2}, svg);
+  NF.el("circle", {cx:xm, cy:y0-4, r:5, class:"f-mag ring"}, svg);
+  var lab = lam + " nm";
+  var anchor = xm > W - 70 ? "end" : xm < 70 ? "start" : "middle";
+  NF.el("text", {x: anchor === "end" ? xm-6 : anchor === "start" ? xm+6 : xm, y:y1+44, "text-anchor":anchor, class:"lab strong"}, svg, lab);
+}
+(function(){
+  var svg = document.getElementById("ruler"), dragging = false;
+  function pick(e){
+    var r = svg.getBoundingClientRect(), W = r.width;
+    var t = (e.clientX - r.left - 18) / (W - 36);
+    setLam(NF.logFrom(Math.max(0, Math.min(1, t)), LO, HI));
+  }
+  svg.addEventListener("pointerdown", function(e){ dragging = true; try{ svg.setPointerCapture(e.pointerId); }catch(_){} pick(e); });
+  svg.addEventListener("pointermove", function(e){ if (dragging) pick(e); });
+  svg.addEventListener("pointerup", function(){ dragging = false; });
+  svg.addEventListener("pointercancel", function(){ dragging = false; });
+  svg.style.cursor = "pointer";
+})();
+
+/* ---------- 3. fiber loss chart ---------- */
+function loss(lu){
+  var ray = 0.8 / Math.pow(lu, 4);
+  var ir = 7.81e11 * Math.exp(-48.48 / lu);
+  var oh = 1.0*Math.exp(-0.5*Math.pow((lu-1.383)/0.0125, 2)) + 0.12*Math.exp(-0.5*Math.pow((lu-1.24)/0.012, 2)) + 0.1*Math.exp(-0.5*Math.pow((lu-0.945)/0.012, 2));
+  return {ray: ray, ir: ir, oh: oh, tot: ray + ir + 0.03};
+}
+var lossHover = null, lossTip = null;
+function drawLoss(){
+  var svg = document.getElementById("loss"), wrap = document.getElementById("loss-wrap");
+  var s = sizeSvg(svg, function(W){ return W < 560 ? 250 : 290; }), W = s.W, H = s.H;
+  var L = 44, R = W - 16, T = 22, B = H - 34;
+  var x0 = 800, x1 = 1700, ymax = 2.2;
+  function X(nm){ return L + (nm - x0)/(x1 - x0)*(R - L); }
+  function Y(v){ return B - Math.min(v, ymax)/ymax*(B - T); }
+  [[1260,1360,"O"],[1530,1565,"C"]].forEach(function(b){
+    NF.el("rect", {x:X(b[0]), y:T, width:X(b[1])-X(b[0]), height:B-T, class:"w-blue"}, svg);
+    NF.el("text", {x:(X(b[0])+X(b[1]))/2, y:T-7, "text-anchor":"middle", class:"lab"}, svg, b[2] + " bandı");
+  });
+  var ax = NF.el("g", {class:"ax"}, svg);
+  [0, 0.5, 1, 1.5, 2].forEach(function(v){
+    NF.el("line", {x1:L, y1:Y(v), x2:R, y2:Y(v)}, ax);
+    NF.el("text", {x:L-7, y:Y(v)+4, "text-anchor":"end"}, ax, v.toFixed(1));
+  });
+  var xt = W < 560 ? [800,1000,1200,1400,1600] : [800,900,1000,1100,1200,1300,1400,1500,1600,1700];
+  xt.forEach(function(v){ NF.el("text", {x:X(v), y:B+16, "text-anchor":"middle"}, ax, String(v)); });
+  NF.el("text", {x:R, y:B+30, "text-anchor":"end"}, ax, "λ (nm)");
+  NF.el("text", {x:L-38, y:T-7}, ax, "dB/km");
+  var ray = [], ir = [], tot = [], old = [];
+  for (var nm = x0; nm <= x1; nm += 2){
+    var m = loss(nm/1000);
+    ray.push([X(nm), Y(m.ray)]); if (m.ir > 0.004) ir.push([X(nm), Y(m.ir)]);
+    tot.push([X(nm), Y(m.tot)]); old.push([X(nm), Y(m.tot + m.oh)]);
+  }
+  NF.el("path", {d:NF.path(old), class:"s-mut s-dash", "stroke-width":1.2}, svg);
+  NF.el("path", {d:NF.path(ray), class:"s-mut"}, svg);
+  NF.el("path", {d:NF.path(ir), class:"s-mut"}, svg);
+  NF.el("path", {d:NF.path(tot), class:"s-mag"}, svg);
+  var best = 0, bv = 9;
+  for (nm = 1400; nm <= 1700; nm++){ var t = loss(nm/1000).tot; if (t < bv){ bv = t; best = nm; } }
+  NF.el("circle", {cx:X(best), cy:Y(bv), r:4.5, class:"f-mag ring"}, svg);
+  NF.el("text", {x:X(best), y:Y(bv)-12, "text-anchor":"middle", class:"lab strong"}, svg, "≈ " + bv.toFixed(2) + " dB/km");
+  NF.el("text", {x:X(1000)-6, y:Y(loss(1.0).ray)+18, "text-anchor":"end", class:"lab ink"}, svg, "Rayleigh ∝ λ⁻⁴");
+  var narrow = W < 560;
+  if (!narrow) NF.el("text", {x:X(1062)+4, y:Y(loss(1.062).tot)-10, class:"lab strong"}, svg, "toplam");
+  NF.el("text", {x:X(1383)+(narrow ? -6 : 8), y:Y(loss(1.383).tot + loss(1.383).oh)+(narrow ? -8 : 4), "text-anchor": narrow ? "end" : "start", class:"lab"}, svg, narrow ? "OH⁻" : "OH⁻ (eski fiber)");
+  var irx = 1690, iry = Y(loss(irx/1000).ir);
+  var iyl = narrow ? 1.55 : 0.95;
+  NF.el("line", {x1:X(irx), y1:Y(iyl)+4, x2:X(irx), y2:iry-5, class:"s-mut", "stroke-width":1}, svg);
+  NF.el("text", {x:X(irx)+4, y:Y(iyl), "text-anchor":"end", class:"lab ink"}, svg, narrow ? "kızılötesi" : "kızılötesi soğurma");
+  var hover = NF.el("g", {}, svg);
+  if (!lossTip) lossTip = NF.tooltip(wrap);
+  function show(nmv){
+    NF.clear(hover);
+    nmv = Math.max(x0, Math.min(x1, Math.round(nmv/5)*5));
+    var m = loss(nmv/1000);
+    NF.el("line", {x1:X(nmv), y1:T, x2:X(nmv), y2:B, class:"s-mut", "stroke-width":1}, hover);
+    NF.el("circle", {cx:X(nmv), cy:Y(m.tot), r:4, class:"f-mag ring"}, hover);
+    lossHover = nmv;
+    lossTip.show(X(nmv), Y(m.tot), nmv + " nm", [
+      {k:"mag", label:"toplam", value:m.tot.toFixed(3) + " dB/km"},
+      {k:"", label:"Rayleigh", value:m.ray.toFixed(3)},
+      {k:"", label:"kızılötesi", value:m.ir < 0.001 ? "< 0.001" : m.ir.toFixed(3)},
+      {k:"", label:"OH⁻ (eski)", value:"+" + m.oh.toFixed(3)}
+    ]);
+  }
+  svg.onpointermove = function(e){ var r = svg.getBoundingClientRect(); show(x0 + (e.clientX - r.left - L)/(R - L)*(x1 - x0)); };
+  svg.onpointerleave = function(){ NF.clear(hover); lossTip.hide(); lossHover = null; };
+  svg.setAttribute("tabindex", "0");
+  svg.onkeydown = function(e){
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+      e.preventDefault();
+      show((lossHover || 1550) + (e.key === "ArrowRight" ? 10 : -10));
+    }
+  };
+  svg.onblur = function(){ NF.clear(hover); lossTip.hide(); };
+  svg.onfocus = function(){ show(lossHover || 1550); };
+}
+
+/* ---------- 4. wave packet ---------- */
+var K0 = TAU, N = 64;
+var PRE = {vac:{vp:1, vg:1, b:0}, normal:{vp:0.72, vg:0.52, b:-0.25}, plasma:{vp:1.6, vg:0.625, b:0.381}, anom:{vp:0.75, vg:0.95, b:0.2}};
+var pk = {vp:1, vg:1, b:0, speed:1, t:0, playing:!NF.reduceMotion, visible:true, last:0, raf:0};
+var canvas = document.getElementById("pk");
+var Wpx = 0, Xlen, x0, sigma, kj, aj, Ctab, Stab, re, im, env;
+function setup(w){
+  Wpx = Math.round(w);
+  Xlen = Math.min(26, Math.max(11, w/36));
+  sigma = Math.min(1.6, Math.max(0.85, Xlen/16));
+  x0 = 3*sigma + 0.4;
+  var sk = 1/sigma, sum = 0;
+  kj = new Float64Array(N); aj = new Float64Array(N);
+  for (var j = 0; j < N; j++){
+    var dk = -3.5*sk + 7*sk*j/(N-1);
+    kj[j] = K0 + dk; aj[j] = Math.exp(-0.5*dk*dk*sigma*sigma); sum += aj[j];
+  }
+  for (j = 0; j < N; j++) aj[j] /= sum;
+  Ctab = new Float32Array(N*Wpx); Stab = new Float32Array(N*Wpx);
+  for (j = 0; j < N; j++) for (var i = 0; i < Wpx; i++){
+    var x = i/(Wpx-1)*Xlen, ph = kj[j]*(x - x0);
+    Ctab[j*Wpx+i] = Math.cos(ph); Stab[j*Wpx+i] = Math.sin(ph);
+  }
+  re = new Float32Array(Wpx); im = new Float32Array(Wpx); env = new Float32Array(Wpx);
+}
+function field(t){
+  re.fill(0); im.fill(0);
+  var beta = pk.b / K0;
+  for (var j = 0; j < N; j++){
+    var dk = kj[j] - K0;
+    var w = pk.vp*K0 + pk.vg*dk + 0.5*beta*dk*dk;
+    var cw = Math.cos(w*t), sw = Math.sin(w*t), a = aj[j], off = j*Wpx;
+    for (var i = 0; i < Wpx; i++){
+      var c = Ctab[off+i], s = Stab[off+i];
+      re[i] += a*(c*cw + s*sw);
+      im[i] += a*(s*cw - c*sw);
+    }
+  }
+  var mx = 0;
+  for (var i2 = 0; i2 < Wpx; i2++){ env[i2] = Math.sqrt(re[i2]*re[i2] + im[i2]*im[i2]); if (env[i2] > mx) mx = env[i2]; }
+  return mx;
+}
+function sigmaT(t){ var beta = pk.b/K0; return sigma*Math.sqrt(1 + Math.pow(beta*t/(sigma*sigma), 2)); }
+function midT(){ return Math.max(0, (Xlen*0.5 - x0)/pk.vg); }
+function drawPk(){
+  var f = NF.fitCanvas(canvas, function(w){ return w < 560 ? 210 : 250; });
+  if (f.w !== Wpx) setup(f.w);
+  var ctx = f.ctx, w = f.w, h = f.h, mid = h*0.56, A = h*0.36;
+  var px = (Wpx-1)/Xlen;
+  ctx.clearRect(0, 0, w, h);
+  var mx = field(pk.t);
+  ctx.strokeStyle = NF.tok("--rule"); ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(w, mid); ctx.stroke();
+  ctx.beginPath();
+  for (var i = 0; i < Wpx; i++) ctx.lineTo(i, mid - A*env[i]);
+  for (i = Wpx-1; i >= 0; i--) ctx.lineTo(i, mid + A*env[i]);
+  ctx.closePath(); ctx.fillStyle = NF.tok("--blue-wash"); ctx.fill();
+  ctx.strokeStyle = NF.tok("--blue"); ctx.lineWidth = 1.5;
+  ctx.beginPath(); for (i = 0; i < Wpx; i++) ctx.lineTo(i, mid - A*env[i]); ctx.stroke();
+  ctx.beginPath(); for (i = 0; i < Wpx; i++) ctx.lineTo(i, mid + A*env[i]); ctx.stroke();
+  ctx.strokeStyle = NF.tok("--ink"); ctx.lineWidth = 1.6; ctx.lineJoin = "round";
+  ctx.beginPath(); for (i = 0; i < Wpx; i++) ctx.lineTo(i, mid - A*re[i]); ctx.stroke();
+  var xg = x0 + pk.vg*pk.t, st = sigmaT(pk.t);
+  var mag = NF.tok("--magenta"), sheet = NF.tok("--sheet"), ink2 = NF.tok("--ink-2");
+  var base = x0 + pk.vp*pk.t;
+  var mLo = Math.ceil(xg - 3.2*st - base), mHi = Math.floor(xg + 3.2*st - base);
+  var tracked = null;
+  for (var m = mLo; m <= mHi; m++){
+    var xc = base + m; if (xc < 0 || xc > Xlen) continue;
+    var ic = Math.round(xc*px), r = Math.max(2, Math.round(0.3*px)), best = ic, bv = -9;
+    for (var q = Math.max(0, ic - r); q <= Math.min(Wpx-1, ic + r); q++) if (re[q] > bv){ bv = re[q]; best = q; }
+    var al = mx > 0 ? env[best]/mx : 0;
+    if (al < 0.12 || bv <= 0) continue;
+    ctx.globalAlpha = Math.min(1, al*1.15);
+    ctx.beginPath(); ctx.arc(best, mid - A*re[best], 4.2, 0, TAU);
+    ctx.fillStyle = mag; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = sheet; ctx.stroke();
+    ctx.globalAlpha = 1;
+    if (m === 0) tracked = [best, mid - A*re[best], al];
+  }
+  if (tracked){
+    ctx.globalAlpha = Math.min(1, tracked[2]*1.2);
+    ctx.beginPath(); ctx.arc(tracked[0], tracked[1], 8.5, 0, TAU);
+    ctx.lineWidth = 2; ctx.strokeStyle = mag; ctx.stroke();
+    ctx.fillStyle = ink2; ctx.font = "600 12px " + NF.tok("--font-mono");
+    ctx.textAlign = "right"; ctx.fillText("faz", tracked[0] - 12, tracked[1] + 4); ctx.textAlign = "left";
+    ctx.globalAlpha = 1;
+  }
+  var ig = Math.round(xg*px);
+  if (ig >= 0 && ig < Wpx){
+    var yt = mid - A*env[ig] - 9;
+    ctx.beginPath(); ctx.moveTo(ig - 7, yt - 9); ctx.lineTo(ig + 7, yt - 9); ctx.lineTo(ig, yt + 1); ctx.closePath();
+    ctx.fillStyle = NF.tok("--blue"); ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = sheet; ctx.stroke();
+    ctx.fillStyle = ink2; ctx.font = "600 12px " + NF.tok("--font-mono");
+    ctx.fillText("grup", ig + 11, yt - 5);
+  }
+  ctx.fillStyle = NF.tok("--ink-3"); ctx.font = "11px " + NF.tok("--font-mono");
+  ctx.fillText("t = " + pk.t.toFixed(1) + " λ₀/c", 10, 18);
+  var lx = 10, ly = h - 12;
+  ctx.strokeStyle = NF.tok("--ink-3"); ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.moveTo(lx, ly - 4); ctx.lineTo(lx, ly + 2); ctx.moveTo(lx, ly - 1); ctx.lineTo(lx + px, ly - 1); ctx.moveTo(lx + px, ly - 4); ctx.lineTo(lx + px, ly + 2); ctx.stroke();
+  ctx.fillText("λ₀", lx + px + 6, ly + 2);
+  if (xg + 2.6*st > Xlen || pk.t > 400) pk.t = 0;
+}
+function loop(now){
+  pk.raf = 0;
+  if (!pk.playing || !pk.visible) return;
+  var dt = pk.last ? Math.min(0.05, (now - pk.last)/1000) : 0;
+  pk.last = now;
+  pk.t += dt * 2.3 * pk.speed;
+  drawPk();
+  pk.raf = requestAnimationFrame(loop);
+}
+function kick(){ if (!pk.raf && pk.playing && pk.visible){ pk.last = 0; pk.raf = requestAnimationFrame(loop); } }
+NF.whenVisible(canvas, function(v){ pk.visible = v; if (v) kick(); });
+
+var vpIn = document.getElementById("pk-vp"), vgIn = document.getElementById("pk-vg"), bIn = document.getElementById("pk-b"), spIn = document.getElementById("pk-sp");
+var playBtn = document.getElementById("pk-play");
+var preSeg = NF.seg(document.getElementById("pk-pre"), function(v){ applyPreset(v); });
+function applyPreset(v){
+  var p = PRE[v]; pk.vp = p.vp; pk.vg = p.vg; pk.b = p.b;
+  vpIn.value = p.vp; vgIn.value = p.vg; bIn.value = p.b;
+  params(true);
+}
+function params(keepPreset){
+  if (!keepPreset){
+    var hit = null;
+    for (var k in PRE){ var p = PRE[k]; if (Math.abs(p.vp-pk.vp) < .005 && Math.abs(p.vg-pk.vg) < .005 && Math.abs(p.b-pk.b) < .005) hit = k; }
+    if (hit) preSeg.set(hit); else preSeg.clear();
+  }
+  document.getElementById("pk-vpo").textContent = pk.vp.toFixed(2);
+  document.getElementById("pk-vgo").textContent = pk.vg.toFixed(2);
+  document.getElementById("pk-bo").textContent = pk.b.toFixed(2);
+  document.getElementById("pk-r1").textContent = pk.vp.toFixed(2) + " c" + (pk.vp > 1.0001 ? " · c’den hızlı" : "");
+  document.getElementById("pk-r2").textContent = pk.vg.toFixed(2) + " c";
+  document.getElementById("pk-r3").textContent = (1/pk.vp).toFixed(3);
+  document.getElementById("pk-r4").textContent = (1/pk.vg).toFixed(3);
+  document.getElementById("pk-r5").textContent = (pk.vp*pk.vg).toFixed(2) + " c²";
+  var rel = Math.abs(pk.vp - pk.vg) < 0.005 ? "tepeler zarfla birlikte" : pk.vp > pk.vg ? "tepeler zarftan hızlı" : "tepeler zarftan yavaş";
+  document.getElementById("pk-r6").textContent = rel + (Math.abs(pk.b) < 0.005 ? ", şekil korunuyor" : ", yayılıyor");
+  pk.t = pk.playing ? 0 : midT();
+  drawDisp(); drawPk(); kick();
+}
+vpIn.addEventListener("input", function(){ pk.vp = +vpIn.value; params(); });
+vgIn.addEventListener("input", function(){ pk.vg = +vgIn.value; params(); });
+bIn.addEventListener("input", function(){ pk.b = +bIn.value; params(); });
+spIn.addEventListener("input", function(){ pk.speed = +spIn.value; document.getElementById("pk-spo").textContent = pk.speed.toFixed(2) + "×"; });
+function setPlay(p){
+  pk.playing = p; playBtn.textContent = p ? "Duraklat" : "Oynat"; playBtn.setAttribute("aria-pressed", p ? "false" : "true");
+  if (p) kick(); else drawPk();
+}
+playBtn.addEventListener("click", function(){ setPlay(!pk.playing); });
+document.getElementById("pk-reset").addEventListener("click", function(){ pk.t = 0; drawPk(); kick(); });
+
+function drawDisp(){
+  var svg = document.getElementById("disp");
+  var s = sizeSvg(svg, 236), W = s.W, H = s.H;
+  var L = 48, R = W - 18, T = 28, B = H - 38;
+  var b = pk.b, vp = pk.vp, vg = pk.vg;
+  function Wk(K){ return vp + vg*(K-1) + 0.5*b*(K-1)*(K-1); }
+  var ymax = Math.max(1.9, vp*1.3, Wk(1.5)*1.08);
+  ymax = Math.ceil(ymax*2)/2;
+  function X(K){ return L + K/1.6*(R - L); }
+  function Y(v){ return B - v/ymax*(B - T); }
+  var ax = NF.el("g", {class:"ax"}, svg);
+  for (var v = 0; v <= ymax + 1e-9; v += 0.5){
+    NF.el("line", {x1:L, y1:Y(v), x2:R, y2:Y(v)}, ax);
+    NF.el("text", {x:L-7, y:Y(v)+4, "text-anchor":"end"}, ax, v.toFixed(1));
+  }
+  [0, 0.5, 1, 1.5].forEach(function(K){ NF.el("text", {x:X(K), y:B+16, "text-anchor":"middle"}, ax, K === 1 ? "k₀" : K.toFixed(1)); });
+  NF.el("text", {x:R, y:B+31, "text-anchor":"end"}, ax, "k / k₀");
+  NF.el("text", {x:8, y:14}, ax, "ω / ck₀");
+  var kl = Math.min(1.6, ymax);
+  NF.el("line", {x1:X(0), y1:Y(0), x2:X(kl), y2:Y(kl), class:"s-mut s-dash", "stroke-width":1.2}, svg);
+  var pts = [];
+  for (var K = 0.42; K <= 1.58; K += 0.01){ var wv = Wk(K); if (wv >= 0 && wv <= ymax) pts.push([X(K), Y(wv)]); }
+  NF.el("path", {d:NF.path(pts), class:"s-ink", "stroke-width":2}, svg);
+  var ks = Math.min(1.3, ymax/vp);
+  NF.el("line", {x1:X(0), y1:Y(0), x2:X(ks), y2:Y(vp*ks), class:"s-mag"}, svg);
+  var t0 = 0.62, t1 = 1.38;
+  NF.el("line", {x1:X(t0), y1:Y(Wk(1) + vg*(t0-1)), x2:X(t1), y2:Y(Wk(1) + vg*(t1-1)), class:"s-blue"}, svg);
+  NF.el("circle", {cx:X(1), cy:Y(vp), r:5, class:"f-ink ring"}, svg);
+  NF.el("text", {x:X(1) + 9, y:Y(vp) + 16, class:"lab strong"}, svg, "k₀");
+}
+
+/* ---------- boot ---------- */
+function drawAll(){ drawSnap(); drawRuler(); drawLoss(); drawDisp(); drawPk(); }
+setLam(1550);
+applyPreset("vac");
+if (!pk.playing){ playBtn.textContent = "Oynat"; pk.t = midT(); }
+drawAll();
+NF.onResize(document.querySelector(".prose"), drawAll);
+NF.onTheme(drawAll);
+})();
+
+</script>
+
+</body></html>

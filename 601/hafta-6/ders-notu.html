@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Matris, Konum ve Momentum Temsilleri · KBM 601 Hafta 6</title>
+<meta name="description" content="Dersin ana fikri: sonlu boyutta kurulan matris dili sonsuz boyuta olduğu gibi taşınıyor. Toplam integrale, Kronecker deltası Dirac deltasına, sütun vektörü…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<link rel="stylesheet" href="../../kbm.css">
+<script>
+window.MathJax = {
+  options: { enableMenu: false },
+  svg: { fontCache: 'local' },
+  startup: {
+    typeset: false,
+    pageReady: function () {
+      document.head.appendChild(MathJax.svgStylesheet());
+      var chain = Promise.resolve();
+      document.querySelectorAll('.eq[data-tex]').forEach(function (el) {
+        var tex = el.textContent;
+        chain = chain
+          .then(function () { return MathJax.tex2svgPromise(tex, { display: true }); })
+          .then(function (node) { el.replaceChildren(node); el.classList.add('ok'); })
+          .catch(function () {});
+      });
+      return chain;
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">601</a> › <a href="./">Hafta 6</a> › Ders notu</nav>
+  <p class="eyebrow">KBM 601 · Hafta 6 · ders notu</p>
+  <h1>Matris, Konum ve Momentum Temsilleri</h1>
+<p>Dersin ana fikri: sonlu boyutta kurulan matris dili sonsuz boyuta olduğu gibi taşınıyor. Toplam integrale, Kronecker deltası Dirac deltasına, sütun vektörü dalga fonksiyonuna, matris de bir çekirdeğe (kernel) dönüşüyor. Fourier dönüşümü bu dilde bir baz değişimi, momentum operatörü de ötelemenin üreteci olarak türetiliyor.</p>
+<p>Kaynak dersin 18 tahta fotoğrafı (gönderiliş sırasıyla Tahta 1–18) ve otomatik transkript. Transkript bozuk olduğu için fizik tahtalardan kuruldu, transkriptten sadece hocanın sözlü vurguları alındı. Tahtada atlanan adımlar dolduruldu, tahtadaki hatalar ayrıca işaretlendi.</p>
+<nav class="toc" aria-label="Bu sayfada"><p>Bu sayfada</p><ol><li><a href="#tekrar-matris-temsili-tahta-13">Tekrar: matris temsili (Tahta 1–3)</a></li><li><a href="#66-operatör-fonksiyonları-tahta-45">6.6 Operatör fonksiyonları (Tahta 4–5)</a></li><li><a href="#71-konum-temsili-tahta-611">7.1 Konum temsili (Tahta 6–11)</a></li><li><a href="#72-momentum-temsili-tahta-1216">7.2 Momentum temsili (Tahta 12–16)</a></li><li><a href="#73-ötelemeden-momentum-operatörü-tahta-1718">7.3 Ötelemeden momentum operatörü (Tahta 17–18)</a></li><li><a href="#özet-sözlük">Özet sözlük</a></li><li><a href="#ders-dışı-notlar">Ders dışı notlar</a></li></ol></nav>
+<h2 id="tekrar-matris-temsili-tahta-13">Tekrar: matris temsili (Tahta 1–3)</h2>
+<p><strong>Tahta 1.</strong> Geçen haftanın bra-ket dili somut sayılara çevriliyor. N boyutlu bir ortonormal baz {|eₙ⟩} seçiliyor, yani ⟨eₘ|eₙ⟩ = δₘₙ. Tahtada yazmıyor ama her şeyin dayandığı ikinci özellik tamlık:</p>
+<div class="eq" data-tex>\sum_{n=1}^{N}|e_n\rangle\langle e_n|=\hat I</div>
+<p>Herhangi bir durum |ψ⟩ = Σₙ cₙ|eₙ⟩ diye açılır. Katsayıyı bulmak için iki tarafa soldan ⟨eₘ| uygula: ⟨eₘ|ψ⟩ = Σₙ cₙδₘₙ = cₘ.</p>
+<p>Tahtadaki “rows of c⃗_e vector” notu şunu söylüyor: bu cₙ&#39;ler c⃗_e sütun vektörünün satırları. Alt indisteki e de “e bazında yazıldı” demek. Aynı |ψ⟩ başka bir bazda başka sayılarla yazılır, 4. maddenin konusu da bu.</p>
+<p>Matris elemanı Aₘₙ = ⟨eₘ|Â|eₙ⟩. Bra&#39;daki indis satır, ket&#39;teki indis sütun.</p>
+<p>Â|ψ⟩ = |φ⟩ denkleminin neden A⃡c⃗ = d⃗ olduğu tahtada türetilmemiş. Soldan ⟨eₘ| ile çarp ve araya birim operatörü sok:</p>
+<div class="eq" data-tex>d_m=\langle e_m|\phi\rangle=\langle e_m|\hat A\,\hat I|\psi\rangle=\sum_n\langle e_m|\hat A|e_n\rangle\langle e_n|\psi\rangle=\sum_n A_{mn}c_n</div>
+<p>Bu, N×N matrisin N×1 vektörle çarpımı. “Araya birim operatör sok” hilesi dersin her satırında tekrar ediyor.</p>
+<p>Hocanın ok notasyonu (transkriptteki “column vector to right and row vector to left”):</p>
+<ul><li><p>c⃗ (sağa ok): sütun vektörü, N×1</p></li><li><p>c⃖ (sola ok): satır vektörü, 1×N</p></li><li><p>A⃡ (çift ok): matris, N×N</p></li></ul>
+<p><strong>Tahta 2.</strong> Hermitsel operatör Â = Â† demek. Eşleniğin tanımı ⟨φ|Â†|ψ⟩ = ⟨ψ|Â|φ⟩∗ olduğundan:</p>
+<div class="eq" data-tex>(A^\dagger)_{mn}=\langle e_m|\hat A^\dagger|e_n\rangle=\langle e_n|\hat A|e_m\rangle^*=A^*_{nm}</div>
+<p>Yani operatörün eşleniği, matrisin eşlenik-transpozu. Tahtadaki “complex conjugate” notu yıldızı, “notice the transpose mn→nm” notu da indis değişimini gösteriyor.</p>
+<p>Bunun sonuçları:</p>
+<ul><li><p>Köşegen elemanlar reel, çünkü Aₙₙ = Aₙₙ∗.</p></li><li><p>Özdeğerler reel. Â|a⟩ = a|a⟩ ise a⟨a|a⟩ = ⟨a|Â|a⟩ olur ve bu sayı kendi eşleniğine eşittir.</p></li><li><p>Farklı özdeğerlerin özvektörleri dik, dolayısıyla özvektörlerden ortonormal bir baz {|aₙ⟩} kurulabiliyor (spektral teorem).</p></li></ul>
+<p>Bu özbazda matris köşegen: ⟨aₘ|Â|aₙ⟩ = aₙ⟨aₘ|aₙ⟩ = aₙδₘₙ, yani A⃡ = diag(a₁, …, a_N). Operatör formu aynı şeyin başka yazılışı: Â = ÂÎ = Σₙ aₙ|aₙ⟩⟨aₙ|. Burada |aₙ⟩⟨aₙ| n&#39;inci özyöne izdüşüm, yani Â her özyönü kendi özdeğeriyle ölçekliyor.</p>
+<p>Madde 3 üniter dönüşüm: Û†Û = Î. ⟨Uφ| bra&#39;sı ⟨φ|Û† demek, çünkü dagger sırayı ters çevirir. Dolayısıyla ⟨Uφ|Uψ⟩ = ⟨φ|Û†Û|ψ⟩ = ⟨φ|ψ⟩: uzunluklar, açılar ve olasılıklar korunuyor; reel dünyadaki karşılığı dönme matrisi, RᵀR = I.</p>
+<p><strong>Tahta 3.</strong> Baz değiştirince fizik değişmiyor. Eski baz {|eₙ⟩}, yeni baz {|fₘ⟩}; yeni bileşenler yine birim operatör sokarak bulunuyor:</p>
+<div class="eq" data-tex>c_{f,m}=\langle f_m|\psi\rangle=\sum_n\langle f_m|e_n\rangle\langle e_n|\psi\rangle\;\Rightarrow\;\vec c_f=\overleftrightarrow{U}\vec c_e,\qquad U_{mn}=\langle f_m|e_n\rangle</div>
+<p>Tahtada Uₘₙ = ⟨fₘ|Û|eₙ⟩ yazıyor, buna takılma. Tahtadaki formüllerin tutması için gereken tanım Uₘₙ = ⟨fₘ|eₙ⟩, yani yeni baz vektörüyle eski baz vektörünün iç çarpımı. Araya Û koymak gereksiz; “Unitary transformation matrix” etiketi bu matris için.</p>
+<p>U üniter, çünkü (UU†)ₘₙ = Σₖ⟨fₘ|eₖ⟩⟨eₖ|fₙ⟩ = ⟨fₘ|fₙ⟩ = δₘₙ. Operatör ise iki birim operatörle dönüşüyor:</p>
+<div class="eq" data-tex>(A_f)_{mn}=\sum_{k,l}\langle f_m|e_k\rangle\langle e_k|\hat A|e_l\rangle\langle e_l|f_n\rangle\;\Rightarrow\;A_f=UA_eU^\dagger</div>
+<p>“Therefore” kısmı beklenen değerle ilgili: ⟨A⟩ = ⟨ψ|Â|ψ⟩ matris dilinde c⃗†Ac⃗ oluyor. Tahtadaki c⃗_f† = c⃖_f∗ notu, sütunun dagger&#39;ının elemanları eşleniklenmiş satır vektörü olduğunu söylüyor; bunlar ⟨ψ| bra&#39;sının bileşenleri. Yerine koyunca:</p>
+<div class="eq" data-tex>\vec c_f^{\,\dagger}A_f\vec c_f=(U\vec c_e)^\dagger(UA_eU^\dagger)(U\vec c_e)=\vec c_e^{\,\dagger}\underbrace{U^\dagger U}_{I}A_e\underbrace{U^\dagger U}_{I}\vec c_e=\vec c_e^{\,\dagger}A_e\vec c_e</div>
+<p>A_f ile A_e benzer matrisler, dolayısıyla özdeğerleri (ölçüm sonuçları) aynı. Bileşenler baza bağlı, fizik bağlı değil.</p>
+<h2 id="66-operatör-fonksiyonları-tahta-45">6.6 Operatör fonksiyonları (Tahta 4–5)</h2>
+<p><strong>Tahta 4.</strong> A⃡ = U⃡ diag(aₙ) U⃡† ifadesini Tahta 3&#39;le oku. Özbaz “eski baz” rolünde, A&#39;yı yazdığın keyfi baz da “yeni baz”. Yani Uₘₙ = ⟨fₘ|aₙ⟩ ve U&#39;nun n&#39;inci sütunu n&#39;inci özvektörün bileşenleri; numpy&#39;daki eigh&#39;in verdiği A = V diag(w) Vᴴ ayrışımıyla aynı.</p>
+<p>f(Â) = U diag(f(aₙ)) U† neden doğru? Kuvvetlerde aradaki U†U&#39;lar yok oluyor:</p>
+<div class="eq" data-tex>A^2=UDU^\dagger UDU^\dagger=UD^2U^\dagger,\qquad A^k=UD^kU^\dagger,\qquad D^k=\mathrm{diag}(a_n^k)</div>
+<p>Kuvvet serisi olan her f(x) = Σₖ cₖxᵏ için:</p>
+<div class="eq" data-tex>f(A)=\sum_k c_kA^k=U\Big(\sum_k c_kD^k\Big)U^\dagger=U\,\mathrm{diag}(f(a_n))\,U^\dagger</div>
+<p>Tahtadaki örnek bunun özel hali: exp(Â) = U diag(exp(aₙ)) U†. Reçete şu: özbaza git, f&#39;yi her özdeğere ayrı ayrı uygula, geri dön. Kuvvet serisi olmayan fonksiyonlarda (√, log) bu formül doğrudan tanım olarak alınır; SO(3) exponential map&#39;iyle aynı nesne, burada köşegenleştirme yoluyla hesaplanıyor.</p>
+<p><strong>Tahta 5.</strong> Aynı sonuç Taylor serisiyle de çıkıyor (Maclaurin, sıfır etrafında Taylor demek):</p>
+<div class="eq" data-tex>e^{\hat A}=\hat I+\frac{\hat A}{1!}+\frac{\hat A^2}{2!}+\frac{\hat A^3}{3!}+O(\hat A^4)</div>
+<p>Seri ⟨aₘ| ile |aₙ⟩ arasına sıkıştırılıyor. Kırmızı daire (“eigenbasis for Â”) işin anahtarı: bütün sadeleşme özbazı seçtiğimiz için oluyor. Terim terim:</p>
+<ul><li><p>Sıfırıncı derece: ⟨aₘ|aₙ⟩ = δₘₙ, matris dilinde birim matris.</p></li><li><p>Birinci derece: ⟨aₘ|Â|aₙ⟩ = aₙδₘₙ.</p></li><li><p>İkinci derece sağ üstte; iki Â&#39;nın arasına Σₖ|aₖ⟩⟨aₖ| sokuluyor.</p></li></ul>
+<div class="eq" data-tex>\langle a_m|\hat A^2|a_n\rangle=\sum_k\langle a_m|\hat A|a_k\rangle\langle a_k|\hat A|a_n\rangle=\sum_k(a_k\delta_{mk})(a_n\delta_{kn})=a_n^2\delta_{mn}</div>
+<p>δₖₙ toplamda k = n&#39;i seçiyor ve geriye δₘₙ kalıyor; tahtadaki δₘₖδₖₙ → δₘₙ parantezi bunu gösteriyor. Aynı yolla ⟨aₘ|Âʲ|aₙ⟩ = aₙʲδₘₙ. En alt satır bunları topluyor:</p>
+<div class="eq" data-tex>(e^{\hat A})_{mn}=\delta_{mn}\Big(1+a_n+\frac{a_n^2}{2!}+O(a_n^3)\Big)=e^{a_n}\delta_{mn}</div>
+<p>Yani exp(Â)&#39;nın matrisi köşegen ve köşegende exp(aₙ) duruyor.</p>
+<p>Kısayol: Â|aₙ⟩ = aₙ|aₙ⟩ ise Âʲ|aₙ⟩ = aₙʲ|aₙ⟩, dolayısıyla exp(Â)|aₙ⟩ = exp(aₙ)|aₙ⟩. Â&#39;nın özvektörleri f(Â)&#39;nın da özvektörü, özdeğer de f&#39;den geçiyor.</p>
+<p>Hocanın sözlü vurgusu: köşegenlik sadece bu özel baz seçiminden geliyor. Genel bazda exp(Â)&#39;nın köşegen dışı elemanları var ve onları U diag(exp(aₙ)) U† üretiyor. Hoca bir köprü de kurdu: buraya kadar sonlu boyuttu, sonsuz boyutta matrisler fonksiyonlara dönüşecek.</p>
+<p>Akılda tutulacak sonuç: <strong>bir operatörün fonksiyonu, o operatörün özbazında köşegendir.</strong> Yerel potansiyel ve öteleme operatörü tam da bu yüzden basit çıkacak.</p>
+<h2 id="71-konum-temsili-tahta-611">7.1 Konum temsili (Tahta 6–11)</h2>
+<p><strong>Tahta 6.</strong> Bölüm 7 burada başlıyor. Konum özketleri x̂|x⟩ = x|x⟩, ama x artık sürekli bir reel sayı, ayrık bir indis değil. Kritik fark iç çarpımda: ⟨x′|x⟩ = δ(x − x′), yani Kronecker değil Dirac deltası.</p>
+<p>Bu neden zorunlu? Tamlık Î = ∫dx |x⟩⟨x|, |x′⟩&#39;ye uygulanınca onu geri vermeli:</p>
+<div class="eq" data-tex>\int dx\,|x\rangle\langle x|x&#39;\rangle=|x&#39;\rangle</div>
+<p>⟨x|x′⟩ “x = x′ iken 1, başka her yerde 0” olsaydı bu integral sıfır çıkardı, çünkü tek bir noktanın genişliği sıfır. Tek noktada yaşayıp integrali 1 olan bir nesne lazım, o da δ.</p>
+<p>Bunun bedeli: ⟨x|x⟩ = δ(0) = ∞, yani |x⟩ normalize edilemez. Kendi başına fiziksel bir durum değil, mükemmel lokalize parçacığın idealizasyonu; fiziksel durumlar bunların süperpozisyonları. Tahtadaki “in fact a distribution” parantezi de bunu söylüyor: δ ancak integral içinde ne yaptığıyla tanımlı.</p>
+<p><strong>Tahta 7.</strong> İki tanım veriliyor. Sezgisel olanı: x ≠ 0&#39;da 0, x = 0&#39;da ∞, toplam integral 1. Daha somut olanı kutu limiti:</p>
+<div class="eq" data-tex>\delta(x)=\lim_{\epsilon\to0}\delta_\epsilon(x),\qquad \delta_\epsilon(x)=\begin{cases}\dfrac{1}{2\epsilon}&amp;-\epsilon&lt;x&lt;\epsilon\\ 0&amp;\text{aksi halde}\end{cases}</div>
+<p>Çizimdeki kırmızı taralı kutunun yüksekliği 1/(2ε), genişliği 2ε. Sağdaki hesap alanın her ε için 1 olduğunu gösteriyor:</p>
+<div class="eq" data-tex>\int_{-\infty}^{\infty}\delta_\epsilon(x)\,dx=\int_{-\epsilon}^{\epsilon}\frac{1}{2\epsilon}\,dx=\frac{1}{2\epsilon}\,[x]_{-\epsilon}^{\epsilon}=1</div>
+<p>ε küçüldükçe kutu incelir, uzar, alan 1&#39;de kalır. Limit fonksiyon olarak değil integral içinde alınır, ∫f δ_ε dx → f(0); “dağılım” kelimesinin anlamı bu. Tahtadaki uzun eğri ok, 1. özelliğin doğrudan bu tanımdan geldiğini gösteriyor.</p>
+<p>δ(x − x′)&#39;in özellikleri:</p>
+<ol><li><p>∫δ(x − x′) dx′ = 1. Sivri tepe x&#39;e kaydırılmış, alan değişmemiş.</p></li><li><p>∫f(x′) δ(x − x′) dx′ = f(x): süzme (sifting) özelliği, transkriptte “skating property” diye geçiyor. Kutuyla ispatı: integral, f&#39;nin [x − ε, x + ε] aralığındaki ortalamasına eşit ve ε → 0&#39;da bu ortalama f(x) olur. 1. özellik bunun f = 1 hali; ayrık karşılığı Σₙ fₙδₘₙ = fₘ.</p></li><li><p>İç çarpımın Hermitsel eşlenik simetrisinden ⟨x′|x⟩ = ⟨x|x′⟩∗, yani δ(x − x′) = δ(x′ − x)∗. δ reel olduğu için (sol alttaki not) yıldız düşüyor ve δ(x − x′) = δ(x′ − x) kalıyor: çiftlik özelliği. Kutu da sıfır etrafında simetrik.</p></li><li><p>[δ(x − x′)] = 1/L, çünkü ∫dx δ(x) = 1 boyutsuz, dx ise uzunluk taşıyor (tahtadaki dx ~ L ve δ ~ 1/L işaretleri). Genel kural [δ(u)] = 1/[u]; momentumda lazım olacak.</p></li></ol>
+<p><strong>Tahta 8.</strong> Tamlık bağıntısı Î = ∫dx |x⟩⟨x|, yani Σₙ|eₙ⟩⟨eₙ|&#39;nin sürekli hali.</p>
+<p>Sağdaki boyut analizi şöyle: Î boyutsuz, dx ise L taşıyor, o halde |x⟩⟨x| 1/L taşımalı. ⟨x|, |x⟩&#39;in eşleniği olduğu için ikisi aynı boyutta ve yükü eşit bölüşüyorlar: [|x⟩] = [⟨x|] = L^(−1/2); tahtadaki “or” bunu söylüyor. Kontrol: [⟨x′|x⟩] = L^(−1/2)·L^(−1/2) = 1/L = [δ].</p>
+<p>Dalga fonksiyonu ψ(x) = ⟨x|ψ⟩, |ψ⟩&#39;nin konum bazındaki x&#39;inci bileşeni, yani cₙ = ⟨eₙ|ψ⟩&#39;nin sürekli karşılığı. Açarsan |ψ⟩ = ∫dx ψ(x)|x⟩ olur, Σₙ cₙ|eₙ⟩&#39;nin karşılığı. Dalga fonksiyonu, indisi sürekli olan sonsuz uzunlukta bir sütun vektörü.</p>
+<p>En alt satırda Î|ψ⟩ = |ψ⟩&#39;ye soldan ⟨x| uygulanıyor ve birim operatör açılıyor:</p>
+<div class="eq" data-tex>\langle x|\int dx&#39;\,|x&#39;\rangle\langle x&#39;|\psi\rangle=\int dx&#39;\,\langle x|x&#39;\rangle\,\psi(x&#39;)=\int dx&#39;\,\delta(x&#39;-x)\,\psi(x&#39;)=\psi(x)</div>
+<p>Üstteki not ⟨x|x′⟩ = δ(x′ − x) diyor; son adım prop. 2 ve kutulu sonuç ψ(x) = ⟨x|ψ⟩. Açık konuşayım: bu mantıken türetme değil tutarlılık kontrolü, çünkü içeride zaten ⟨x′|ψ⟩ = ψ(x′) kullanıldı. Gösterdiği şey, tanımın, δ-normalizasyonunun ve tamlığın birbiriyle çelişmediği.</p>
+<p>Tahtada olmayan ama boyut hikâyesini kapatan adım:</p>
+<div class="eq" data-tex>\langle\psi|\psi\rangle=\int dx\,\langle\psi|x\rangle\langle x|\psi\rangle=\int dx\,|\psi(x)|^2=1</div>
+<p>Bu durumda [ψ(x)] = L^(−1/2) ve |ψ(x)|² 1/L taşıyor: birim uzunluk başına olasılık, yani olasılık yoğunluğu. Born kuralının normalizasyonu doğrudan tamlıktan çıkıyor.</p>
+<p><strong>Tahta 9.</strong> Çekirdek A(x′, x) = ⟨x′|Â|x⟩, indisleri sürekli bir matris. Kural aynı: ilk argüman bra (satır), ikinci ket (sütun). Tahta tanımda A(x′, x) yazıp aşağıda A(x, x′) kullanıyor; bu sadece değişken adlarının yer değiştirmesi.</p>
+<p>“Since” kısmında |ψ⟩&#39;nin önüne ∫dx′ |x′⟩⟨x′| sokuluyor:</p>
+<div class="eq" data-tex>(\hat A\psi)(x)\equiv\langle x|\hat A|\psi\rangle=\int dx&#39;\,\langle x|\hat A|x&#39;\rangle\,\psi(x&#39;)=\int dx&#39;\,A(x,x&#39;)\,\psi(x&#39;)</div>
+<p>Bu, dₘ = Σₙ Aₘₙcₙ&#39;nin ta kendisi, toplam integrale dönmüş. Görüntü işlemede her lineer işlem out(x) = Σ K(x, x′) in(x′) şeklinde yazılır; K sadece x − x′&#39;ye bağlıysa bu bir konvolüsyon.</p>
+<p><strong>Tahta 10.</strong> Yerel potansiyelde V̂ = V(x̂), yani konum operatörünün bir fonksiyonu. 6.6&#39;ya göre bu yüzden V̂ x bazında köşegen: V̂|x⟩ = V(x)|x⟩. O halde:</p>
+<div class="eq" data-tex>\langle x&#39;|\hat V|x\rangle=V(x)\,\langle x&#39;|x\rangle=V(x)\,\delta(x-x&#39;)</div>
+<p>Bu, diag(V)&#39;nin sürekli hali; çekirdek sadece köşegende sıfırdan farklı. Etkisi:</p>
+<div class="eq" data-tex>(\hat V\psi)(x)=\int dx&#39;\,V(x)\,\delta(x-x&#39;)\,\psi(x&#39;)=V(x)\int dx&#39;\,\delta(x-x&#39;)\,\psi(x&#39;)=V(x)\,\psi(x)</div>
+<p>Son adım prop. 2: konum temsilinde yerel potansiyel ψ&#39;yi noktasal olarak çarpar. Küçük bir incelik var: integraldeki çekirdek aslında ⟨x|V̂|x′⟩ = V(x′)δ(x′ − x). Ama δ zaten x′ = x&#39;i zorladığı için V(x′)δ(x − x′) = V(x)δ(x − x′); V(x)&#39;i integralin dışına çekmek meşru.</p>
+<p><strong>Tahta 11.</strong> İlk satır bir analoji kuruyor: bu çekirdek, özbazdaki köşegen matrisin karşılığı. Tahtada ⟨m|A|n⟩ = aₙAₘₙ yazıyor; bu yazım hatası (ya da δ kötü yazılmış), doğrusu aₙδₘₙ.</p>
+<p>Yerel olmayan potansiyelde çekirdeğin köşegen dışında da değeri var:</p>
+<div class="eq" data-tex>(\hat V\psi)(x)=\int_{-\infty}^{\infty}dx&#39;\,V(x,x&#39;)\,\psi(x&#39;)</div>
+<p>x noktasındaki sonuç ψ&#39;nin başka noktalardaki değerlerine de bağlı. Fizikteki klasik örnek Hartree–Fock&#39;taki exchange terimi; bu derste göreceğin örnek 7.3&#39;teki öteleme operatörü. Görüntü işleme diliyle, piksel başına kazanç düzeltmesi yerel, bulanıklaştırma yerel değil.</p>
+<p>Tahtanın en önemli uyarısı alt satırda: <strong>yerellik, potansiyelin küçük bir bölgede olması demek değil.</strong> Örnek harmonik osilatör, V(x) = ½mω²x²; sağdaki parabol ve “parabolically expands to all x” notu bunu anlatıyor, “E.g.” oku da bu örneği gösteriyor.</p>
+<p>Potansiyel bütün uzaya yayılıyor ve sınırsız büyüyor, ama her noktada sadece o noktadaki ψ&#39;ye baktığı için yerel. Sağ alttaki “depends only one position ⇒ local” notu tam olarak bu. Yerel olup olmamak çekirdeğin yapısıyla ilgili (köşegen mi, değil mi); V(x)&#39;in şekliyle ya da genişliğiyle ilgisi yok.</p>
+<h2 id="72-momentum-temsili-tahta-1216">7.2 Momentum temsili (Tahta 12–16)</h2>
+<p><strong>Tahta 12.</strong> Yapı birebir aynı: p̂|p⟩ = p|p⟩, ⟨p′|p⟩ = δ(p − p′) ve Î = ∫dp |p⟩⟨p| boyutsuz. Momentumun boyutu [p] = ML/T; tahtadaki oklar kütle, uzunluk ve zamanı gösteriyor. Konumdaki argümanın aynısı burada da işliyor:</p>
+<div class="eq" data-tex>[\,|p\rangle\,]=[\,\langle p|\,]=\frac{1}{[p]^{1/2}}=\frac{T^{1/2}}{M^{1/2}L^{1/2}}</div>
+<p>Kontrol: [δ(p − p′)] = 1/[p], 4. özellikteki genel kuralla tutarlı.</p>
+<p><strong>Tahta 13.</strong> Soru şu: momentum özdurumu konum uzayında neye benziyor, yani ⟨x|p⟩ ne? p̂|p⟩ = p|p⟩&#39;ye soldan ⟨x| uygula: ⟨x|p̂|p⟩ = p⟨x|p⟩. Tahtadaki oklar p̂&#39;nin operatör, p&#39;nin özdeğer olduğunu söylüyor; p reel bir sayı olduğu için sayı gibi dışarı çıkabiliyor.</p>
+<p>Sol taraf için ⟨x|p̂|ψ⟩ = −iħ dψ/dx kullanılıyor. Dikkat: bu burada bilinen kabul ediliyor, türetmesi 7.3&#39;te geliyor; dersin sonunda bir öğrencinin sorduğu da buydu. |ψ⟩ = |p⟩ koyunca:</p>
+<div class="eq" data-tex>-i\hbar\frac{d}{dx}\langle x|p\rangle=p\,\langle x|p\rangle</div>
+<p>İki tarafı i/ħ ile çarp: soldaki katsayı (i/ħ)(−iħ) = −i² = 1 oluyor, i²&#39;nin üstündeki “−1” bunu gösteriyor. Sonra değişkenlere ayırarak birinci mertebe denklem çözülüyor:</p>
+<div class="eq" data-tex>\frac{d}{dx}\langle x|p\rangle=\frac{ip}{\hbar}\langle x|p\rangle\;\Rightarrow\;\int\frac{d\langle x|p\rangle}{\langle x|p\rangle}=\int\frac{i}{\hbar}p\,dx\;\Rightarrow\;\ln\langle x|p\rangle=\frac{i}{\hbar}xp+C</div>
+<p>Tahta integral sabiti C&#39;yi atmış. Doğrusu ⟨x|p⟩ = N·exp(ixp/ħ) ve N = exp(C); atılan bu sabit, bir sonraki tahtada belirlenen normalizasyon.</p>
+<p>Tahtada yazmayan ama işin özü olan nokta: bu bir düzlem dalga. Faz px/ħ bir dalga boyunda 2π artıyor, buradan λ = 2πħ/p = h/p çıkıyor: de Broglie bağıntısı. Ayrıca |⟨x|p⟩|² sabit, yani kesin momentumlu durum konumda tamamen yayılmış; belirsizlik ilkesinin ön izlemesi.</p>
+<p>Alt satırda momentum dalga fonksiyonu φ(p) ≡ ⟨p|ψ⟩ tanımlanıyor, yani aynı |ψ⟩&#39;nin momentum bazındaki bileşenleri. Konum tamlığını sokunca:</p>
+<div class="eq" data-tex>\phi(p)=\langle p|\int dx\,|x\rangle\langle x|\psi\rangle=\int dx\,\langle p|x\rangle\,\psi(x)</div>
+<p><strong>Tahta 14.</strong> Tahta delta-normalize hali türetmeden veriyor: ⟨x|p⟩ = exp(ixp/ħ)/√(2πħ). Nereden geldiğine bakalım; ⟨p′|p⟩ = δ(p − p′) olmasını istiyoruz:</p>
+<div class="eq" data-tex>\langle p&#39;|p\rangle=\int dx\,\langle p&#39;|x\rangle\langle x|p\rangle=|N|^2\int dx\,e^{i(p-p&#39;)x/\hbar}=|N|^2\,2\pi\hbar\,\delta(p-p&#39;)</div>
+<p>Son adımda iki şey kullanıldı:</p>
+<ul><li><p>Sabitin Fourier dönüşümü delta: ∫dx exp(ikx) = 2πδ(k), burada k = (p − p′)/ħ.</p></li><li><p>Ölçekleme: δ(u/ħ) = ħδ(u).</p></li></ul>
+<p>Buradan |N|² = 1/(2πħ) çıkıyor; fazı reel pozitif seçince N = 1/√(2πħ).</p>
+<p>Ok altındaki not ⟨x|p⟩ = ⟨p|x⟩∗ diyor, yani ⟨p|x⟩ = exp(−ixp/ħ)/√(2πħ). Bunu Tahta 13&#39;ün son satırına koyunca dönüşüm çifti çıkıyor:</p>
+<div class="eq" data-tex>\phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}dx\,e^{-ixp/\hbar}\,\psi(x),\qquad \psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}dp\,e^{ixp/\hbar}\,\phi(p)</div>
+<p>Transkriptte bir öğrencinin işaret kısmına takıldığı görülüyor. Kural basit: ileri dönüşümün içinde ⟨p|x⟩ var, işaret eksi; ters dönüşümün içinde ⟨x|p⟩ var, işaret artı. Mühendislikteki X(ω) = ∫x(t)·exp(−iωt)dt ile aynı düzen.</p>
+<p>k = p/ħ yazarsan bu, 1/√(2π)&#39;li simetrik (üniter) Fourier dönüşümü. Değişken k yerine p olduğu için fazladan 1/√ħ geliyor.</p>
+<p><strong>Tahta 15.</strong> Üst satır ters dönüşümün türetmesi, bu sefer momentum tamlığıyla:</p>
+<div class="eq" data-tex>\psi(x)=\langle x|\int dp\,|p\rangle\langle p|\psi\rangle=\int dp\,\langle x|p\rangle\,\phi(p)</div>
+<p>Yine aynı birim operatör hilesi; alttaki notlar ⟨p|ψ⟩ = φ(p) ve normalize ⟨x|p⟩.</p>
+<p>Sol üstteki eˣ = 1 + x + x²/2 + … süs değil: üstel fonksiyonun argümanı boyutsuz olmak zorunda, çünkü 1 + metre + metre² toplanamaz. [xp] = L·ML/T = ML²/T = [ħ] olduğu için xp/ħ boyutsuz; ħ&#39;nin üste girmesinin boyutsal sebebi bu.</p>
+<p>⟨x|p⟩&#39;nin boyutu:</p>
+<div class="eq" data-tex>[\langle x|p\rangle]=[\,\langle x|\,]\,[\,|p\rangle\,]=\frac{1}{L^{1/2}}\cdot\frac{T^{1/2}}{M^{1/2}L^{1/2}}=\frac{T^{1/2}}{M^{1/2}L}</div>
+<p>Dikkat: iki L^(−1/2) birleşince tam L⁻¹ oluyor. Tahtadaki ara ifadede L&#39;nin üssü net değil ya da yanlış yazılmış gibi duruyor; L olarak düzelt, yoksa aşağıdaki karşılaştırma tutmaz.</p>
+<p>Alt satırda ħ&#39;nin boyutu var. Enerji iş demek, iş de kuvvet çarpı yol; tahtadaki ΔK = W = F⃗·l⃗ (iş-enerji teoremi) bunu söylüyor:</p>
+<div class="eq" data-tex>[\hbar]=[E][t]=[N][l][t]=\frac{ML}{T^2}\cdot L\cdot T=\frac{ML^2}{T}\;\Rightarrow\;[\hbar]^{-1/2}=\frac{T^{1/2}}{M^{1/2}L}</div>
+<p>“Compare” ile işaretlenen karşılaştırma tutuyor: [⟨x|p⟩] = [ħ]^(−1/2). Transkriptte hoca “energy multiplied with frequency” diyor gibi; doğrusu enerji çarpı zaman, çünkü ħ = E/ω.</p>
+<p>“Requires the normalization” sonucu şuradan çıkıyor: üstel kısım boyutsuz olduğuna göre bütün boyut ön çarpandan gelmeli, o da 1/√ħ. 2π ise boyuttan değil, Fourier konvansiyonundaki 2πδ(k)&#39;dan geliyor; hocanın Türkçe açıklaması da bu yöndeydi.</p>
+<p><strong>Tahta 16.</strong> Momentum temsilinde p̂ şöyle: ⟨p|p̂|ψ⟩ = p⟨p|ψ⟩ = pφ(p). p̂ Hermitsel olduğu için sola etki edince reel p veriyor, yani ⟨p|p̂ = p⟨p|. Kendi bazında p̂ sadece bir çarpma; konum uzayındaki yerel V̂ ile aynı durum, yine 6.6 mantığı.</p>
+<p>Momentum temsilinde x̂ için tahta sonucu türetmeden yazıyor. Türetmesi:</p>
+<div class="eq" data-tex>\langle p|\hat x|\psi\rangle=\int dx\,\langle p|x\rangle\,x\,\psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int dx\,x\,e^{-ixp/\hbar}\,\psi(x)</div>
+<p>Püf nokta x·exp(−ixp/ħ) = iħ ∂/∂p exp(−ixp/ħ) eşitliği; kontrol: iħ·(−ix/ħ) = x. Türevi x-integralinin dışına çekince:</p>
+<div class="eq" data-tex>\langle p|\hat x|\psi\rangle=i\hbar\frac{d}{dp}\Big[\frac{1}{\sqrt{2\pi\hbar}}\int dx\,e^{-ixp/\hbar}\,\psi(x)\Big]=i\hbar\frac{d\phi}{dp}\;\Rightarrow\;\hat x=i\hbar\frac{\partial}{\partial p}</div>
+<p>Ortaya simetrik bir tablo çıkıyor:</p>
+<ul><li><p>Konum temsilinde: x̂ → x, p̂ → −iħ ∂/∂x</p></li><li><p>Momentum temsilinde: p̂ → p, x̂ → +iħ ∂/∂p</p></li></ul>
+<p>İşaretlerin ters olması [x̂, p̂] = iħ&#39;yı iki temsilde de aynı tutuyor; momentum temsilinde kontrol: iħ(pφ)′ − p·iħφ′ = iħφ. “But if” notu kısmi ve tam türevle ilgili: φ sadece p&#39;ye bağlıysa ikisi aynı, ∂ yazılmasının sebebi genelde φ&#39;nin zamana da bağlı olabilmesi.</p>
+<p>Son cümle dersin doruğu: konum ve momentum temsilleri üniter bir Fourier dönüşümüyle bağlı. Tahta 3&#39;le yan yana koyunca:</p>
+<ul><li><p>Baz değişim matrisi Uₘₙ = ⟨fₘ|eₙ⟩ burada ⟨p|x⟩ oluyor.</p></li><li><p>c⃗_f = Uc⃗_e çarpımı burada φ(p) = ∫dx ⟨p|x⟩ψ(x) oluyor.</p></li><li><p>Üniterlik UU† = I burada ∫dx ⟨p|x⟩⟨x|p′⟩ = δ(p − p′) oluyor; Tahta 14&#39;te hesaplanan şeyin ta kendisi.</p></li></ul>
+<p>Sonuç Parseval/Plancherel: ∫|φ|²dp = ∫|ψ|²dx, Tahta 2&#39;deki 3. madde. p̂&#39;nin momentum uzayında çarpmaya dönmesinin sebebi de aynı: Fourier dönüşümü p̂&#39;nin özbazına geçiş, özbazda da operatör köşegen. Sinyal işlemedeki “zamanda türev, frekansta çarpma” kuralı bundan ibaret.</p>
+<h2 id="73-ötelemeden-momentum-operatörü-tahta-1718">7.3 Ötelemeden momentum operatörü (Tahta 17–18)</h2>
+<p><strong>Tahta 17.</strong> Öteleme operatörünün tanımı (T̂(a)ψ)(x) = ⟨x|T̂(a)|ψ⟩ = ψ(x − a). Eksi işareti kafa karıştırmasın: ψ(x − a) dalga paketini sağa, +a kadar kaydırır, çünkü yeni fonksiyon x₀ + a noktasında eski fonksiyonun x₀&#39;daki değerini alır. Ket diliyle T̂(a)|x⟩ = |x + a⟩.</p>
+<p>Küçük a için Taylor açılımı:</p>
+<div class="eq" data-tex>(\hat T(a)\psi)(x)=\psi(x-a)=\psi(x)-a\frac{d\psi}{dx}+O(a^2)\qquad(*)</div>
+<p>T̂(a)&#39;nın genel özellikleri şunlar:</p>
+<ul><li><p>Üniter, çünkü kaydırmak ∫|ψ|²&#39;yi değiştirmez.</p></li><li><p>a&#39;ya sürekli bağlı.</p></li><li><p>T̂(0) = Î ve T̂(a)T̂(b) = T̂(a + b).</p></li></ul>
+<p>Böyle aileler üstel formda yazılabilir (Stone teoremi):</p>
+<div class="eq" data-tex>\hat T(a)=e^{-ia\hat G/\hbar}=\hat I-a\frac{i}{\hbar}\hat G+O(a^2)</div>
+<p>Tahtadaki üstelde eksi işareti görünmüyor, açılımda ise var. Tutarlı olan eksili hali; artıyla başlasan sonuçta Ĝ = −p̂ çıkardı.</p>
+<p>“Hermitian” kelimesi tırnak içinde, çünkü bu bir varsayım değil, üniterlikten çıkan bir sonuç:</p>
+<div class="eq" data-tex>\hat T^\dagger\hat T=\hat I+\frac{ia}{\hbar}\big(\hat G^\dagger-\hat G\big)+O(a^2)=\hat I\;\Rightarrow\;\hat G^\dagger=\hat G</div>
+<p>Üstteki i, Ĝ gözlenebilir (Hermitsel) çıksın diye orada. 1/ħ ise boyut için: aĜ/ħ boyutsuz olmalı, o halde [Ĝ] = [ħ]/L = ML/T. Yani daha hiçbir şey hesaplamadan Ĝ&#39;nin momentum boyutunda olduğu biliniyor.</p>
+<p>Bu, SO(3)&#39;teki yapının aynısı: R = exp(θ[ω]×)&#39;da üreteç ters-simetrik ve üsteli ortogonal bir matris veriyor. Kompleks versiyonda −iĜ/ħ ters-Hermitsel ve üsteli üniter; fizikçiler i&#39;yi dışarı alıp Hermitsel Ĝ ile çalışıyor, çünkü gözlenebilir olan o. Hocanın “birkaç hafta içinde netleşecek” dediği kalıp bu: dönmeler için açısal momentumla, zaman evrimi için Hamiltonyenle (exp(−iĤt/ħ)) tekrar gelecek.</p>
+<p><strong>Tahta 18.</strong> Açılımı matris elemanına koyunca:</p>
+<div class="eq" data-tex>(\hat T(a)\psi)(x)=\langle x|\,\hat I-a\tfrac{i}{\hbar}\hat G+O(a^2)\,|\psi\rangle=\psi(x)-a\frac{i}{\hbar}\langle x|\hat G|\psi\rangle+O(a^2)\qquad(**)</div>
+<p>(∗) ile (∗∗) aynı şeyin iki açılımı, o yüzden a&#39;lı terimlerin katsayıları eşit olmalı:</p>
+<div class="eq" data-tex>\frac{d\psi}{dx}=\frac{i}{\hbar}\langle x|\hat G|\psi\rangle\;\Rightarrow\;\langle x|\hat G|\psi\rangle=\frac{\hbar}{i}\frac{d\psi}{dx}=-i\hbar\frac{d\psi}{dx}</div>
+<p>Son adımda 1/i = −i kullanıldı. Bu, konum temsilindeki p̂&#39;nin ta kendisi: <strong>Ĝ = p̂, momentum ötelemenin üreteci.</strong></p>
+<p>Sağlamasını üç yoldan yapabilirsin:</p>
+<ul><li><p><strong>Sonlu öteleme:</strong> −iap̂/ħ = −a d/dx olduğu için exp(−a d/dx)ψ(x) = Σ (−a)ⁿ/n! ψ⁽ⁿ⁾(x) = ψ(x − a), düpedüz Taylor serisi.</p></li><li><p><strong>Momentum bazında:</strong> T̂, p̂&#39;nin bir fonksiyonu olduğu için 6.6&#39;ya göre bu bazda köşegen. T̂(a)|p⟩ = exp(−iap/ħ)|p⟩, yani φ(p) → exp(−iap/ħ)φ(p): Fourier kaydırma teoremi.</p></li><li><p><strong>Konum bazındaki çekirdek:</strong> ⟨x|T̂(a)|x′⟩ = δ(x − a − x′), köşegenin a kadar kaymış hali; Tahta 11&#39;deki yerel olmayan operatörün en temiz örneği.</p></li></ul>
+<p>Öğrencinin sorusu, −iħ d/dx&#39;in neden postüla gibi kullanıldığıydı. Dürüst cevap: 7.3 bu postülayı daha temel bir ilkeyle değiştiriyor, “momentum ötelemenin üretecidir”. Klasik Hamilton mekaniğinde de momentum ötelemeyi üretir; Noether&#39;e göre öteleme simetrisi momentumun korunumu demek.</p>
+<p>Ama varsayım ortadan kalkmıyor, sadece yer değiştiriyor: üreteci fiziksel momentumla özdeşleştirmek ve ħ&#39;nin değeri klasik karşılıktan ve deneyden geliyor. Kazanç yine de büyük: Hamiltonyen ötelemeye karşı değişmezse [Ĥ, p̂] = 0 olur ve momentum korunur.</p>
+<h2 id="özet-sözlük">Özet sözlük</h2>
+<p>Sonlu boyuttaki her nesnenin sürekli boyutta birebir bir karşılığı var.</p>
+<div class="tbl"><table><thead><tr><th>Sonlu boyut</th><th>Sürekli boyut</th></tr></thead><tbody><tr><td>⟨eₘ∣eₙ⟩ = δₘₙ</td><td>⟨x′∣x⟩ = δ(x − x′)</td></tr><tr><td>Σₙ ∣eₙ⟩⟨eₙ∣ = Î</td><td>∫dx ∣x⟩⟨x∣ = Î</td></tr><tr><td>cₙ = ⟨eₙ∣ψ⟩</td><td>ψ(x) = ⟨x∣ψ⟩</td></tr><tr><td>Aₘₙ = ⟨eₘ∣Â∣eₙ⟩</td><td>A(x, x′) = ⟨x∣Â∣x′⟩</td></tr><tr><td>dₘ = Σₙ Aₘₙcₙ</td><td>(Âψ)(x) = ∫dx′ A(x, x′)ψ(x′)</td></tr><tr><td>Köşegen: aₙδₘₙ</td><td>Yerel: V(x)δ(x − x′)</td></tr><tr><td>Uₘₙ = ⟨fₘ∣eₙ⟩</td><td>⟨p∣x⟩ = exp(−ixp/ħ)/√(2πħ)</td></tr><tr><td>c⃗_f = Uc⃗_e</td><td>φ(p) = ∫dx ⟨p∣x⟩ψ(x)</td></tr><tr><td>UU† = I</td><td>∫dx ⟨p∣x⟩⟨x∣p′⟩ = δ(p − p′)</td></tr></tbody></table></div>
+<h2 id="ders-dışı-notlar">Ders dışı notlar</h2>
+<p>Ders sonunda ödev gecikme politikası duyuruldu; transkript bozuk ama söylenen şu gibi:</p>
+<ul><li><p>İlk beş ödevde gecikme cezası yok.</p></li><li><p>Altıncı ödevden itibaren gecikilen her gün için 1 puan kesiliyor, en fazla 5 puan.</p></li><li><p>5 günden sonra kesinti 5 puanda sabit kalıyor.</p></li></ul>
+<p>Sol üst köşelerdeki 241473, 892213 ve 811622 sayılarının fizikle ilgisi yok; ders boyunca değişen bir kod, büyük ihtimalle yoklama kodu.</p>
+  <nav class="pager" aria-label="Diğer sayfalar"><a href="../hafta-5/">← Hafta 5 ders notu</a><a href="./">Bu haftanın çalışma defteri →</a></nav>
+</main>
+</body>
+</html>
