@@ -21,6 +21,8 @@ Tüm bağlantılar göreceli (`../`, `../../favicon.svg`), mutlak yol kullanma.
 
 Kullanıcının zip'lerinde bazen `ozel/` klasörü olur (ödev çözümleri). Onu asla repoya koyma; site herkese açık.
 
+Tahta fotoğraflarına tek tek bak: hoca ya da başka biri görünüyorsa kullanıcı onun tamamen çıkarılmasını istiyor. Aynı tahtanın temiz bir fotoğrafı varsa o kareyi at ve sayfadaki bağlantıyı temiz fotoğrafa çevir. Yoksa kişiyi kırp ve kalanını bulanıklaştır, `<img>`'nin width/height değerlerini yeni boyuta göre güncelle. Alt metinlerde ve açıklamalarda "hoca gösteriyor" gibi ifadeleri de düzelt (örnek: 602 Hafta 7).
+
 ## Yeni hafta eklemek
 
 Kullanıcı "601 hafta 7" gibi bir şey deyip bir zip veya HTML verdiğinde:

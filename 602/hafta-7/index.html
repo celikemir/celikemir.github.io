@@ -1,0 +1,2344 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>602 Hafta 7 Çalışma Defteri</title>
+<meta name="description" content="KBM 602, 7. hafta: dalga kılavuzları. Enine alanlar, Helmholtz denklemi, TE, TM, TEM ve hibrit modlar, dikdörtgen boruda TE çözümü ve kesim frekansı. 15 adım, lise seviyesinde örnekler ve 43 kontrol sorusu.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<style>
+:root {
+  /* Düzen: açık tema beyaz tahta, koyu tema kara tahta. Her adımda solda yapışkan tahta fotoğrafı ya da yeniden çizim, sağda defter sayfası. */
+  --bg: #f1f4f2;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --ink-2: #4b5864;
+  --line: #d4dce0;
+  --marker: #1f46a3;
+  --marker-ink: #ffffff;
+  --marker-soft: #e5ecf9;
+  --red: #b3322a;
+  --red-soft: #fbebe9;
+  --green: #276646;
+  --green-soft: #e6f1ea;
+  --grid: rgba(39, 102, 70, .14);
+  --scrim: rgba(8, 12, 10, .92);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(22, 32, 42, .05), 0 6px 18px rgba(22, 32, 42, .07);
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111d17;
+    --surface: #18271f;
+    --ink: #e6ede8;
+    --ink-2: #a1b1a7;
+    --line: #2a3d33;
+    --marker: #95b8ff;
+    --marker-ink: #0c1611;
+    --marker-soft: rgba(149, 184, 255, .13);
+    --red: #ff9384;
+    --red-soft: rgba(255, 147, 132, .12);
+    --green: #9bd7b2;
+    --green-soft: rgba(155, 215, 178, .09);
+    --grid: rgba(230, 237, 232, .07);
+    --scrim: rgba(3, 7, 5, .94);
+    --scrim-ink: #f3f6f4;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111d17;
+  --surface: #18271f;
+  --ink: #e6ede8;
+  --ink-2: #a1b1a7;
+  --line: #2a3d33;
+  --marker: #95b8ff;
+  --marker-ink: #0c1611;
+  --marker-soft: rgba(149, 184, 255, .13);
+  --red: #ff9384;
+  --red-soft: rgba(255, 147, 132, .12);
+  --green: #9bd7b2;
+  --green-soft: rgba(155, 215, 178, .09);
+  --grid: rgba(230, 237, 232, .07);
+  --scrim: rgba(3, 7, 5, .94);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.crumbs { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); margin-bottom: 16px; }
+.crumbs a { color: var(--marker); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 40;
+  background: var(--bg);
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-body); line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--marker); text-underline-offset: 3px; }
+strong { font-weight: 650; }
+:focus-visible { outline: 2.5px solid var(--marker); outline-offset: 2px; border-radius: 6px; }
+.k {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Giriş */
+.hero { padding-block: 44px 6px; }
+.eyebrow { font-family: var(--font-hand); font-size: 28px; color: var(--red); line-height: 1; }
+.hero h1 { font-size: clamp(32px, 5.2vw, 50px); font-weight: 700; letter-spacing: -.015em; margin: 10px 0 14px; max-width: 18ch; }
+.lead { font-size: 19px; color: var(--ink-2); max-width: 62ch; }
+.intro { padding-block: 26px 30px; display: grid; gap: 20px; }
+@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; } }
+.howto { font-family: var(--font-ui); font-size: 15px; line-height: 1.55; }
+.howto ol { margin: 10px 0 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.remind { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; }
+.tag { font-family: var(--font-hand); font-size: 25px; line-height: 1; display: block; }
+.remind .tag { color: var(--red); }
+
+/* Harita */
+.map { display: grid; gap: 18px 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); padding-block: 4px 26px; }
+.map-g h2 { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+.map ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.map a { display: flex; align-items: center; gap: 10px; padding: 5px 8px; border-radius: 8px; color: var(--ink); text-decoration: none; font-family: var(--font-ui); font-size: 14.5px; }
+.map a:hover { background: var(--surface); }
+.mn { font-family: var(--font-hand); font-size: 22px; color: var(--marker); width: 1.3em; text-align: right; line-height: 1; flex: none; }
+.lk { margin-left: auto; font-size: 12px; color: var(--ink-2); }
+.dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink-2); flex: none; opacity: .7; }
+[data-s="doing"] .dot { border-color: var(--marker); background: linear-gradient(90deg, var(--marker) 50%, transparent 50%); opacity: 1; }
+[data-s="done"] .dot { border-color: var(--green); background: var(--green); opacity: 1; }
+[data-s="weak"] .dot { border-color: var(--red); background: var(--red); opacity: 1; }
+.legend { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* İlerleme çubuğu */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); border-block: 1px solid var(--line); }
+.bar-in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-block: 10px; }
+.meter { flex: 1 1 140px; min-width: 100px; height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: var(--marker); transition: width .35s ease; }
+.count { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.count strong { color: var(--ink); }
+.bar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--marker);
+  background: var(--marker);
+  color: var(--marker-ink);
+  cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--marker); }
+.btn:hover:not(:disabled) { filter: brightness(1.08); }
+.btn:disabled { opacity: .45; cursor: default; }
+.linkbtn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--marker);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+/* Bölümler ve adımlar */
+.part { padding-block: 60px 4px; scroll-margin-top: 110px; }
+.part h2 { font-size: clamp(26px, 3.6vw, 34px); font-weight: 700; margin: 6px 0 8px; }
+.part .sub { color: var(--ink-2); max-width: 62ch; }
+.step { margin-top: 44px; scroll-margin-top: 96px; }
+.step-h { border-top: 2px solid var(--ink); padding-top: 12px; margin-bottom: 18px; }
+.step-k { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.hand { font-family: var(--font-hand); font-size: 31px; color: var(--marker); line-height: 1; }
+.code { font-family: var(--font-hand); font-size: 22px; color: var(--red); line-height: 1; }
+.st { margin-left: auto; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.step[data-s="done"] .st { color: var(--green); }
+.step[data-s="weak"] .st { color: var(--red); }
+.step h3 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 650; margin-top: 4px; }
+.step-grid { display: grid; gap: 22px 36px; }
+@media (min-width: 1000px) {
+  .step-grid { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); align-items: start; }
+  .board { position: sticky; top: 92px; }
+}
+.board { margin: 0; }
+.zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.zoom img { display: block; width: 100%; height: auto; }
+.board figcaption { font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+.step-body { min-width: 0; max-width: 72ch; display: grid; gap: 14px; }
+.step-body ul, .step-body ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.gist { font-size: 18.5px; line-height: 1.55; padding: 12px 16px; border-radius: 10px; background: var(--marker-soft); }
+.gist .k { display: block; margin-bottom: 2px; }
+.eq { overflow-x: auto; overflow-y: hidden; min-width: 0; }
+.eq mjx-container[display="true"] { margin: .2em 0 !important; }
+mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.lise {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px 16px;
+  display: grid;
+  gap: 8px;
+  background-color: var(--green-soft);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.lise .tag { color: var(--green); }
+.fix { border: 1.5px dashed var(--red); background: var(--red-soft); border-radius: 12px; padding: 12px 16px; display: grid; gap: 6px; }
+.fix .tag { color: var(--red); }
+details { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+summary { cursor: pointer; padding: 10px 14px; font-family: var(--font-ui); font-size: 14.5px; font-weight: 600; color: var(--marker); list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-block; width: 1.2em; }
+details[open] > summary::before { content: "−"; }
+.d-body { padding: 0 14px 14px; display: grid; gap: 8px; }
+
+/* Sorular */
+.checks { display: grid; gap: 14px; margin-top: 6px; }
+.checks-h { font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 10px; }
+.checks-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: grid; gap: 12px; scroll-margin-top: 110px; }
+.q-n { display: inline-block; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600; color: var(--marker); letter-spacing: .05em; text-transform: uppercase; margin-right: 8px; }
+.opts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: opt; }
+.opts li { counter-increment: opt; display: grid; gap: 6px; }
+.opt {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.opt::before {
+  content: counter(opt, upper-alpha);
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+.opt .t { min-width: 0; overflow-x: auto; }
+.opt:hover:not(:disabled) { border-color: var(--marker); }
+.opt:disabled { cursor: default; }
+.opt.is-right { border-color: var(--green); background: var(--green-soft); }
+.opt.is-right::before { content: "✓"; background: var(--green); border-color: var(--green); color: var(--bg); }
+.opt.is-wrong { border-color: var(--red); background: var(--red-soft); color: var(--ink-2); }
+.opt.is-wrong::before { content: "✗"; background: var(--red); border-color: var(--red); color: var(--bg); }
+.why { font-size: 15px; color: var(--ink-2); padding-left: 50px; }
+.why::before { content: "Neden olmaz: "; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; color: var(--red); }
+.hint { padding-left: 0; }
+.hint::before { content: "İpucu: "; color: var(--marker); }
+.num-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.num-row input {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  width: 10em;
+  max-width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.num-row input.is-wrong { border-color: var(--red); }
+.num-row input.is-right { border-color: var(--green); background: var(--green-soft); }
+.msg { font-family: var(--font-ui); font-size: 14px; font-weight: 600; }
+.msg:empty { display: none; }
+.msg[data-k="good"] { color: var(--green); }
+.msg[data-k="bad"] { color: var(--red); }
+.msg[data-k="info"] { color: var(--ink-2); }
+.explain { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 16px; }
+.explain::before { content: "Açıklama"; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+
+/* Kilit */
+.lock { border: 1.5px dashed var(--line); border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-family: var(--font-ui); font-size: 14.5px; color: var(--ink-2); }
+.lock p { flex: 1 1 260px; }
+
+/* Etkileşimli çizimler */
+.widget { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; display: grid; gap: 10px; }
+.predict { font-size: 15.5px; }
+.wsvg { width: 100%; height: auto; display: block; }
+.w-row { display: grid; gap: 12px; }
+@media (min-width: 640px) { .w-row.two { grid-template-columns: 1fr 1fr; } }
+.w-cap { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.ctrl { display: flex; align-items: center; gap: 12px; font-family: var(--font-ui); font-size: 14px; }
+.ctrl label { font-weight: 600; white-space: nowrap; }
+.ctrl input[type="range"] { flex: 1; min-width: 0; accent-color: var(--marker); }
+.ro { font-family: var(--font-ui); font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ro b { color: var(--ink); font-weight: 600; }
+.wsvg .ax { stroke: var(--ink-2); stroke-width: 1; }
+.wsvg .grid { stroke: var(--line); stroke-width: 1; }
+.wsvg .tick { fill: var(--ink-2); font-family: var(--font-ui); font-size: 11px; }
+.wsvg .axl { fill: var(--ink-2); font-family: var(--font-body); font-style: italic; font-size: 13px; }
+.wsvg .lbl { fill: var(--marker); font-weight: 600; }
+.wsvg .box { fill: var(--marker-soft); stroke: var(--marker); stroke-width: 2; }
+.wsvg .area { fill: var(--marker-soft); stroke: none; }
+.wsvg .curve { fill: none; stroke: var(--marker); stroke-width: 2.25; }
+.wsvg .curve-alt { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.wsvg .curve-red { fill: none; stroke: var(--red); stroke-width: 2; }
+.wsvg .mark { stroke: var(--red); stroke-width: 1.25; stroke-dasharray: 3 3; }
+.wsvg .dot-b { fill: var(--marker); }
+.wsvg .dot-r { fill: var(--surface); stroke: var(--red); stroke-width: 2; }
+.wsvg .cell-on { fill: var(--marker); }
+.wsvg .cell-off { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+
+/* Tablolar */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 15px; }
+.tbl th, .tbl td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl th { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; background: var(--bg); white-space: nowrap; }
+.tbl td.num { font-family: var(--font-ui); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Son bölümler */
+.end { padding-block: 64px 0; display: grid; gap: 14px; scroll-margin-top: 96px; }
+.end h2 { font-size: clamp(24px, 3.2vw, 30px); font-weight: 700; }
+.end > p { max-width: 68ch; }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px; max-width: 80ch; }
+.report ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.why-tag { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.foot { padding-block: 40px 56px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+
+/* Fotoğraf görüntüleyici */
+.lb { position: fixed; inset: 0; z-index: 60; background: var(--scrim); display: flex; align-items: center; justify-content: center; padding: max(56px, calc(env(safe-area-inset-top, 0px) + 56px)) max(16px, env(safe-area-inset-right, 0px)) max(44px, calc(env(safe-area-inset-bottom, 0px) + 44px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lb img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; cursor: zoom-in; }
+.lb.full { display: block; overflow: auto; }
+.lb.full img { max-width: none; max-height: none; width: 1600px; cursor: zoom-out; }
+.lb-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); font-family: var(--font-ui); font-weight: 600; font-size: 14px; color: var(--scrim-ink); background: transparent; border: 1.5px solid var(--scrim-ink); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.lb-hint { position: fixed; left: 0; right: 0; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--font-ui); font-size: 13px; color: var(--scrim-ink); opacity: .8; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { padding-block: 28px 4px; }
+  .lead { font-size: 17.5px; }
+  .gist { font-size: 17px; }
+  .q { padding: 14px; }
+  .why { padding-left: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* 602 Hafta 7 eklemeleri: yeniden çizilmiş tahta, şekiller, mod seçici, durum etiketleri */
+.redraw { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 14px 16px 16px; display: grid; gap: 8px; min-width: 0; }
+.redraw .tag { color: var(--marker); }
+.redraw-n { font-family: var(--font-hand); font-size: 23px; color: var(--red); line-height: 1.25; }
+.redraw .tbl table { font-size: 14px; }
+.redraw .tbl th, .redraw .tbl td { padding: 7px 10px; }
+.wsvg .cell-x { fill: var(--red-soft); stroke: var(--red); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.wsvg .cell-y { fill: var(--marker-soft); stroke: var(--marker); stroke-width: 1.5; }
+.wsvg .cell-g { fill: var(--green-soft); stroke: var(--green); stroke-width: 1.5; }
+.wsvg .fig-h { fill: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 18px; }
+.wsvg .fig-s { fill: var(--ink-2); font-family: var(--font-ui); font-size: 11.5px; }
+.wsvg .fig-r { fill: var(--red); font-family: var(--font-ui); font-size: 11.5px; font-weight: 600; }
+.wsvg .fig-g { fill: var(--green); font-family: var(--font-ui); font-size: 11.5px; font-weight: 600; }
+.wsvg .fig-w { fill: var(--surface); font-family: var(--font-ui); font-size: 11px; font-weight: 600; }
+.wsvg .wall { fill: none; stroke: var(--ink); stroke-width: 4; }
+.wsvg .wall-thin { fill: none; stroke: var(--ink); stroke-width: 3; }
+.wsvg .cond { fill: var(--ink); }
+.wsvg .ah { fill: var(--marker); }
+.wsvg .ah-k { fill: var(--ink); }
+.wsvg .arr-b { stroke: var(--marker); stroke-width: 1.8; }
+.wsvg .arr { stroke: var(--ink); stroke-width: 1.4; }
+.wsvg .cell-p { fill: var(--marker); }
+.wsvg .cell-n { fill: var(--red); }
+.seg-row { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.seg { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-ui); font-size: 14px; }
+.seg-l { font-family: var(--font-body); font-style: italic; font-size: 17px; margin-right: 6px; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.seg label { min-width: 36px; text-align: center; padding: 6px 10px; border: 1.5px solid var(--line); border-radius: 999px; cursor: pointer; background: var(--bg); color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 600; }
+.seg label:hover { border-color: var(--marker); }
+.seg input:checked + label { background: var(--marker); border-color: var(--marker); color: var(--marker-ink); }
+.seg input:focus-visible + label { outline: 2.5px solid var(--marker); outline-offset: 2px; }
+.pill { display: inline-block; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--green-soft); color: var(--green); }
+.pill.no { background: var(--red-soft); color: var(--red); }
+.step-k .code { font-size: 20px; }
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">602</a> › Hafta 7</nav>
+  <p class="eyebrow">602 · 7. hafta · 6 Kasım dersi</p>
+  <h1>Borunun içindeki ışık</h1>
+  <p class="lead">Geçen hafta ışığı metal bir boruya soktuk ve altı alan bileşeninin hepsinin iki tanesinden, \(E_z\) ve \(B_z\)'den hesaplanabileceğini gördük. Bu hafta o hesabı bitirdik, bu iki bileşenin uyduğu denklemi bulduk, dalgaları TE, TM, TEM ve hibrit diye ayırdık ve dikdörtgen bir boruda TE dalgasını sonuna kadar çözdük. Dersin sonunda iki yeni kavram çıkıyor: mod ve kesim frekansı.</p>
+</header>
+
+<section class="wrap intro" aria-label="Nasıl çalışılır">
+  <div class="howto">
+    <p class="k">Nasıl çalışılır</p>
+    <ol>
+      <li>Ders üç bloktu ama elimizde iki tahtanın üç fotoğrafı var. Fotoğrafı olan adımlarda tahtayı görürsün; silinmiş kısımları (Helmholtz denklemi, mod türleri, TEM tartışması, TE₀₀ sorusu) transkriptten adım adım yeniden kurdum ve çizimle verdim. Fotoğrafa dokunursan büyür.</li>
+      <li>Önce “Tek cümlede” kutusunu, sonra anlatımı ve lise örneğini oku. Derste sorulan soruların cevapları ilgili adımın içinde.</li>
+      <li>Adımın sonundaki soruları çöz. Yanlış şık seçersen neden yanlış olduğunu görür, tekrar denersin.</li>
+      <li>Adım adım mod açıkken bir sonraki adım, öncekinin soruları bitince açılır. En sondaki rapor neyi tekrar etmen gerektiğini gösterir.</li>
+    </ol>
+  </div>
+  <aside class="remind">
+    <span class="tag">6. haftadan iki hatırlatma</span>
+    <div class="eq">\[ E_\parallel=0,\quad B_\perp=0\qquad\text{ve}\qquad \partial_z\to ik,\quad \partial_t\to-i\omega \]</div>
+    <p>Metal duvarın hemen yanında elektrik alanın duvara paralel bileşeni ve manyetik alanın duvara dik bileşeni sıfır. Dalga \(e^{i(kz-\omega t)}\) gibi ilerlediği için z türevi ik ile, t türevi −iω ile çarpmaya dönüşüyor. Bu haftaki her şey bu iki kurala dayanıyor; takıldığında önce bunlara dön.</p>
+  </aside>
+</section>
+
+<nav class="wrap map" aria-label="Adımlar">
+  <div class="map-g">
+    <h2>A · Altı bileşen, iki bilinmeyen</h2>
+    <ol>
+      <li><a href="#t1" data-step="t1"><span class="mn">1</span><span class="dot"></span>Boru, duvar ve dalga<span class="lk"></span></a></li>
+      <li><a href="#t2" data-step="t2"><span class="mn">2</span><span class="dot"></span>Maxwell'i bileşenlere açmak<span class="lk"></span></a></li>
+      <li><a href="#t3" data-step="t3"><span class="mn">3</span><span class="dot"></span>Enine alanlar \(E_z\), \(B_z\)'den<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>B · Dört tür dalga</h2>
+    <ol>
+      <li><a href="#t4" data-step="t4"><span class="mn">4</span><span class="dot"></span>Helmholtz denklemi<span class="lk"></span></a></li>
+      <li><a href="#t5" data-step="t5"><span class="mn">5</span><span class="dot"></span>TE, TM, TEM, hibrit<span class="lk"></span></a></li>
+      <li><a href="#t6" data-step="t6"><span class="mn">6</span><span class="dot"></span>İkisi birden sıfır: 0/0<span class="lk"></span></a></li>
+      <li><a href="#t7" data-step="t7"><span class="mn">7</span><span class="dot"></span>Boruda TEM yok, koaksiyelde var<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>C · Dikdörtgen boruda TE</h2>
+    <ol>
+      <li><a href="#t8" data-step="t8"><span class="mn">8</span><span class="dot"></span>Değişkenlere ayırma<span class="lk"></span></a></li>
+      <li><a href="#t9" data-step="t9"><span class="mn">9</span><span class="dot"></span>Sinüs ve kosinüs<span class="lk"></span></a></li>
+      <li><a href="#t10" data-step="t10"><span class="mn">10</span><span class="dot"></span>Sınır şartı türeve gider<span class="lk"></span></a></li>
+      <li><a href="#t11" data-step="t11"><span class="mn">11</span><span class="dot"></span>Kuantalanma ve mod şekilleri<span class="lk"></span></a></li>
+      <li><a href="#t12" data-step="t12"><span class="mn">12</span><span class="dot"></span>TE₀₀ yok, TM'de sinüs<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>D · Kesim frekansı</h2>
+    <ol>
+      <li><a href="#t13" data-step="t13"><span class="mn">13</span><span class="dot"></span>\(\omega_{mn}\) ve dağılım<span class="lk"></span></a></li>
+      <li><a href="#t14" data-step="t14"><span class="mn">14</span><span class="dot"></span>Kesimin altında sönüm<span class="lk"></span></a></li>
+      <li><a href="#t15" data-step="t15"><span class="mn">15</span><span class="dot"></span>Küçült, tek mod kalsın<span class="lk"></span></a></li>
+    </ol>
+    <h2 style="margin-top:16px">Sonda</h2>
+    <ol>
+      <li><a href="#sozluk"><span class="mn">·</span>Haftanın sözlüğü</a></li>
+      <li><a href="#tahta-notlari"><span class="mn">·</span>Tahta notları</a></li>
+      <li><a href="#rapor"><span class="mn">·</span>Durum raporu</a></li>
+    </ol>
+  </div>
+  <p class="legend"><span><span class="dot"></span>başlanmadı</span><span data-s="doing"><span class="dot"></span>yarıda</span><span data-s="done"><span class="dot"></span>ilk denemede tamam</span><span data-s="weak"><span class="dot"></span>tekrar bak</span></p>
+</nav>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div class="meter" aria-hidden="true"><span id="fill"></span></div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="bar-actions">
+      <button type="button" class="btn ghost" id="strict" aria-pressed="true">Adım adım: açık</button>
+      <button type="button" class="btn" id="next">Sıradaki soru</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ===================== BÖLÜM A ===================== -->
+<header class="part" id="bolum-a">
+  <p class="k">Bölüm A · Adım 1–3 · Tahta 1</p>
+  <h2>Altı bileşen, iki bilinmeyen</h2>
+  <p class="sub">Dersin ilk bloğu geçen haftanın son tahtasını bitirdi: Maxwell denklemlerini bileşenlere açıp enine alanları \(E_z\) ve \(B_z\) cinsinden yazdık. 6. haftanın defterinde \(B_y\) boş kalmıştı; burada tamamlanıyor.</p>
+</header>
+
+<!-- ADIM 1 -->
+<section class="step" id="t1" data-n="1">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 1</span><span class="code">Tahta 1</span><span class="st"></span></p>
+    <h3>Boru, duvar ve dalga</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 1 fotoğrafını büyüt"><img src="boards/tahta-1.jpg" width="1600" height="1200" alt="Beyaz tahta: solda dalga kılavuzu, metal kılıf ve sınır şartları E∥ = 0, B⊥ = 0; ortada dalga tahmini ve Maxwell denklemlerinin bileşenleri; sağ üstte ideal kılavuzda k'nın reel olduğu notu; altta Ex, Ey, Bx, By formülleri."></button>
+      <figcaption>Bu adım: sol sütun ve sağ üstteki mavi blok. Fotoğrafa dokun, tam ekran açılır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>İçi boş, iletken duvarlı bir boruda dalga z boyunca \(e^{i(kz-\omega t)}\) gibi ilerler; kesitteki şekli \(\vec E_0(x,y)\) ve \(\vec B_0(x,y)\), duvar şartlarından bulunacak.</p>
+      <p>Tahtanın sol sütunu geçen haftanın özeti. Dalga kılavuzunda (waveguide) ışığı bir yolda tutmanın iki yolu var. Fiberde çekirdeğin kırılma indisi kılıftan büyük, \(n_{clad}\lt n_{core}\), ve ışık tam iç yansımayla (TIR) içeride kalır. Bu hafta incelediğimiz ise metal kılıflı (metallic cladding) boş boru: ışığı duvar yansıtır.</p>
+      <p>İdeal iletkenin içinde alan yok: \(\vec E=0\), \(\vec B=0\). Genel sınır şartları, E'nin paralel bileşeninin ve B'nin dik bileşeninin yüzeyden geçerken sürekli olduğunu söylüyor (\(E_{1\parallel}=E_{2\parallel}\), \(B_{1\perp}=B_{2\perp}\)). Metalin içinde ikisi de sıfır olduğuna göre borunun içinde, duvarın hemen yanında:</p>
+      <div class="eq">\[ E_\parallel=0,\qquad B_\perp=0 \]</div>
+      <p>E'nin dik bileşeni ve B'nin paralel bileşeni ise duvarda sıfır olmak zorunda değil; yüzeydeki yük ve akım onları taşıyabilir. Tahtada daire içine alınan şart bu ikisi.</p>
+      <p>Tahtanın ortası dalga tahmini (ansatz):</p>
+      <div class="eq">\[ \vec E(x,y,z,t)=\vec E_0(x,y)\,e^{i(kz-\omega t)},\qquad \vec B(x,y,z,t)=\vec B_0(x,y)\,e^{i(kz-\omega t)} \]</div>
+      <p>Genlik sadece kesitteki konuma, (x, y)'ye bağlı; z'ye bağlı değil. Sağ üstteki not bunu açıyor: ideal kılavuzda k reel, kayıp yok, dalga z boyunca sönmeden periyodik ilerliyor. Kayıplı bir ortamda dalga sayısının sanal kısmı olur ve dalga söner; 6. haftadaki deri kalınlığı buydu. Tahtada “k → real”in üstüne sonradan “im.” yazılması bu ayrım için.</p>
+      <p>“But” ile başlayan satır önemli: \(\vec E_0=E_x\hat x+E_y\hat y+E_z\hat z\) her yönde polarize olabilir. Boş uzaydaki dalgada E ve B ilerleme yönüne dikti. Boruda böyle bir garanti yok; z bileşenleri de çıkabilir ve dersin geri kalanı tam olarak bu z bileşenlerinin hikâyesi.</p>
+      <p>Kırmızı satır, “insert these into Maxwell equ.”, türevlerin çarpmaya döndüğünü hatırlatıyor: \(\partial\vec E_0/\partial z\to ik\), \(\partial/\partial t\to-i\omega\).</p>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>Tahtada \(\vec B_0=B\,\hat x+B_y\hat y+B_z\hat z\) yazıyor; ilk terim \(B_x\hat x\) olacak.</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Hortumdan akan su. Su boru boyunca ilerler ama borunun kesitinde de bir hız dağılımı vardır: ortada hızlı, duvarın dibinde neredeyse durgun. Kılavuzdaki \(\vec E_0(x,y)\) bu kesit dağılımının karşılığı, \(e^{ikz}\) de boru boyunca ilerleyiş. Duvar şartı da tanıdık: su duvardan dışarı akamaz, yani duvara dik hız bileşeni duvarda sıfır. \(B_\perp=0\) şartı bunun manyetik alandaki karşılığı.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-1a" data-q="1a" data-type="mc" data-topic="metal duvarda sınır şartı">
+          <p><span class="q-n">Soru 1.1</span>İdeal iletken duvarın hemen yanında hangileri sıfır olmak zorunda?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(E_\perp\) ve \(B_\parallel\)</span></button><p class="why tex-later" hidden>Tam tersi. Duvardaki yüzey yükü E'nin dik bileşenini, yüzey akımı B'nin paralel bileşenini taşıyabilir.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(E_\parallel\) ve \(B_\perp\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">E'nin bütün bileşenleri</span></button><p class="why tex-later" hidden>Duvara dik E, yüzey yükü sayesinde sıfırdan farklı olabilir. Sıfır olan sadece paralel kısmı.</p></li>
+            <li><button type="button" class="opt"><span class="t">B'nin bütün bileşenleri</span></button><p class="why tex-later" hidden>Duvara paralel B, yüzey akımı sayesinde sıfırdan farklı olabilir. Sıfır olan sadece dik kısmı.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>İletkenin içinde alan sıfır. Sınırdan geçerken sürekli olan bileşenler \(E_\parallel\) ve \(B_\perp\); içeride sıfırsalar dışarıda da duvarın dibinde sıfır.</p></div>
+        </div>
+        <div class="q" id="q-1b" data-q="1b" data-type="mc" data-topic="z türevi ik ile çarpma">
+          <p><span class="q-n">Soru 1.2</span>\(\vec E=\vec E_0(x,y)\,e^{i(kz-\omega t)}\) ise \(\partial E_x/\partial z\) neye eşit?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(ik\,E_x\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-i\omega\,E_x\)</span></button><p class="why tex-later" hidden>Bu zaman türevi. z türevi üstteki \(ikz\)'den ik indirir.</p></li>
+            <li><button type="button" class="opt"><span class="t">0</span></button><p class="why tex-later" hidden>\(E_{0x}\) z'ye bağlı değil ama üstel çarpan bağlı.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial E_x/\partial x\)</span></button><p class="why tex-later" hidden>x ve z türevleri ayrı şeyler. x türevi kesitteki şekle, z türevi ilerleyişe bakar.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\partial_z e^{i(kz-\omega t)}=ik\,e^{i(kz-\omega t)}\), \(E_{0x}(x,y)\) sabit gibi davranır. Sonuç \(ikE_x\).</p></div>
+        </div>
+        <div class="q" id="q-1c" data-q="1c" data-type="mc" data-topic="kayıplı ortamda sönüm">
+          <p><span class="q-n">Soru 1.3</span>Boru kayıplı bir malzemeyle dolu ve \(k=k_R+i\,k_I\), \(k_I\gt0\). Genlik z boyunca nasıl değişir?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(e^{k_Iz}\) gibi büyür</span></button><p class="why tex-later" hidden>İşareti kontrol et: \(i\cdot ik_I=-k_I\). Pasif ortamda dalga büyümez.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(e^{-k_Iz}\) gibi söner</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Sabit kalır, sadece faz değişir</span></button><p class="why tex-later" hidden>Bu k reel olsaydı doğruydu, yani ideal kılavuzda.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(e^{ikz}=e^{ik_Rz}\,e^{-k_Iz}\). İlk çarpan salınım, ikincisi sönüm. Sağ üstteki “lossy medium” notu bu.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 2 -->
+<section class="step" id="t2" data-n="2">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 2</span><span class="code">Tahta 1</span><span class="st"></span></p>
+    <h3>Maxwell'i bileşenlere açmak</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 1 fotoğrafını büyüt"><img src="boards/tahta-1.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Tahta 1'in ortası: solda Faraday yasasının üç bileşeni, sağda Ampère–Maxwell yasasının üç bileşeni, aralarında kırmızı oklar."></button>
+      <figcaption>Bu adım: ortadaki iki sütun, solda Faraday, sağda Ampère–Maxwell.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>İki rotasyonel denklem altı skaler denkleme açılıyor; her birinde z türevi yerine ik, t türevi yerine −iω var.</p>
+      <p>Borunun içi boş: yük yok, akım yok. Kullandığımız iki denklem Faraday ve Ampère–Maxwell:</p>
+      <div class="eq">\[ \nabla\times\vec E=-\frac{\partial\vec B}{\partial t},\qquad \nabla\times\vec B=\frac{1}{c^2}\frac{\partial\vec E}{\partial t} \]</div>
+      <p>Rotasyoneli (curl) açıp türevleri yerine koyunca sol sütun, Faraday:</p>
+      <div class="eq">\[ \begin{aligned} \partial_xE_y-\partial_yE_x&amp;=i\omega B_z\\ \partial_yE_z-ikE_y&amp;=i\omega B_x\\ ikE_x-\partial_xE_z&amp;=i\omega B_y \end{aligned} \]</div>
+      <p>Sağ sütun, “similarly apply Ampère–Maxwell equ.”:</p>
+      <div class="eq">\[ \begin{aligned} \partial_xB_y-\partial_yB_x&amp;=-\tfrac{i\omega}{c^2}E_z\\ \partial_yB_z-ikB_y&amp;=-\tfrac{i\omega}{c^2}E_x\\ ikB_x-\partial_xB_z&amp;=-\tfrac{i\omega}{c^2}E_y \end{aligned} \]</div>
+      <p>Sağ taraflardaki işarete bak. Faraday'de \(-\partial_t\) var: \(-(-i\omega)=+i\omega\). Ampère'de \(+\frac{1}{c^2}\partial_t\) var: \(\frac{1}{c^2}(-i\omega)=-\frac{i\omega}{c^2}\).</p>
+      <p>Her sütunun ilk satırı z bileşeni; içinde k yok, sadece x ve y türevleri. Diğer iki satır x ve y bileşenleri, her birinde bir ik terimi var. Bu ayrım bir sonraki adımın anahtarı: x ve y bileşenlerinden gelen dört denklem dört enine bilinmeyeni (\(E_x,E_y,B_x,B_y\)) içeriyor ve düz cebirle çözülebiliyor.</p>
+      <details class="more">
+        <summary>Rotasyoneli açmak (hatırlatma)</summary>
+        <div class="d-body tex-later">
+          <div class="eq">\[ \nabla\times\vec E=\big(\partial_yE_z-\partial_zE_y\big)\hat x+\big(\partial_zE_x-\partial_xE_z\big)\hat y+\big(\partial_xE_y-\partial_yE_x\big)\hat z \]</div>
+          <p>Kalıp döngüsel: x → y → z → x. x bileşeninde y ve z türevleri, y bileşeninde z ve x türevleri, z bileşeninde x ve y türevleri var. \(\partial_z\)'nin geçtiği yerlere ik yazınca tahtadaki satırlar çıkıyor.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Lisede manyetik kuvveti \(\vec F=q\,\vec v\times\vec B\) ile, sağ el kuralıyla bulursun. Çapraz çarpımın bileşenleri aynı döngüsel kalıpla yazılır: \((\vec v\times\vec B)_x=v_yB_z-v_zB_y\). Rotasyonel, aynı çapraz çarpımın “\(\nabla\) vektörüyle” yapılmış hali: \(v_y\) yerine \(\partial_y\), \(v_z\) yerine \(\partial_z\) geliyor.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-2a" data-q="2a" data-type="mc" data-topic="Faraday'in x bileşeni">
+          <p><span class="q-n">Soru 2.1</span>Faraday yasasının x bileşeni hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\partial_yE_z-ikE_y=i\omega B_x\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial_xE_y-\partial_yE_x=i\omega B_x\)</span></button><p class="why tex-later" hidden>Sol taraf z bileşeninin sol tarafı; o \(B_z\)'ye eşit.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial_yE_z-ikE_y=-i\omega B_x\)</span></button><p class="why tex-later" hidden>İşaret: \(-\partial_tB=-(-i\omega)B=+i\omega B\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\((\nabla\times\vec E)_x=\partial_yE_z-\partial_zE_y=\partial_yE_z-ikE_y\), sağ taraf \(-\partial_tB_x=i\omega B_x\).</p></div>
+        </div>
+        <div class="q" id="q-2b" data-q="2b" data-type="mc" data-topic="z bileşeninde k neden yok">
+          <p><span class="q-n">Soru 2.2</span>Her iki sütunun z bileşeni satırında neden k görünmüyor?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Çünkü borunun içinde k = 0</span></button><p class="why tex-later" hidden>k = 0 olsaydı dalga ilerlemezdi. k var, sadece o satırda geçmiyor.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Rotasyonelin z bileşeninde sadece x ve y türevleri var, \(\partial_z\) yok</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Çünkü \(E_z\) ve \(B_z\) sıfır</span></button><p class="why tex-later" hidden>Henüz hiçbirini sıfır seçmedik. Ayrıca z satırının sağ tarafında tam \(B_z\) ve \(E_z\) duruyor.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\((\nabla\times\vec E)_z=\partial_xE_y-\partial_yE_x\). k ancak bir z türevinden gelebilir.</p></div>
+        </div>
+        <div class="q" id="q-2c" data-q="2c" data-type="mc" data-topic="Ampère'de zaman türevi">
+          <p><span class="q-n">Soru 2.3</span>\(\frac{1}{c^2}\frac{\partial\vec E}{\partial t}\) bu dalga için neye dönüşür?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\frac{i\omega}{c^2}\vec E\)</span></button><p class="why tex-later" hidden>Üstte \(-i\omega t\) var; türev \(-i\omega\) indirir.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(-\frac{i\omega}{c^2}\vec E\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\frac{\omega^2}{c^2}\vec E\)</span></button><p class="why tex-later" hidden>Bu ikinci türev olurdu (ve işareti de eksi olurdu).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\partial_te^{-i\omega t}=-i\omega e^{-i\omega t}\). Sağ sütunun bütün sağ tarafları bu yüzden \(-\frac{i\omega}{c^2}\) taşıyor.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 3 -->
+<section class="step" id="t3" data-n="3">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 3</span><span class="code">Tahta 1</span><span class="st"></span></p>
+    <h3>Enine alanlar \(E_z\) ve \(B_z\)'den</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 1 fotoğrafını büyüt"><img src="boards/tahta-1.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Tahta 1'in alt yarısı: mavi Ex ve Ey formülleri; sağda siyahla Bx ve By formülleri; ortada denklemleri birleştiren kırmızı oklar ve ×k, −ω notları."></button>
+      <figcaption>Bu adım: alttaki mavi satırlar ve sağdaki siyah blok.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Dört enine denklemi cebirle çözünce \(E_x,E_y,B_x,B_y\)'nin hepsi \(E_z\) ve \(B_z\)'nin türevleriyle yazılıyor; bilinmeyen sayısı altıdan ikiye iniyor.</p>
+      <p>Tahtadaki kırmızı oklar hangi denklemlerin birleştirildiğini gösteriyor. \(E_x\) için: Faraday'in y satırından \(B_y\)'yi çek ve Ampère'in x satırına koy. Tahtadaki “×k” ve “−ω” notları bu sırada yapılan çarpımlar. Sonuç alttaki ilk mavi satır:</p>
+      <div class="eq">\[ ik^2E_x-k\,\partial_xE_z-\omega\,\partial_yB_z=\frac{i\omega^2}{c^2}E_x \]</div>
+      <p>\(E_x\)'li terimleri bir tarafa topla:</p>
+      <div class="eq">\[ E_x=\frac{i}{\omega^2/c^2-k^2}\Big(k\,\partial_xE_z+\omega\,\partial_yB_z\Big) \]</div>
+      <details class="more">
+        <summary>Ara adımlar (tahtada kısa geçildi)</summary>
+        <div class="d-body tex-later">
+          <p>Faraday y satırı: \(ikE_x-\partial_xE_z=i\omega B_y\Rightarrow B_y=\frac{1}{i\omega}\big(ikE_x-\partial_xE_z\big)\).</p>
+          <p>Ampère x satırı: \(\partial_yB_z-ikB_y=-\frac{i\omega}{c^2}E_x\). \(B_y\)'yi koy ve iki tarafı \(i\omega\) ile çarp:</p>
+          <div class="eq">\[ i\omega\,\partial_yB_z+k^2E_x+ik\,\partial_xE_z=\frac{\omega^2}{c^2}E_x \]</div>
+          <p>Bir kez daha i ile çarpınca tahtadaki satır çıkıyor. \(E_x\)'leri toplayınca \(E_x\big(\frac{\omega^2}{c^2}-k^2\big)=i\big(k\,\partial_xE_z+\omega\,\partial_yB_z\big)\).</p>
+        </div>
+      </details>
+      <p>Aynı oyunu diğer üçü için oynayınca tahtanın kalanı:</p>
+      <div class="eq">\[ E_y=\frac{i}{\omega^2/c^2-k^2}\Big(k\,\partial_yE_z-\omega\,\partial_xB_z\Big) \]</div>
+      <div class="eq">\[ B_x=\frac{i}{\omega^2/c^2-k^2}\Big(k\,\partial_xB_z-\frac{\omega}{c^2}\,\partial_yE_z\Big),\qquad B_y=\frac{i}{\omega^2/c^2-k^2}\Big(k\,\partial_yB_z+\frac{\omega}{c^2}\,\partial_xE_z\Big) \]</div>
+      <p>Hoca “you can check it by yourself” dedi. Dördünü de sembolik olarak kontrol ettim; tahtadakiler doğru. Kalıbı aklında tut: E'lerde \(B_z\) terimi ω ile, B'lerde \(E_z\) terimi \(\omega/c^2\) ile geliyor ve hepsinin paydası aynı, \(\omega^2/c^2-k^2\). Bu paydanın sıfır olduğu durumu Adım 6'da konuşacağız.</p>
+      <p>Sonuç, hocanın cümlesiyle: “All we need is to calculate \(E_z\) and \(B_z\).” Altı bilinmeyen yerine iki.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>İki bilinmeyenli denklem sistemi ve yok etme yöntemi: \(2x+y=7\), \(x-y=2\). Topla: \(3x=9\), yani \(x=3\), sonra \(y=1\). Hoca tahtada aynı şeyi yaptı; tek fark katsayıların k, ω ve türevler olması. “×k” notu, bir denklemi k ile çarpıp ötekine eklemekle aynı hamle.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-3a" data-q="3a" data-type="mc" data-topic="Ey formülü">
+          <p><span class="q-n">Soru 3.1</span>\(E_y\) için doğru ifade hangisi? (Ortak çarpan \(\frac{i}{\omega^2/c^2-k^2}\).)</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(k\,\partial_yE_z+\omega\,\partial_xB_z\)</span></button><p class="why tex-later" hidden>\(B_z\) teriminin işareti eksi. \(E_x\)'te artı, \(E_y\)'de eksi; rotasyonelin döngüsünden geliyor.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(k\,\partial_yE_z-\omega\,\partial_xB_z\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(k\,\partial_xE_z-\omega\,\partial_yB_z\)</span></button><p class="why tex-later" hidden>Türev yönleri karışmış. \(E_y\)'de \(E_z\)'nin y türevi, \(B_z\)'nin x türevi var.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Tahtadaki mavi satır: \(E_y=\frac{i}{\omega^2/c^2-k^2}\big(k\,\partial_yE_z-\omega\,\partial_xB_z\big)\).</p></div>
+        </div>
+        <div class="q" id="q-3b" data-q="3b" data-type="mc" data-topic="TE'de Ex neye bağlı">
+          <p><span class="q-n">Soru 3.2</span>\(E_z=0\) olan bir dalgada \(E_x\) neyle orantılı?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\partial B_z/\partial y\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial B_z/\partial x\)</span></button><p class="why tex-later" hidden>O \(E_y\)'de geçiyor.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial E_z/\partial x\)</span></button><p class="why tex-later" hidden>\(E_z=0\) ise türevi de sıfır; bu terim düşer.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(E_x=\frac{i\omega}{\omega^2/c^2-k^2}\,\partial_yB_z\). Bu, Bölüm C'deki TE çözümünün temeli.</p></div>
+        </div>
+        <div class="q" id="q-3c" data-q="3c" data-type="num" data-answer="3" data-tol="0.001" data-show="3" data-topic="yok etme yöntemi">
+          <p><span class="q-n">Soru 3.3</span>\(3x+2y=13\) ve \(x-2y=-1\). x kaç?</p>
+          <div class="num-row"><label class="sr" for="in-3c">Cevabın</label><input id="in-3c" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>İki denklemi topla; y terimleri gider.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Toplayınca \(4x=12\), \(x=3\), \(y=2\). Tahtadaki eleme de böyle: uygun çarpanla birleştir, istemediğin bileşeni yok et.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM B ===================== -->
+<header class="part" id="bolum-b">
+  <p class="k">Bölüm B · Adım 4–7 · fotoğrafı olmayan tahta</p>
+  <h2>İki denklem ve dört tür dalga</h2>
+  <p class="sub">İkinci blok: \(E_z\) ve \(B_z\)'nin uyduğu denklem, hangisinin sıfır seçilebileceği ve neden boş metal boruda TEM dalga olmadığı. Bu tahta silinmeden fotoğraflanmamış; adımları transkriptten yeniden kurdum.</p>
+</header>
+
+<!-- ADIM 4 -->
+<section class="step" id="t4" data-n="4">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 4</span><span class="code">fotoğraf yok</span><span class="st"></span></p>
+    <h3>Helmholtz denklemi</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <span class="tag">Tahtada ne vardı</span>
+        <div class="eq">\[ \nabla\cdot\vec E=0:\quad \partial_xE_x+\partial_yE_y+ikE_z=0 \]</div>
+        <div class="eq">\[ \Big[\partial_x^2+\partial_y^2+\frac{\omega^2}{c^2}-k^2\Big]E_z=0 \]</div>
+        <div class="eq">\[ \Big[\partial_x^2+\partial_y^2+\frac{\omega^2}{c^2}-k^2\Big]B_z=0 \]</div>
+        <p class="redraw-n">“Helmholtz equation”</p>
+      </div>
+      <figcaption>Bu kısmın fotoğrafı yok; denklemleri transkriptten yeniden yazdım. İkinci tahtanın sol altında bu denklemin ayrılmış hali hâlâ görünüyor (Adım 8).</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Henüz kullanmadığımız iki Maxwell denklemi, \(\nabla\cdot\vec E=0\) ve \(\nabla\cdot\vec B=0\), \(E_z\) ve \(B_z\)'nin her biri için ayrı bir Helmholtz denklemi veriyor.</p>
+      <p>Elimizde iki bilinmeyen var ama henüz onların uyduğu bir denklem yok. Hoca şöyle dedi: iki bilinmeyenimiz var, elimizde iki denklem daha var, diverjans denklemleri. Boşlukta yük olmadığı için:</p>
+      <div class="eq">\[ \nabla\cdot\vec E=\partial_xE_x+\partial_yE_y+ikE_z=0 \]</div>
+      <p>Hepsi aynı \(e^{i(kz-\omega t)}\) çarpanını taşıyor; üstel hiçbir zaman sıfır olmadığı için sadeleşiyor. Şimdi Adım 3'teki \(E_x\)'in x türevini ve \(E_y\)'nin y türevini al. Yazıyı kısaltmak için \(\gamma^2\equiv\omega^2/c^2-k^2\) diyelim (bu kısaltma benim, tahtada yok):</p>
+      <div class="eq">\[ \partial_xE_x=\frac{i}{\gamma^2}\big(k\,\partial_x^2E_z+\omega\,\partial_x\partial_yB_z\big),\qquad \partial_yE_y=\frac{i}{\gamma^2}\big(k\,\partial_y^2E_z-\omega\,\partial_y\partial_xB_z\big) \]</div>
+      <p>Toplayınca karışık türevli \(B_z\) terimleri birbirini götürüyor; transkriptteki “these cross terms vanish” bu. Kalan:</p>
+      <div class="eq">\[ \frac{ik}{\gamma^2}\big(\partial_x^2+\partial_y^2\big)E_z+ikE_z=0 \]</div>
+      <p>İki tarafı \(\gamma^2/ik\) ile çarp:</p>
+      <div class="eq">\[ \Big[\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}+\frac{\omega^2}{c^2}-k^2\Big]E_z=0 \]</div>
+      <p>Aynı hesabı \(\nabla\cdot\vec B=0\) ve \(B_x\), \(B_y\) formülleriyle yapınca \(B_z\) için birebir aynı denklem çıkıyor. Hoca hesabın ortasında küçük bir işlem hatasını düzeltti (“just a mistake for calculation”); sonuç yukarıdaki. İkisini sembolik olarak kontrol ettim.</p>
+      <p>Bu denkleme Helmholtz denklemi deniyor. İkinci mertebe, kısmi türevli ve bilinmeyenler ayrık: \(E_z\) kendi denklemine, \(B_z\) kendi denklemine uyuyor. Birbirlerine sadece sınır şartları üzerinden bağlanıyorlar. Artık plan belli: önce sınır şartlarını uygula, sonra çöz.</p>
+      <details class="self">
+        <summary>Kendi cümlenle anlat, sonra açıp karşılaştır: karışık terimler neden gidiyor?</summary>
+        <div class="d-body tex-later"><p>\(\partial_x\partial_yB_z=\partial_y\partial_xB_z\), türevlerin sırası önemli değil. \(E_x\)'te bu terim \(+\omega\) ile, \(E_y\)'de \(-\omega\) ile geliyor. Diverjansta yan yana gelince sıfırlanıyorlar. İşaret farkı, Faraday'in rotasyonel kalıbından geliyor.</p></div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Yay–kütle sistemi. Lisedeki basit harmonik harekette ivme konumla orantılı ve ters yönde: \(a=-\frac{k}{m}x\), yani \(\ddot x=-\omega^2x\). Çözümü sinüs ve kosinüs. Helmholtz denklemi aynı yapının uzaydaki hali: “eğrilik = −sabit × değer”. Tek boyutta \(f''=-\kappa^2f\), çözümü \(\sin\kappa x\) ve \(\cos\kappa x\). Bölüm C'de tam olarak bunu çözeceğiz.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-4a" data-q="4a" data-type="mc" data-topic="Helmholtz hangi denklemden">
+          <p><span class="q-n">Soru 4.1</span>\(E_z\) için Helmholtz denklemine hangi Maxwell denklemiyle vardık?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Faraday'in z bileşeni</span></button><p class="why tex-later" hidden>Faraday'i Adım 2–3'te enine bileşenler için zaten kullandık. Yeni bilgi diverjanstan geldi.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\nabla\cdot\vec E=0\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\nabla\cdot\vec B=0\)</span></button><p class="why tex-later" hidden>O, \(B_z\)'nin denklemini veriyor.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\nabla\cdot\vec E=0\) içine \(E_x\) ve \(E_y\) formüllerini koyunca \(E_z\)'nin denklemi, \(\nabla\cdot\vec B=0\) içine \(B_x\), \(B_y\) koyunca \(B_z\)'ninki çıkıyor.</p></div>
+        </div>
+        <div class="q" id="q-4b" data-q="4b" data-type="mc" data-topic="f'' = −κ²f çözümü">
+          <p><span class="q-n">Soru 4.2</span>\(f''(x)=-9f(x)\) denkleminin bir çözümü hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(e^{3x}\)</span></button><p class="why tex-later" hidden>İkinci türevi \(+9e^{3x}\); işaret ters.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\sin 3x\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\sin 9x\)</span></button><p class="why tex-later" hidden>İkinci türevi \(-81\sin9x\). Katsayının karekökü argümana girer: \(\sqrt9=3\).</p></li>
+            <li><button type="button" class="opt"><span class="t">\(x^3\)</span></button><p class="why tex-later" hidden>İkinci türevi \(6x\), \(-9x^3\) değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\((\sin3x)''=-9\sin3x\). \(\cos3x\) de çözüm; genel çözüm ikisinin toplamı.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 5 -->
+<section class="step" id="t5" data-n="5">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 5</span><span class="code">fotoğraf yok</span><span class="st"></span></p>
+    <h3>TE, TM, TEM ve hibrit</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <svg class="wsvg" viewBox="0 0 360 286" role="img" aria-label="Dört dalga türü: Ez ve Bz'nin sıfır olup olmamasına göre TEM, TE, TM ve hibrit.">
+          <text x="160" y="18" text-anchor="middle" class="tick">B<tspan baseline-shift="sub" font-size="9">z</tspan> = 0</text>
+          <text x="290" y="18" text-anchor="middle" class="tick">B<tspan baseline-shift="sub" font-size="9">z</tspan> ≠ 0</text>
+          <text x="40" y="90" text-anchor="middle" class="tick">E<tspan baseline-shift="sub" font-size="9">z</tspan> = 0</text>
+          <text x="40" y="214" text-anchor="middle" class="tick">E<tspan baseline-shift="sub" font-size="9">z</tspan> ≠ 0</text>
+          <rect x="94" y="28" width="128" height="120" rx="10" class="cell-x"></rect>
+          <rect x="226" y="28" width="128" height="120" rx="10" class="cell-y"></rect>
+          <rect x="94" y="152" width="128" height="120" rx="10" class="cell-y"></rect>
+          <rect x="226" y="152" width="128" height="120" rx="10" class="cell-g"></rect>
+          <text x="158" y="70" text-anchor="middle" class="fig-h">TEM</text>
+          <text x="158" y="94" text-anchor="middle" class="fig-s">boş uzay</text>
+          <text x="158" y="110" text-anchor="middle" class="fig-s">koaksiyel kablo</text>
+          <text x="158" y="134" text-anchor="middle" class="fig-r">boş boruda yok</text>
+          <text x="290" y="70" text-anchor="middle" class="fig-h">TE</text>
+          <text x="290" y="94" text-anchor="middle" class="fig-s">E kesit düzleminde</text>
+          <text x="290" y="134" text-anchor="middle" class="fig-g">metal boruda var</text>
+          <text x="158" y="194" text-anchor="middle" class="fig-h">TM</text>
+          <text x="158" y="218" text-anchor="middle" class="fig-s">B kesit düzleminde</text>
+          <text x="158" y="258" text-anchor="middle" class="fig-g">metal boruda var</text>
+          <text x="290" y="194" text-anchor="middle" class="fig-h">hibrit</text>
+          <text x="290" y="218" text-anchor="middle" class="fig-s">HE, EH modları</text>
+          <text x="290" y="258" text-anchor="middle" class="fig-s">fiber, katmanlı yapı</text>
+        </svg>
+      </div>
+      <figcaption>Bu tablo tahtada yoktu; hocanın sözlü anlattığını ve tahtaya çizdiği ok resimlerini tek yerde topladım.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(E_z\) ve \(B_z\)'den hangisinin sıfır olduğuna göre dört tür dalga var; metal boruda TE ve TM var, TEM yok, hibrit modlar dielektrik kılavuzlarda çıkıyor.</p>
+      <p>Sınır şartlarına geçmeden önce hoca bir seçim yaptı: iki z bileşeninden birini sıfır seçebiliriz.</p>
+      <ul>
+        <li>\(E_z=0\): elektrik alan tamamen xy düzleminde, ilerleme yönüne ve kılavuz eksenine dik. Buna enine elektrik, transverse electric, kısaca <strong>TE</strong> deniyor. Bu durumda \(B_z\neq0\) olmak zorunda (neden olduğu Adım 6'da).</li>
+        <li>\(B_z=0\): manyetik alan ilerlemeye dik. Enine manyetik, transverse magnetic, <strong>TM</strong>. Bu durumda \(E_z\neq0\).</li>
+        <li>İkisi birden sıfır: enine elektromanyetik, <strong>TEM</strong>. Boş uzaydaki düzlem dalga böyle.</li>
+        <li>İkisi de sıfırdan farklı: hoca “bunlara ne deniyor?” diye sordu, cevap <strong>hibrit</strong>. Tahtaya ok çizerek gösterdi: TE'de k ve E dik, B'nin z bileşeni var; hibritte ikisinin de z bileşeni var.</li>
+      </ul>
+      <p>Hibrit modlar nerede çıkıyor? Hoca: içi boş metal boruda değil, dış kaplaması metal olmayan yapılarda. Optik fiberde ve katmanlı (layered) yapılarda kılıf dielektrik olunca TE ve TM ayrı ayrı sınır şartlarını sağlayamıyor, birbirine karışıyor. Fiberdeki adları HE ve EH; hocanın gösterdiği iki örnekten birinde elektrik, öbüründe manyetik alan baskındı. Enerjinin nasıl taşındığı, ne kadar uzağa gidebildiği bu modlarla ilgili; hoca ayrıntıyı ileriye bıraktı.</p>
+      <p>Hocanın benzetmesi gitar teli. Teli istediğin gibi titreştir; çoğu frekans tutmaz, iletime katkı vermez ve söner. Sadece telin boyuna uyan belli titreşimler kalır. Borudaki dalga da öyle: her frekans, her şekil ilerleyemez. İlerleyebilenlere mod diyoruz, ve hangileri olduğu malzemeye, kesitin şekline ve boyutuna bağlı. Bunu Bölüm C'de dikdörtgen boru için hesaplayacağız.</p>
+      <details class="more">
+        <summary>Derste konuşulan: simülasyonda TE0 ile TM0'ı nasıl ayırırsın?</summary>
+        <div class="d-body tex-later">
+          <p>Hoca, Dila'nın sunumunda gösterilen mod şekillerini hatırlattı ve “bu modları birbirinden nasıl ayırıyorsun, fiziksel olarak ben nasıl ayırırım?” diye sordu. Sınıftaki cevaplar şöyle özetlenebilir:</p>
+          <ul>
+            <li>Mod çözücü (mode solver) kesiti çözüp büyük bir matrisin özdeğer problemine çeviriyor; her özvektör bir mod. Her mod için efektif kırılma indisi ve polarizasyon oranı (TE fraction) veriyor.</li>
+            <li>Efektif indeksi en yüksek ve TE oranı %100'e en yakın olan temel TE modu, TE0. Alan dağılımında tek tepe varsa 0. mod, iki tepe varsa 1. mod.</li>
+            <li>Elektrik alanı yana doğru (çip düzlemine paralel) uzananlar TE, yukarı doğru olanlar TM.</li>
+            <li>Deneyde çıkışta gördüğün ışık çoğu zaman birkaç modun toplamı; en büyük katkı temel moddan geliyor. Tek başına bunu ayırt etmek zor, simülasyon gerekiyor.</li>
+            <li>Tasarımda geometri genelde sadece TE0 ve TM0'ı taşıyacak şekilde seçiliyor, kaynak da temel mod olarak veriliyor. Hangi modda çalışacağına karar vermek tasarımın en kritik adımı.</li>
+          </ul>
+          <p>Adlandırma notu: entegre fotonikte modlar 0'dan ve tek indisle sayılıyor (TE0, TE1). Metal boruda ise iki indis var, \(\mathrm{TE}_{10}\) gibi; Adım 11'de çıkacak.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>65 cm'lik bir gitar teli iki ucundan bağlı. Tele sığan duran dalgalar \(L=m\,\frac{\lambda}{2}\) şartını sağlamalı: dalga boyları 130 cm, 65 cm, 43,3 cm, … Aradaki 100 cm'lik bir dalga tutunamaz. Tel sadece bu listedeki “modlarda” çalar; borudaki ışık da öyle.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-5a" data-q="5a" data-type="mc" data-topic="TE tanımı">
+          <p><span class="q-n">Soru 5.1</span>Bir modda \(E_z=0\) ve \(B_z\neq0\). Adı ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">TE</span></button></li>
+            <li><button type="button" class="opt"><span class="t">TM</span></button><p class="why tex-later" hidden>TM'de sıfır olan \(B_z\). Ad, hangi alanın tamamen enine olduğunu söyler.</p></li>
+            <li><button type="button" class="opt"><span class="t">TEM</span></button><p class="why tex-later" hidden>TEM'de ikisi de sıfır.</p></li>
+            <li><button type="button" class="opt"><span class="t">Hibrit</span></button><p class="why tex-later" hidden>Hibritte ikisi de sıfırdan farklı.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(E_z=0\): elektrik alan tamamen enine. Transverse electric, TE.</p></div>
+        </div>
+        <div class="q" id="q-5b" data-q="5b" data-type="mc" data-topic="hibrit modlar nerede">
+          <p><span class="q-n">Soru 5.2</span>Hibrit (HE, EH) modlar hangisinde çıkar?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">İçi boş dikdörtgen metal boru</span></button><p class="why tex-later" hidden>Orada çözümler TE ve TM olarak ayrışıyor.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Optik fiber gibi dielektrik kılıflı kılavuz</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Boş uzay</span></button><p class="why tex-later" hidden>Boş uzaydaki düzlem dalga TEM.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Kılıf metal değil dielektrik olunca TE ve TM ayrı ayrı sınır şartını sağlayamıyor; ikisinin karışımı olan hibrit modlar çıkıyor.</p></div>
+        </div>
+        <div class="q" id="q-5c" data-q="5c" data-type="num" data-answer="65" data-tol="0.01" data-show="65" data-topic="telde mod dalga boyu">
+          <p><span class="q-n">Soru 5.3</span>65 cm'lik gitar telinde ikinci modun (m = 2) dalga boyu kaç cm?</p>
+          <div class="num-row"><label class="sr" for="in-5c">Cevabın</label><input id="in-5c" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(L=m\lambda/2\Rightarrow\lambda=2L/m\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\lambda=2\cdot65/2=65\) cm. Tele tam bir dalga boyu sığıyor.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 6 -->
+<section class="step" id="t6" data-n="6">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 6</span><span class="code">Tahta 1</span><span class="st"></span></p>
+    <h3>İkisi birden sıfır olursa: 0/0</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 1 fotoğrafını büyüt"><img src="boards/tahta-1.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Tahta 1'in alt kısmı: Ex, Ey, Bx ve By formüllerinin ortak paydası ω²/c² − k²."></button>
+      <figcaption>Cevap paydada: bütün formüllerin altında \(\omega^2/c^2-k^2\) var.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(E_z=B_z=0\) seçersen, payda sıfır değilse bütün alan sıfır olur; tek kaçış paydanın da sıfır olması, yani \(\omega=ck\), ve bu boş uzaydaki ışık.</p>
+      <p>Hoca sordu: ikisini birden sıfır seçebilir miyiz? Adım 3'teki formüllere bak; her enine bileşen bu ikisinin türevleriyle çarpılıyor. İkisi de sıfırsa \(E_x=E_y=B_x=B_y=0\). Hocanın sözüyle, elimizde hiçbir şey kalmıyor.</p>
+      <p>Ama sonra kendi sorusunu zorlaştırdı: daha hiç sınır şartı koymadık, yani bu formüller boş uzayda da geçerli. Boş uzayda düzlem dalganın E ve B'si ilerleme yönüne dik, yani TEM. Formüller “her şey sıfır” diyorsa boş uzaydaki ışık nasıl var?</p>
+      <p>Cevap paydada. Boş uzayın dağılım bağıntısı (dispersion relation) \(\omega=ck\). Yerine koy:</p>
+      <div class="eq">\[ \frac{\omega^2}{c^2}-k^2=\frac{c^2k^2}{c^2}-k^2=0 \]</div>
+      <p>Pay da sıfır, payda da sıfır: \(0/0\). Bu belirsiz bir ifade, sıfır olmak zorunda değil. Hocanın cümlesi: \(B_x\), \(E_y\) gibi bileşenlerin sıfır olduğunu otomatik söyleyemezsin, çünkü 0/0 var. Boş uzaydaki TEM dalga bu boşluktan geçiyor.</p>
+      <p>Kılavuzda dağılım bağıntısı farklı, \(\omega\neq ck\) (tam halini Adım 13'te bulacağız). Payda sıfırdan farklı olduğu için \(E_z\) ve \(B_z\)'den en az biri sıfırdan farklı olmak zorunda. Hoca bunu şöyle bağladı: kılavuzda c hızıyla giden bir dalga mümkün olsaydı çözüm olabilirdi, ama olamıyor. Sonuç: birini sıfır seçebilirsin, ikisini birden seçemezsin.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>\(\frac{x^2-1}{x-1}\) ifadesine x = 1 koyarsan \(0/0\) çıkar. Ama sadeleştirirsen \(\frac{(x-1)(x+1)}{x-1}=x+1\), yani x = 1'e giderken değer 2. “Üst sıfır, o halde sonuç sıfır” demek yanlış olurdu. Ortalama hız da böyle: yol / süre, ikisi de sıfıra giderken anlık hıza yaklaşır, sıfıra değil.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-6a" data-q="6a" data-type="num" data-answer="4" data-tol="0.001" data-show="4" data-topic="0/0 limiti">
+          <p><span class="q-n">Soru 6.1</span>\(\frac{x^2-4}{x-2}\) ifadesi x → 2 iken neye gider?</p>
+          <div class="num-row"><label class="sr" for="in-6a">Cevabın</label><input id="in-6a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(x^2-4=(x-2)(x+2)\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Sadeleşince \(x+2\), x = 2'de 4. Doğrudan koyunca 0/0 çıkması sonucun sıfır olduğu anlamına gelmiyor.</p></div>
+        </div>
+        <div class="q" id="q-6b" data-q="6b" data-type="mc" data-topic="kılavuzda Ez = Bz = 0">
+          <p><span class="q-n">Soru 6.2</span>Kılavuzda \(\omega\neq ck\) ve \(E_z=B_z=0\). Ne olur?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Bütün alan bileşenleri sıfır; dalga yok</span></button></li>
+            <li><button type="button" class="opt"><span class="t">TEM dalga ilerler</span></button><p class="why tex-later" hidden>TEM için payda sıfır olmalı, yani \(\omega=ck\). Burada değil.</p></li>
+            <li><button type="button" class="opt"><span class="t">Sadece \(E_x\) kalır</span></button><p class="why tex-later" hidden>\(E_x\) de \(E_z\) ve \(B_z\)'nin türevleriyle orantılı; o da sıfır.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Payda sıfır değil, paylar sıfır: dört enine bileşen de sıfır. \(E_z\) ve \(B_z\) zaten sıfır. Geriye bir şey kalmıyor.</p></div>
+        </div>
+        <div class="q" id="q-6c" data-q="6c" data-type="mc" data-topic="boş uzayda payda">
+          <p><span class="q-n">Soru 6.3</span>Boş uzayda \(\omega=ck\). \(\omega^2/c^2-k^2\) kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(k^2\)</span></button><p class="why tex-later" hidden>\(\omega^2/c^2=k^2\); çıkarınca sıfır kalıyor.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">0</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(2k^2\)</span></button><p class="why tex-later" hidden>İşaret: \(k^2-k^2\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(c^2k^2/c^2-k^2=0\). Formüller 0/0 olur ve TEM'e yer açılır.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 7 -->
+<section class="step" id="t7" data-n="7">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 7</span><span class="code">fotoğraf yok</span><span class="st"></span></p>
+    <h3>Boş boruda TEM yok, koaksiyel kabloda var</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <svg class="wsvg" viewBox="0 0 360 214" role="img" aria-label="Solda tek iletkenli boru: bütün duvar aynı potansiyelde, içeride alan yok. Sağda koaksiyel kablo: iç iletken V0, dış iletken 0, aralarında ışınsal elektrik alan.">
+          <defs><marker id="ah7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ah"></path></marker></defs>
+          <text x="90" y="18" text-anchor="middle" class="fig-h">tek iletken</text>
+          <rect x="22" y="40" width="136" height="100" class="wall"></rect>
+          <text x="90" y="34" text-anchor="middle" class="fig-s">bütün duvar V₀</text>
+          <text x="90" y="86" text-anchor="middle" class="fig-s">her yerde</text>
+          <text x="90" y="104" text-anchor="middle" class="fig-s">φ = V₀</text>
+          <text x="90" y="168" text-anchor="middle" class="fig-r">E = −∇φ = 0</text>
+          <text x="90" y="186" text-anchor="middle" class="fig-r">TEM yok</text>
+          <text x="270" y="18" text-anchor="middle" class="fig-h">koaksiyel</text>
+          <circle cx="270" cy="96" r="62" class="wall"></circle>
+          <circle cx="270" cy="96" r="16" class="cond"></circle>
+          <g class="arr7"></g>
+          <text x="270" y="100" text-anchor="middle" class="fig-w">V₀</text>
+          <text x="334" y="40" text-anchor="middle" class="fig-s">0 V</text>
+          <text x="270" y="186" text-anchor="middle" class="fig-g">E ≠ 0, TEM var</text>
+        </svg>
+      </div>
+      <figcaption>Bu kısım tahtada sözlü anlatıldı; çizim transkriptten.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>TEM dalgada enine elektrik alan, Laplace denklemine uyan bir potansiyelden geliyor; tek iletkenli boruda bütün duvar aynı potansiyelde olduğu için içerisi sabit potansiyelde kalıyor ve alan sıfır. İki iletkenli koaksiyel kabloda TEM var.</p>
+      <p>Hoca TEM'in neden olamayacağını ikinci bir yoldan, elektrostatik dilinde anlattı. \(E_z=B_z=0\) iken iki z bileşeni denkleminin söylediği:</p>
+      <div class="eq">\[ \partial_xE_y-\partial_yE_x=i\omega B_z=0,\qquad \partial_xE_x+\partial_yE_y=-ikE_z=0 \]</div>
+      <p>İlki, kesitteki E'nin rotasyonelinin sıfır olduğunu söylüyor. Rotasyoneli sıfır olan alan bir potansiyelin gradyanı: \(\vec E_0=-\nabla\phi\). İkincisi diverjansın sıfır olduğunu söylüyor. İkisi birlikte:</p>
+      <div class="eq">\[ \nabla^2\phi=\frac{\partial^2\phi}{\partial x^2}+\frac{\partial^2\phi}{\partial y^2}=0 \]</div>
+      <p>Laplace denklemi. Sağ tarafta bir yük terimi olsaydı Poisson denklemi olurdu; hoca ikisini ayırdı. Laplace denkleminin çözümlerinin önemli bir özelliği var: içeride yerel maksimum ya da minimum olamaz, en büyük ve en küçük değerler sınırda.</p>
+      <p>İletkenin yüzeyi eş potansiyel (equipotential surface): üzerindeki her noktanın potansiyeli aynı. Borunun bütün duvarı tek bir iletken, yani sınırın her yerinde φ aynı, diyelim V₀. Maksimum da minimum da sınırda ve ikisi de V₀; o halde içeride her yerde φ = V₀. Sabitin türevi sıfır: \(\vec E_0=0\). Elektrik alan yoksa dalga da yok. Sonuç: içi boş, iletken kılıflı bir kılavuzda TEM çözüm olamaz.</p>
+      <p>Koaksiyel kabloda (coaxial cable) iç içe iki iletken var. Aralarına gerilim uygulanınca iç iletken V₀, dış iletken 0. Sınırda artık iki farklı değer var; φ aralarında değişebilir ve türevi, yani E, sıfırdan farklı olabilir. Koaksiyel kablo TEM dalga taşır. Bir arkadaş eş potansiyelin TEM'le ilişkisini sordu; hocanın cevabı aynı noktaya döndü: tek iletkende içerisi tek bir potansiyelde, iki iletkende arada fark oluşabiliyor.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Isı. Kenarlarının hepsi 20 °C'de tutulan metal bir levha zamanla her yerde 20 °C olur; içinde daha sıcak ya da daha soğuk bir nokta kalmaz. Kararlı haldeki sıcaklık da Laplace denklemine uyar. Levhanın bir kenarını 100 °C'de, karşı kenarını 0 °C'de tutarsan içeride bir sıcaklık eğimi, yani ısı akışı oluşur. Tek iletkenli boru ilk levha, koaksiyel kablo ikincisi.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-7a" data-q="7a" data-type="mc" data-topic="Laplace çözümünde uç değerler">
+          <p><span class="q-n">Soru 7.1</span>Laplace denkleminin çözümü için hangisi doğru?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">En büyük ve en küçük değeri sınırda alır</span></button></li>
+            <li><button type="button" class="opt"><span class="t">İçeride en az bir tepe noktası olur</span></button><p class="why tex-later" hidden>Tam tersi; içeride yerel tepe ya da çukur olamaz.</p></li>
+            <li><button type="button" class="opt"><span class="t">Her zaman sıfırdır</span></button><p class="why tex-later" hidden>Sınırda farklı değerler varsa çözüm sıfırdan farklı; koaksiyel kablo örneği.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Laplace çözümünün her noktadaki değeri, çevresindeki küçük bir çemberin ortalaması. Ortalama, en büyük değerden büyük olamaz; tepe ancak sınırda olur.</p></div>
+        </div>
+        <div class="q" id="q-7b" data-q="7b" data-type="mc" data-topic="boş boruda TEM neden yok">
+          <p><span class="q-n">Soru 7.2</span>İçi boş metal boruda neden TEM dalga yok?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Metal duvar ışığı soğuruyor</span></button><p class="why tex-later" hidden>İdeal iletkende kayıp yok. Sebep geometrik.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Duvar eş potansiyel; içeride φ sabit kalıyor ve \(\vec E=0\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Boruda \(\omega\) her zaman \(ck\)'ya eşit</span></button><p class="why tex-later" hidden>Tam tersi; boruda \(\omega\neq ck\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>TEM'de \(\vec E_0=-\nabla\phi\), \(\nabla^2\phi=0\). Sınırın her yeri V₀ ise içerisi de V₀, gradyan sıfır.</p></div>
+        </div>
+        <div class="q" id="q-7c" data-q="7c" data-type="num" data-answer="20" data-tol="0.01" data-show="20" data-topic="Laplace: sabit sınır">
+          <p><span class="q-n">Soru 7.3</span>Bütün kenarları 20 °C'de tutulan bir levhanın tam ortası, kararlı halde kaç °C?</p>
+          <div class="num-row"><label class="sr" for="in-7c">Cevabın</label><input id="in-7c" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>İçeride en büyük ve en küçük değer sınırda. Sınırın her yeri aynıysa?</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>20 °C. En büyük de en küçük de 20, arada başka değer kalmıyor. Borudaki φ = V₀ sonucunun aynısı.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM C ===================== -->
+<header class="part" id="bolum-c">
+  <p class="k">Bölüm C · Adım 8–12 · Tahta 2</p>
+  <h2>Dikdörtgen boruda TE modları</h2>
+  <p class="sub">Üçüncü blok ve ikinci tahta: kesiti a × b olan metal boruda TE dalgasını değişkenlere ayırarak çözüyoruz. Kuantalanma ve modlar burada çıkıyor.</p>
+</header>
+
+<!-- ADIM 8 -->
+<section class="step" id="t8" data-n="8">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 8</span><span class="code">Tahta 2</span><span class="st"></span></p>
+    <h3>Değişkenlere ayırma</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 fotoğrafını büyüt"><img src="boards/tahta-2-ilk.jpg" width="1450" height="1200" loading="lazy" decoding="async" alt="İkinci tahta, ilk hali: sol üstte a × b kesit çizimi, sol altta ayrılmış Helmholtz denklemi, sağ üstte −kx² − ky² + ω²/c² − k² = 0 ve kx² + ky² + k² = ω²/c², ortada Bz = X(x)Y(y) çözümü."></button>
+      <figcaption>Bu adım: sol üstteki kesit çizimi, sol alttaki ayrılmış denklem ve sağ üstteki mavi satırlar.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(B_z(x,y)=X(x)\,Y(y)\) tahminini koyup XY'ye bölünce bir terim sadece x'e, bir terim sadece y'ye bağlı kalıyor; her x, y için toplamları sabit olduğuna göre ikisi ayrı ayrı sabit.</p>
+      <p>Kesit: x yönünde 0 ≤ x ≤ a, y yönünde 0 ≤ y ≤ b, dışı iletken (tahtadaki çizimde x yukarı, y sağa doğru). TE dalga seçiyoruz, \(E_z=0\). \(E_z\)'nin denklemini çözmeye gerek yok; çözülecek tek denklem \(B_z\)'nin Helmholtz denklemi. Hoca TM'yi de seçebileceğimizi, çözümlerin benzer olacağını ama sınır şartları yüzünden aynı olmayacağını söyledi (Adım 12).</p>
+      <p>Hoca önce strateji sordu. Cevap değişkenlere ayırma (separation of variables):</p>
+      <div class="eq">\[ B_z(x,y)=X(x)\,Y(y) \]</div>
+      <p>Denkleme koy. Y, x'e bağlı değil, x türevinin dışına çıkıyor; X de y türevinin dışına:</p>
+      <div class="eq">\[ Y\,\frac{d^2X}{dx^2}+X\,\frac{d^2Y}{dy^2}+\Big(\frac{\omega^2}{c^2}-k^2\Big)XY=0 \]</div>
+      <p>XY'ye böl (hoca: “1/XY ile çarp, ya da XY'ye böl”):</p>
+      <div class="eq">\[ \underbrace{\frac{1}{X}\frac{d^2X}{dx^2}}_{\text{sadece }x}+\underbrace{\frac{1}{Y}\frac{d^2Y}{dy^2}}_{\text{sadece }y}+\frac{\omega^2}{c^2}-k^2=0 \]</div>
+      <p>İlk terim sadece x'e bağlı. x'i değiştirince öbür terimlerin hiçbiri değişmiyor ama toplam hep sıfır kalmalı; o halde ilk terim değişemez, sabit. Aynı mantıkla ikinci terim de sabit. Hoca bunları negatif kareler olarak seçti:</p>
+      <div class="eq">\[ \frac{1}{X}\frac{d^2X}{dx^2}=-k_x^2,\qquad \frac{1}{Y}\frac{d^2Y}{dy^2}=-k_y^2 \]</div>
+      <p>Neden eksi ve kare? Hesap kolaylaşsın, çözümler sinüs çıksın ve sayılar dalga sayısı gibi okunsun diye. Hoca “istersen \(A^2\) de diyebilirsin, ne olduğunu sonra anlarız” dedi; seçim bir kolaylık. Sağ üstteki mavi satır:</p>
+      <div class="eq">\[ -k_x^2-k_y^2+\frac{\omega^2}{c^2}-k^2=0\quad\Longrightarrow\quad k_x^2+k_y^2+k^2=\frac{\omega^2}{c^2},\qquad k=k_z \]</div>
+      <p>Hepsinin birimi aynı (1/m): \(k_x\) ve \(k_y\) de dalga sayısı, k aslında \(k_z\). Boş uzaydaki \(|\vec k|^2=\omega^2/c^2\) ile aynı biçim; fark, \(k_x\) ve \(k_y\)'yi birazdan duvarların belirleyecek olması.</p>
+      <details class="more">
+        <summary>Derste sorulanlar (dört soru)</summary>
+        <div class="d-body tex-later">
+          <p><strong>“Çözümün bu formda olduğunu biliyor muyuz?”</strong> Hayır, bilmiyoruz, deniyoruz. Bulduğumuz fonksiyon denklemi ve sınır şartlarını sağlıyorsa teklik teoremi (uniqueness theorem) çözümün bu olduğunu söylüyor. Genelde tek bir çözüm değil bir dizi çözüm çıkıyor; denklem doğrusal olduğu için \(A_1\psi_1+A_2\psi_2\) gibi toplamları (süperpozisyon, doğrusal kombinasyon) da çözüm.</p>
+          <p><strong>“Bazı özel noktalarda sabit olmadan da sağlayabilirim.”</strong> Bir arkadaş üçgen, dörtgen gibi özel geometrilerde ya da özel noktalarda başka seçenekler olabileceğini sordu. Hoca: denklem her x ve her y için sağlanmalı; özel nokta çözümü aramıyoruz. Her yerde sağlanacaksa terimler ancak sabit olabilir.</p>
+          <p><strong>“Bu yöntem ideal durum için değil mi? Gerçek kılavuzda kırılma indisi var.”</strong> Evet, ideal (kayıpsız, içi boş) durumu çözüyoruz. k'yı β gibi başka bir sembolle yazmayacağız; gerçek malzemeyi başka bir şekilde ifade edeceğiz.</p>
+          <p><strong>“z de vardı, iki boyuta mı düştük?”</strong> Kesite bakıyoruz. z bağımlılığı zaten \(e^{ikz}\)'de duruyor ve denkleme \(-k^2\) olarak girdi.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>“x'e bağlı bir şey + y'ye bağlı bir şey = 10”, her x ve her y için doğru olsun: \(f(x)+g(y)=10\). y = 0'ı sabit tutup x = 1 ve x = 5 koy: \(f(1)+g(0)=f(5)+g(0)\), yani \(f(1)=f(5)\). Hangi iki x'i seçersen seç aynı çıkar; f sabit. Aynı nedenle g de sabit. Değişkenlere ayırmanın bütün mantığı bu.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-8a" data-q="8a" data-type="mc" data-topic="ayırma: terimler sabit">
+          <p><span class="q-n">Soru 8.1</span>\(f(x)+g(y)=10\) her x ve y için doğruysa hangisi kesin?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(f=g\)</span></button><p class="why tex-later" hidden>Örneğin f = 3, g = 7 de olur. Sadece ikisinin de sabit olduğu kesin.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">f ve g ayrı ayrı sabit</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(f(x)=10-x\)</span></button><p class="why tex-later" hidden>O zaman \(g(y)=x\) olmalıydı; ama g, x'e bağlı olamaz.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>x'i değiştirince toplam değişmemeli ve g değişmiyor; o halde f de değişmiyor.</p></div>
+        </div>
+        <div class="q" id="q-8b" data-q="8b" data-type="mc" data-topic="ayırma sabitleri ve frekans">
+          <p><span class="q-n">Soru 8.2</span>Ayırma sabitleri, k ve ω arasındaki bağıntı hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(k_x+k_y+k=\omega/c\)</span></button><p class="why tex-later" hidden>Kareler toplanıyor, kendileri değil; Pisagor gibi.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(k_x^2+k_y^2+k^2=\omega^2/c^2\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(k_x^2+k_y^2=k^2\)</span></button><p class="why tex-later" hidden>ω nereye gitti? Denklemdeki \(\omega^2/c^2\) terimi korunuyor.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(-k_x^2-k_y^2+\omega^2/c^2-k^2=0\), düzenleyince \(k_x^2+k_y^2+k^2=\omega^2/c^2\).</p></div>
+        </div>
+        <div class="q" id="q-8c" data-q="8c" data-type="mc" data-topic="teklik teoremi">
+          <p><span class="q-n">Soru 8.3</span>Değişkenlere ayırmayla bulduğumuz çözümün doğru çözüm olduğunu ne garanti ediyor?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Teklik teoremi: denklemi ve sınır şartlarını sağlıyorsa çözüm odur</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Her kısmi diferansiyel denklemin çözümü çarpım şeklindedir</span></button><p class="why tex-later" hidden>Değil; çarpım biçimi bir tahmin. Çoğu zaman çarpımların toplamı gerekir.</p></li>
+            <li><button type="button" class="opt"><span class="t">Garanti yok, sonuç yaklaşık</span></button><p class="why tex-later" hidden>Sonuç tam; deneme yöntemi ama sağlıyorsa kesin.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Hoca: “actually we don't know … if you get the solution, the uniqueness theorem tells that yes, that's the solution.”</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 9 -->
+<section class="step" id="t9" data-n="9">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 9</span><span class="code">Tahta 2</span><span class="st"></span></p>
+    <h3>İkinci türevi kendisinin eksisi: sinüs ve kosinüs</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 fotoğrafını büyüt"><img src="boards/tahta-2-ilk.jpg" width="1450" height="1200" loading="lazy" decoding="async" alt="İkinci tahtanın sağ yarısı: ∂²X/∂x² = −kx² X, X(x) = A sin(kx x) + B cos(kx x), X(x) = A e^(ikx x) + B e^(−ikx x), Y(y) = C sin(ky y) + D cos(ky y)."></button>
+      <figcaption>Bu adım: sağdaki siyah satırlar, X(x) ve Y(y).</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(X''=-k_x^2X\) denkleminin iki bağımsız çözümü var; genel çözüm sinüs ve kosinüsün, ya da \(e^{\pm ik_xx}\)'in doğrusal kombinasyonu.</p>
+      <div class="eq">\[ \frac{d^2X}{dx^2}=-k_x^2\,X(x) \]</div>
+      <p>Hoca sordu: ikinci türevi kendisinin eksi işaretlisi olan fonksiyon hangisi, ve kaç tane çözüm var? Sinüs ve kosinüs: \((\sin)''=-\sin\), \((\cos)''=-\cos\). İkinci mertebe denklemin iki bağımsız çözümü olur:</p>
+      <div class="eq">\[ X(x)=A\sin(k_xx)+B\cos(k_xx) \]</div>
+      <p>Ya da üstellerle: \(X(x)=Ae^{ik_xx}+Be^{-ik_xx}\). İkisi aynı aile; Euler formülüyle (\(e^{i\theta}=\cos\theta+i\sin\theta\)) birbirine çevrilir, sadece A ve B sabitleri farklı olur. Hoca, üstellerle çalışmanın bazen daha kolay olduğunu söyledi; duvar şartı türev üzerinden geleceği için burada sinüs-kosinüs daha rahat.</p>
+      <p>Y için tam olarak aynısı: \(Y(y)=C\sin(k_yy)+D\cos(k_yy)\). \(B_z=XY\) çarpımı dört sabit taşıyor (A, B, C, D). Hoca: bunları bulmak için sınır şartlarını uygulamamız lazım.</p>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>Tahtada B harfi hem manyetik alan hem de \(B\cos(k_xx)\)'teki sabit için kullanılıyor. İkincisi sadece bir sayı; kafanda “katsayı B” diye tut. Sonuçta hoca sabitleri tek bir \(B_0\)'da topluyor.</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Yay–kütle: \(a=-\frac{k}{m}x\). Çözüm \(x(t)=A\sin\omega t+B\cos\omega t\), \(\omega=\sqrt{k/m}\). A ve B, kütleyi nereden bıraktığına ve ilk hızına göre belirlenir. Örnek: k = 100 N/m, m = 1 kg ise ω = 10 rad/s; kütleyi 5 cm çekip bırakırsan B = 5 cm, A = 0. Kılavuzda A ve B'yi başlangıç anı değil duvarlar belirleyecek.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 2 soru</p>
+        <div class="q" id="q-9a" data-q="9a" data-type="mc" data-topic="X'' = −k²X çözümleri">
+          <p><span class="q-n">Soru 9.1</span>Hangisi \(X''=-4X\) denkleminin çözümü DEĞİL?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\sin2x\)</span></button><p class="why tex-later" hidden>\((\sin2x)''=-4\sin2x\); bu bir çözüm.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(3\sin2x+\cos2x\)</span></button><p class="why tex-later" hidden>Çözümlerin toplamı da çözüm; denklem doğrusal.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(e^{2x}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{2ix}\)</span></button><p class="why tex-later" hidden>\((e^{2ix})''=(2i)^2e^{2ix}=-4e^{2ix}\); çözüm.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\((e^{2x})''=+4e^{2x}\). Üstte i olmayınca salınım değil büyüme çıkar; işaret ters.</p></div>
+        </div>
+        <div class="q" id="q-9b" data-q="9b" data-type="num" data-answer="5" data-tol="0.001" data-show="5" data-topic="yay–kütle açısal frekansı">
+          <p><span class="q-n">Soru 9.2</span>Yay sabiti 100 N/m, kütle 4 kg. \(\omega=\sqrt{k/m}\) kaç rad/s?</p>
+          <div class="num-row"><label class="sr" for="in-9b">Cevabın</label><input id="in-9b" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>100 / 4 = 25; karekökünü al.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\sqrt{25}=5\) rad/s. Kılavuzda bu rolü \(k_x\) oynuyor: \(X''=-k_x^2X\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 10 -->
+<section class="step" id="t10" data-n="10">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 10</span><span class="code">Tahta 2</span><span class="st"></span></p>
+    <h3>Sınır şartı türeve gider</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 son hali fotoğrafını büyüt"><img src="boards/tahta-2-son.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="İkinci tahtanın sağ alt kısmı: B⊥ = 0 ⇒ Bx = 0 (x = 0 ve x = a), Bx formülü, kırmızı zincir Bx = 0, Ez = 0 ⇒ ∂Bz/∂x = 0 ⇒ ∂X/∂x = 0, dX/dx = A kx cos(kx x) − B kx sin(kx x)."></button>
+      <figcaption>Bu adım: sağ alttaki kırmızı ok zinciri ve siyah \(B_x\) formülü.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Duvarda \(B_\perp=0\), yani x duvarlarında \(B_x=0\); TE'de \(B_x\) sadece \(\partial B_z/\partial x\)'e bağlı olduğu için şart \(X'(0)=X'(a)=0\) oluyor. Sıfır olan \(B_z\)'nin kendisi değil, duvara dik türevi.</p>
+      <p>Hangi bileşen hangi duvara dik? x = 0 ve x = a duvarlarına dik olan \(B_x\); y = 0 ve y = b duvarlarına dik olan \(B_y\). \(B_z\) ilerleme yönünde, yani bütün duvarlara paralel; ona \(B_\perp\) şartı uygulanmıyor. Derste bir arkadaş x = 0 yüzeyinde \(B_y\)'nin dik olup olmadığını sordu; hoca düzeltti: o yüzeyde \(B_y\) teğet, dik olan \(B_x\). Hocanın ifadesiyle yön (artı ya da eksi x) önemli değil; iki x duvarında da şart \(B_x=0\).</p>
+      <p>Şart \(B_x\) üzerinde ama elimizdeki denklem \(B_z\) için; hoca “direkt sıfır koyamazsın” dedi. Köprü Adım 3'teki formül:</p>
+      <div class="eq">\[ B_x=\frac{i}{\omega^2/c^2-k^2}\Big(k\,\frac{\partial B_z}{\partial x}-\frac{\omega}{c^2}\frac{\partial E_z}{\partial y}\Big) \]</div>
+      <p>TE'de \(E_z=0\), ikinci terim düşüyor ve \(B_x\propto\partial B_z/\partial x\). Tahtadaki kırmızı zincir:</p>
+      <div class="eq">\[ B_x=0,\;E_z=0\;\Longrightarrow\;\frac{\partial B_z}{\partial x}=0\;\Longrightarrow\;\frac{dX}{dx}=0\qquad(x=0\ \text{ve}\ x=a) \]</div>
+      <p>Son adım: \(\partial_x(XY)=Y\,X'\). Y'yi her y için sıfır yaparsan \(B_z\) tamamen sıfır olur, işe yaramaz; o halde \(X'=0\). Hoca: Y'ye bağlı kısım zaten geçti, sadece x'e bağlı kısmın türevi kaldı.</p>
+      <p>Bir arkadaşın takıldığı yer: “X bir fonksiyon, sabit değil; neden türevini alıyoruz, türevi de sabit değil ki?” Cevap: türev de bir fonksiyon, ve onun her yerde sıfır olmasını istemiyoruz. Sadece duvarlarda, x = 0'da ve x = a'da sıfır olmalı. Türevi al, x yerine önce 0 koy, sonra a koy. Hoca: “X sinüs-kosinüs çıkıyor, sabit değil; ama sınırlarda sıfır olmalı.”</p>
+      <p>Tahtadaki türev: \(\frac{dX}{dx}=Ak_x\cos(k_xx)-Bk_x\sin(k_xx)\). Sınır değerleri bir sonraki adımda.</p>
+      <aside class="fix">
+        <span class="tag">Tahta notu</span>
+        <p>İkinci tahtadaki \(B_x\) formülünde ilk terimin önündeki k yok, paydada \(\omega^2/c\) ve ikinci terimde \(\omega^2/c^2\) yazıyor. Doğrusu birinci tahtadaki hal: payda \(\omega^2/c^2-k^2\), ikinci terimin katsayısı \(\omega/c^2\). Sonuca etkisi yok: TE'de ikinci terim zaten sıfır ve \(k\neq0\).</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Tam yalıtılmış bir odanın duvarından ısı geçmez. Bu, sıcaklığın duvara dik yöndeki değişiminin (eğiminin) duvarda sıfır olması demek; sıcaklığın kendisi duvarda 18 °C de olabilir, 25 °C de. Burada da duvarda sıfır olan \(B_z\)'nin değeri değil, duvara dik eğimi.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-10a" data-q="10a" data-type="mc" data-topic="hangi bileşen duvara dik">
+          <p><span class="q-n">Soru 10.1</span>x = 0 duvarına dik olan manyetik alan bileşeni hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(B_x\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(B_y\)</span></button><p class="why tex-later" hidden>x = 0 yüzeyi yz düzleminde; \(B_y\) o yüzey boyunca uzanıyor, teğet.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(B_z\)</span></button><p class="why tex-later" hidden>\(B_z\) ilerleme yönünde, bütün duvarlara teğet.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>x = sabit yüzeyinin normali x yönünde. Dik bileşen \(B_x\).</p></div>
+        </div>
+        <div class="q" id="q-10b" data-q="10b" data-type="mc" data-topic="TE sınır şartı">
+          <p><span class="q-n">Soru 10.2</span>TE'de x = a duvarındaki şart hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\partial B_z/\partial x=0\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(B_z=0\)</span></button><p class="why tex-later" hidden>\(B_z\) duvara teğet; \(B_\perp\) şartı ona uygulanmaz. Değerin kendisinin sıfır olması TM'deki \(E_z\) için geçerli (Adım 12).</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial B_z/\partial y=0\)</span></button><p class="why tex-later" hidden>Bu y = 0 ve y = b duvarlarının şartı.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(B_x\propto\partial_xB_z\) (çünkü \(E_z=0\)); \(B_x=0\) şartı \(\partial_xB_z=0\) demek.</p></div>
+        </div>
+        <div class="q" id="q-10c" data-q="10c" data-type="mc" data-topic="kosinüsün türevi sıfırda">
+          <p><span class="q-n">Soru 10.3</span>\(X(x)=\cos(3x)\) ise \(X'(0)\) kaç?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">0</span></button></li>
+            <li><button type="button" class="opt"><span class="t">3</span></button><p class="why tex-later" hidden>\(X'=-3\sin3x\); sin 0 = 0.</p></li>
+            <li><button type="button" class="opt"><span class="t">1</span></button><p class="why tex-later" hidden>1, \(X(0)\)'ın kendisi; türevi değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(X'(0)=-3\sin0=0\). Kosinüs x = 0 duvarındaki şartı kendiliğinden sağlıyor; sinüs sağlamıyor. A = 0'ın sebebi bu.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 11 -->
+<section class="step" id="t11" data-n="11">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 11</span><span class="code">Tahta 2</span><span class="st"></span></p>
+    <h3>Kuantalanma ve mod şekilleri</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 son hali fotoğrafını büyüt"><img src="boards/tahta-2-son.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="İkinci tahtanın son hali: altta A = 0, sin(kx a) = 0, kx a = mπ, kx = mπ/a, m tam sayı; üstte ky = nπ/b; ortada Bz = B0 cos(mπx/a) cos(nπy/b) ve “The modes, only integer values of m and n can propagate through waveguide.”"></button>
+      <figcaption>Bu adım: alt sıradaki A = 0 ve \(k_xa=m\pi\), üstteki \(k_y=n\pi/b\), ortadaki \(B_z\) çözümü.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>x = 0 şartı sinüsü atıyor (A = 0), x = a şartı \(k_x=m\pi/a\)'yı zorluyor; aynısı y için. Sonuç \(B_z=B_0\cos(m\pi x/a)\cos(n\pi y/b)\), m ve n tam sayı.</p>
+      <p>Türev: \(X'(x)=Ak_x\cos(k_xx)-Bk_x\sin(k_xx)\).</p>
+      <p><strong>x = 0'da:</strong> \(\cos0=1\), \(\sin0=0\), yani \(X'(0)=Ak_x=0\). \(k_x\neq0\) için A = 0. (\(k_x=0\) durumu aşağıda m = 0 olarak geri geliyor.)</p>
+      <p><strong>x = a'da:</strong> \(X'(a)=-Bk_x\sin(k_xa)=0\). B = 0 olursa X tamamen sıfır, işe yaramaz. O halde:</p>
+      <div class="eq">\[ \sin(k_xa)=0\;\Longrightarrow\;k_xa=m\pi\;\Longrightarrow\;k_x=\frac{m\pi}{a},\qquad m=0,1,2,\dots \]</div>
+      <p>Sinüs, argümanı π'nin tam katı olduğunda sıfır. Hoca önce \(2\pi m\) yazıp hemen düzeltti: \(\pi m\). y için aynı işlem (“very similar, follow a similar procedure”): C = 0 ve \(k_y=n\pi/b\). Çarpınca, sabitleri tek bir \(B_0\)'da toplayarak:</p>
+      <div class="eq">\[ B_z(x,y)=B_0\cos\Big(\frac{m\pi x}{a}\Big)\cos\Big(\frac{n\pi y}{b}\Big) \]</div>
+      <p>Buna kuantalanma (quantization) diyoruz: \(k_x\) ve \(k_y\) her değeri alamıyor, tam sayılarla etiketlenmiş bir listeden seçiliyor. Bir arkadaş “neyin kuantalanması, bu sadece bir sayı” diye sordu; hoca “göreceğiz” dedi. Adım 13'te anlamı çıkıyor: her (m, n) ikilisinin kendi kesim frekansı var.</p>
+      <p>Tahtadaki cümle: “The modes, only integer values of m and n can propagate through waveguide.” Her (m, n) ikilisi bir mod, gösterimi \(\mathrm{TE}_{mn}\). Hoca modu tek kelimeyle tanımladı: “mode is shape”. Mod, alanın kesitteki şekli; x ve y'ye bağlı olduğu için xy düzleminde çizilebilir ve her biri belirli bir desen. Aşağıdaki çizimde kendin dene.</p>
+      <div class="widget" id="w-mode">
+        <p class="predict"><strong>Önce tahmin et:</strong> \(\mathrm{TE}_{21}\) modunda \(B_z\) x yönünde kaç kez işaret değiştirir? Sonra m = 2, n = 1 seç.</p>
+        <div class="seg-row">
+          <div class="seg" role="radiogroup" aria-label="m">
+            <span class="seg-l">m</span>
+            <input type="radio" name="wm" id="wm0" value="0"><label for="wm0">0</label>
+            <input type="radio" name="wm" id="wm1" value="1" checked><label for="wm1">1</label>
+            <input type="radio" name="wm" id="wm2" value="2"><label for="wm2">2</label>
+            <input type="radio" name="wm" id="wm3" value="3"><label for="wm3">3</label>
+          </div>
+          <div class="seg" role="radiogroup" aria-label="n">
+            <span class="seg-l">n</span>
+            <input type="radio" name="wn" id="wn0" value="0" checked><label for="wn0">0</label>
+            <input type="radio" name="wn" id="wn1" value="1"><label for="wn1">1</label>
+            <input type="radio" name="wn" id="wn2" value="2"><label for="wn2">2</label>
+          </div>
+        </div>
+        <svg class="wsvg" viewBox="0 0 360 214" role="img" aria-label="Kesitte Bz'nin işareti ve büyüklüğü (renk) ile enine elektrik alan okları"></svg>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Renk \(B_z\): mavi artı, kırmızı eksi, koyuluk büyüklük. Oklar enine elektrik alan (\(E_x\propto\partial_yB_z\), \(E_y\propto-\partial_xB_z\)), bir an için. Kesit a = 2b alındı.</p>
+      </div>
+      <p>Hemen ardından bir arkadaş “mod dediğiniz tam olarak ne?” diye sordu. Hocanın cevabı: buraya kadar sadece dalgayı ve alanların ilerlemeye dik olduğunu gördük; mod şimdi, tam sayılar çıkınca geliyor.</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>İki ucu açık boru, örneğin flüt. Açık uçlarda hava serbestçe salınır; uçlarda salınım en büyük, eğimi sıfır. Boruya sığan dalgalar \(L=m\,\lambda/2\): bir, iki, üç yarım dalga. 60 cm'lik bir boruda en uzun dalga boyu 120 cm, sonra 60 cm, 40 cm. Kosinüs çözümü tam bu durum: duvarlarda eğim sıfır, değer en büyük. Gitar telinde ise uçlar bağlı, değer sıfır; o sinüse karşılık geliyor ve Adım 12'deki TM'de karşımıza çıkacak.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-11a" data-q="11a" data-type="num" data-answer="62.83" data-tol="0.1" data-show="62,83" data-topic="kx'in değeri">
+          <p><span class="q-n">Soru 11.1</span>a = 10 cm ve m = 2 için \(k_x\) kaç rad/m? (İki ondalık yeter.)</p>
+          <div class="num-row"><label class="sr" for="in-11a">Cevabın</label><input id="in-11a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>a'yı metreye çevir: 0,1 m. \(k_x=m\pi/a\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(k_x=2\pi/0{,}1\approx62{,}83\) rad/m. x yönünde dalga boyu \(2\pi/k_x=10\) cm: kesite tam bir dalga boyu sığıyor.</p></div>
+        </div>
+        <div class="q" id="q-11b" data-q="11b" data-type="mc" data-topic="m ve düğüm sayısı">
+          <p><span class="q-n">Soru 11.2</span>\(\mathrm{TE}_{21}\) modunda \(B_z\), x = 0'dan x = a'ya giderken kaç kez işaret değiştirir?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">1</span></button><p class="why tex-later" hidden>Bu m = 1 olurdu: \(\cos(\pi x/a)\) sadece x = a/2'de sıfır.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">2</span></button></li>
+            <li><button type="button" class="opt"><span class="t">3</span></button><p class="why tex-later" hidden>Düğüm sayısı m'ye eşit; m = 2.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\cos(2\pi x/a)\), x = a/4 ve x = 3a/4'te sıfır. m, x boyunca kaç yarım dalga sığdığını ve kaç düğüm çizgisi olduğunu sayar.</p></div>
+        </div>
+        <div class="q" id="q-11c" data-q="11c" data-type="mc" data-topic="A neden sıfır">
+          <p><span class="q-n">Soru 11.3</span>A = 0 sonucu nereden geliyor?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">x = 0'da \(X'(0)=Ak_x\) sıfır olmalı</span></button></li>
+            <li><button type="button" class="opt"><span class="t">x = 0'da \(X(0)=0\) olmalı</span></button><p class="why tex-later" hidden>Şart X'in kendisi için değil, türevi için. \(X(0)=0\) şartı tersine B = 0 verirdi.</p></li>
+            <li><button type="button" class="opt"><span class="t">x = a'da \(\sin(k_xa)=0\)</span></button><p class="why tex-later" hidden>Bu ikinci duvarın şartı; \(k_x\)'i kuantalıyor, A'yı değil.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(X'(0)=Ak_x\cos0-Bk_x\sin0=Ak_x\). Sıfır olması için A = 0.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 12 -->
+<section class="step" id="t12" data-n="12">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 12</span><span class="code">dersin son sorusu</span><span class="st"></span></p>
+    <h3>TE₀₀ yok, TM'de kosinüs yerine sinüs</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <span class="tag">TE ile TM yan yana</span>
+        <div class="tbl"><table>
+          <thead><tr><th></th><th>TE</th><th>TM</th></tr></thead>
+          <tbody>
+            <tr><td>Sıfır olan</td><td>\(E_z\)</td><td>\(B_z\)</td></tr>
+            <tr><td>Çözülen</td><td>\(B_z\)</td><td>\(E_z\)</td></tr>
+            <tr><td>Duvar şartı</td><td>\(\partial_\perp B_z=0\)</td><td>\(E_z=0\)</td></tr>
+            <tr><td>Kesit şekli</td><td>cos · cos</td><td>sin · sin</td></tr>
+            <tr><td>İzinli (m, n)</td><td>(0, 0) hariç</td><td>m, n ≥ 1</td></tr>
+            <tr><td>En küçük</td><td>\(\mathrm{TE}_{10}\) (a &gt; b)</td><td>\(\mathrm{TM}_{11}\)</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <figcaption>Bu tablo tahtada yok. Dersin son dakikasındaki soru üzerine hocanın söylediklerini ve TM'nin aynı yolla çözümünü topladım.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>m = n = 0 TE'de ilerleyen bir alan bırakmıyor; TM'de ise \(E_z\) duvarlarda sıfır olmak zorunda olduğu için sinüs çıkıyor ve m, n'nin ikisi de en az 1 olmalı.</p>
+      <p>Dersin sonunda bir arkadaş sordu: “Mesela mn'nin 00 olması? TE₀₀ olamaz mı?” Hocanın cevabı kısaydı: TE'de 00 olamaz, TM ise aynı şekilde kurulmuyor. Burada ikisini de açıyorum.</p>
+      <p><strong>TE₀₀ neden yok?</strong> (Bu açıklama derste söylenmedi, ben ekledim.) m = n = 0 iken \(B_z=B_0\), kesitte sabit. Türevleri sıfır, Adım 3'teki formüllere göre bütün enine bileşenler sıfır. Geriye sadece \(B_z\) kalıyor. Ama \(\nabla\cdot\vec B=0\):</p>
+      <div class="eq">\[ \partial_xB_x+\partial_yB_y+ikB_z=ikB_z=0 \]</div>
+      <p>Ya k = 0 (dalga ilerlemiyor) ya da \(B_z=0\). İkisinde de ilerleyen dalga yok. Buna karşılık m = 1, n = 0 serbest: \(\mathrm{TE}_{10}\), \(B_z=B_0\cos(\pi x/a)\), y'ye bağlı değil. a &gt; b iken bu, kesim frekansı en düşük mod (Adım 13).</p>
+      <p><strong>TM:</strong> \(B_z=0\), çözülen \(E_z\). Aynı Helmholtz denklemi, aynı ayırma; değişen tek şey sınır şartı. \(E_z\) her duvara paralel ve \(E_\parallel=0\) doğrudan “duvarda \(E_z=0\)” diyor. Türev değil, değerin kendisi sıfır. Bu sefer x = 0 şartı kosinüsü atıyor (B = 0) ve sinüs kalıyor:</p>
+      <div class="eq">\[ E_z(x,y)=E_0\sin\Big(\frac{m\pi x}{a}\Big)\sin\Big(\frac{n\pi y}{b}\Big) \]</div>
+      <p>m = 0 ya da n = 0 olursa sinüs her yerde sıfır. TM'de ikisi de en az 1; en küçük TM modu \(\mathrm{TM}_{11}\). Kesim frekansı formülü (Adım 13) TE ile aynı, sadece izinli (m, n) listesi farklı. Hocanın “çözümler hemen hemen aynı ama sınır şartları yüzünden aynı değil” dediği şey bu.</p>
+      <p>Aynı sohbette bir soru daha geldi: “m'yi fiziksel olarak nasıl belirleyeceğim?” Hoca: belirlemiyorsun; m'ye 1, 2, 3 veriyorsun, her biri ayrı bir çözüm, ayrı bir mod. Hangilerinin gerçekten ilerlediğini frekans ve boru boyutu seçiyor (Bölüm D).</p>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Flüt ve gitar teli. Flüt iki ucu açık boru: uçlarda eğim sıfır, kosinüs; bu TE. Gitar teli iki ucu bağlı: uçlarda değer sıfır, sinüs; bu TM. Telin “sıfırıncı modu” hiç titreşmeyen tel, yani ses yok. Flütün sıfırıncı modu da bütün hava sütununun aynı anda aynı yöne kayması; sıkışma yok, ses dalgası yok. İkisinde de m = 0 gerçek bir dalga değil.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-12a" data-q="12a" data-type="mc" data-topic="hangisi gerçek TE modu">
+          <p><span class="q-n">Soru 12.1</span>Hangisi dikdörtgen metal boruda gerçek bir TE modu?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{TE}_{10}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TE}_{00}\)</span></button><p class="why tex-later" hidden>\(B_z\) sabit olur, enine alan çıkmaz ve \(\nabla\cdot\vec B=0\) \(B_z\)'yi de sıfırlar.</p></li>
+            <li><button type="button" class="opt"><span class="t">İkisi de</span></button><p class="why tex-later" hidden>TE₀₀ ilerleyen bir alan bırakmıyor.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\mathrm{TE}_{10}\): \(B_z=B_0\cos(\pi x/a)\). Türevi sıfırdan farklı, enine alanlar var. Pratikteki dikdörtgen kılavuzların çalışma modu bu.</p></div>
+        </div>
+        <div class="q" id="q-12b" data-q="12b" data-type="mc" data-topic="TM10 neden yok">
+          <p><span class="q-n">Soru 12.2</span>\(\mathrm{TM}_{10}\) neden yok?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">n = 0 iken \(\sin(0\cdot y)=0\); \(E_z\) her yerde sıfır olur</span></button></li>
+            <li><button type="button" class="opt"><span class="t">TM modları dikdörtgen boruda hiç yok</span></button><p class="why tex-later" hidden>Var; en küçüğü \(\mathrm{TM}_{11}\).</p></li>
+            <li><button type="button" class="opt"><span class="t">Kesim frekansı sonsuz olduğu için</span></button><p class="why tex-later" hidden>\(\omega_{10}=c\pi/a\), sonlu. Sorun frekans değil, alanın sıfır olması.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>TM'de \(E_z\propto\sin(m\pi x/a)\sin(n\pi y/b)\). Herhangi bir indis sıfırsa çarpım sıfır.</p></div>
+        </div>
+        <div class="q" id="q-12c" data-q="12c" data-type="mc" data-topic="TM sınır şartı">
+          <p><span class="q-n">Soru 12.3</span>TM modunda \(E_z\)'nin duvardaki şartı ne?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(E_z=0\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\partial E_z/\partial x=0\)</span></button><p class="why tex-later" hidden>Türev şartı TE'deki \(B_z\) içindi; \(B_\perp=0\)'dan geliyordu.</p></li>
+            <li><button type="button" class="opt"><span class="t">Şart yok</span></button><p class="why tex-later" hidden>\(E_z\) duvara paralel; \(E_\parallel=0\) ona doğrudan uygulanıyor.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(E_z\) ilerleme yönünde, her duvara teğet. Metal duvarda teğet E sıfır.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM D ===================== -->
+<header class="part" id="bolum-d">
+  <p class="k">Bölüm D · Adım 13–15 · Tahta 2, sol sütun</p>
+  <h2>Kesim frekansı</h2>
+  <p class="sub">Dersin son kısmı: kuantalanmanın fiziksel sonucu. Her modun, altında ilerleyemediği bir frekansı var. Boruyu küçültünce modlar birer birer sönüyor.</p>
+</header>
+
+<!-- ADIM 13 -->
+<section class="step" id="t13" data-n="13">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 13</span><span class="code">Tahta 2</span><span class="st"></span></p>
+    <h3>\(\omega_{mn}\) ve kılavuzun dağılım bağıntısı</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 son hali fotoğrafını büyüt"><img src="boards/tahta-2-son.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Tahta 2'nin sol sütunu: define ω_mn²/c² = (mπ/a)² + (nπ/b)², ω²/c² = ω_mn²/c² + k², c²k² = ω² − ω_mn², ω &lt; ω_mn ise k sanal, TE_mn için e^(ikz) ∝ e^(−αz), ω_mn is called cut-off frequency."></button>
+      <figcaption>Bu adım: sol sütundaki “define \(\omega_{mn}\)” ve altındaki iki satır.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(k_x\) ve \(k_y\)'yi yerine koyunca \(\omega^2=\omega_{mn}^2+c^2k^2\) çıkıyor; \(\omega_{mn}\) o modun kesim frekansı ve kılavuzun dağılım bağıntısı bu.</p>
+      <p>Adım 8'deki bağıntıya \(k_x=m\pi/a\), \(k_y=n\pi/b\) koy (tahtada, \(B_z\) çözümünün altındaki satır):</p>
+      <div class="eq">\[ \frac{\omega^2}{c^2}=\Big(\frac{m\pi}{a}\Big)^2+\Big(\frac{n\pi}{b}\Big)^2+k^2,\qquad k=k_z \]</div>
+      <p>Hoca “burası çok önemli” dedi ve ilk iki terimi bir frekansın karesi gibi adlandırdı. Birimler tutsun diye \(c^2\)'ye bölünmüş halde tanımladı:</p>
+      <div class="eq">\[ \frac{\omega_{mn}^2}{c^2}\equiv\Big(\frac{m\pi}{a}\Big)^2+\Big(\frac{n\pi}{b}\Big)^2\qquad\Longrightarrow\qquad\omega_{mn}=c\pi\sqrt{\frac{m^2}{a^2}+\frac{n^2}{b^2}} \]</div>
+      <p>Böylece tahtanın sol sütunundaki iki satır:</p>
+      <div class="eq">\[ \frac{\omega^2}{c^2}=\frac{\omega_{mn}^2}{c^2}+k^2\qquad\Longleftrightarrow\qquad c^2k^2=\omega^2-\omega_{mn}^2 \]</div>
+      <p>Bu, kılavuzun dağılım bağıntısı. Boş uzaydaki \(\omega=ck\)'dan farkı \(\omega_{mn}^2\) terimi; Adım 6'daki “kılavuzda \(\omega\neq ck\)” cümlesinin somut hali. Kuantalanmanın anlamı da burada: m ve n tam sayı olduğu için \(\omega_{mn}\) da ayrık bir liste.</p>
+      <p>Hertz cinsinden: \(f_{mn}=\omega_{mn}/2\pi=\frac{c}{2}\sqrt{(m/a)^2+(n/b)^2}\). \(\mathrm{TE}_{10}\) için \(f_{10}=c/2a\); yani boş uzaydaki dalga boyunun yarısı kesitin genişliğine sığmalı.</p>
+      <div class="widget" id="w-disp">
+        <p class="predict"><strong>Önce tahmin et:</strong> frekansı kesimin hemen üstüne getirince k ne olur? Sonra kaydırıcıyı \(\omega_{10}\)'un biraz üstüne çek.</p>
+        <svg class="wsvg" viewBox="0 0 360 240" role="img" aria-label="Kılavuzun dağılım eğrileri: her mod için ω, ck'ya karşı hiperbol; kesikli çizgi boş uzaydaki ω = ck."></svg>
+        <div class="ctrl"><label for="wd">ω / ω₁₀</label><input id="wd" type="range" min="0.5" max="3.5" step="0.01" value="1.5"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Kesit a = 2b. Her eğri \(\omega=\sqrt{\omega_{mn}^2+c^2k^2}\); kesikli doğru boş uzay, \(\omega=ck\). Yatay çizgi seçtiğin frekans; kestiği her eğri o frekansta ilerleyebilen bir mod. \(\mathrm{TE}_{20}\) ile \(\mathrm{TE}_{01}\) a = 2b'de aynı eğride.</p>
+      </div>
+      <details class="more">
+        <summary>Faz hızı c'den büyük, grup hızı küçük (tahtada yok)</summary>
+        <div class="d-body tex-later">
+          <div class="eq">\[ v_p=\frac{\omega}{k}=\frac{c}{\sqrt{1-\omega_{mn}^2/\omega^2}}\gt c,\qquad v_g=\frac{d\omega}{dk}=\frac{c^2k}{\omega}=c\sqrt{1-\omega_{mn}^2/\omega^2}\lt c,\qquad v_pv_g=c^2 \]</div>
+          <p>Faz hızının c'yi aşması sorun değil; 6. haftada gördüğümüz gibi bilgi ve enerji grup hızıyla, paketin zarfıyla gidiyor. Kesimin hemen üstünde grup hızı sıfıra yaklaşıyor: dalga duvarlar arasında neredeyse dik açıyla seke seke, çok yavaş ilerliyor.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Pisagor. \(\omega^2=\omega_{mn}^2+(ck)^2\) bir dik üçgen: hipotenüs ω, bir dik kenar \(\omega_{mn}\), öbürü ck. Frekansın bir kısmı kesitte duvardan duvara salınmaya (\(k_x\), \(k_y\)) gidiyor, kalanı ileri gitmeye (k). 3-4-5 üçgeni: \(\omega=5\), \(\omega_{mn}=3\) ise \(ck=4\). Hipotenüs bir dik kenardan kısa olamaz; ω, \(\omega_{mn}\)'den küçükse üçgen kurulamıyor. Bir sonraki adım tam bu durum.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-13a" data-q="13a" data-type="num" data-answer="4" data-tol="0.001" data-show="4" data-topic="dağılım bağıntısı">
+          <p><span class="q-n">Soru 13.1</span>c = 1 alınan birimlerde ω = 5 ve \(\omega_{mn}=3\). k kaç?</p>
+          <div class="num-row"><label class="sr" for="in-13a">Cevabın</label><input id="in-13a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(k^2=\omega^2-\omega_{mn}^2\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(k=\sqrt{25-9}=4\). 3-4-5 üçgeni.</p></div>
+        </div>
+        <div class="q" id="q-13b" data-q="13b" data-type="num" data-answer="3" data-tol="0.01" data-show="3" data-topic="TE10 kesim frekansı">
+          <p><span class="q-n">Soru 13.2</span>Geniş kenarı a = 5 cm olan boruda \(\mathrm{TE}_{10}\) modunun kesim frekansı kaç GHz? (c = 3 × 10⁸ m/s al.)</p>
+          <div class="num-row"><label class="sr" for="in-13b">Cevabın</label><input id="in-13b" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(f_{10}=c/2a\), a = 0,05 m.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(f_{10}=3\times10^8/(2\cdot0{,}05)=3\times10^9\) Hz = 3 GHz. Boş uzaydaki dalga boyu 10 cm, yarısı 5 cm: kesite tam yarım dalga sığıyor.</p></div>
+        </div>
+        <div class="q" id="q-13c" data-q="13c" data-type="mc" data-topic="en düşük kesimli mod">
+          <p><span class="q-n">Soru 13.3</span>a = 2b olan boruda kesim frekansı en düşük mod hangisi?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{TE}_{10}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TE}_{01}\)</span></button><p class="why tex-later" hidden>\(f_{01}=c/2b=c/a\), yani \(f_{10}\)'un iki katı. Kısa kenar boyunca yarım dalga sığdırmak daha yüksek frekans ister.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TM}_{11}\)</span></button><p class="why tex-later" hidden>\(f_{11}=f_{10}\sqrt{1+4}\approx2{,}24\,f_{10}\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>Kesim, kesitin en uzun kenarına yarım dalga sığdırmakla en düşük olur. Uzun kenar a, mod \(\mathrm{TE}_{10}\). Bu yüzden ona temel mod deniyor.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 14 -->
+<section class="step" id="t14" data-n="14">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 14</span><span class="code">Tahta 2</span><span class="st"></span></p>
+    <h3>Kesimin altında dalga söner</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Tahta 2 son hali fotoğrafını büyüt"><img src="boards/tahta-2-son.jpg" width="1600" height="1200" loading="lazy" decoding="async" alt="Tahta 2'nin sol alt köşesi: ω &lt; ω_mn ise k sanal, TE_mn için e^(ikz) ∝ e^(−αz), ω_mn is called cut-off frequency."></button>
+      <figcaption>Bu adım: sol alttaki “\(\omega\lt\omega_{mn}\Rightarrow\) k will be imaginary” ve “cut-off frequency”.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>\(\omega\lt\omega_{mn}\) iken \(k^2\lt0\) ve k saf sanal; \(e^{ikz}\) salınmak yerine \(e^{-\alpha z}\) gibi söner. O mod o frekansta ilerleyemez.</p>
+      <p>\(c^2k^2=\omega^2-\omega_{mn}^2\). Hoca sordu: ω, \(\omega_{mn}\)'den küçükse ne olur? Sınıftan cevap: negatif. Negatif sayının karekökü saf sanal:</p>
+      <div class="eq">\[ k=i\alpha,\qquad \alpha=\frac{1}{c}\sqrt{\omega_{mn}^2-\omega^2}\qquad\Longrightarrow\qquad e^{ikz}=e^{i(i\alpha)z}=e^{-\alpha z} \]</div>
+      <p>Dalga ilerlemiyor; girdiği yerden itibaren birkaç \(1/\alpha\) mesafede sönüyor (evanescent, sönümlü alan). Tahtadaki son not: \(\omega_{mn}\)'e “cut-off frequency”, kesim frekansı deniyor. Her modun kendi kesim frekansı var; m ve n'ye, a ve b'ye bağlı. Hoca: “frekans o sayının altındaysa ilerleyemez, bu yüzden adı kesim.”</p>
+      <p>Önemli bir ayrım: bu sönüm kayıptan gelmiyor. Duvarlar ideal, enerji ısıya dönmüyor; mod kesite sığmadığı için dalga girmeye çalışıp geri yansıyor. Adım 1'deki kayıplı ortam sönümü başka bir şey. Bir arkadaş antenlerde de benzer bir kesim olduğunu söyledi; hoca, kesimin altında alanın yine biraz içeri girdiğini ama çok hızlı söndüğünü vurguladı.</p>
+      <div class="widget" id="w-decay">
+        <p class="predict"><strong>Önce tahmin et:</strong> WR-90 kılavuzunda (a = 22,86 mm) 5 GHz'lik bir dalga 5 cm sonra ne kadar kalır? Sonra kaydırıcıyı 5'e çek.</p>
+        <svg class="wsvg" viewBox="0 0 360 200" role="img" aria-label="TE10 alanının kılavuz boyunca değişimi: kesimin üstünde salınım, altında üstel sönüm."></svg>
+        <div class="ctrl"><label for="wf">Frekans (GHz)</label><input id="wf" type="range" min="4" max="12" step="0.05" value="9"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">\(\mathrm{TE}_{10}\), kesim 6,56 GHz. Mavi: kesimin üstünde \(\cos(kz)\). Kırmızı: kesimin altında \(e^{-\alpha z}\). Yatay eksen kılavuz boyunca z, 0–10 cm.</p>
+      </div>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Tünelde radyo. Araba tünele girince AM radyo hemen kesilir, FM daha uzun süre çeker. AM yayın 1 MHz civarı, dalga boyu 300 m. 10 m genişliğindeki bir tünelin kesim frekansı kabaca \(c/2a=15\) MHz; AM bunun çok altında kalıyor ve sönüyor. FM 100 MHz civarı, dalga boyu 3 m; kesimin üstünde, tünel onu bir boru gibi taşıyabiliyor (duvarlardaki kayıplar ayrı mesele). Mikrodalga fırının kapısındaki delikli metal de aynı fikir: delikler 12 cm'lik mikrodalga için çok küçük, kesimin altında kalıyor; görünür ışığın dalga boyu mikrometrenin altında, rahatça geçiyor ve içeriyi görüyorsun.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-14a" data-q="14a" data-type="num" data-answer="0.135" data-tol="0.004" data-show="0,135" data-topic="sönüm genliği">
+          <p><span class="q-n">Soru 14.1</span>c = 1 alınan birimlerde ω = 3, \(\omega_{mn}=5\). z = 0,5'te genlik \(e^{-\alpha z}\) kaç? (Üç ondalık.)</p>
+          <div class="num-row"><label class="sr" for="in-14a">Cevabın</label><input id="in-14a" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(\alpha=\sqrt{25-9}=4\), sonra \(e^{-4\cdot0{,}5}=e^{-2}\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(e^{-2}\approx0{,}135\). Yarım birim yolda genlik yedide birine iniyor.</p></div>
+        </div>
+        <div class="q" id="q-14b" data-q="14b" data-type="mc" data-topic="kesim altı sönümün sebebi">
+          <p><span class="q-n">Soru 14.2</span>İdeal metal boruda kesimin altındaki sönüm neden olur?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Duvarlar enerjiyi soğuruyor</span></button><p class="why tex-later" hidden>İdeal iletkende kayıp yok. Sönüm geometriden geliyor.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">k sanal oluyor; mod kesite sığmıyor ve enerji geri yansıyor</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Dalga yavaşlayıp duruyor ve enerjisi kayboluyor</span></button><p class="why tex-later" hidden>Enerji kaybolmuyor; ilerlemeyen alan enerji taşımıyor, gelen enerji geri dönüyor.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(k=i\alpha\) ile \(e^{ikz}=e^{-\alpha z}\): salınım yok, faz ilerlemesi yok. Bu kayıp değil, yansımanın bir türü.</p></div>
+        </div>
+        <div class="q" id="q-14c" data-q="14c" data-type="num" data-answer="15" data-tol="0.05" data-show="15" data-topic="tünelin kesim frekansı">
+          <p><span class="q-n">Soru 14.3</span>10 m genişliğindeki bir tünelin kabaca kesim frekansı \(c/2a\) kaç MHz? (c = 3 × 10⁸ m/s.)</p>
+          <div class="num-row"><label class="sr" for="in-14c">Cevabın</label><input id="in-14c" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\(3\times10^8/20\) Hz'i MHz'e çevir.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(1{,}5\times10^7\) Hz = 15 MHz. 1 MHz'lik AM bunun çok altında, 100 MHz'lik FM üstünde.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 15 -->
+<section class="step" id="t15" data-n="15">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Adım 15</span><span class="code">sözlü, tahtada yok</span><span class="st"></span></p>
+    <h3>Boruyu küçültünce modlar söner, tek mod kalır</h3>
+  </header>
+  <div class="lock" hidden><p>Bu adım şimdilik kilitli. Açmak için önce şu adımın sorularını bitir: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Oraya git</button><button type="button" class="linkbtn unlock-all">Adım adım modu kapat</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <span class="tag">Küçült ve bak</span>
+        <div class="eq">\[ f_{mn}=\frac{c}{2}\sqrt{\frac{m^2}{a^2}+\frac{n^2}{b^2}} \]</div>
+        <p class="redraw-n">a, b ↓ &nbsp;⇒&nbsp; \(f_{mn}\) ↑ &nbsp;⇒&nbsp; yüksek modlar söner</p>
+        <div class="tbl"><table>
+          <thead><tr><th>WR-90</th><th>Kesim</th></tr></thead>
+          <tbody>
+            <tr><td>\(\mathrm{TE}_{10}\)</td><td class="num">6,56 GHz</td></tr>
+            <tr><td>\(\mathrm{TE}_{20}\)</td><td class="num">13,11 GHz</td></tr>
+            <tr><td>\(\mathrm{TE}_{01}\)</td><td class="num">14,75 GHz</td></tr>
+            <tr><td>\(\mathrm{TE}_{11}\), \(\mathrm{TM}_{11}\)</td><td class="num">16,15 GHz</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <figcaption>Hoca bunu sözlü anlattı. Sayılar standart WR-90 kılavuzu için (a = 22,86 mm, b = 10,16 mm); benim hesabım.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">Tek cümlede</span>Kesim frekansı boyutla ters orantılı; boruyu daraltınca kesimler yükselir, yüksek modlar önce söner ve sonunda sadece temel mod kalır. Tek modlu kılavuz böyle tasarlanıyor.</p>
+      <p>Hoca küçük bir kılavuz düşünmemizi istedi: a ve b'yi küçült, daha küçük bir küp yapıyormuş gibi. Ne olur? Sınıftan cevap: paydalar küçülür, \(\omega_{mn}\) büyür. Hoca devam etti: kesim frekansı artınca alttaki frekanslar geçemiyor ve o mod yavaş yavaş sönüyor. Önce 1-1, 1-2 gibi yüksek indisli modlar gidiyor; sonunda bir tek temel (principal) mod kalıyor.</p>
+      <p>Hocanın resmi: modlar kesitteki desenler. Boruyu sıkıştırınca daha karışık, daha çok düğümlü desenler oraya sığmıyor ve ölüyorlar. Adım 11'deki çizimde m ve n büyüdükçe desenin nasıl sıklaştığını gördün; aynı kesite sığması için daha kısa dalga boyu, yani daha yüksek frekans gerekiyor.</p>
+      <p>Pratikte istenen de bu, tek modlu (single-mode) kılavuz. Birden çok mod aynı anda ilerlerse her biri farklı grup hızıyla gider ve sinyal dağılır. Standart WR-90 kılavuzunda \(\mathrm{TE}_{10}\) kesimi 6,56 GHz, bir sonraki mod \(\mathrm{TE}_{20}\) 13,11 GHz; arada sadece \(\mathrm{TE}_{10}\) ilerliyor. Bu kılavuzun kullanıldığı X bandı (8,2–12,4 GHz) tam bu aralığın içinde, iki kesimden de uzak.</p>
+      <div class="widget" id="w-modes">
+        <p class="predict"><strong>Önce tahmin et:</strong> 15 GHz'de WR-90'da kaç mod ilerler? Sonra frekansı 15'e getir. Ardından a'yı küçült ve modların nasıl söndüğüne bak.</p>
+        <div class="ctrl"><label for="wa">Geniş kenar a (mm)</label><input id="wa" type="range" min="8" max="40" step="0.02" value="22.86"></div>
+        <div class="ctrl"><label for="wg">Frekans (GHz)</label><input id="wg" type="range" min="2" max="25" step="0.05" value="10"></div>
+        <p class="ro" aria-live="polite"></p>
+        <div class="tbl"><table>
+          <thead><tr><th>Mod</th><th>Kesim</th><th>Durum</th><th>Kılavuz dalga boyu ya da sönüm boyu</th></tr></thead>
+          <tbody id="wm-body"></tbody>
+        </table></div>
+        <p class="w-cap">b/a oranı WR-90'daki gibi 0,444 tutuluyor. Sönüm boyu \(1/\alpha\): genliğin e'de birine indiği mesafe. Kılavuz dalga boyu \(\lambda_g=2\pi/k\).</p>
+      </div>
+      <details class="more">
+        <summary>Derste konuşulan: entegre fotonikte tek mod</summary>
+        <div class="d-body tex-later">
+          <p>Sınıftaki bir arkadaş kendi yapısını anlattı: silisyum oksit üstünde silisyum nitrür kılavuz, üstü hava. Işığın kılavuzda tutulması (confinement) için modun efektif kırılma indisi alt kılıfınkinden büyük olmalı; silisyum oksidinki yaklaşık 1,46 ve efektif indeksi bunun altında kalan mod kılavuza bağlı kalmıyor. Kalınlık ve genişlikte geometri taraması (sweep) yapılıp sadece TE0 ve TM0'ın tutulduğu boyutlar seçiliyor; böylece diğer modlardan gürültü gelmiyor.</p>
+          <p>Metal borudaki kesim frekansının dielektrik kılavuzdaki karşılığı bu: boyut küçüldükçe yüksek modlar kılavuzdan kopuyor. Üstü hava bırakılan açık yapının bir avantajı, ışığı dışarıdan doğrudan kuplajlayabilmek ve yüzeye erişebilmek; bedeli efektif indeksin biraz düşmesi. Hangisinin seçileceği kullanım amacına ve üretim sürecine bağlı.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">Lise örneği</span>
+        <p>Ters orantı. \(f_{10}=c/2a\), yani \(y=k/x\) grafiği. a'yı yarıya indirirsen \(f_{10}\) iki katına çıkar: a = 22,86 mm'de 6,56 GHz, a = 11,43 mm'de 13,11 GHz. Telefonundaki 2,4 GHz Wi-Fi'ı böyle bir boruya sokmak istesen a en az \(c/2f\approx6{,}2\) cm olmalı.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Kontrol · 3 soru</p>
+        <div class="q" id="q-15a" data-q="15a" data-type="mc" data-topic="küçültünce kesim">
+          <p><span class="q-n">Soru 15.1</span>Kesitin iki boyutu da yarıya inerse bütün kesim frekansları ne olur?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">İki katına çıkar</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Yarıya iner</span></button><p class="why tex-later" hidden>a ve b paydada; küçülünce kesim büyür.</p></li>
+            <li><button type="button" class="opt"><span class="t">Dört katına çıkar</span></button><p class="why tex-later" hidden>Kareler kökün içinde: \(\sqrt{4}=2\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(f_{mn}=\frac{c}{2}\sqrt{m^2/a^2+n^2/b^2}\); a → a/2, b → b/2 ile kök iki katına çıkıyor.</p></div>
+        </div>
+        <div class="q" id="q-15b" data-q="15b" data-type="num" data-answer="3" data-tol="0.001" data-show="3" data-topic="WR-90'da mod sayısı">
+          <p><span class="q-n">Soru 15.2</span>15 GHz'de WR-90'da kaç mod ilerler?</p>
+          <div class="num-row"><label class="sr" for="in-15b">Cevabın</label><input id="in-15b" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>Soldaki tabloda kesimi 15 GHz'in altında kalanları say.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(\mathrm{TE}_{10}\) (6,56), \(\mathrm{TE}_{20}\) (13,11), \(\mathrm{TE}_{01}\) (14,75): üç mod. \(\mathrm{TE}_{11}\) ve \(\mathrm{TM}_{11}\) 16,15 GHz'de başlıyor.</p></div>
+        </div>
+        <div class="q" id="q-15c" data-q="15c" data-type="num" data-answer="3.97" data-tol="0.03" data-show="3,97" data-topic="kılavuz dalga boyu">
+          <p><span class="q-n">Soru 15.3</span>10 GHz'de WR-90'da \(\mathrm{TE}_{10}\)'un kılavuz dalga boyu \(\lambda_g=\lambda_0/\sqrt{1-(f_c/f)^2}\) kaç cm? (\(\lambda_0=3\) cm, \(f_c=6{,}56\) GHz.)</p>
+          <div class="num-row"><label class="sr" for="in-15c">Cevabın</label><input id="in-15c" inputmode="decimal" autocomplete="off" placeholder="sayı yaz"><button type="button" class="btn check">Kontrol et</button></div>
+          <p class="why hint tex-later" hidden>\((6{,}56/10)^2\approx0{,}43\); \(\sqrt{0{,}57}\approx0{,}755\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Cevabı göster</button>
+          <div class="explain tex-later" hidden><p>\(3/0{,}755\approx3{,}97\) cm. Kılavuzdaki dalga boyu boş uzaydakinden uzun, çünkü \(k\lt\omega/c\); faz hızı c'den büyük.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SON ===================== -->
+<section class="end" id="sozluk">
+  <p class="k">Tek sayfada hafta</p>
+  <h2>Haftanın sözlüğü</h2>
+  <p>Dersteki İngilizce terimler, Türkçe karşılıkları ve sayfadaki lise örnekleri aynı satırda.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Kavram</th><th>Formül</th><th>Lise karşılığı</th></tr></thead>
+    <tbody>
+      <tr><td>Dalga kılavuzu, kılıf, çekirdek · waveguide, cladding, core</td><td>\(\vec E_0(x,y)\,e^{i(kz-\omega t)}\)</td><td>Hortumdaki su</td></tr>
+      <tr><td>Sınır şartı · boundary condition</td><td>\(E_\parallel=0,\ B_\perp=0\)</td><td>Su duvardan dışarı akamaz</td></tr>
+      <tr><td>Rotasyonel, diverjans · curl, divergence</td><td>\(\nabla\times\vec E=i\omega\vec B\)</td><td>Çapraz çarpım, sağ el kuralı</td></tr>
+      <tr><td>Enine, boyuna · transverse, longitudinal</td><td>\(E_x=\frac{i}{\omega^2/c^2-k^2}(k\,\partial_xE_z+\omega\,\partial_yB_z)\)</td><td>Yok etme yöntemi</td></tr>
+      <tr><td>Helmholtz denklemi · Helmholtz equation</td><td>\([\partial_x^2+\partial_y^2+\omega^2/c^2-k^2]B_z=0\)</td><td>Yay–kütle, \(\ddot x=-\omega^2x\)</td></tr>
+      <tr><td>TE, TM, TEM, hibrit · transverse electric, magnetic, electromagnetic, hybrid</td><td>\(E_z=0\) / \(B_z=0\) / ikisi / hiçbiri</td><td>Gitar telinin titreşimleri</td></tr>
+      <tr><td>Dağılım bağıntısı · dispersion relation</td><td>\(\omega^2=\omega_{mn}^2+c^2k^2\)</td><td>Pisagor, 3-4-5</td></tr>
+      <tr><td>Belirsiz ifade · indeterminate form</td><td>\(0/0\) iken \(\omega=ck\)</td><td>\(\frac{x^2-1}{x-1}\), x = 1</td></tr>
+      <tr><td>Eş potansiyel yüzey, Laplace denklemi · equipotential surface, Laplace equation</td><td>\(\nabla^2\phi=0\)</td><td>Kenarları 20 °C'deki levha</td></tr>
+      <tr><td>Değişkenlere ayırma, teklik teoremi · separation of variables, uniqueness theorem</td><td>\(B_z=X(x)\,Y(y)\)</td><td>\(f(x)+g(y)=10\)</td></tr>
+      <tr><td>Kuantalanma, mod · quantization, mode</td><td>\(k_x=m\pi/a,\ k_y=n\pi/b\)</td><td>Flüt ve gitar teli</td></tr>
+      <tr><td>Kesim frekansı · cut-off frequency</td><td>\(\omega_{mn}=c\pi\sqrt{m^2/a^2+n^2/b^2}\)</td><td>Tünelde AM ve FM</td></tr>
+      <tr><td>Sönümlü alan · evanescent field</td><td>\(k=i\alpha,\ e^{-\alpha z}\)</td><td>Mikrodalga fırının kapısı</td></tr>
+      <tr><td>Tek modlu, efektif indeks · single-mode, effective index</td><td>\(n_{eff}\gt n_{clad}\)</td><td>Ters orantı, \(y=k/x\)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="tahta-notlari">
+  <p class="k">Tahtayla karşılaştırma</p>
+  <h2>Tahta notları</h2>
+  <p>Tahta fotoğraflarının hepsini transkriptle karşılaştırdım ve formülleri sembolik olarak kontrol ettim. Büyük bir hata yok; aşağıdakiler kopyalarken dikkat edilecek küçük kaymalar.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Nerede</th><th>Tahtada</th><th>Doğrusu</th></tr></thead>
+    <tbody>
+      <tr><td>Tahta 1, sağ üst</td><td>\(\vec B_0=B\,\hat x+B_y\hat y+B_z\hat z\)</td><td>\(B_x\hat x+\dots\)</td></tr>
+      <tr><td>Tahta 2, \(B_x\) formülü</td><td>\(\frac{i}{\omega^2/c-k^2}\big(\partial_xB_z-\frac{\omega^2}{c^2}\partial_yE_z\big)\)</td><td>\(\frac{i}{\omega^2/c^2-k^2}\big(k\,\partial_xB_z-\frac{\omega}{c^2}\partial_yE_z\big)\); TE'de sonuç değişmiyor</td></tr>
+      <tr><td>Tahta 2, X(x)</td><td>B hem alan hem katsayı</td><td>Katsayıyı ayrı düşün; sonunda \(B_0\)'da toplanıyor</td></tr>
+      <tr><td>Transkript, \(k_xa\)</td><td>önce \(2\pi m\)</td><td>\(\pi m\); hoca hemen düzeltti</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="rapor">
+  <p class="k">Anladın mı?</p>
+  <h2>Durum raporu</h2>
+  <div class="report" id="rapor-icerik" aria-live="polite"></div>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <p><a href="../">← 602'nin diğer haftaları</a> · <a href="../hafta-6/">6. hafta: ışık paketleri ve dalga kılavuzları</a></p>
+  <p>İlerlemen sadece bu tarayıcıda saklanıyor; başka bir cihazda baştan başlar.</p>
+  <button type="button" class="btn ghost" id="reset">İlerlemeyi sıfırla</button>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Tahta fotoğrafı">
+  <button type="button" class="lb-close">Kapat</button>
+  <img alt="">
+  <p class="lb-hint">Görsele dokun: tam boyut ya da ekrana sığdır</p>
+</div>
+
+<script>
+document.documentElement.lang = 'tr';
+(function () {
+  'use strict';
+
+  /* ---------- Kayıt ---------- */
+  var KEY = 'kbm-602-hafta7-v1';
+  var state = { ans: {}, strict: true };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (saved.ans && typeof saved.ans === 'object') state.ans = saved.ans;
+        if (typeof saved.strict === 'boolean') state.strict = saved.strict;
+      }
+    }
+  } catch (e) { /* depolama yoksa sayfa yine çalışır */ }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
+
+  /* ---------- MathJax: sonradan görünen parçaları sırayla dizgile ---------- */
+  var mjReady = false;
+  var pending = [];
+  var chain = Promise.resolve();
+  function typeset(list) {
+    var mj = window.MathJax;
+    if (!list.length || !mj || typeof mj.typesetPromise !== 'function') return;
+    chain = chain.then(function () { return mj.typesetPromise(list); }).catch(function () {});
+  }
+  function tex(node) {
+    if (!node) return;
+    node.classList.remove('tex-later');
+    if (mjReady) typeset([node]); else pending.push(node);
+  }
+  window.addEventListener('mathjax-ready', function () {
+    mjReady = true;
+    var list = pending;
+    pending = [];
+    typeset(list);
+  });
+
+  function fmt(v, d) { return v.toLocaleString('tr-TR', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var qs = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var total = qs.length;
+  var links = {};
+  each('.map a[data-step]', function (a) { links[a.getAttribute('data-step')] = a; });
+
+  /* ---------- Sorular ---------- */
+  var MSG = {
+    first: 'Doğru, ilk denemede.',
+    retry: 'Doğru, ama ilk denemede değil. Rapor bu soruyu tekrar bakılacaklara ekledi.',
+    shown: 'Cevap gösterildi. Rapor bu soruyu tekrar bakılacaklara ekledi.'
+  };
+  function setMsg(q, text, kind) {
+    var m = q.querySelector('.msg');
+    m.textContent = text;
+    m.setAttribute('data-k', kind);
+  }
+
+  function resolve(q, status, restoring) {
+    if (q.classList.contains('done')) return;
+    q.classList.add('done');
+    q.setAttribute('data-status', status);
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (b) {
+        b.disabled = true;
+        if (b.hasAttribute('data-ok')) b.classList.add('is-right');
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      inp.disabled = true;
+      inp.classList.remove('is-wrong');
+      inp.classList.add('is-right');
+      if (status === 'shown' || !inp.value.trim()) inp.value = q.getAttribute('data-show');
+      q.querySelector('.check').disabled = true;
+    }
+    q.querySelector('.reveal').hidden = true;
+    var ex = q.querySelector('.explain');
+    ex.hidden = false;
+    tex(ex);
+    setMsg(q, MSG[status], status === 'shown' ? 'bad' : 'good');
+    state.ans[q.getAttribute('data-q')] = status;
+    if (!restoring) { save(); refresh(); }
+  }
+
+  function parseNum(str) {
+    var s = String(str || '').trim().replace(/\s+/g, '').replace(/,/g, '.').replace(/−/g, '-');
+    var frac = s.match(/^([-+]?(?:\d+\.?\d*|\.\d+))\/([-+]?(?:\d+\.?\d*|\.\d+))$/);
+    if (frac) {
+      var b = parseFloat(frac[2]);
+      return b === 0 ? NaN : parseFloat(frac[1]) / b;
+    }
+    if (!/^[-+]?(?:\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+    return parseFloat(s);
+  }
+
+  qs.forEach(function (q) {
+    q._tries = 0;
+    var reveal = q.querySelector('.reveal');
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (btn) {
+        btn.addEventListener('click', function () {
+          if (q.classList.contains('done') || btn.disabled) return;
+          if (btn.hasAttribute('data-ok')) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+          q._tries++;
+          btn.classList.add('is-wrong');
+          btn.disabled = true;
+          var why = btn.parentNode.querySelector('.why');
+          if (why) { why.hidden = false; tex(why); }
+          setMsg(q, 'Olmadı. Şıkkın altındaki nota bak, sonra başka bir şık dene.', 'bad');
+          reveal.hidden = false;
+        });
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      var check = function () {
+        if (q.classList.contains('done')) return;
+        var v = parseNum(inp.value);
+        if (isNaN(v)) {
+          setMsg(q, 'Bir sayı yaz. Ondalık için virgül de nokta da olur.', 'info');
+          inp.focus();
+          return;
+        }
+        var ans = parseFloat(q.getAttribute('data-answer'));
+        var tol = parseFloat(q.getAttribute('data-tol') || '0.001');
+        if (Math.abs(v - ans) <= tol + 1e-9) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+        q._tries++;
+        inp.classList.add('is-wrong');
+        var hint = q.querySelector('.hint');
+        if (hint) { hint.hidden = false; tex(hint); }
+        setMsg(q, 'Olmadı, cevap ' + v.toLocaleString('tr-TR', { maximumFractionDigits: 4 }) + ' değil. İpucuna bak, tekrar dene.', 'bad');
+        reveal.hidden = false;
+      };
+      q.querySelector('.check').addEventListener('click', check);
+      inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+      inp.addEventListener('input', function () { inp.classList.remove('is-wrong'); });
+    }
+    reveal.addEventListener('click', function () { resolve(q, 'shown'); });
+    var s = state.ans[q.getAttribute('data-q')];
+    if (s === 'first' || s === 'retry' || s === 'shown') resolve(q, s, true);
+  });
+
+  /* ---------- İlerleme, kilitler, rapor ---------- */
+  function stats(st) {
+    var r = { total: 0, done: 0, weak: 0 };
+    each('.q', function (q) {
+      r.total++;
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { r.done++; if (s !== 'first') r.weak++; }
+    }, st);
+    return r;
+  }
+
+  var fill = document.getElementById('fill');
+  var count = document.getElementById('count');
+  var strictBtn = document.getElementById('strict');
+
+  function setLocked(st, locked, blocker) {
+    var grid = st.querySelector('.step-grid');
+    var lock = st.querySelector('.lock');
+    if (locked) {
+      if (!grid.hidden) {
+        grid.hidden = true;
+        if (!mjReady) grid.classList.add('tex-later');
+      }
+      lock.hidden = false;
+      lock.querySelector('.lock-n').textContent = 'Adım ' + blocker.getAttribute('data-n');
+      lock.querySelector('.golock').setAttribute('data-target', blocker.id);
+      st.classList.add('is-locked');
+    } else {
+      lock.hidden = true;
+      st.classList.remove('is-locked');
+      if (grid.hidden) { grid.hidden = false; tex(grid); }
+    }
+  }
+
+  function renderReport() {
+    var box = document.getElementById('rapor-icerik');
+    var done = 0, first = 0, weak = [], solid = [];
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (!s) return;
+      done++;
+      if (s === 'first') first++; else weak.push({ q: q, s: s });
+    });
+    steps.forEach(function (st) {
+      var r = stats(st);
+      if (r.done === r.total && !r.weak) solid.push(st.getAttribute('data-n'));
+    });
+    if (!done) {
+      box.innerHTML = `<p>Henüz soru çözmedin. <a href="#t1">Adım 1</a>'den başla; rapor sen çözdükçe dolacak.</p>`;
+      return;
+    }
+    var h = `<p><strong>${total}</strong> sorudan <strong>${done}</strong> tanesini çözdün, <strong>${first}</strong> tanesini ilk denemede bildin.</p>`;
+    if (weak.length) {
+      h += `<p>Tekrar bakman gerekenler:</p><ul>` + weak.map(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        var why = w.s === 'shown' ? 'cevabı gördün' : 'ilk denemede olmadı';
+        return `<li><a href="#${w.q.id}">Adım ${n} · ${esc(w.q.getAttribute('data-topic'))}</a> <span class="why-tag">(${why})</span></li>`;
+      }).join('') + `</ul>`;
+      var base = weak.some(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        return n === '3' || n === '8';
+      });
+      if (base) h += `<p>Adım 3 (enine alanlar) ve Adım 8 (değişkenlere ayırma) bu haftanın iki temeli; sonraki adımlar bunların üstüne kuruluyor. Önce o ikisini sağlamlaştır.</p>`;
+    }
+    if (solid.length) h += `<p>Sorunsuz geçtiğin adımlar: ${solid.join(', ')}.</p>`;
+    if (done === total && !weak.length) h += `<p>Hepsini ilk denemede bildin. Bu hafta oturmuş; sonraki derse hazırsın.</p>`;
+    else if (done === total) h += `<p>Bütün soruları bitirdin. Yukarıdaki listeye birkaç gün sonra tekrar dön; ikinci bakışta oturanlar kalıcı olur.</p>`;
+    box.innerHTML = h;
+  }
+
+  function refresh() {
+    var done = 0, first = 0;
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { done++; if (s === 'first') first++; }
+    });
+    fill.style.width = (total ? 100 * done / total : 0) + '%';
+    count.innerHTML = '<strong>' + done + '/' + total + '</strong> soru · ilk denemede ' + first;
+    var blocker = null;
+    steps.forEach(function (st) {
+      var r = stats(st);
+      var s = r.weak ? 'weak' : (r.done === r.total ? 'done' : (r.done ? 'doing' : 'todo'));
+      st.setAttribute('data-s', s);
+      st.querySelector('.st').textContent = r.done + '/' + r.total + ' soru';
+      var locked = state.strict && blocker !== null;
+      setLocked(st, locked, blocker);
+      var a = links[st.id];
+      if (a) {
+        a.setAttribute('data-s', s);
+        a.querySelector('.lk').textContent = locked ? 'kilitli' : '';
+      }
+      if (blocker === null && r.done < r.total) blocker = st;
+    });
+    strictBtn.setAttribute('aria-pressed', state.strict ? 'true' : 'false');
+    strictBtn.textContent = state.strict ? 'Adım adım: açık' : 'Adım adım: kapalı';
+    renderReport();
+  }
+
+  /* ---------- Gezinme ---------- */
+  function firstOpen(scope) {
+    var list = scope ? Array.prototype.slice.call(scope.querySelectorAll('.q')) : qs;
+    for (var i = 0; i < list.length; i++) {
+      var q = list[i];
+      if (!q.classList.contains('done') && !q.closest('.step').querySelector('.step-grid').hidden) return q;
+    }
+    return null;
+  }
+  function goTo(q) {
+    q.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    var f = q.querySelector('.opt:not(:disabled), input:not(:disabled)');
+    if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (e) {} }, reduce ? 0 : 450);
+  }
+  document.getElementById('next').addEventListener('click', function () {
+    var q = firstOpen();
+    if (q) goTo(q);
+    else document.getElementById('rapor').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
+  strictBtn.addEventListener('click', function () { state.strict = !state.strict; save(); refresh(); });
+  each('.golock', function (b) {
+    b.addEventListener('click', function () {
+      var st = document.getElementById(b.getAttribute('data-target'));
+      if (!st) return;
+      var q = firstOpen(st);
+      if (q) goTo(q); else st.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  each('.unlock-all', function (b) {
+    b.addEventListener('click', function () { state.strict = false; save(); refresh(); });
+  });
+
+  var resetBtn = document.getElementById('reset');
+  var armed = null;
+  resetBtn.addEventListener('click', function () {
+    if (!armed) {
+      resetBtn.textContent = 'Emin misin? Bir kez daha bas';
+      armed = setTimeout(function () { armed = null; resetBtn.textContent = 'İlerlemeyi sıfırla'; }, 4000);
+      return;
+    }
+    clearTimeout(armed);
+    armed = null;
+    resetBtn.textContent = 'İlerlemeyi sıfırla';
+    state.ans = {};
+    save();
+    qs.forEach(function (q) {
+      q.classList.remove('done');
+      q.removeAttribute('data-status');
+      q._tries = 0;
+      each('.opt', function (b) { b.disabled = false; b.classList.remove('is-right', 'is-wrong'); }, q);
+      each('.why', function (w) { w.hidden = true; }, q);
+      var inp = q.querySelector('input');
+      if (inp) {
+        inp.disabled = false;
+        inp.value = '';
+        inp.classList.remove('is-right', 'is-wrong');
+        q.querySelector('.check').disabled = false;
+      }
+      q.querySelector('.explain').hidden = true;
+      q.querySelector('.reveal').hidden = true;
+      setMsg(q, '', 'info');
+    });
+    refresh();
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  each('details', function (d) {
+    d.addEventListener('toggle', function () { if (d.open) tex(d.querySelector('.d-body')); });
+  });
+
+  /* ---------- Fotoğraf görüntüleyici ---------- */
+  var lb = document.getElementById('lb');
+  var lbImg = lb.querySelector('img');
+  var lbClose = lb.querySelector('.lb-close');
+  var lastFocus = null;
+  function closeLB() {
+    lb.hidden = true;
+    lb.classList.remove('full');
+    document.documentElement.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  each('.zoom', function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lb.classList.remove('full');
+      lb.hidden = false;
+      lastFocus = btn;
+      document.documentElement.style.overflow = 'hidden';
+      lbClose.focus();
+    });
+  });
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLB(); });
+  lbImg.addEventListener('click', function () { lb.classList.toggle('full'); lb.scrollTop = 0; lb.scrollLeft = 0; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLB(); });
+
+  /* ---------- Çizimler ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function tickText(t) {
+    if (typeof t === 'object') return t.s;
+    return String(t).replace('.', ',').replace('-', '−');
+  }
+  function axes(svg, o) {
+    var X = function (x) { return o.l + (x - o.x0) / (o.x1 - o.x0) * (o.W - o.l - o.r); };
+    var Y = function (y) { return o.H - o.b - (y - o.y0) / (o.y1 - o.y0) * (o.H - o.t - o.b); };
+    (o.yt || []).forEach(function (v) {
+      el('line', { x1: o.l, x2: o.W - o.r, y1: Y(v), y2: Y(v), 'class': 'grid' }, svg);
+      el('text', { x: o.l - 6, y: Y(v) + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = tickText(v);
+    });
+    el('line', { x1: o.l, x2: o.W - o.r, y1: Y(o.y0), y2: Y(o.y0), 'class': 'ax' }, svg);
+    (o.xt || []).forEach(function (t) {
+      var v = typeof t === 'object' ? t.v : t;
+      el('line', { x1: X(v), x2: X(v), y1: Y(o.y0), y2: Y(o.y0) + 4, 'class': 'ax' }, svg);
+      el('text', { x: X(v), y: Y(o.y0) + 17, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = tickText(t);
+    });
+    if (o.xl) el('text', { x: o.W - o.r, y: o.H - 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = o.xl;
+    return { X: X, Y: Y };
+  }
+  function curve(f, a, b, X, Y, n) {
+    n = n || 240;
+    var d = '';
+    for (var i = 0; i <= n; i++) {
+      var x = a + (b - a) * i / n;
+      d += (i ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(f(x)).toFixed(1);
+    }
+    return d;
+  }
+  function area(f, a, b, X, Y) {
+    return curve(f, a, b, X, Y) + 'L' + X(b).toFixed(1) + ',' + Y(0).toFixed(1) + 'L' + X(a).toFixed(1) + ',' + Y(0).toFixed(1) + 'Z';
+  }
+
+  var SUB = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅' };
+  function sub(s) { return String(s).replace(/[0-5]/g, function (d) { return SUB[d]; }); }
+  var C0 = 299792458;
+
+  /* Adım 7: koaksiyel kablonun ışınsal alan okları */
+  (function () {
+    var g = document.querySelector('#t7 .arr7');
+    if (!g) return;
+    for (var i = 0; i < 8; i++) {
+      var t = (i + 0.5) * Math.PI / 4;
+      var c = Math.cos(t), s = Math.sin(t);
+      el('line', { x1: (270 + 20 * c).toFixed(1), y1: (96 + 20 * s).toFixed(1), x2: (270 + 56 * c).toFixed(1), y2: (96 + 56 * s).toFixed(1), 'class': 'arr-b', 'marker-end': 'url(#ah7)' }, g);
+    }
+  })();
+
+  /* Adım 11: mod şekilleri */
+  (function () {
+    var root = document.getElementById('w-mode');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var ro = root.querySelector('.ro');
+    var X0 = 44, Y0 = 16, W = 288, H = 144;
+    var NX = 36, NY = 18, cw = W / NX, ch = H / NY;
+    var defs = el('defs', {}, svg);
+    var mk = el('marker', { id: 'ahm', viewBox: '0 0 10 10', refX: '8', refY: '5', markerWidth: '5', markerHeight: '5', orient: 'auto-start-reverse' }, defs);
+    el('path', { d: 'M0,0 L10,5 L0,10 z', 'class': 'ah-k' }, mk);
+    var cells = [];
+    var cellG = el('g', { 'shape-rendering': 'crispEdges' }, svg);
+    for (var j = 0; j < NY; j++) {
+      for (var i = 0; i < NX; i++) {
+        cells.push({ i: i, j: j, r: el('rect', { x: (X0 + i * cw).toFixed(2), y: (Y0 + j * ch).toFixed(2), width: cw.toFixed(2), height: ch.toFixed(2), 'shape-rendering': 'crispEdges' }, cellG) });
+      }
+    }
+    el('rect', { x: X0, y: Y0, width: W, height: H, 'class': 'wall-thin' }, svg);
+    var arrows = el('g', {}, svg);
+    el('text', { x: X0, y: Y0 + H + 16, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = '0';
+    el('text', { x: X0 + W, y: Y0 + H + 16, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = 'a';
+    el('text', { x: X0 + W / 2, y: Y0 + H + 16, 'text-anchor': 'middle', 'class': 'axl' }, svg).textContent = 'x';
+    el('text', { x: X0 - 8, y: Y0 + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = 'b';
+    el('text', { x: X0 - 8, y: Y0 + H / 2 + 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = 'y';
+    var cap = el('text', { x: X0 + W / 2, y: Y0 + H + 36, 'text-anchor': 'middle', 'class': 'tick lbl' }, svg);
+    function val(name) {
+      var r = root.querySelector('input[name="' + name + '"]:checked');
+      return r ? parseInt(r.value, 10) : 0;
+    }
+    function draw() {
+      var m = val('wm'), n = val('wn');
+      var zero = (m === 0 && n === 0);
+      cells.forEach(function (c) {
+        var x = (c.i + 0.5) / NX, y = 1 - (c.j + 0.5) / NY;
+        var v = Math.cos(m * Math.PI * x) * Math.cos(n * Math.PI * y);
+        if (zero) v = 0.35;
+        c.r.setAttribute('class', v >= 0 ? 'cell-p' : 'cell-n');
+        c.r.setAttribute('fill-opacity', (0.08 + 0.72 * Math.abs(v)).toFixed(3));
+      });
+      while (arrows.firstChild) arrows.removeChild(arrows.firstChild);
+      if (!zero) {
+        var AX = 12, AY = 6, pts = [], mx = 0;
+        for (var j = 0; j < AY; j++) {
+          for (var i = 0; i < AX; i++) {
+            var x = (i + 0.5) / AX, y = (j + 0.5) / AY;
+            /* a = 2b: ∂x ve ∂y aynı birimde olsun diye y türevini 2 ile çarp */
+            var dBx = -m * Math.PI * Math.sin(m * Math.PI * x) * Math.cos(n * Math.PI * y);
+            var dBy = -2 * n * Math.PI * Math.cos(m * Math.PI * x) * Math.sin(n * Math.PI * y);
+            var ex = dBy, ey = -dBx;
+            var L = Math.sqrt(ex * ex + ey * ey);
+            if (L > mx) mx = L;
+            pts.push({ x: x, y: y, ex: ex, ey: ey, L: L });
+          }
+        }
+        pts.forEach(function (p) {
+          if (mx === 0 || p.L / mx < 0.08) return;
+          var s = 11 * Math.sqrt(p.L / mx) / p.L;
+          var cx = X0 + p.x * W, cy = Y0 + (1 - p.y) * H;
+          var dx = p.ex * s, dy = -p.ey * s;
+          el('line', { x1: (cx - dx).toFixed(1), y1: (cy - dy).toFixed(1), x2: (cx + dx).toFixed(1), y2: (cy + dy).toFixed(1), 'class': 'arr', 'marker-end': 'url(#ahm)' }, arrows);
+        });
+      }
+      var name = 'TE' + sub(String(m) + String(n));
+      var term = function (q, v, L) { return q === 0 ? '' : ' cos(' + (q === 1 ? '' : q) + 'π' + v + '/' + L + ')'; };
+      cap.textContent = zero ? 'TE₀₀: alan yok' : name + '  ·  Bz = B₀' + term(m, 'x', 'a') + term(n, 'y', 'b');
+      if (zero) {
+        ro.innerHTML = '<span><b>TE₀₀</b>:  B<sub>z</sub> kesitte sabit, türevi sıfır; enine alan çıkmıyor. Bu bir mod değil (Adım 12).</span>';
+      } else {
+        var r = Math.sqrt(m * m + 4 * n * n);
+        ro.innerHTML = `<span><b>${name}</b></span><span>x boyunca <b>${m}</b>, y boyunca <b>${n}</b> yarım dalga</span><span>x'te düğüm çizgisi: <b>${m}</b></span><span>kesim f<sub>${m}${n}</sub> / f<sub>10</sub> = √(m² + 4n²) = <b>${fmt(r, 2)}</b></span>`;
+      }
+    }
+    each('input[type="radio"]', function (r) { r.addEventListener('change', draw); }, root);
+    draw();
+  })();
+
+  /* Adım 13: dağılım eğrileri */
+  (function () {
+    var root = document.getElementById('w-disp');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 240, l: 74, r: 12, t: 22, b: 30, x0: 0, x1: 3.4, y0: 0, y1: 3.4, xt: [0, 1, 2, 3], yt: [], xl: 'ck / ω₁₀' };
+    var m = axes(svg, o);
+    el('line', { x1: m.X(0), x2: m.X(0), y1: m.Y(0), y2: m.Y(3.4), 'class': 'ax' }, svg);
+    el('text', { x: m.X(0) - 6, y: 14, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = 'ω / ω₁₀';
+    var modes = [
+      { c: 1, lab: 'TE₁₀', short: 'TE₁₀' },
+      { c: 2, lab: 'TE₂₀, TE₀₁', short: 'TE₂₀ ve TE₀₁' },
+      { c: Math.sqrt(5), lab: 'TE₁₁, TM₁₁', short: 'TE₁₁ ve TM₁₁' },
+      { c: Math.sqrt(8), lab: 'TE₂₁, TM₂₁', short: 'TE₂₁ ve TM₂₁' }
+    ];
+    el('path', { d: curve(function (x) { return x; }, 0, 3.4, m.X, m.Y, 2), 'class': 'curve-alt' }, svg);
+    el('text', { x: m.X(2.9), y: m.Y(3.05), 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = 'ω = ck';
+    modes.forEach(function (md) {
+      var xmax = Math.sqrt(Math.max(3.4 * 3.4 - md.c * md.c, 0));
+      el('path', { d: curve(function (x) { return Math.sqrt(md.c * md.c + x * x); }, 0, xmax, m.X, m.Y), 'class': 'curve' }, svg);
+      el('line', { x1: m.X(0) - 4, x2: m.X(0), y1: m.Y(md.c), y2: m.Y(md.c), 'class': 'ax' }, svg);
+      el('text', { x: m.X(0) - 7, y: m.Y(md.c) + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = md.lab;
+    });
+    var hl = el('line', { 'class': 'mark' }, svg);
+    var dots = modes.map(function () { return el('circle', { r: 4.5, 'class': 'dot-b' }, svg); });
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var w = parseFloat(inp.value);
+      hl.setAttribute('x1', m.X(0)); hl.setAttribute('x2', m.X(3.4));
+      hl.setAttribute('y1', m.Y(w)); hl.setAttribute('y2', m.Y(w));
+      var on = [];
+      modes.forEach(function (md, i) {
+        var d = dots[i];
+        if (w > md.c) {
+          var k = Math.sqrt(w * w - md.c * md.c);
+          d.removeAttribute('visibility');
+          d.setAttribute('cx', m.X(Math.min(k, 3.4))); d.setAttribute('cy', m.Y(w));
+          on.push(md.short + ' (ck = ' + fmt(k, 2) + ')');
+        } else d.setAttribute('visibility', 'hidden');
+      });
+      var h = `<span>ω = <b>${fmt(w, 2)}</b> ω₁₀</span>`;
+      if (!on.length) h += `<span>hiçbir mod ilerlemiyor: ω, en düşük kesim ω₁₀'un altında</span>`;
+      else {
+        h += `<span>ilerleyen: <b>${on.join(' · ')}</b></span>`;
+        var s = Math.sqrt(1 - 1 / (w * w));
+        h += `<span>TE₁₀ için v<sub>p</sub>/c = <b>${fmt(1 / s, 2)}</b>, v<sub>g</sub>/c = <b>${fmt(s, 2)}</b></span>`;
+      }
+      ro.innerHTML = h;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Adım 14: kesimin altı ve üstü */
+  (function () {
+    var root = document.getElementById('w-decay');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 200, l: 34, r: 14, t: 10, b: 28, x0: 0, x1: 10, y0: -1.15, y1: 1.15, xt: [0, 2, 4, 6, 8, 10], yt: [-1, 0, 1], xl: 'z (cm)' };
+    var m = axes(svg, o);
+    el('line', { x1: m.X(0), x2: m.X(10), y1: m.Y(0), y2: m.Y(0), 'class': 'grid' }, svg);
+    var path = el('path', { 'class': 'curve' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    var fc = C0 / (2 * 0.02286) / 1e9;
+    function draw() {
+      var f = parseFloat(inp.value);
+      var h = `<span>f = <b>${fmt(f, 2)} GHz</b></span><span>kesim f<sub>10</sub> = <b>${fmt(fc, 2)} GHz</b></span>`;
+      if (f > fc) {
+        var k = 2 * Math.PI * 1e9 * Math.sqrt(f * f - fc * fc) / C0; /* 1/m */
+        path.setAttribute('class', 'curve');
+        path.setAttribute('d', curve(function (z) { return Math.cos(k * z / 100); }, 0, 10, m.X, m.Y, 400));
+        h += `<span>durum: <b>ilerliyor</b></span><span>k = <b>${fmt(k, 1)} rad/m</b></span><span>λ<sub>g</sub> = <b>${fmt(200 * Math.PI / k, 2)} cm</b></span><span>boş uzayda λ₀ = <b>${fmt(C0 / (f * 1e7), 2)} cm</b></span>`;
+      } else {
+        var a = 2 * Math.PI * 1e9 * Math.sqrt(fc * fc - f * f) / C0; /* 1/m */
+        path.setAttribute('class', 'curve-red');
+        path.setAttribute('d', curve(function (z) { return Math.exp(-a * z / 100); }, 0, 10, m.X, m.Y, 300));
+        var g5 = Math.exp(-a * 0.05);
+        h += `<span>durum: <b>sönüyor</b></span><span>α = <b>${fmt(a, 1)} 1/m</b></span><span>1/α = <b>${fmt(1000 / a, 1)} mm</b></span><span>5 cm sonra genlik: <b>%${fmt(100 * g5, g5 < 0.01 ? 3 : 1)}</b></span>`;
+      }
+      ro.innerHTML = h;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Adım 15: boyut ve frekansa göre mod tablosu */
+  (function () {
+    var root = document.getElementById('w-modes');
+    if (!root) return;
+    var ia = document.getElementById('wa');
+    var ig = document.getElementById('wg');
+    var body = document.getElementById('wm-body');
+    var ro = root.querySelector('.ro');
+    var RATIO = 10.16 / 22.86;
+    function list(a, b) {
+      var out = [];
+      for (var mm = 0; mm <= 4; mm++) {
+        for (var nn = 0; nn <= 3; nn++) {
+          if (mm === 0 && nn === 0) continue;
+          var fc = C0 / 2 * Math.sqrt(Math.pow(mm / a, 2) + Math.pow(nn / b, 2)) / 1e9;
+          out.push({ n: 'TE' + sub(String(mm) + String(nn)), fc: fc, o: 0 });
+          if (mm > 0 && nn > 0) out.push({ n: 'TM' + sub(String(mm) + String(nn)), fc: fc, o: 1 });
+        }
+      }
+      out.sort(function (p, q) { return (p.fc - q.fc) || (p.o - q.o); });
+      return out;
+    }
+    function draw() {
+      var a = parseFloat(ia.value) / 1000, b = a * RATIO, f = parseFloat(ig.value);
+      var ms = list(a, b);
+      var on = ms.filter(function (x) { return x.fc < f; }).length;
+      var rows = ms.slice(0, 8).map(function (x) {
+        var ok = x.fc < f, last;
+        if (ok) {
+          var k = 2 * Math.PI * 1e9 * Math.sqrt(f * f - x.fc * x.fc) / C0;
+          last = 'λ<sub>g</sub> = ' + fmt(200 * Math.PI / k, 2) + ' cm';
+        } else {
+          var al = 2 * Math.PI * 1e9 * Math.sqrt(x.fc * x.fc - f * f) / C0;
+          last = '1/α = ' + fmt(1000 / al, 1) + ' mm';
+        }
+        return `<tr><td>${x.n}</td><td class="num">${fmt(x.fc, 2)} GHz</td><td><span class="pill ${ok ? 'ok' : 'no'}">${ok ? 'ilerler' : 'söner'}</span></td><td class="num">${last}</td></tr>`;
+      });
+      body.innerHTML = rows.join('');
+      var tag = on === 0 ? 'hiçbir mod ilerlemiyor' : (on === 1 ? 'tek modlu' : 'çok modlu');
+      ro.innerHTML = `<span>a = <b>${fmt(a * 1000, 2)} mm</b>, b = <b>${fmt(b * 1000, 2)} mm</b></span><span>f = <b>${fmt(f, 2)} GHz</b></span><span>ilerleyen mod sayısı: <b>${on}</b> (${tag})</span>`;
+    }
+    ia.addEventListener('input', draw);
+    ig.addEventListener('input', draw);
+    draw();
+  })();
+
+  refresh();
+})();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { ignoreHtmlClass: 'tex-later', enableMenu: false },
+  startup: {
+    pageReady: function () {
+      return MathJax.startup.defaultPageReady().then(function () {
+        window.dispatchEvent(new Event('mathjax-ready'));
+      });
+    }
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</body>
+</html>
