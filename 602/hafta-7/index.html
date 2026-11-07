@@ -747,7 +747,7 @@ details[open] > summary::before { content: "−"; }
         <div class="eq">\[ \Big[\partial_x^2+\partial_y^2+\frac{\omega^2}{c^2}-k^2\Big]B_z=0 \]</div>
         <p class="redraw-n">“Helmholtz equation”</p>
       </div>
-      <figcaption>Bu kısmın fotoğrafı yok; denklemleri transkriptten yeniden yazdım. İkinci tahtanın sol altında bu denklemin ayrılmış hali hâlâ görünüyor (Adım 8).</figcaption>
+      <figcaption>Bu kısmın fotoğrafı yok; denklemleri transkriptten ve ders defterinden yeniden yazdım. İkinci tahtanın sol altında bu denklemin ayrılmış hali hâlâ görünüyor (Adım 8).</figcaption>
     </figure>
     <div class="step-body">
       <p class="gist"><span class="k">Tek cümlede</span>Henüz kullanmadığımız iki Maxwell denklemi, \(\nabla\cdot\vec E=0\) ve \(\nabla\cdot\vec B=0\), \(E_z\) ve \(B_z\)'nin her biri için ayrı bir Helmholtz denklemi veriyor.</p>
@@ -759,7 +759,7 @@ details[open] > summary::before { content: "−"; }
       <div class="eq">\[ \frac{ik}{\gamma^2}\big(\partial_x^2+\partial_y^2\big)E_z+ikE_z=0 \]</div>
       <p>İki tarafı \(\gamma^2/ik\) ile çarp:</p>
       <div class="eq">\[ \Big[\frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}+\frac{\omega^2}{c^2}-k^2\Big]E_z=0 \]</div>
-      <p>Aynı hesabı \(\nabla\cdot\vec B=0\) ve \(B_x\), \(B_y\) formülleriyle yapınca \(B_z\) için birebir aynı denklem çıkıyor. Hoca hesabın ortasında küçük bir işlem hatasını düzeltti (“just a mistake for calculation”); sonuç yukarıdaki. İkisini sembolik olarak kontrol ettim.</p>
+      <p>Aynı hesabı \(\nabla\cdot\vec B=0\) ve \(B_x\), \(B_y\) formülleriyle yapınca \(B_z\) için birebir aynı denklem çıkıyor. Hoca hesabın ortasında küçük bir işlem hatasını düzeltti (“just a mistake for calculation”). Ders defterindeki satırda \(\partial_y^2E_z\) teriminin önündeki k eksik; düzeltilen hata büyük ihtimalle bu. Doğrusu yukarıdaki gibi iki terimde de k var; iki Helmholtz denklemini sembolik olarak kontrol ettim.</p>
       <p>Bu denkleme Helmholtz denklemi deniyor. İkinci mertebe, kısmi türevli ve bilinmeyenler ayrık: \(E_z\) kendi denklemine, \(B_z\) kendi denklemine uyuyor. Birbirlerine sadece sınır şartları üzerinden bağlanıyorlar. Artık plan belli: önce sınır şartlarını uygula, sonra çöz.</p>
       <details class="self">
         <summary>Kendi cümlenle anlat, sonra açıp karşılaştır: karışık terimler neden gidiyor?</summary>
@@ -836,7 +836,7 @@ details[open] > summary::before { content: "−"; }
       <figcaption>Bu tablo tahtada yoktu; hocanın sözlü anlattığını ve tahtaya çizdiği ok resimlerini tek yerde topladım.</figcaption>
     </figure>
     <div class="step-body">
-      <p class="gist"><span class="k">Tek cümlede</span>\(E_z\) ve \(B_z\)'den hangisinin sıfır olduğuna göre dört tür dalga var; metal boruda TE ve TM var, TEM yok, hibrit modlar dielektrik kılavuzlarda çıkıyor.</p>
+      <p class="gist"><span class="k">Tek cümlede</span>\(E_z\) ve \(B_z\)'den hangisinin sıfır olduğuna göre dört tür dalga var; içi boş ya da homojen dolu metal boruda sadece TE ve TM var, TEM yok; hibrit modlar katmanlı dielektrik kılavuzlarda çıkıyor.</p>
       <p>Sınır şartlarına geçmeden önce hoca bir seçim yaptı: iki z bileşeninden birini sıfır seçebiliriz.</p>
       <ul>
         <li>\(E_z=0\): elektrik alan tamamen xy düzleminde, ilerleme yönüne ve kılavuz eksenine dik. Buna enine elektrik, transverse electric, kısaca <strong>TE</strong> deniyor. Bu durumda \(B_z\neq0\) olmak zorunda (neden olduğu Adım 6'da).</li>
@@ -844,7 +844,7 @@ details[open] > summary::before { content: "−"; }
         <li>İkisi birden sıfır: enine elektromanyetik, <strong>TEM</strong>. Boş uzaydaki düzlem dalga böyle.</li>
         <li>İkisi de sıfırdan farklı: hoca “bunlara ne deniyor?” diye sordu, cevap <strong>hibrit</strong>. Tahtaya ok çizerek gösterdi: TE'de k ve E dik, B'nin z bileşeni var; hibritte ikisinin de z bileşeni var.</li>
       </ul>
-      <p>Hibrit modlar nerede çıkıyor? Hoca: içi boş metal boruda değil, dış kaplaması metal olmayan yapılarda. Optik fiberde ve katmanlı (layered) yapılarda kılıf dielektrik olunca TE ve TM ayrı ayrı sınır şartlarını sağlayamıyor, birbirine karışıyor. Fiberdeki adları HE ve EH; hocanın gösterdiği iki örnekten birinde elektrik, öbüründe manyetik alan baskındı. Enerjinin nasıl taşındığı, ne kadar uzağa gidebildiği bu modlarla ilgili; hoca ayrıntıyı ileriye bıraktı.</p>
+      <p>Hibrit modlar nerede çıkıyor? Derste deftere geçen kural net: içi boş kılavuzlarda ya da homojen bir malzemeyle dolu kılavuzlarda dalga sadece TE ya da TM olarak (ya da bunların toplamı olarak) ilerler; hibrit dalgalar katmanlı dielektrik ortamlarda çıkar. Hocanın örneği dış kaplaması metal olmayan yapılar: optik fiberde çekirdek ve kılıf farklı malzemeler, ortam katmanlı, ve TE ile TM ayrı ayrı sınır şartlarını sağlayamayıp birbirine karışıyor. Fiberdeki adları HE ve EH; hocanın gösterdiği iki örnekten birinde elektrik, öbüründe manyetik alan baskındı. Enerjinin nasıl taşındığı, ne kadar uzağa gidebildiği bu modlarla ilgili; hoca ayrıntıyı ileriye bıraktı.</p>
       <p>Hocanın benzetmesi gitar teli. Teli istediğin gibi titreştir; çoğu frekans tutmaz, iletime katkı vermez ve söner. Sadece telin boyuna uyan belli titreşimler kalır. Borudaki dalga da öyle: her frekans, her şekil ilerleyemez. İlerleyebilenlere mod diyoruz, ve hangileri olduğu malzemeye, kesitin şekline ve boyutuna bağlı. Bunu Bölüm C'de dikdörtgen boru için hesaplayacağız.</p>
       <details class="more">
         <summary>Derste konuşulan: simülasyonda TE0 ile TM0'ı nasıl ayırırsın?</summary>
@@ -1676,12 +1676,14 @@ details[open] > summary::before { content: "−"; }
 <section class="end" id="tahta-notlari">
   <p class="k">Tahtayla karşılaştırma</p>
   <h2>Tahta notları</h2>
-  <p>Tahta fotoğraflarının hepsini transkriptle karşılaştırdım ve formülleri sembolik olarak kontrol ettim. Büyük bir hata yok; aşağıdakiler kopyalarken dikkat edilecek küçük kaymalar.</p>
+  <p>Tahta fotoğraflarını ve ders defterinin beş sayfasını transkriptle karşılaştırdım, formülleri sembolik olarak kontrol ettim. Büyük bir hata yok; aşağıdakiler kopyalarken dikkat edilecek küçük kaymalar.</p>
   <div class="tbl"><table>
     <thead><tr><th>Nerede</th><th>Tahtada</th><th>Doğrusu</th></tr></thead>
     <tbody>
       <tr><td>Tahta 1, sağ üst</td><td>\(\vec B_0=B\,\hat x+B_y\hat y+B_z\hat z\)</td><td>\(B_x\hat x+\dots\)</td></tr>
       <tr><td>Tahta 2, \(B_x\) formülü</td><td>\(\frac{i}{\omega^2/c-k^2}\big(\partial_xB_z-\frac{\omega^2}{c^2}\partial_yE_z\big)\)</td><td>\(\frac{i}{\omega^2/c^2-k^2}\big(k\,\partial_xB_z-\frac{\omega}{c^2}\partial_yE_z\big)\); TE'de sonuç değişmiyor</td></tr>
+      <tr><td>Silinen tahta, Helmholtz türetmesi (defterden)</td><td>\(\dots+\partial_y^2E_z-\dots\), önünde k yok</td><td>\(k\,\partial_y^2E_z\); hocanın düzelttiği “mistake” büyük ihtimalle bu</td></tr>
+      <tr><td>Defter sayfa 5, \(c^2k^2\) satırı</td><td>altında üstü çizilmiş bir payda</td><td>\(c^2k^2=\omega^2-\omega_{mn}^2\), payda yok</td></tr>
       <tr><td>Tahta 2, X(x)</td><td>B hem alan hem katsayı</td><td>Katsayıyı ayrı düşün; sonunda \(B_0\)'da toplanıyor</td></tr>
       <tr><td>Transkript, \(k_xa\)</td><td>önce \(2\pi m\)</td><td>\(\pi m\); hoca hemen düzeltti</td></tr>
     </tbody>
