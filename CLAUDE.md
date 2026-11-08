@@ -23,6 +23,8 @@ Kullanıcının zip'lerinde bazen `ozel/` klasörü olur (ödev çözümleri). O
 
 Tahta fotoğraflarına tek tek bak: hoca ya da başka biri görünüyorsa kullanıcı onun tamamen çıkarılmasını istiyor. Aynı tahtanın temiz bir fotoğrafı varsa o kareyi at ve sayfadaki bağlantıyı temiz fotoğrafa çevir. Yoksa kişiyi kırp ve kalanını bulanıklaştır, `<img>`'nin width/height değerlerini yeni boyuta göre güncelle. Alt metinlerde ve açıklamalarda "hoca gösteriyor" gibi ifadeleri de düzelt (örnek: 602 Hafta 7).
 
+Aynı şey hocanın kişisel bilgileri için de geçerli: tahtada ya da sayfa metninde hocanın adı, e-postası, odası veya özgeçmişi (okulları, şu an çalıştığı yer) varsa fotoğrafta o bölgeyi bulanıklaştır, metinden ve alt metinlerden çıkar (örnek: 601 Hafta 1, t01 ve t02).
+
 ## Yeni hafta eklemek
 
 Kullanıcı "601 hafta 7" gibi bir şey deyip bir zip veya HTML verdiğinde:
