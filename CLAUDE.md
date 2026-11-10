@@ -19,7 +19,9 @@ favicon.svg
 
 Tüm bağlantılar göreceli (`../`, `../../favicon.svg`), mutlak yol kullanma.
 
-Kullanıcının zip'lerinde bazen `ozel/` klasörü olur (ödev çözümleri). Onu asla repoya koyma; site herkese açık.
+Bir haftanın yeni sürümü gelince eskisi silinmez: yeni çalışma defteri `hafta-N/index.html` olur, eski yazılı not `hafta-N/ders-notu.html` olarak kalır ve iki sayfa birbirine bağlantı verir (örnek: 601 Hafta 2, 3, 4, 6).
+
+Kullanıcının zip'lerinde bazen `ozel/` klasörü olur (ödev çözümleri). Onu asla repoya koyma; site herkese açık. Defterin içinde ödev çözümü varsa yüklemeden önce kullanıcıya sor (601 Hafta 2'deki iki çözümün yayınlanmasını kullanıcı onayladı).
 
 Tahta fotoğraflarına tek tek bak: hoca ya da başka biri görünüyorsa kullanıcı onun tamamen çıkarılmasını istiyor. Aynı tahtanın temiz bir fotoğrafı varsa o kareyi at ve sayfadaki bağlantıyı temiz fotoğrafa çevir. Yoksa kişiyi kırp ve kalanını bulanıklaştır, `<img>`'nin width/height değerlerini yeni boyuta göre güncelle. Alt metinlerde ve açıklamalarda "hoca gösteriyor" gibi ifadeleri de düzelt (örnek: 602 Hafta 7).
 
