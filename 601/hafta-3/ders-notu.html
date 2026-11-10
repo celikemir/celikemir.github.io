@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stationary States, Potential Wells ve Harmonic Oscillator · KBM 601 Hafta 3</title>
+<meta name="description" content="Dersin tek fikri şu: Hamiltonian&#x27;ın eigenstate&#x27;lerini bul, time evolution ve geri kalan her şey o basis&#x27;te basitleşiyor. Sonra bu fikir üç potential üzerinde…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<link rel="stylesheet" href="../../kbm.css">
+<script>
+window.MathJax = {
+  options: { enableMenu: false },
+  svg: { fontCache: 'local' },
+  startup: {
+    typeset: false,
+    pageReady: function () {
+      document.head.appendChild(MathJax.svgStylesheet());
+      var chain = Promise.resolve();
+      document.querySelectorAll('.eq[data-tex]').forEach(function (el) {
+        var tex = el.textContent;
+        chain = chain
+          .then(function () { return MathJax.tex2svgPromise(tex, { display: true }); })
+          .then(function (node) { el.replaceChildren(node); el.classList.add('ok'); })
+          .catch(function () {});
+      });
+      return chain;
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">601</a> › <a href="./">Hafta 3</a> › Ders notu</nav>
+  <p class="eyebrow">KBM 601 · Hafta 3 · ders notu</p>
+  <h1>Stationary States, Potential Wells ve Harmonic Oscillator</h1>
+<nav class="toc" aria-label="Bu sayfada"><p>Bu sayfada</p><ol><li><a href="#genel-bakış">Genel bakış</a></li><li><a href="#1-energy-basiste-time-evolution">1. Energy basis&#39;te time evolution</a></li><li><a href="#2-infinite-square-well">2. Infinite square well</a></li><li><a href="#3-infinite-wellden-çıkan-üç-sonuç">3. Infinite well&#39;den çıkan üç sonuç</a></li><li><a href="#4-optical-cavity-ve-thin-film-analojisi">4. Optical cavity ve thin film analojisi</a></li><li><a href="#5-finite-square-well">5. Finite square well</a></li><li><a href="#6-3d-box-ve-degeneracy">6. 3D box ve degeneracy</a></li><li><a href="#7-harmonic-oscillator">7. Harmonic oscillator</a></li><li><a href="#lojistik-ve-kendini-yokla">Lojistik ve kendini yokla</a></li></ol></nav>
+<h2 id="genel-bakış">Genel bakış</h2>
+<p>Dersin tek fikri şu: Hamiltonian&#39;ın eigenstate&#39;lerini bul, time evolution ve geri kalan her şey o basis&#39;te basitleşiyor. Sonra bu fikir üç potential üzerinde işlendi, infinite square well, finite square well ve harmonic oscillator. Arada optical cavity analojisi ve 3D box&#39;ta degeneracy konuşuldu.</p>
+<p>Transkript otomatik transkripsiyondan geçmiş ve epey bozuk. &quot;I am states&quot; ve &quot;I am function&quot; eigenstate ve eigenfunction, &quot;stand in waves&quot; ve &quot;stem and base&quot; standing wave, &quot;bell&quot; well, &quot;soft film&quot; soap film, &quot;Ajetepe&quot; Hacettepe. Sessiz yerlerdeki &quot;financial value&quot;, &quot;I love my friends&quot; gibi satırlar uydurma, onları atladım ve formülleri bağlamdan, standart sonuçlardan toparladım.</p>
+<h2 id="1-energy-basiste-time-evolution">1. Energy basis&#39;te time evolution</h2>
+<p>Energy eigenbasis&#39;te Ĥ diagonal, köşegende E_n&#39;ler var, off-diagonal her şey sıfır. Time evolution operator Û(t) = e^(−iĤt/ħ) olduğu için o da bu basis&#39;te diagonal oluyor ve köşegeninde sadece phase&#39;ler duruyor.</p>
+<div class="eq" data-tex>\langle E_m|\hat U(t)|E_n\rangle = e^{-iE_n t/\hbar}\,\delta_{mn}</div>
+<p>Hoca matrix&#39;i yazarken &quot;burada durmak zorunda değilsiniz&quot; dedi. Kastettiği şu: tek tek enerjiler sonlu ama level sayısı sonsuz olabilir, yani matrix sonsuz boyutlu. Infinite well ve harmonic oscillator tam böyle.</p>
+<p>Sonra resolution of identity ve tek bir energy level&#39;a projection getirildi. Energy eigenstate&#39;leri complete bir basis oluşturuyorsa:</p>
+<div class="eq" data-tex>\sum_n |E_n\rangle\langle E_n| = \hat I, \qquad \hat P_n = |E_n\rangle\langle E_n|</div>
+<p>Identity&#39;yi Û&#39;nun yanına sokunca operatörün spectral formu ve state&#39;in time evolution&#39;ı birlikte çıkıyor:</p>
+<div class="eq" data-tex>\hat U(t) = \sum_n e^{-iE_n t/\hbar}\,\hat P_n, \qquad |\psi(t)\rangle = \sum_n c_n\, e^{-iE_n t/\hbar}|E_n\rangle, \qquad c_n = \langle E_n|\psi(0)\rangle</div>
+<p>Her bileşen kendi enerjisiyle orantılı hızda dönen bir phase alıyor, |c_n|² hiç değişmiyor. Tek bir eigenstate&#39;teysen dönen şey sadece global phase, o yüzden stationary state deniyor. Superposition&#39;da ise bileşenler arası phase farkı zamanla kayıyor ve interference terimi (E_m − E_n)/ħ frekansıyla salınıyor.</p>
+<h2 id="2-infinite-square-well">2. Infinite square well</h2>
+<p>Kutu 0 &lt; x &lt; L arasında, içeride V = 0, dışarıda V = ∞. Dışarıda wave function sıfır olmak zorunda, içeride time-independent Schrödinger equation şu:</p>
+<div class="eq" data-tex>-\frac{\hbar^2}{2m}\frac{d^2u}{dx^2} = E\,u \;\;\Longrightarrow\;\; \frac{d^2u}{dx^2} + k^2 u = 0, \qquad k = \frac{\sqrt{2mE}}{\hbar}</div>
+<p>Hocanın tahtadaki adımları tam bu: eksi işaretleri toplayıp her şeyi 2m/ħ² ile çarpmak. Çıkan denklem yaydaki klasik oscillator denkleminin aynısı, sadece değişken t yerine x. O yüzden çözüm uzayda salınan sine ve cosine:</p>
+<div class="eq" data-tex>u(x) = A\sin kx + B\cos kx</div>
+<p>Boundary conditions işi bitiriyor. u(0) = 0 cosine&#39;ı eliyor, B = 0. u(L) = 0 ise sin(kL) = 0 demek, yani k_n L = nπ. Gitar teli gibi düşün, iki ucu sabit telde sadece boyuna tam sayıda yarım dalga sığan modlar yaşayabilir.</p>
+<p>n = 0 her yerde sıfır veriyor, fiziksel state değil. Negatif n aynı fonksiyonu eksi işaretle veriyor, yani yeni state değil, sadece global phase. Bu yüzden n = 1, 2, 3, …</p>
+<div class="eq" data-tex>k_n = \frac{n\pi}{L}, \qquad E_n = \frac{\hbar^2k_n^2}{2m} = \frac{\pi^2\hbar^2 n^2}{2mL^2}, \qquad u_n(x) = \sqrt{\frac{2}{L}}\,\sin\frac{n\pi x}{L}</div>
+<p>√(2/L) normalization&#39;dan geliyor, çünkü sin²&#39;nin 0 ile L arasındaki integrali L/2. Discrete spectrum&#39;un kaynağı tamamen boundary conditions. Serbest parçacıkta k sürekli, kutuya hapsedince quantize oluyor.</p>
+<p>Derste yapılan birim kontrolü: sin ve cos&#39;un argümanı boyutsuz olmalı, o yüzden k&#39;nın birimi 1/m, yani wave number. Zamandaki ω&#39;nın 1/s olmasının uzaydaki karşılığı.</p>
+<div class="eq" data-tex>[\sqrt{2mE}] = \sqrt{\mathrm{kg}\cdot\mathrm{kg\,m^2/s^2}} = \mathrm{kg\,m/s}, \qquad [\hbar] = \mathrm{kg\,m^2/s}, \qquad [k] = \mathrm{1/m}</div>
+<h2 id="3-infinite-wellden-çıkan-üç-sonuç">3. Infinite well&#39;den çıkan üç sonuç</h2>
+<p><strong>Spectrum n² ile açılıyor.</strong> E_2 = 4E_1, E_3 = 9E_1, level&#39;lar arası boşluk E_(n+1) − E_n = (2n+1)E_1. Yani yukarı çıktıkça aralık büyüyor. Transkriptte n = 3 kısmı &quot;9 over 4&quot; gibi bozuk duyuluyor, doğrusu E_3 = 9π²ħ²/(2mL²).</p>
+<p><strong>Node sayısı n − 1.</strong> Duvarlar hariç u_n&#39;in n − 1 node&#39;u var. n = 1&#39;de node yok ve sin(πx/L) tam ortada, x = L/2&#39;de maksimum. n = 2&#39;de argüman x = L/2&#39;de π oluyor, yani ortada bir node, bir yarım dalga yukarı, bir yarım dalga aşağı. n = 3&#39;te L/3 ve 2L/3&#39;te iki node var, hocanın Türkçe anlattığı kısım bu.</p>
+<p>Genel kural: daha fazla node daha fazla eğrilik demek, o da daha yüksek kinetic energy. Probability density |u_n|² = (2/L)sin²(nπx/L) klasik parçacığın uniform dağılımından çok farklı. n büyüdükçe ortalaması uniform&#39;a yaklaşıyor, bu da correspondence principle.</p>
+<p><strong>Zero-point energy.</strong> Ground state enerjisi sıfır değil, E_1 = π²ħ²/(2mL²). Sebep uncertainty principle. Parçacığı L genişliğinde bir kutuya hapsedersen Δx ≲ L, o zaman Δp ≳ ħ/(2L) ve momentum, dolayısıyla kinetic energy sıfır olamaz.</p>
+<p>Kutu daraldıkça E_1 1/L² ile artıyor. Hapsetmenin bedeli enerji.</p>
+<h2 id="4-optical-cavity-ve-thin-film-analojisi">4. Optical cavity ve thin film analojisi</h2>
+<p>Infinite well&#39;in klasik ikizi optical cavity, yani iki ayna arasındaki ışık. Aynalar elektrik alanı sıfıra zorluyor, tıpkı duvarların u&#39;yu sıfıra zorlaması gibi. Sonuç aynı standing wave şartı:</p>
+<div class="eq" data-tex>L = n\,\frac{\lambda_n}{2} \;\Longrightarrow\; \lambda_n = \frac{2L}{n}, \qquad k_n = \frac{n\pi}{L}, \qquad \nu_n = \frac{c}{\lambda_n} = \frac{nc}{2L}</div>
+<p>Fark şu: burada quantize olan parçacığın enerjisi değil, cavity&#39;nin izin verdiği modlar ve frekanslar. Hoca bunu photon&#39;a girmeden, klasik ışık olarak anlattı. Visible light 400–700 nm civarı, saç kalınlığından yüz kat kadar küçük, ve bu ölçekte bir mesafe belirli dalga boylarını seçebiliyor.</p>
+<p>Günlük örnek soap film, sabun köpüğündeki renkler. Işığın bir kısmı üst yüzeyden yansıyor, bir kısmı filmin içine girip alt yüzeyden yansıyarak geri çıkıyor. İkinci ışın fazladan 2L yol alıyor, film içinde kırılma indisi n ile optik yol farkı 2nL.</p>
+<p>Bu fark bazı dalga boylarında constructive, bazılarında destructive interference veriyor. Kalınlık yer yer değiştiği için farklı yerlerde farklı renk görüyorsun. Hoca da &quot;tam optical cavity değil&quot; dedi, çünkü burada çok sayıda yansıma yok, iki ışının interference&#39;ı var.</p>
+<p>Küçük bir ayrıntı: üst yüzeydeki yansıma π phase kaydırıyor, alttaki kaydırmıyor. O yüzden yansımada constructive şart 2nL = (m + ½)λ, transkriptte bu kayma geçmiyor.</p>
+<h2 id="5-finite-square-well">5. Finite square well</h2>
+<p>Duvarlar artık sonlu: içeride V = 0, dışarıda V = V_out. Bound state&#39;lere bakıyoruz, yani 0 &lt; E &lt; V_out. İçeride denklem aynı, çözüm yine oscillatory, k = √(2mE)/ħ.</p>
+<p>Dışarıda E − V_out negatif, işaret dönüyor ve denklem artık salınmıyor:</p>
+<div class="eq" data-tex>\frac{d^2u}{dx^2} - \kappa^2u = 0, \qquad \kappa = \frac{\sqrt{2m(V_{out}-E)}}{\hbar}, \qquad u(x) = C\,e^{-\kappa x} + D\,e^{+\kappa x}</div>
+<p>Normalization hangi çözümün kalacağını seçiyor. x &gt; L tarafında e^(+κx) sonsuza patlıyor, sonsuzda büyüyen olasılık fiziksel değil, o yüzden D = 0 ve sadece e^(−κx) kalıyor. x &lt; 0 tarafında tersi, sadece e^(+κx) kalıyor. Hocanın &quot;survival mode&quot; dediği bu, her iki yanda sonsuza doğru sönen çözüm.</p>
+<p><strong>Penetration depth 1/κ.</strong> x = 1/κ&#39;da amplitude 1/e ≈ 0.37&#39;ye, probability density e^(−2) ≈ 0.14&#39;e düşüyor. 1/κ parçacığın klasik olarak yasak bölgeye ne kadar sızdığının ölçüsü. V_out − E büyüdükçe κ büyüyor, sızma kısalıyor, V_out → ∞ limitinde infinite well&#39;e geri dönüyorsun.</p>
+<p>Derste &quot;bu absorption mı?&quot; diye soruldu. Doğrusu absorption değil: stationary state&#39;te olasılık kaybolmuyor, parçacık duvarın içinde gerçekten bulunabiliyor ama olasılığı üstel olarak azalıyor. Klasik mekanikte E &lt; V bölgesi tamamen yasak, kuantumda değil.</p>
+<p>Hocanın Türkçe söylediği kısım da şu: u negatif değer alabilir ama |u|² her yerde pozitif ve probability density onu veriyor.</p>
+<p>Quantization bu sefer x = 0 ve x = L&#39;de u ile du/dx&#39;in sürekliliğinden geliyor. Bu şartlar transcendental bir denklem veriyor ve sonlu sayıda bound state çıkıyor. Wave function duvara sızdığı için efektif kutu biraz geniş, o yüzden enerjiler aynı L&#39;deki infinite well&#39;den düşük. Transkriptte matching kısmı geçmiyor, bunu standart sonuç olarak ekledim.</p>
+<p>Bu sızmanın doğal devamı tunneling. Duvar inceyse e^(−κx) kuyruğu diğer tarafa ulaşıyor ve parçacık klasik olarak geçemeyeceği bir barrier&#39;ı geçebiliyor. Optikteki karşılığı frustrated total internal reflection, evanescent wave iki prizma arasındaki dar boşluğu aşabiliyor.</p>
+<h2 id="6-3d-box-ve-degeneracy">6. 3D box ve degeneracy</h2>
+<p>Kenarları L olan bir küpte potential separable, wave function üç tane 1D çözümün çarpımı. Enerji yine quantize ama artık üç quantum number var:</p>
+<div class="eq" data-tex>u_{n_xn_yn_z}(x,y,z) = \Big(\frac{2}{L}\Big)^{3/2}\sin\frac{n_x\pi x}{L}\,\sin\frac{n_y\pi y}{L}\,\sin\frac{n_z\pi z}{L}, \qquad E = \frac{\pi^2\hbar^2}{2mL^2}\,\big(n_x^2+n_y^2+n_z^2\big)</div>
+<p>Farklı (n_x, n_y, n_z) üçlüleri aynı enerjiyi verebiliyor, buna degeneracy deniyor. E_0 = π²ħ²/(2mL²) biriminde ilk seviyeler:</p>
+<div class="tbl"><table><thead><tr><th>n_x² + n_y² + n_z²</th><th>State&#39;ler</th><th>Degeneracy</th></tr></thead><tbody><tr><td>3</td><td>(1,1,1)</td><td>1</td></tr><tr><td>6</td><td>(2,1,1), (1,2,1), (1,1,2)</td><td>3</td></tr><tr><td>9</td><td>(2,2,1) ve permütasyonları</td><td>3</td></tr><tr><td>11</td><td>(3,1,1) ve permütasyonları</td><td>3</td></tr><tr><td>12</td><td>(2,2,2)</td><td>1</td></tr><tr><td>14</td><td>(3,2,1) ve permütasyonları</td><td>6</td></tr></tbody></table></div>
+<p>Transkriptte &quot;six triples&quot; diye geçen kısım büyük ihtimalle 6 enerjili, üç katlı degenerate seviye.</p>
+<p>Degeneracy&#39;nin kaynağı symmetry. Küpte x, y, z eşdeğer, eksenleri değiştirmek enerjiyi değiştirmiyor. Kenarları farklı yaparsan symmetry kırılıyor ve bu seviyeler ayrışıyor.</p>
+<p>Hocanın bağladığı yer perturbation theory. Küçük bir perturbation symmetry&#39;yi bozunca degenerate level&#39;lar ayrışıyor, ve perturbation hesapları tam da bu symmetry ve degeneracy yapısını kullanıyor.</p>
+<h2 id="7-harmonic-oscillator">7. Harmonic oscillator</h2>
+<p>Potential klasik yaydaki gibi:</p>
+<div class="eq" data-tex>V(x) = \tfrac12 m\omega^2x^2, \qquad \hat H = \frac{\hat p^2}{2m} + \tfrac12 m\omega^2\hat x^2</div>
+<p>Hocanın önden verdiği sonuç: infinite well&#39;de level&#39;lar n² ile açılıyordu, burada eşit aralıklı ve her basamak ħω. Bu, her photon&#39;un aynı ħω enerjisini taşımasıyla aynı yapı, harmonic oscillator&#39;ı kuantum optiğinin temeli yapan da bu.</p>
+<p><strong>Characteristic scales.</strong> Problemde üç büyüklük var: ħ (kg m²/s), m (kg), ω (1/s). Bunlardan bir uzunluk ve bir momentum kurulabiliyor:</p>
+<div class="eq" data-tex>x_0 = \sqrt{\frac{\hbar}{m\omega}}, \qquad p_0 = \sqrt{\hbar m\omega}, \qquad x_0\,p_0 = \hbar</div>
+<p>Derste yapılan birim mantığı: metreyi ħ getiriyor, kilogramı m&#39;ye bölerek, 1/s&#39;yi ω&#39;ya bölerek atıyorsun, geriye m² kalıyor ve karekök alıyorsun. p_0 için ħ&#39;yi m ve ω ile çarpıyorsun.</p>
+<p><strong>Dimensionless Hamiltonian.</strong> X̂ = x̂/x_0 ve P̂ = p̂/p_0 tanımla, sonra Ĥ&#39;yi ħω&#39;ya böl. ħω zaten bir photon&#39;un enerjisi, bölünce her şey boyutsuz kalıyor:</p>
+<div class="eq" data-tex>\frac{\hat H}{\hbar\omega} = \frac{p_0^2}{2m\hbar\omega}\hat P^2 + \frac{m\omega x_0^2}{2\hbar}\hat X^2 = \tfrac12\big(\hat X^2 + \hat P^2\big)</div>
+<p>Commutator da sadeleşiyor, [x̂, p̂] = iħ&#39;yi x_0 p_0 = ħ&#39;ye bölünce:</p>
+<div class="eq" data-tex>[\hat X,\hat P] = \frac{[\hat x,\hat p]}{x_0\,p_0} = i</div>
+<p>Transkriptteki &quot;x0 p0&#39;a bölersen i elde edersin&quot; kısmı bu.</p>
+<p><strong>Hocanın sorusu ve gelecek dersin konusu.</strong> X² + P² bir complex sayının modülünün karesine benziyor. Sayılar için X² + P² = (X − iP)(X + iP). Hoca &quot;hangi şartta bu böyle çarpanlara ayrılır?&quot; diye sordu, cevap X ile P&#39;nin commute etmesi. Operatörlerde commutator fazladan bir terim bırakıyor:</p>
+<div class="eq" data-tex>(\hat X - i\hat P)(\hat X + i\hat P) = \hat X^2 + \hat P^2 + i[\hat X,\hat P] = \hat X^2 + \hat P^2 - 1</div>
+<p>Buradan â = (X̂ + iP̂)/√2 tanımlanınca Ĥ = ħω(â†â + ½) çıkıyor. Eşit aralıklı spectrum ve ground state&#39;teki ħω/2 zero-point energy buradan geliyor. Bu son kısım dersin dışında, hocanın gelecek derste yapacağı ladder operator yönteminin önizlemesi.</p>
+<h2 id="lojistik-ve-kendini-yokla">Lojistik ve kendini yokla</h2>
+<p>Transkriptte lojistik kısım çok bozuk. Anlaşılan şu: Hacettepe&#39;nin MATLAB lisansı var, derste vakit kalmazsa basit numerical, matrix tabanlı örnekler yapılacak. Hafta sonu online, iki saatlik ek oturumlardan bahsediliyor ama sıklığı net değil. Aynı gün bir şey paylaşacağını söyledi, ödev mi materyal mi anlaşılmıyor.</p>
+<p>Kendini yokla: 1 nm genişliğindeki bir infinite well&#39;de elektronun E_1&#39;i yaklaşık kaç eV? Aynı elektron n = 2&#39;den n = 1&#39;e düşerken yaydığı photon visible aralıkta mı?</p>
+  <nav class="pager" aria-label="Diğer sayfalar"><a href="../hafta-2/">← Hafta 2</a><a href="./">Bu haftanın çalışma defteri →</a></nav>
+</main>
+</body>
+</html>

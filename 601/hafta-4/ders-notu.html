@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dirac Notation ve Measurement · KBM 601 Hafta 4</title>
+<meta name="description" content="Dersin özü, Dirac notation&#x27;ı kurup measurement postulate&#x27;ini projection operator&#x27;lar üzerinden yazmak. Kaynak transkript otomatik çeviriden geçtiği için…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<link rel="stylesheet" href="../../kbm.css">
+<script>
+window.MathJax = {
+  options: { enableMenu: false },
+  svg: { fontCache: 'local' },
+  startup: {
+    typeset: false,
+    pageReady: function () {
+      document.head.appendChild(MathJax.svgStylesheet());
+      var chain = Promise.resolve();
+      document.querySelectorAll('.eq[data-tex]').forEach(function (el) {
+        var tex = el.textContent;
+        chain = chain
+          .then(function () { return MathJax.tex2svgPromise(tex, { display: true }); })
+          .then(function (node) { el.replaceChildren(node); el.classList.add('ok'); })
+          .catch(function () {});
+      });
+      return chain;
+    }
+  }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<main class="wrap doc">
+  <nav class="crumbs" aria-label="Konum"><a href="../../">KBM notları</a> › <a href="../">601</a> › <a href="./">Hafta 4</a> › Ders notu</nav>
+  <p class="eyebrow">KBM 601 · Hafta 4 · ders notu</p>
+  <h1>Dirac Notation ve Measurement</h1>
+<nav class="toc" aria-label="Bu sayfada"><p>Bu sayfada</p><ol><li><a href="#genel-bakış">Genel bakış</a></li><li><a href="#1-ket-neden-abstract">1. Ket neden abstract</a></li><li><a href="#2-bra-ve-inner-product">2. Bra ve inner product</a></li><li><a href="#3-orthonormal-basis-completeness-expansion">3. Orthonormal basis, completeness, expansion</a></li><li><a href="#4-continuous-basis-position-representation">4. Continuous basis: position representation</a></li><li><a href="#5-projection-operator">5. Projection operator</a></li><li><a href="#6-observable-ve-spectral-decomposition">6. Observable ve spectral decomposition</a></li><li><a href="#7-expectation-value">7. Expectation value</a></li><li><a href="#8-measurement-ve-post-measurement-state">8. Measurement ve post-measurement state</a></li><li><a href="#9-global-phase-ve-relative-phase">9. Global phase ve relative phase</a></li><li><a href="#lojistik">Lojistik</a></li><li><a href="#kendini-yokla">Kendini yokla</a></li></ol></nav>
+<h2 id="genel-bakış">Genel bakış</h2>
+<p>Dersin özü, Dirac notation&#39;ı kurup measurement postulate&#39;ini projection operator&#39;lar üzerinden yazmak. Kaynak transkript otomatik çeviriden geçtiği için bozuk. Orada &quot;autonomous states&quot; orthonormal, &quot;admission/harishic conjugate&quot; Hermitian conjugate, &quot;against state&quot; eigenstate, &quot;main function&quot; wave function, &quot;METAB&quot; de MATLAB demek.</p>
+<h2 id="1-ket-neden-abstract">1. Ket neden abstract</h2>
+<p>Ket |ψ⟩ complex Hilbert space&#39;te bir state vector ve herhangi bir representation&#39;a bağlı değil. Hocanın tarihsel noktası şu: Schrödinger&#39;in wave mechanics&#39;i ile Heisenberg&#39;in matrix mechanics&#39;i neredeyse aynı anda çıktı. Dirac&#39;ın katkısı, ikisinin aynı abstract nesnenin farklı representation&#39;ları olduğunu göstermek. Position basis&#39;te yazarsan wave function, discrete bir basis&#39;te yazarsan matrix ya da column vector elde ediyorsun.</p>
+<p>Klasik analoji: 3D&#39;de bir A vektörü uzayda bir ok olarak var. Cartesian&#39;da (Ax, Ay, Az), spherical&#39;da (r, θ, φ) diye yazarsın. Vektör değişmiyor, sadece bileşenleri değişiyor. Derste bir öğrencinin dediği gibi, klasik vektörde hep bileşenleri &quot;hissediyoruz&quot;. Burada ket okun kendisi, ψ(x) ya da cₙ ise o okun bileşenleri.</p>
+<h2 id="2-bra-ve-inner-product">2. Bra ve inner product</h2>
+<p>Bra, ket&#39;in Hermitian conjugate&#39;ı: ⟨ψ| = (|ψ⟩)†, yani transpose ve complex conjugate. Kurallar şöyle: (c|ψ⟩)† = c*⟨ψ|, bra&#39;nın Hermitian conjugate&#39;ı tekrar ket, ve çarpımda sıra ters döner, (AB)† = B†A†.</p>
+<p>Inner product ⟨φ|ψ⟩ bir complex sayı:</p>
+<div class="eq" data-tex>\langle\phi|\psi\rangle = \langle\psi|\phi\rangle^*, \qquad \langle\psi|\psi\rangle \ge 0</div>
+<p>İlki önemli: inner product symmetric değil, sırayı değiştirince complex conjugate alıyorsun. İkincisinde eşitlik sadece sıfır vektör için geçerli. Norm ‖ψ‖ = √⟨ψ|ψ⟩, ve sıfırdan farklı her state&#39;i normuna bölerek normalize edebilirsin.</p>
+<h2 id="3-orthonormal-basis-completeness-expansion">3. Orthonormal basis, completeness, expansion</h2>
+<p>Basis {|n⟩} orthonormal ise ⟨n|m⟩ = δₙₘ. Complete ise completeness relation (resolution of the identity) sağlanıyor:</p>
+<div class="eq" data-tex>\sum_n |n\rangle\langle n| = \hat{I}</div>
+<p>Bunun gücü, identity&#39;yi istediğin yere sokabilmen:</p>
+<div class="eq" data-tex>|\psi\rangle = \hat I|\psi\rangle = \sum_n |n\rangle\langle n|\psi\rangle = \sum_n c_n |n\rangle, \qquad c_n = \langle n|\psi\rangle</div>
+<p>cₙ&#39;ler expansion coefficient&#39;lar, genelde complex, fiziksel anlamları probability amplitude. 3D&#39;deki Aᵢ = êᵢ · A ifadesinin birebir karşılığı. Normalization da şunu veriyor:</p>
+<div class="eq" data-tex>\langle\psi|\psi\rangle = \sum_n |c_n|^2 = 1</div>
+<p>Probabilistic interpretation buradan geliyor: |cₙ|², sistemi |n⟩ state&#39;inde bulma olasılığı.</p>
+<h2 id="4-continuous-basis-position-representation">4. Continuous basis: position representation</h2>
+<p>Position basis&#39;te sum integral&#39;e, Kronecker delta da Dirac delta&#39;ya dönüşüyor:</p>
+<div class="eq" data-tex>\int dx\, |x\rangle\langle x| = \hat I, \qquad \langle x|x&#39;\rangle = \delta(x-x&#39;)</div>
+<p>Aynı identity trick&#39;i uygularsan:</p>
+<div class="eq" data-tex>|\psi\rangle = \int dx\, |x\rangle\langle x|\psi\rangle, \qquad \psi(x) \equiv \langle x|\psi\rangle</div>
+<p>Yani wave function dediğin şey, ket&#39;in position basis&#39;teki bileşenleri, cₙ&#39;in continuous versiyonu. Buradan |ψ(x)|² de probability density oluyor.</p>
+<p>Aynı state&#39;i energy basis&#39;te de yazabilirsin, |ψ⟩ = Σₙ cₙ|Eₙ⟩. İki representation&#39;ı bağlamak için:</p>
+<div class="eq" data-tex>\psi(x) = \langle x|\psi\rangle = \sum_n c_n \langle x|E_n\rangle = \sum_n c_n\, \phi_n(x)</div>
+<p>Hangi basis&#39;i seçeceğine fizik karar veriyor. Lokalizasyon soruyorsan position basis, stationary state&#39;ler ve time evolution için energy basis daha çok işine yarar.</p>
+<h2 id="5-projection-operator">5. Projection operator</h2>
+<p>Projection operator, bir state&#39;in tek bir basis yönündeki bileşenini çekip alır:</p>
+<div class="eq" data-tex>\hat P_n = |n\rangle\langle n|</div>
+<p>Bunu |ψ⟩&#39;ye uygularsan Pₙ|ψ⟩ = |n⟩⟨n|ψ⟩ = cₙ|n⟩ çıkıyor. Özellikleri:</p>
+<div class="eq" data-tex>\hat P_n^2 = \hat P_n, \qquad \hat P_n^\dagger = \hat P_n, \qquad \hat P_n\hat P_m = \delta_{nm}\hat P_n, \qquad \sum_n \hat P_n = \hat I</div>
+<p>Pₙ² = Pₙ (idempotent) çünkü ortada ⟨n|n⟩ = 1 kalıyor. Sezgisel olarak, zaten projekte ettiğin bir şeyi tekrar projekte etmek hiçbir şey değiştirmez. Son eşitlik de completeness relation&#39;ın projector diliyle yazılmış hali.</p>
+<h2 id="6-observable-ve-spectral-decomposition">6. Observable ve spectral decomposition</h2>
+<p>Non-degenerate bir observable A alalım: A|aₙ⟩ = aₙ|aₙ⟩. Observable Hermitian olduğu için eigenvalue&#39;lar gerçel, eigenstate&#39;ler de orthonormal ve complete bir basis oluşturuyor. O zaman operatörü projector&#39;lar cinsinden açabilirsin:</p>
+<div class="eq" data-tex>\hat A = \sum_n a_n |a_n\rangle\langle a_n| = \sum_n a_n \hat P_n</div>
+<p>Hocanın tahtada yaptığı kontrol şu:</p>
+<div class="eq" data-tex>\hat A|a_m\rangle = \sum_n a_n|a_n\rangle\langle a_n|a_m\rangle = \sum_n a_n |a_n\rangle\delta_{nm} = a_m|a_m\rangle</div>
+<p>Delta toplamdan sadece n = m terimini seçiyor ve eigenvalue equation geri geliyor.</p>
+<h2 id="7-expectation-value">7. Expectation value</h2>
+<p>Bir projector&#39;ın expectation value&#39;su, ilgili sonucu ölçme olasılığına eşit:</p>
+<div class="eq" data-tex>\langle \hat A\rangle = \langle\psi|\hat A|\psi\rangle = \sum_n a_n \langle\psi|\hat P_n|\psi\rangle = \sum_n a_n |c_n|^2</div>
+<p>Kilit nokta ⟨ψ|Pₙ|ψ⟩ = ⟨ψ|aₙ⟩⟨aₙ|ψ⟩ = |cₙ|² = pₙ. Formülün kendisi de klasik beklenen değerin aynısı: her olası sonuç çarpı olasılığı, hepsinin toplamı. Hocanın Türkçe verdiği zar örneği tam bu. Zar hileliyse olasılıklar değişiyor, beklenen değer de kayıyor.</p>
+<h2 id="8-measurement-ve-post-measurement-state">8. Measurement ve post-measurement state</h2>
+<p>A&#39;yı ölçüp aₙ bulduysan, ölçüm state&#39;i projector üzerinden |aₙ⟩&#39;ye düşürüyor. Ama Pₙ|ψ⟩ = cₙ|aₙ⟩ normalize değil, normu |cₙ|. Renormalize edince:</p>
+<div class="eq" data-tex>|\psi&#39;\rangle = \frac{\hat P_n|\psi\rangle}{\sqrt{\langle\psi|\hat P_n|\psi\rangle}} = \frac{\hat P_n|\psi\rangle}{\sqrt{p_n}} = \frac{c_n}{|c_n|}\,|a_n\rangle</div>
+<p>Hoca &quot;√pₙ ile cₙ&#39;den kurtuluyoruz&quot; dedi. Tam olarak bakarsan geriye cₙ/|cₙ| = e^(i arg cₙ) şeklinde saf bir phase kalıyor. Bu phase fiziksel olarak hiçbir şeyi değiştirmiyor, ki bu da doğrudan bir sonraki konuya bağlanıyor.</p>
+<p>Hocanın kendi özeti şu sırayla ilerliyordu:</p>
+<ol><li><p>Projection operator measurement&#39;ı temsil ediyor.</p></li><li><p>Observable&#39;ı projector&#39;larla yazıyoruz.</p></li><li><p>Expectation value içinde projector&#39;ın beklenen değeri olasılığı veriyor.</p></li><li><p>Ölçümden sonra state √pₙ ile renormalize ediliyor.</p></li></ol>
+<h2 id="9-global-phase-ve-relative-phase">9. Global phase ve relative phase</h2>
+<p>Global phase ölçülemez, relative phase ölçülebilir. Hoca bu konuyu sadece açtı, işlemleri ödeve bıraktı.</p>
+<p>Global phase: |ψ⟩ ile e^(iφ)|ψ⟩ aynı fiziksel state. Bra&#39;ya geçerken e^(−iφ) geliyor ve ket&#39;teki e^(iφ) ile birbirini götürüyor. Bütün olasılıklar ve expectation value&#39;lar aynı kalıyor:</p>
+<div class="eq" data-tex>|\langle a_n|e^{i\varphi}\psi\rangle|^2 = |e^{i\varphi}c_n|^2 = |c_n|^2</div>
+<p>Relative phase ise superposition&#39;daki bileşenler arasındaki phase farkı, mesela c₁|1⟩ + e^(iφ)c₂|2⟩. Bu basis&#39;te ölçersen |cₙ|²&#39;ler değişmiyor ama fizik değişiyor, çünkü başka bir basis&#39;te ölçtüğünde phase interference&#39;a giriyor.</p>
+<p>Klasik örnek (|1⟩ + |2⟩)/√2 ile (|1⟩ − |2⟩)/√2. {|1⟩, |2⟩} basis&#39;inde ikisi de 50/50 sonuç veriyor, ama birbirlerine orthogonal, inner product&#39;ları sıfır.</p>
+<h2 id="lojistik">Lojistik</h2>
+<p>Gelecek ders operatörlerin matrix representation&#39;ı, MATLAB üzerinden yapılacak. Okulun lisansı var, kurulu gelinmesi istendi. Arada bir online ders de gündemde ama tarihi kesin değil gibi. Değerlendirme ara sınav, final ve grup ödevi şeklinde, ödevlerin çok ağır olmayacağı söylendi.</p>
+<h2 id="kendini-yokla">Kendini yokla</h2>
+<p>State |ψ⟩ = (|a₁⟩ + i|a₂⟩)/√2 için ⟨A⟩ ne çıkar, ve buradaki i sonucu etkiler mi?</p>
+  <nav class="pager" aria-label="Diğer sayfalar"><a href="../hafta-3/">← Hafta 3</a><a href="./">Bu haftanın çalışma defteri →</a></nav>
+</main>
+</body>
+</html>
