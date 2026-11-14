@@ -27,6 +27,16 @@ Tahta fotoğraflarına tek tek bak: hoca ya da başka biri görünüyorsa kullan
 
 Aynı şey hocanın kişisel bilgileri için de geçerli: tahtada ya da sayfa metninde hocanın adı, e-postası, odası veya özgeçmişi (okulları, şu an çalıştığı yer) varsa fotoğrafta o bölgeyi bulanıklaştır, metinden ve alt metinlerden çıkar (örnek: 601 Hafta 1, t01 ve t02).
 
+## Sesli özet eklemek
+
+Kullanıcı bir haftaya ses dosyası (ör. .m4a) verirse:
+
+- Dosyayı `hafta-N/sesli-ozet.m4a` olarak koy. Adı ASCII olsun.
+- Sayfaya `601/hafta-8/index.html`'deki "Sesli özet" kartını kopyala. Kart üç parçadan oluşur: `.listen` CSS bloğu, `</header>`'dan hemen sonraki `<section class="wrap listen">` ve sayfa sonundaki küçük script. Script'teki localStorage anahtarını haftaya göre değiştir (`kbm-<ders>-haftaN-ses`); başlığı ve süreyi de güncelle (süre için `afinfo`).
+- Ders sayfasında o haftanın `.m` satırının sonuna " · sesli özet" ekle.
+- Sesin içini dinleyemiyorsun. Kullanıcıya bunu söyle: hocanın adı ya da ödev çözümü geçiyorsa haber versin.
+- Haftanın yeni bir sürümü gelirse kartı ve ses dosyasını yeni sayfaya taşı, kaybolmasın.
+
 ## Yeni hafta eklemek
 
 Kullanıcı "601 hafta 7" gibi bir şey deyip bir zip veya HTML verdiğinde:
