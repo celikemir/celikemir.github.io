@@ -52,6 +52,7 @@ a { color: var(--marker); }
 .crumbs { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); margin: 0 0 18px; }
 .crumbs a { text-decoration: none; }
 .crumbs a:hover { text-decoration: underline; }
+.crumbs .lang { font-weight: 600; }
 .eyebrow { font-family: var(--font-hand); font-size: 27px; color: var(--red); line-height: 1; margin: 0; }
 h1 { font-size: clamp(30px, 5vw, 46px); font-weight: 700; letter-spacing: -.015em; line-height: 1.15; margin: 10px 0 12px; text-wrap: balance; }
 .lead { font-size: 18.5px; color: var(--ink-2); max-width: 60ch; margin: 0; }
