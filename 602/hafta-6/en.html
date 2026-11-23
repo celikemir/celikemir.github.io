@@ -267,7 +267,7 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
     <p class="kisaca"><span class="lbl">In short</span>A single-frequency wave has no beginning or end and goes on forever. Real signals start and stop.</p>
     <p>Until now we have always worked with this wave: \(e^{i(kx-\omega t)}\). It has a single frequency, \(\omega\). We call it <span class="en">monochromatic</span>, a single-color wave. The problem: this wave has neither a start nor an end, and it oscillates with the same amplitude from the beginning of time to the end. A laser pulse, a radar signal or a bit in a fiber starts and stops.</p>
     <aside class="ex"><span class="lbl">Everyday example</span><p>Think of a single whistle tone playing forever and the short “beep” of a phone. The beep has a start and an end. You cannot make a beep with a single note, because a single note never stops. For a beep you must mix many notes so that they silence each other at every moment outside the beep.</p></aside>
-    <p>We call this mixture a wave packet (<span class="en">wave packet</span>). The integral we wrote at the end of week 5 was exactly this mixture. This week we calculated it to the end for a concrete example, the Gaussian pulse.</p>
+    <p>We call this mixture a wave packet. The integral we wrote at the end of week 5 was exactly this mixture. This week we calculated it to the end for a concrete example, the Gaussian pulse.</p>
   </div>
   <div class="quiz" data-q="q1" data-main>
     <p class="q-label">Check · step 1</p>
@@ -349,9 +349,9 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
   <header class="step-head"><span class="step-n">Step 4</span><h3 tabindex="-1">Example: the Gaussian wave packet</h3></header>
   <div class="step-body">
     <p class="kisaca"><span class="lbl">In short</span>We multiply a cosine by a bell curve. The cosine gives the oscillation, and the bell curve opens it in the middle and turns it down at the edges.</p> $$u(t)=\cos(\omega_c t)\;e^{-t^2/2\tau^2}$$ <ul class="plain">
-      <li>\(\cos(\omega_c t)\): the carrier wave. \(\omega_c\) is called the carrier frequency (<span class="en">carrier frequency</span>). For a laser it is the color, for a radio the frequency of the station.</li>
-      <li>\(e^{-t^2/2\tau^2}\): the Gaussian envelope (<span class="en">envelope</span>). Like a volume knob: 1 at \(t=0\), falling to zero on both sides.</li>
-      <li>\(\tau\): the temporal width (<span class="en">temporal width</span>). It says how wide the bell is.</li>
+      <li>\(\cos(\omega_c t)\): the carrier wave. \(\omega_c\) is called the carrier frequency. For a laser it is the color, for a radio the frequency of the station.</li>
+      <li>\(e^{-t^2/2\tau^2}\): the Gaussian envelope. Like a volume knob: 1 at \(t=0\), falling to zero on both sides.</li>
+      <li>\(\tau\): the temporal width. It says how wide the bell is.</li>
     </ul>
     <figure class="fig">
       <div class="fig-head"><span class="fig-label">Figure 3 · Gaussian packet, τ = 1</span><span class="legend"><span><i class="sw wave"></i>u(t)</span><span><i class="sw mut dash"></i>envelope ±e^(−t²/2τ²)</span></span></div>
@@ -630,8 +630,8 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
     <p class="kisaca"><span class="lbl">In short</span>\(n_R\) and \(n_I\) depend on frequency. Each frequency travels at a different speed and decays at a different rate. The packet both changes shape and weakens.</p>
     <p>The point stressed in the lecture: the solution has the same pattern as in vacuum, but \(n_R(\omega)\) and \(n_I(\omega)\) depend on frequency. Two separate effects come from this:</p>
     <ul class="plain">
-      <li>Dispersion (<span class="en">dispersion</span>): each frequency has a different speed \(c/n_R(\omega)\). The waves inside the packet drift apart and the packet stretches.</li>
-      <li>Absorption (<span class="en">absorption</span>): each frequency decays at its own rate with \(e^{-\frac{\omega}{c}n_I x}\). The packet weakens.</li>
+      <li>Dispersion: each frequency has a different speed \(c/n_R(\omega)\). The waves inside the packet drift apart and the packet stretches.</li>
+      <li>Absorption: each frequency decays at its own rate with \(e^{-\frac{\omega}{c}n_I x}\). The packet weakens.</li>
     </ul>
     <figure class="fig">
       <div class="fig-head"><span class="fig-label">Figure 7 · A pulse traveling in a material</span><span class="legend"><span><i class="sw mut"></i>vacuum</span><span><i class="sw wave"></i>selected medium</span><span><i class="sw cu dash"></i>envelope</span></span></div>
@@ -647,7 +647,7 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
       <p class="readout" id="prop-ro"></p>
       <p class="try"><b>Try it.</b> Predict first: with “Dispersion” selected, what happens to the packet as it travels? Then play and compare with the vacuum packet on top. Then switch to “Absorption” and say what is different.</p>
     </figure>
-    <p><b>Passive and active media.</b> In a normal material \(n_I&gt;0\) and the wave decays. This is called a passive, absorptive medium (<span class="en">passive, absorptive</span>). In a medium into which you pump energy from outside, such as the gain medium of a laser, \(n_I&lt;0\) is possible. Then the exponential grows and the wave gets stronger as it advances (<span class="en">active medium, gain</span>).</p>
+    <p><b>Passive and active media.</b> In a normal material \(n_I&gt;0\) and the wave decays. This is called a passive, absorptive medium. In a medium into which you pump energy from outside, such as the gain medium of a laser, \(n_I&lt;0\) is possible. Then the exponential grows and the wave gets stronger as it advances.</p>
     <p><b>Direction.</b> For a wave going in the −x direction the exponential is \(e^{-ikx}\), and the decay is again in the direction the wave travels. A wave going left decays to the left.</p>
     <aside class="ex"><span class="lbl">High school link</span><p>A prism splitting white light into colors is dispersion itself: \(n_R\) depends on the color, the frequency, and violet light bends more than red. The deep sea looks blue because absorption depends on frequency too: water swallows red faster than blue.</p></aside>
   </div>
@@ -681,7 +681,7 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
 <section class="step" id="s14" data-n="14">
   <header class="step-head"><span class="step-n">Step 14</span><h3 tabindex="-1">Skin depth: how deep does light go?</h3></header>
   <div class="step-body">
-    <p class="kisaca"><span class="lbl">In short</span>The depth at which the amplitude falls to 1/e of its initial value, about 37%, is called the skin depth (<span class="en">skin depth</span>): \(\delta=\lambda_0/(2\pi n_I)\).</p>
+    <p class="kisaca"><span class="lbl">In short</span>The depth at which the amplitude falls to 1/e of its initial value, about 37%, is called the skin depth: \(\delta=\lambda_0/(2\pi n_I)\).</p>
     <p>First turn \(\omega/c\) into wavelength. The high school formulas \(f\lambda=c\) and \(\omega=2\pi f\):</p> $$\frac{\omega}{2\pi}\,\lambda_0=c\;\Longrightarrow\;\frac{\omega}{c}=\frac{2\pi}{\lambda_0}$$ $$\Longrightarrow\quad e^{-\frac{\omega}{c}n_I x}=e^{-n_I\frac{2\pi}{\lambda_0}x}$$ <p>The \(\lambda_0\) here is the wavelength in vacuum, not in the material, because \(\omega/c\) is the vacuum relation. Now set the exponent equal to −1:</p> $$n_I\,\frac{2\pi}{\lambda_0}\,\delta=1\quad\Longrightarrow\quad\delta=\frac{\lambda_0}{2\pi\,n_I}$$ <p>Reading it: if \(n_I\) is large, δ is small and the light dies out right away. If \(n_I\) is small, δ is large and the light goes deep. δ also depends on the wavelength.</p>
     <ul class="decay" aria-label="Amplitude against depth">
       <li>At depth δ<b>37%</b></li><li>2δ<b>13.5%</b></li><li>3δ<b>5%</b></li><li>5δ<b>0.7%</b></li>
@@ -785,7 +785,7 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
   <div class="step-body">
     <p class="kisaca"><span class="lbl">In short</span>A structure that traps and directs light or microwaves along a certain path. It does for light what a garden hose does for water.</p>
     <p>The definition in the notebook: photonic structures that guide, confine and process light at sizes comparable to or even smaller than the wavelength (<span class="en">waveguides</span>). Examples: optical fibers in undersea internet cables, photonic circuits on a chip, metal pipes in radars and microwave ovens.</p>
-    <p>An optical fiber has two layers: the core in the middle (<span class="en">core</span>, \(n_{core}\)) and the cladding around it (<span class="en">cladding</span>, \(n_{clad}\)). For light to stay inside:</p> $$n_{core}&gt;n_{clad}\quad\Longrightarrow\quad\text{total internal reflection}$$ <p>The critical angle from high school physics: when light goes from a denser to a less dense medium and the angle of incidence is larger than \(\theta_c\), it cannot get out and reflects back completely (<span class="en">total internal reflection</span>).</p> $$\sin\theta_c=\frac{n_{clad}}{n_{core}}$$ <p>The lecturer said in class “there is always some leakage, but if you do not meet this condition you lose the light”.</p>
+    <p>An optical fiber has two layers: the core in the middle (\(n_{core}\)) and the cladding around it (\(n_{clad}\)). For light to stay inside:</p> $$n_{core}&gt;n_{clad}\quad\Longrightarrow\quad\text{total internal reflection}$$ <p>The critical angle from high school physics: when light goes from a denser to a less dense medium and the angle of incidence is larger than \(\theta_c\), it cannot get out and reflects back completely (<span class="en">total internal reflection</span>).</p> $$\sin\theta_c=\frac{n_{clad}}{n_{core}}$$ <p>The lecturer said in class “there is always some leakage, but if you do not meet this condition you lose the light”.</p>
     <figure class="fig">
       <div class="fig-head"><span class="fig-label">Figure 9 · Light in a fiber</span><span class="legend"><span><i class="sw cu"></i>ray</span><span><i class="sw cu dash"></i>escaping light</span></span></div>
       <div class="seg" role="group" aria-label="Preset">
@@ -926,7 +926,7 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
   <header class="step-head"><span class="step-n">Step 19</span><h3 tabindex="-1">Expanding Maxwell into components: 6 equations</h3></header>
   <div class="step-body">
     <p class="kisaca"><span class="lbl">In short</span>Putting this wave into the Faraday and Ampère–Maxwell equations gives 6 component equations. Two rules are enough: the z derivative is multiplication by ik and the t derivative by −iω.</p>
-    <p>The derivative rule is high school math: \(\frac{d}{dz}e^{ikz}=ik\,e^{ikz}\) and \(\frac{d}{dt}e^{-i\omega t}=-i\omega\,e^{-i\omega t}\). The x and y derivatives stay, because amplitudes like \(E_{0x}(x,y)\) depend on x and y and are not constant. The lecturer drew special attention to this.</p> $$\frac{\partial}{\partial z}\;\to\;ik,\qquad\frac{\partial}{\partial t}\;\to\;-i\omega$$ <p>The components of the curl (<span class="en">curl</span>):</p> $$\begin{aligned}\nabla\times\vec E=\;&amp;\Big(\frac{\partial E_z}{\partial y}-\frac{\partial E_y}{\partial z}\Big)\hat x\\ +\;&amp;\Big(\frac{\partial E_x}{\partial z}-\frac{\partial E_z}{\partial x}\Big)\hat y\\ +\;&amp;\Big(\frac{\partial E_y}{\partial x}-\frac{\partial E_x}{\partial y}\Big)\hat z\end{aligned}$$ <p>Faraday: \(\nabla\times\vec E=-\partial\vec B/\partial t=i\omega\vec B\). The exponential factor is in every term and cancels. Below, for brevity, when I write \(E_x\) I mean \(E_{0x}\):</p> $$\begin{aligned}\text{(i)}&amp;\quad\frac{\partial E_y}{\partial x}-\frac{\partial E_x}{\partial y}=i\omega B_z\\ \text{(ii)}&amp;\quad\frac{\partial E_z}{\partial y}-ik\,E_y=i\omega B_x\\ \text{(iii)}&amp;\quad ik\,E_x-\frac{\partial E_z}{\partial x}=i\omega B_y\end{aligned}$$ <p>Ampère–Maxwell, with vacuum inside the pipe: \(\nabla\times\vec B=\mu_0\varepsilon_0\,\partial\vec E/\partial t=\frac{1}{c^2}\partial\vec E/\partial t=-\frac{i\omega}{c^2}\vec E\). The pattern is the same: E and B swap and \(-i\omega/c^2\) takes the place of \(i\omega\):</p> $$\begin{aligned}\text{(iv)}&amp;\quad\frac{\partial B_y}{\partial x}-\frac{\partial B_x}{\partial y}=-\frac{i\omega}{c^2}E_z\\ \text{(v)}&amp;\quad\frac{\partial B_z}{\partial y}-ik\,B_y=-\frac{i\omega}{c^2}E_x\\ \text{(vi)}&amp;\quad ik\,B_x-\frac{\partial B_z}{\partial x}=-\frac{i\omega}{c^2}E_y\end{aligned}$$ <aside class="ex"><span class="lbl">Everyday example</span><p>A mental picture for the curl: put a small paddle wheel in flowing water. If the wheel turns, there is a vortex there. Faraday says that if the magnetic field changes in time, such a vortex forms in the electric field.</p></aside>
+    <p>The derivative rule is high school math: \(\frac{d}{dz}e^{ikz}=ik\,e^{ikz}\) and \(\frac{d}{dt}e^{-i\omega t}=-i\omega\,e^{-i\omega t}\). The x and y derivatives stay, because amplitudes like \(E_{0x}(x,y)\) depend on x and y and are not constant. The lecturer drew special attention to this.</p> $$\frac{\partial}{\partial z}\;\to\;ik,\qquad\frac{\partial}{\partial t}\;\to\;-i\omega$$ <p>The components of the curl:</p> $$\begin{aligned}\nabla\times\vec E=\;&amp;\Big(\frac{\partial E_z}{\partial y}-\frac{\partial E_y}{\partial z}\Big)\hat x\\ +\;&amp;\Big(\frac{\partial E_x}{\partial z}-\frac{\partial E_z}{\partial x}\Big)\hat y\\ +\;&amp;\Big(\frac{\partial E_y}{\partial x}-\frac{\partial E_x}{\partial y}\Big)\hat z\end{aligned}$$ <p>Faraday: \(\nabla\times\vec E=-\partial\vec B/\partial t=i\omega\vec B\). The exponential factor is in every term and cancels. Below, for brevity, when I write \(E_x\) I mean \(E_{0x}\):</p> $$\begin{aligned}\text{(i)}&amp;\quad\frac{\partial E_y}{\partial x}-\frac{\partial E_x}{\partial y}=i\omega B_z\\ \text{(ii)}&amp;\quad\frac{\partial E_z}{\partial y}-ik\,E_y=i\omega B_x\\ \text{(iii)}&amp;\quad ik\,E_x-\frac{\partial E_z}{\partial x}=i\omega B_y\end{aligned}$$ <p>Ampère–Maxwell, with vacuum inside the pipe: \(\nabla\times\vec B=\mu_0\varepsilon_0\,\partial\vec E/\partial t=\frac{1}{c^2}\partial\vec E/\partial t=-\frac{i\omega}{c^2}\vec E\). The pattern is the same: E and B swap and \(-i\omega/c^2\) takes the place of \(i\omega\):</p> $$\begin{aligned}\text{(iv)}&amp;\quad\frac{\partial B_y}{\partial x}-\frac{\partial B_x}{\partial y}=-\frac{i\omega}{c^2}E_z\\ \text{(v)}&amp;\quad\frac{\partial B_z}{\partial y}-ik\,B_y=-\frac{i\omega}{c^2}E_x\\ \text{(vi)}&amp;\quad ik\,B_x-\frac{\partial B_z}{\partial x}=-\frac{i\omega}{c^2}E_y\end{aligned}$$ <aside class="ex"><span class="lbl">Everyday example</span><p>A mental picture for the curl: put a small paddle wheel in flowing water. If the wheel turns, there is a vortex there. Faraday says that if the magnetic field changes in time, such a vortex forms in the electric field.</p></aside>
     <aside class="defter"><span class="lbl">Difference from the notebook</span><p>In the notebook the Ampère line is first written as \(\nabla\times\vec B=\partial\vec E/\partial t\), and \(1/c^2\) is added one line below. The correct form in vacuum is \(\nabla\times\vec B=\frac{1}{c^2}\frac{\partial\vec E}{\partial t}\).</p></aside>
   </div>
   <div class="quiz" data-q="q19" data-main>
@@ -988,7 +988,7 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
       <li>Solutions with \(E_z=0\): TE modes (<span class="en">transverse electric</span>).</li>
       <li>Solutions with \(B_z=0\): TM modes (<span class="en">transverse magnetic</span>).</li>
       <li>If both are zero (TEM): by the formulas all the transverse components are zero too, and no wave remains. The only escape is the case \(k=\omega/c\) with a zero denominator, and that cannot happen in a hollow, single-conductor pipe. TEM is possible in two-conductor structures such as a coaxial cable.</li>
-      <li>The \(\omega^2/c^2-k^2\) in the denominator will later give the cutoff frequency (<span class="en">cutoff frequency</span>): waves below a certain frequency cannot pass through the pipe.</li>
+      <li>The \(\omega^2/c^2-k^2\) in the denominator will later give the cutoff frequency: waves below a certain frequency cannot pass through the pipe.</li>
     </ul>
     <aside class="ex"><span class="lbl">Everyday example</span><p>Think of an Excel sheet with two input cells, \(E_z\) and \(B_z\). The other four cells are formulas, computed the moment you type the inputs. The everyday version of the cutoff frequency is the perforated metal screen in a microwave oven door: the holes are very small next to the microwave wavelength (about 12 cm), so microwaves cannot pass, but visible light does and you can see inside.</p></aside>
   </div>
@@ -1144,23 +1144,23 @@ footer.foot{font-size:.88rem;color:var(--ink-2);padding-block:2rem 1rem;border-t
   <div class="tbl"><table>
     <thead><tr><th>Turkish</th><th>English</th></tr></thead>
     <tbody>
-      <tr><td>dalga paketi, tek frekanslı dalga</td><td><span class="en">wave packet, monochromatic wave</span></td></tr>
-      <tr><td>taşıyıcı frekans, zarf</td><td><span class="en">carrier frequency, envelope</span></td></tr>
-      <tr><td>zamansal genişlik, yarı yükseklikteki tam genişlik</td><td><span class="en">temporal width, FWHM</span></td></tr>
-      <tr><td>(ters) Fourier dönüşümü, Dirac delta</td><td><span class="en">(inverse) Fourier transform, Dirac delta</span></td></tr>
-      <tr><td>tam kareye tamamlama</td><td><span class="en">completing the square</span></td></tr>
-      <tr><td>bant genişliği, zaman-bant çarpımı</td><td><span class="en">bandwidth, time–bandwidth product</span></td></tr>
-      <tr><td>kompleks kırılma indisi, sönüm katsayısı</td><td><span class="en">complex refractive index, extinction coefficient</span></td></tr>
-      <tr><td>dağılma, soğurma</td><td><span class="en">dispersion, absorption</span></td></tr>
-      <tr><td>pasif ortam, aktif ortam, kazanç</td><td><span class="en">passive medium, active medium, gain</span></td></tr>
-      <tr><td>deri kalınlığı, boşluktaki dalga boyu</td><td><span class="en">skin depth, free-space wavelength</span></td></tr>
-      <tr><td>dalga kılavuzu, çekirdek, kılıf</td><td><span class="en">waveguide, core, cladding</span></td></tr>
-      <tr><td>tam iç yansıma, sınır açısı</td><td><span class="en">total internal reflection, critical angle</span></td></tr>
-      <tr><td>sınır koşulu, paralel ve dik bileşen</td><td><span class="en">boundary condition, tangential and normal component</span></td></tr>
-      <tr><td>yüzey yük yoğunluğu, yüzey akımı</td><td><span class="en">surface charge density, surface current</span></td></tr>
-      <tr><td>enine, boyuna</td><td><span class="en">transverse, longitudinal</span></td></tr>
-      <tr><td>rotasyonel</td><td><span class="en">curl</span></td></tr>
-      <tr><td>kesim frekansı, TE / TM / TEM modları</td><td><span class="en">cutoff frequency, TE / TM / TEM modes</span></td></tr>
+      <tr><td lang="tr">dalga paketi, tek frekanslı dalga</td><td><span class="en">wave packet, monochromatic wave</span></td></tr>
+      <tr><td lang="tr">taşıyıcı frekans, zarf</td><td><span class="en">carrier frequency, envelope</span></td></tr>
+      <tr><td lang="tr">zamansal genişlik, yarı yükseklikteki tam genişlik</td><td><span class="en">temporal width, FWHM</span></td></tr>
+      <tr><td lang="tr">(ters) Fourier dönüşümü, Dirac delta</td><td><span class="en">(inverse) Fourier transform, Dirac delta</span></td></tr>
+      <tr><td lang="tr">tam kareye tamamlama</td><td><span class="en">completing the square</span></td></tr>
+      <tr><td lang="tr">bant genişliği, zaman-bant çarpımı</td><td><span class="en">bandwidth, time–bandwidth product</span></td></tr>
+      <tr><td lang="tr">kompleks kırılma indisi, sönüm katsayısı</td><td><span class="en">complex refractive index, extinction coefficient</span></td></tr>
+      <tr><td lang="tr">dağılma, soğurma</td><td><span class="en">dispersion, absorption</span></td></tr>
+      <tr><td lang="tr">pasif ortam, aktif ortam, kazanç</td><td><span class="en">passive medium, active medium, gain</span></td></tr>
+      <tr><td lang="tr">deri kalınlığı, boşluktaki dalga boyu</td><td><span class="en">skin depth, free-space wavelength</span></td></tr>
+      <tr><td lang="tr">dalga kılavuzu, çekirdek, kılıf</td><td><span class="en">waveguide, core, cladding</span></td></tr>
+      <tr><td lang="tr">tam iç yansıma, sınır açısı</td><td><span class="en">total internal reflection, critical angle</span></td></tr>
+      <tr><td lang="tr">sınır koşulu, paralel ve dik bileşen</td><td><span class="en">boundary condition, tangential and normal component</span></td></tr>
+      <tr><td lang="tr">yüzey yük yoğunluğu, yüzey akımı</td><td><span class="en">surface charge density, surface current</span></td></tr>
+      <tr><td lang="tr">enine, boyuna</td><td><span class="en">transverse, longitudinal</span></td></tr>
+      <tr><td lang="tr">rotasyonel</td><td><span class="en">curl</span></td></tr>
+      <tr><td lang="tr">kesim frekansı, TE / TM / TEM modları</td><td><span class="en">cutoff frequency, TE / TM / TEM modes</span></td></tr>
     </tbody>
   </table></div>
 </section>
