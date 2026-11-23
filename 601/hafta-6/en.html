@@ -1,0 +1,2329 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>601 Week 6 Study Notebook</title>
+<meta name="description" content="KBM 601, week 6: from the matrix representation to the position and momentum representations. 18 boards, high school level examples and 45 check questions.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="./">
+<link rel="alternate" hreflang="en" href="en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<style>
+:root {
+  /* Düzen: açık tema beyaz tahta, koyu tema kara tahta. Her adımda solda yapışkan tahta fotoğrafı, sağda defter sayfası. */
+  --bg: #f1f4f2;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --ink-2: #4b5864;
+  --line: #d4dce0;
+  --marker: #1f46a3;
+  --marker-ink: #ffffff;
+  --marker-soft: #e5ecf9;
+  --red: #b3322a;
+  --red-soft: #fbebe9;
+  --green: #276646;
+  --green-soft: #e6f1ea;
+  --grid: rgba(39, 102, 70, .14);
+  --scrim: rgba(8, 12, 10, .92);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(22, 32, 42, .05), 0 6px 18px rgba(22, 32, 42, .07);
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111d17;
+    --surface: #18271f;
+    --ink: #e6ede8;
+    --ink-2: #a1b1a7;
+    --line: #2a3d33;
+    --marker: #95b8ff;
+    --marker-ink: #0c1611;
+    --marker-soft: rgba(149, 184, 255, .13);
+    --red: #ff9384;
+    --red-soft: rgba(255, 147, 132, .12);
+    --green: #9bd7b2;
+    --green-soft: rgba(155, 215, 178, .09);
+    --grid: rgba(230, 237, 232, .07);
+    --scrim: rgba(3, 7, 5, .94);
+    --scrim-ink: #f3f6f4;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111d17;
+  --surface: #18271f;
+  --ink: #e6ede8;
+  --ink-2: #a1b1a7;
+  --line: #2a3d33;
+  --marker: #95b8ff;
+  --marker-ink: #0c1611;
+  --marker-soft: rgba(149, 184, 255, .13);
+  --red: #ff9384;
+  --red-soft: rgba(255, 147, 132, .12);
+  --green: #9bd7b2;
+  --green-soft: rgba(155, 215, 178, .09);
+  --grid: rgba(230, 237, 232, .07);
+  --scrim: rgba(3, 7, 5, .94);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.crumbs { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); margin-bottom: 16px; }
+.crumbs a { color: var(--marker); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 40;
+  background: var(--bg);
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-body); line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--marker); text-underline-offset: 3px; }
+strong { font-weight: 650; }
+:focus-visible { outline: 2.5px solid var(--marker); outline-offset: 2px; border-radius: 6px; }
+.k {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Giriş */
+.hero { padding-block: 44px 6px; }
+.eyebrow { font-family: var(--font-hand); font-size: 28px; color: var(--red); line-height: 1; }
+.hero h1 { font-size: clamp(32px, 5.2vw, 50px); font-weight: 700; letter-spacing: -.015em; margin: 10px 0 14px; max-width: 18ch; }
+.lead { font-size: 19px; color: var(--ink-2); max-width: 62ch; }
+.intro { padding-block: 26px 30px; display: grid; gap: 20px; }
+@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; } }
+.howto { font-family: var(--font-ui); font-size: 15px; line-height: 1.55; }
+.howto ol { margin: 10px 0 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.remind { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; }
+.tag { font-family: var(--font-hand); font-size: 25px; line-height: 1; display: block; }
+.remind .tag { color: var(--red); }
+
+/* Sesli özet */
+.listen { padding-top: 22px; }
+.listen-card { max-width: 720px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px 16px; display: grid; gap: 10px; box-shadow: var(--shadow); }
+.listen-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.listen .tag { color: var(--marker); }
+.listen-meta { font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.listen-t { font-size: 17px; font-weight: 600; line-height: 1.35; }
+.listen audio { display: block; width: 100%; height: 44px; }
+.speed { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.speed span { margin-right: 4px; }
+.speed button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; min-height: 32px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.speed button[aria-pressed="true"] { background: var(--marker); border-color: var(--marker); color: var(--marker-ink); }
+
+/* Harita */
+.map { display: grid; gap: 18px 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); padding-block: 4px 26px; }
+.map-g h2 { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+.map ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.map a { display: flex; align-items: center; gap: 10px; padding: 5px 8px; border-radius: 8px; color: var(--ink); text-decoration: none; font-family: var(--font-ui); font-size: 14.5px; }
+.map a:hover { background: var(--surface); }
+.mn { font-family: var(--font-hand); font-size: 22px; color: var(--marker); width: 1.3em; text-align: right; line-height: 1; flex: none; }
+.lk { margin-left: auto; font-size: 12px; color: var(--ink-2); }
+.dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink-2); flex: none; opacity: .7; }
+[data-s="doing"] .dot { border-color: var(--marker); background: linear-gradient(90deg, var(--marker) 50%, transparent 50%); opacity: 1; }
+[data-s="done"] .dot { border-color: var(--green); background: var(--green); opacity: 1; }
+[data-s="weak"] .dot { border-color: var(--red); background: var(--red); opacity: 1; }
+.legend { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* İlerleme çubuğu */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); border-block: 1px solid var(--line); }
+.bar-in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-block: 10px; }
+.meter { flex: 1 1 140px; min-width: 100px; height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: var(--marker); transition: width .35s ease; }
+.count { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.count strong { color: var(--ink); }
+.bar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--marker);
+  background: var(--marker);
+  color: var(--marker-ink);
+  cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--marker); }
+.btn:hover:not(:disabled) { filter: brightness(1.08); }
+.btn:disabled { opacity: .45; cursor: default; }
+.linkbtn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--marker);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+/* Bölümler ve adımlar */
+.part { padding-block: 60px 4px; scroll-margin-top: 110px; }
+.part h2 { font-size: clamp(26px, 3.6vw, 34px); font-weight: 700; margin: 6px 0 8px; }
+.part .sub { color: var(--ink-2); max-width: 62ch; }
+.step { margin-top: 44px; scroll-margin-top: 96px; }
+.step-h { border-top: 2px solid var(--ink); padding-top: 12px; margin-bottom: 18px; }
+.step-k { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.hand { font-family: var(--font-hand); font-size: 31px; color: var(--marker); line-height: 1; }
+.code { font-family: var(--font-hand); font-size: 22px; color: var(--red); line-height: 1; }
+.st { margin-left: auto; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.step[data-s="done"] .st { color: var(--green); }
+.step[data-s="weak"] .st { color: var(--red); }
+.step h3 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 650; margin-top: 4px; }
+.step-grid { display: grid; gap: 22px 36px; }
+@media (min-width: 1000px) {
+  .step-grid { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); align-items: start; }
+  .board { position: sticky; top: 92px; }
+}
+.board { margin: 0; }
+.zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.zoom img { display: block; width: 100%; height: auto; }
+.board figcaption { font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+.step-body { min-width: 0; max-width: 72ch; display: grid; gap: 14px; }
+.step-body ul, .step-body ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.gist { font-size: 18.5px; line-height: 1.55; padding: 12px 16px; border-radius: 10px; background: var(--marker-soft); }
+.gist .k { display: block; margin-bottom: 2px; }
+.eq { overflow-x: auto; overflow-y: hidden; min-width: 0; }
+.eq mjx-container[display="true"] { margin: .2em 0 !important; }
+mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.lise {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px 16px;
+  display: grid;
+  gap: 8px;
+  background-color: var(--green-soft);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.lise .tag { color: var(--green); }
+.fix { border: 1.5px dashed var(--red); background: var(--red-soft); border-radius: 12px; padding: 12px 16px; display: grid; gap: 6px; }
+.fix .tag { color: var(--red); }
+details { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+summary { cursor: pointer; padding: 10px 14px; font-family: var(--font-ui); font-size: 14.5px; font-weight: 600; color: var(--marker); list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-block; width: 1.2em; }
+details[open] > summary::before { content: "−"; }
+.d-body { padding: 0 14px 14px; display: grid; gap: 8px; }
+
+/* Sorular */
+.checks { display: grid; gap: 14px; margin-top: 6px; }
+.checks-h { font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 10px; }
+.checks-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: grid; gap: 12px; scroll-margin-top: 110px; }
+.q-n { display: inline-block; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600; color: var(--marker); letter-spacing: .05em; text-transform: uppercase; margin-right: 8px; }
+.opts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: opt; }
+.opts li { counter-increment: opt; display: grid; gap: 6px; }
+.opt {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.opt::before {
+  content: counter(opt, upper-alpha);
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+.opt .t { min-width: 0; overflow-x: auto; }
+.opt:hover:not(:disabled) { border-color: var(--marker); }
+.opt:disabled { cursor: default; }
+.opt.is-right { border-color: var(--green); background: var(--green-soft); }
+.opt.is-right::before { content: "✓"; background: var(--green); border-color: var(--green); color: var(--bg); }
+.opt.is-wrong { border-color: var(--red); background: var(--red-soft); color: var(--ink-2); }
+.opt.is-wrong::before { content: "✗"; background: var(--red); border-color: var(--red); color: var(--bg); }
+.why { font-size: 15px; color: var(--ink-2); padding-left: 50px; }
+.why::before { content: "Why not: "; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; color: var(--red); }
+.hint { padding-left: 0; }
+.hint::before { content: "Hint: "; color: var(--marker); }
+.num-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.num-row input {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  width: 10em;
+  max-width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.num-row input.is-wrong { border-color: var(--red); }
+.num-row input.is-right { border-color: var(--green); background: var(--green-soft); }
+.msg { font-family: var(--font-ui); font-size: 14px; font-weight: 600; }
+.msg:empty { display: none; }
+.msg[data-k="good"] { color: var(--green); }
+.msg[data-k="bad"] { color: var(--red); }
+.msg[data-k="info"] { color: var(--ink-2); }
+.explain { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 16px; }
+.explain::before { content: "Explanation"; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+
+/* Kilit */
+.lock { border: 1.5px dashed var(--line); border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-family: var(--font-ui); font-size: 14.5px; color: var(--ink-2); }
+.lock p { flex: 1 1 260px; }
+
+/* Etkileşimli çizimler */
+.widget { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; display: grid; gap: 10px; }
+.predict { font-size: 15.5px; }
+.wsvg { width: 100%; height: auto; display: block; }
+.w-row { display: grid; gap: 12px; }
+@media (min-width: 640px) { .w-row.two { grid-template-columns: 1fr 1fr; } }
+.w-cap { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.ctrl { display: flex; align-items: center; gap: 12px; font-family: var(--font-ui); font-size: 14px; }
+.ctrl label { font-weight: 600; white-space: nowrap; }
+.ctrl input[type="range"] { flex: 1; min-width: 0; accent-color: var(--marker); }
+.ro { font-family: var(--font-ui); font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ro b { color: var(--ink); font-weight: 600; }
+.wsvg .ax { stroke: var(--ink-2); stroke-width: 1; }
+.wsvg .grid { stroke: var(--line); stroke-width: 1; }
+.wsvg .tick { fill: var(--ink-2); font-family: var(--font-ui); font-size: 11px; }
+.wsvg .axl { fill: var(--ink-2); font-family: var(--font-body); font-style: italic; font-size: 13px; }
+.wsvg .lbl { fill: var(--marker); font-weight: 600; }
+.wsvg .box { fill: var(--marker-soft); stroke: var(--marker); stroke-width: 2; }
+.wsvg .area { fill: var(--marker-soft); stroke: none; }
+.wsvg .curve { fill: none; stroke: var(--marker); stroke-width: 2.25; }
+.wsvg .curve-alt { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.wsvg .curve-red { fill: none; stroke: var(--red); stroke-width: 2; }
+.wsvg .mark { stroke: var(--red); stroke-width: 1.25; stroke-dasharray: 3 3; }
+.wsvg .dot-b { fill: var(--marker); }
+.wsvg .dot-r { fill: var(--surface); stroke: var(--red); stroke-width: 2; }
+.wsvg .cell-on { fill: var(--marker); }
+.wsvg .cell-off { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+
+/* Tablolar */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 15px; }
+.tbl th, .tbl td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl th { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; background: var(--bg); white-space: nowrap; }
+.tbl td.num { font-family: var(--font-ui); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Son bölümler */
+.end { padding-block: 64px 0; display: grid; gap: 14px; scroll-margin-top: 96px; }
+.end h2 { font-size: clamp(24px, 3.2vw, 30px); font-weight: 700; }
+.end > p { max-width: 68ch; }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px; max-width: 80ch; }
+.report ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.why-tag { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.foot { padding-block: 40px 56px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+
+/* Fotoğraf görüntüleyici */
+.lb { position: fixed; inset: 0; z-index: 60; background: var(--scrim); display: flex; align-items: center; justify-content: center; padding: max(56px, calc(env(safe-area-inset-top, 0px) + 56px)) max(16px, env(safe-area-inset-right, 0px)) max(44px, calc(env(safe-area-inset-bottom, 0px) + 44px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lb img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; cursor: zoom-in; }
+.lb.full { display: block; overflow: auto; }
+.lb.full img { max-width: none; max-height: none; width: 1600px; cursor: zoom-out; }
+.lb-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); font-family: var(--font-ui); font-weight: 600; font-size: 14px; color: var(--scrim-ink); background: transparent; border: 1.5px solid var(--scrim-ink); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.lb-hint { position: fixed; left: 0; right: 0; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--font-ui); font-size: 13px; color: var(--scrim-ink); opacity: .8; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { padding-block: 28px 4px; }
+  .lead { font-size: 17.5px; }
+  .gist { font-size: 17px; }
+  .q { padding: 14px; }
+  .why { padding-left: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+.crumbs .lang { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="wrap hero">
+  <nav class="crumbs" aria-label="Location"><a href="../../">KBM notes</a> › <a href="../">601</a> › Week 6 · <a class="lang" href="./" hreflang="tr" lang="tr">Türkçe</a> · <a href="ders-notu.html" hreflang="tr">written note in Turkish</a></nav>
+  <p class="eyebrow">601 · Week 6 · lecture of 30 October</p>
+  <h1>From matrices to the wave function</h1>
+  <p class="lead">The one idea of this week: the matrix language we built last week in finite dimensions carries over as it is to continuous quantities such as position and momentum. Sums become integrals and tables become functions. At the end of the lecture we also see where the momentum operator comes from.</p>
+</header>
+
+<section class="wrap listen" aria-label="Audio summary">
+  <div class="listen-card">
+    <div class="listen-h">
+      <span class="tag">Audio summary</span>
+      <span class="listen-meta">In Turkish · 18 minutes</span>
+    </div>
+    <p class="listen-t">The momentum operator as the generator of spatial translations</p>
+    <audio id="ses" controls preload="metadata">
+      <source src="sesli-ozet.m4a" type="audio/mp4"> Your browser cannot play the audio here; <a href="sesli-ozet.m4a">download the file</a>. </audio>
+    <div class="speed" role="group" aria-label="Playback speed">
+      <span>Speed</span>
+      <button type="button" data-r="1" aria-pressed="true">1×</button>
+      <button type="button" data-r="1.25" aria-pressed="false">1.25×</button>
+      <button type="button" data-r="1.5" aria-pressed="false">1.5×</button>
+      <button type="button" data-r="2" aria-pressed="false">2×</button>
+    </div>
+  </div>
+</section>
+
+<section class="wrap intro" aria-label="How to study">
+  <div class="howto">
+    <p class="k">How to study</p>
+    <ol>
+      <li>Every step is one photo of the board. All 18 boards are here, in the order they were written. Tap a photo to enlarge it.</li>
+      <li>Read the “In one sentence” box first, then the explanation and the high school example.</li>
+      <li>Solve the questions at the end of the step. If you pick a wrong option you see why it is wrong and can try again.</li>
+      <li>With step by step mode on, the next board opens once you finish the questions of the previous one. The report at the very end shows what you should review.</li>
+    </ol>
+  </div>
+  <aside class="remind">
+    <span class="tag">One reminder from week 5</span>
+    <div class="eq">\[ \sum_n|n\rangle\langle n|=\hat I \]</div>
+    <p>Multiplying something by 1 changes nothing, but when this 1 is expanded everything splits into components. Almost all of this week's derivations are the same trick, with \(\int\) in place of \(\sum\). When you get stuck, ask yourself: which 1 should I insert so that it opens up?</p>
+  </aside>
+</section>
+
+<nav class="wrap map" aria-label="Boards">
+  <div class="map-g">
+    <h2>A · The matrix language</h2>
+    <ol>
+      <li><a href="#t1" data-step="t1"><span class="mn">1</span><span class="dot"></span>A ket is a list, an operator a table<span class="lk"></span></a></li>
+      <li><a href="#t2" data-step="t2"><span class="mn">2</span><span class="dot"></span>Hermitian and unitary<span class="lk"></span></a></li>
+      <li><a href="#t3" data-step="t3"><span class="mn">3</span><span class="dot"></span>Change of basis<span class="lk"></span></a></li>
+      <li><a href="#t4" data-step="t4"><span class="mn">4</span><span class="dot"></span>Function of an operator<span class="lk"></span></a></li>
+      <li><a href="#t5" data-step="t5"><span class="mn">5</span><span class="dot"></span>Taylor series and diagonality<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>B · The position representation</h2>
+    <ol>
+      <li><a href="#t6" data-step="t6"><span class="mn">6</span><span class="dot"></span>The continuous basis<span class="lk"></span></a></li>
+      <li><a href="#t7" data-step="t7"><span class="mn">7</span><span class="dot"></span>The Dirac delta<span class="lk"></span></a></li>
+      <li><a href="#t8" data-step="t8"><span class="mn">8</span><span class="dot"></span>Completeness and the wave function<span class="lk"></span></a></li>
+      <li><a href="#t9" data-step="t9"><span class="mn">9</span><span class="dot"></span>The kernel<span class="lk"></span></a></li>
+      <li><a href="#t10" data-step="t10"><span class="mn">10</span><span class="dot"></span>Local potential<span class="lk"></span></a></li>
+      <li><a href="#t11" data-step="t11"><span class="mn">11</span><span class="dot"></span>Nonlocal potential<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>C · The momentum representation</h2>
+    <ol>
+      <li><a href="#t12" data-step="t12"><span class="mn">12</span><span class="dot"></span>The momentum basis<span class="lk"></span></a></li>
+      <li><a href="#t13" data-step="t13"><span class="mn">13</span><span class="dot"></span>The rotating wave ⟨x|p⟩<span class="lk"></span></a></li>
+      <li><a href="#t14" data-step="t14"><span class="mn">14</span><span class="dot"></span>The Fourier transform<span class="lk"></span></a></li>
+      <li><a href="#t15" data-step="t15"><span class="mn">15</span><span class="dot"></span>Unit check<span class="lk"></span></a></li>
+      <li><a href="#t16" data-step="t16"><span class="mn">16</span><span class="dot"></span>The roles swap<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>D · Translation</h2>
+    <ol>
+      <li><a href="#t17" data-step="t17"><span class="mn">17</span><span class="dot"></span>The translation operator<span class="lk"></span></a></li>
+      <li><a href="#t18" data-step="t18"><span class="mn">18</span><span class="dot"></span>Momentum, the generator of translation<span class="lk"></span></a></li>
+    </ol>
+    <h2 style="margin-top:16px">At the end</h2>
+    <ol>
+      <li><a href="#sozluk"><span class="mn">·</span>Glossary of the week</a></li>
+      <li><a href="#rapor"><span class="mn">·</span>Status report</a></li>
+    </ol>
+  </div>
+  <p class="legend"><span><span class="dot"></span>not started</span><span data-s="doing"><span class="dot"></span>in progress</span><span data-s="done"><span class="dot"></span>done on the first try</span><span data-s="weak"><span class="dot"></span>review</span></p>
+</nav>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div class="meter" aria-hidden="true"><span id="fill"></span></div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="bar-actions">
+      <button type="button" class="btn ghost" id="strict" aria-pressed="true">Step by step: on</button>
+      <button type="button" class="btn" id="next">Next question</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ===================== BÖLÜM A ===================== -->
+<header class="part" id="bolum-a">
+  <p class="k">Part A · Boards 1–5</p>
+  <h2>The matrix language</h2>
+  <p class="sub">The first three boards are a quick review of last week, the next two are new: how to compute a function of an operator. The rules settle here before we go to infinite dimensions.</p>
+</header>
+
+<!-- TAHTA 1 -->
+<section class="step" id="t1" data-n="1">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 1</span><span class="code" title="The code in the top left corner of the board">241473</span><span class="st"></span></p>
+    <h3>A ket is a list, an operator is a table</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 1"><img src="boards/t01.jpg" width="1600" height="899" alt="Whiteboard: the step from last week's Dirac notation to the matrix representation, |ψ⟩ = Σ cₙ|eₙ⟩, cₙ = ⟨eₙ|ψ⟩, Aₘₙ = ⟨eₘ|Â|eₙ⟩ and A c = d."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The moment you choose a basis, an abstract ket becomes a list of numbers and an operator a table of numbers; \(\hat A|\psi\rangle=|\phi\rangle\) becomes ordinary matrix multiplication.</p>
+      <p>Last week we worked with abstract kets like \(|\psi\rangle\). You cannot calculate with something abstract; you need numbers. The way to numbers is to choose a basis, which is the “finite dimensional (N-dimensional) orthonormal basis” on the board: \(\{|e_n\rangle\}\), \(n=1,2,\dots,N\). Orthonormal means every direction has length 1 and the directions are perpendicular: \(\langle e_m|e_n\rangle=\delta_{mn}\).</p>
+      <p>Then we write how much of each direction every ket contains:</p>
+      <div class="eq">\[ |\psi\rangle=\sum_n c_n|e_n\rangle,\qquad c_n=\langle e_n|\psi\rangle \]</div>
+      <p>Finding \(c_n\) means taking the shadow of \(|\psi\rangle\) on the nth direction. Written one below the other these numbers form the column vector \(\vec c_e\); this is the note “rows of \(\vec c_e\) vector” on the board. The subscript e means “written in the e basis”.</p>
+      <p>An operator also becomes a table: \(A_{mn}=\langle e_m|\hat A|e_n\rangle\). The index in the bra is the row and the index in the ket the column. So:</p>
+      <div class="eq">\[ \hat A|\psi\rangle=|\phi\rangle\;\Longrightarrow\;\overleftrightarrow{A}\,\vec c=\vec d,\qquad d_m=\sum_n A_{mn}\,c_n \]</div>
+      <p>An N×N table times an N×1 list gives an N×1 list again. The lecturer's arrows: \(\vec c\) a right arrow, a column (N×1); \(\overleftarrow{c}\) a left arrow, a row (1×N); \(\overleftrightarrow{A}\) a double arrow, a table (N×N).</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>You leave school and walk 3 blocks east and 4 blocks north. “East” and “north” are your basis and (3, 4) are your components. Now think of an operation: “double the east steps and leave north as it is”. The table of this operation and its effect:</p>
+        <div class="eq">\[ \begin{pmatrix}2&amp;0\\0&amp;1\end{pmatrix}\begin{pmatrix}3\\4\end{pmatrix}=\begin{pmatrix}2\cdot3+0\cdot4\\0\cdot3+1\cdot4\end{pmatrix}=\begin{pmatrix}6\\4\end{pmatrix} \]</div>
+        <p>In quantum mechanics a ket is the counterpart of this position and an operator of this operation. The only difference is that the numbers can be complex.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-1a" data-q="1a" data-type="mc" data-topic="finding a component by projection">
+          <p><span class="q-n">Question 1.1</span>If \(|\psi\rangle=3|e_1\rangle+4|e_2\rangle\), what is \(c_2=\langle e_2|\psi\rangle\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">3</span></button><p class="why tex-later" hidden>This is \(c_1\). \(\langle e_2|\) filters only the part along \(e_2\).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">4</span></button></li>
+            <li><button type="button" class="opt"><span class="t">5</span></button><p class="why tex-later" hidden>5 is the length of the vector, \(\sqrt{3^2+4^2}\). It is not a component.</p></li>
+            <li><button type="button" class="opt"><span class="t">7</span></button><p class="why tex-later" hidden>Components do not add. Since \(\langle e_2|e_1\rangle=0\), the term with 3 drops out.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\langle e_2|\psi\rangle=3\langle e_2|e_1\rangle+4\langle e_2|e_2\rangle=3\cdot0+4\cdot1=4\). Orthonormality does the work.</p></div>
+        </div>
+        <div class="q" id="q-1b" data-q="1b" data-type="mc" data-topic="matrix multiplication">
+          <p><span class="q-n">Question 1.2</span>If \(A=\begin{pmatrix}1&amp;2\\0&amp;3\end{pmatrix}\) and \(\vec c=\begin{pmatrix}1\\1\end{pmatrix}\), what is \(\vec d=A\vec c\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">(3, 3)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">(1, 5)</span></button><p class="why tex-later" hidden>You added the columns rather than the rows. \(d_m=\sum_n A_{mn}c_n\): go along the mth row.</p></li>
+            <li><button type="button" class="opt"><span class="t">(1, 3)</span></button><p class="why tex-later" hidden>You used only the diagonal. The off-diagonal 2 also contributes to \(d_1\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(d_1=1\cdot1+2\cdot1=3\), \(d_2=0\cdot1+3\cdot1=3\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 2 -->
+<section class="step" id="t2" data-n="2">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 2</span><span class="st"></span></p>
+    <h3>Hermitian: a mirrored table. Unitary: a length-preserving rotation</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 2"><img src="boards/t02.jpg" width="1600" height="984" loading="lazy" decoding="async" alt="Blackboard: for Hermitian operators Aₘₙ = Aₙₘ*, diag(a₁, …, a_N) in the eigenbasis, and a unitary transformation preserves the inner product."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The table of a Hermitian operator is “mirror and conjugate” symmetric about the diagonal, and in its own eigenbasis only the diagonal remains; a unitary transformation preserves the inner product, and so lengths and probabilities.</p>
+      <p>First the complex conjugate: the conjugate of \(3+2i\) is \(3-2i\), so you flip the sign of i. A Hermitian operator means \(\hat A=\hat A^\dagger\), and in a table it looks like this:</p>
+      <div class="eq">\[ A_{mn}=A_{nm}^{*} \]</div>
+      <p>The number in box (m, n) is the conjugate of the number in the mirror box (n, m). The two notes on the board show these two operations: the “complex conjugate” star, and “notice the transpose mn→nm” for the swapped indices. On the diagonal m = n, so \(A_{nn}=A_{nn}^*\), and the diagonal is always real. The measurement results (eigenvalues) are always real too; that is why every measurable quantity is Hermitian.</p>
+      <p>The eigenvectors of a Hermitian operator form a basis, and in that basis the table is diagonal:</p>
+      <div class="eq">\[ \hat A=\sum_{n=1}^{N}a_n|a_n\rangle\langle a_n|\;\Longleftrightarrow\;\overleftrightarrow{A}=\mathrm{diag}(a_1,a_2,\dots,a_N) \]</div>
+      <p>\(|a_n\rangle\langle a_n|\) is the projection onto the nth direction. \(\hat A\) multiplies each direction by its own eigenvalue, and the directions do not mix.</p>
+      <p>Item 3, the unitary transformation: \(\hat U^\dagger\hat U=\hat I\). The bra of \(\langle U\phi|\) is \(\langle\phi|\hat U^\dagger\), so:</p>
+      <div class="eq">\[ \langle U\phi|U\psi\rangle=\langle\phi|\hat U^\dagger\hat U|\psi\rangle=\langle\phi|\psi\rangle \]</div>
+      <p>When the inner product is preserved, lengths, angles and probabilities are preserved too.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A table of distances between cities: if Ankara–Istanbul is 450 km, Istanbul–Ankara is also 450 km. The table is symmetric about the diagonal. A Hermitian table is the complex version of this:</p>
+        <div class="eq">\[ \begin{pmatrix}2&amp;1+i\\1-i&amp;3\end{pmatrix} \]</div>
+        <p>At the top right \(1+i\), in the mirror box its conjugate \(1-i\), and real 2 and 3 on the diagonal. For a unitary transformation, rotate a triangle on paper: the coordinates of the corners change, while the side lengths and angles stay the same.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-2a" data-q="2a" data-type="mc" data-topic="the Hermitian table condition">
+          <p><span class="q-n">Question 2.1</span>Which one is Hermitian?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\begin{pmatrix}1&amp;2i\\2i&amp;1\end{pmatrix}\)</span></button><p class="why tex-later" hidden>If \(A_{12}=2i\), then \(A_{21}\) should be its conjugate, \(-2i\). This table is symmetric but not conjugate.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\begin{pmatrix}1&amp;2i\\-2i&amp;1\end{pmatrix}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\begin{pmatrix}i&amp;0\\0&amp;1\end{pmatrix}\)</span></button><p class="why tex-later" hidden>There is an i on the diagonal. The diagonal of a Hermitian table must be real.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(A_{21}=-2i=(2i)^*=A_{12}^*\) and the diagonal is real. Both conditions are met.</p></div>
+        </div>
+        <div class="q" id="q-2b" data-q="2b" data-type="mc" data-topic="eigenvalue and measurement result">
+          <p><span class="q-n">Question 2.2</span>The table of a Hermitian operator in its eigenbasis is \(\mathrm{diag}(2,-1)\). What results can you get when measuring this quantity?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Only 2</span></button><p class="why tex-later" hidden>−1 is also an eigenvalue; it can come out too.</p></li>
+            <li><button type="button" class="opt"><span class="t">Only 1, the sum of the two numbers</span></button><p class="why tex-later" hidden>A measurement gives one of the eigenvalues, not their sum. The average is a separate question (the expectation value).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">2 or −1</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Any real number</span></button><p class="why tex-later" hidden>A measurement result is always one of the eigenvalues.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The numbers on the diagonal are the eigenvalues; a single measurement gives one of them.</p></div>
+        </div>
+        <div class="q" id="q-2c" data-q="2c" data-type="mc" data-topic="what a unitary transformation preserves">
+          <p><span class="q-n">Question 2.3</span>If you apply a unitary transformation to a ket, which one CAN change?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The inner product of two kets</span></button><p class="why tex-later" hidden>The formula on the board says exactly that this is preserved.</p></li>
+            <li><button type="button" class="opt"><span class="t">The length of the ket</span></button><p class="why tex-later" hidden>The length is the inner product of the ket with itself, which is preserved.</p></li>
+            <li><button type="button" class="opt"><span class="t">The total probability</span></button><p class="why tex-later" hidden>The total probability is the square of the length; it is preserved.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The components of the ket, its numbers</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The corner coordinates of a rotating triangle change, its sides do not. The numbers change; the inner product and probabilities do not.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 3 -->
+<section class="step" id="t3" data-n="3">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 3</span><span class="code" title="The code in the top left corner of the board">241473</span><span class="st"></span></p>
+    <h3>When the basis changes the numbers change, the physics does not</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 3"><img src="boards/t03.jpg" width="1600" height="915" loading="lazy" decoding="async" alt="Whiteboard: a change of basis preserves physical predictions, Uₘₙ, c_f = U c_e, A_f = U A_e U†, and the expectation value is the same in the two bases."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Changing basis is looking at the same arrow from other axes: the components transform with U, and the expectation value \(\langle A\rangle\) stays the same.</p>
+      <p>You can write the same \(|\psi\rangle\) in two bases: the old \(\{|e_n\rangle\}\) and the new \(\{|f_m\rangle\}\). The transition table U and the transformation rules:</p>
+      <div class="eq">\[ U_{mn}=\langle f_m|e_n\rangle,\qquad \vec c_f=\overleftrightarrow{U}\,\vec c_e,\qquad \overleftrightarrow{A}_f=\overleftrightarrow{U}\,\overleftrightarrow{A}_e\,\overleftrightarrow{U}^{\dagger} \]</div>
+      <p>\(U_{mn}\) is how much the new mth direction overlaps the old nth direction. The list of components is carried along by multiplying with U, and the operator table by wrapping it on both sides with U and \(U^\dagger\).</p>
+      <p>The lecturer's main message: the expectation value \(\langle A\rangle=\langle\psi|\hat A|\psi\rangle\) does not depend on the basis. In matrix language \(\langle A\rangle=\vec c^{\,\dagger}A\,\vec c\). The note \(\vec c_f^{\,\dagger}=\overleftarrow{c}_f^{\,*}\) on the board says that the dagger of a column is a row with conjugated elements. Substituting:</p>
+      <div class="eq">\[ \vec c_f^{\,\dagger}A_f\,\vec c_f=(U\vec c_e)^\dagger(UA_eU^\dagger)(U\vec c_e)=\vec c_e^{\,\dagger}\underbrace{U^\dagger U}_{I}A_e\underbrace{U^\dagger U}_{I}\vec c_e=\vec c_e^{\,\dagger}A_e\,\vec c_e \]</div>
+      <p>The \(U^\dagger U\) in between turn into 1 and disappear. A prediction for a measurement cannot depend on the axes you draw in your notebook.</p>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>The board says \(U_{mn}=\langle f_m|\hat U|e_n\rangle\). For the formulas on the board to hold, read it as \(U_{mn}=\langle f_m|e_n\rangle\); do not put \(\hat U\) in between.</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Take a photo of a pen on a table. With the phone straight, the tip of the pen is at the point (3, 4). Turn the phone along the pen and take another; the tip is at (5, 0). The numbers changed, but the length of the pen is 5 in both photos:</p>
+        <div class="eq">\[ \sqrt{3^2+4^2}=\sqrt{5^2+0^2}=5 \]</div>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-3a" data-q="3a" data-type="mc" data-topic="length does not depend on the basis">
+          <p><span class="q-n">Question 3.1</span>In the old basis \(\vec c=(3,4)\), in the new basis \(\vec c=(5,0)\). In which basis is \(\langle\psi|\psi\rangle=\vec c^{\,\dagger}\vec c\) larger?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">In the old basis, because 3 + 4 = 7</span></button><p class="why tex-later" hidden>\(\vec c^{\,\dagger}\vec c\) is a sum of squares, not a plain sum: 9 + 16 = 25.</p></li>
+            <li><button type="button" class="opt"><span class="t">In the new basis, because 5 is larger than 4</span></button><p class="why tex-later" hidden>Do not look at a single component; take the sum of squares: 25 + 0 = 25.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">25 in both</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>9 + 16 = 25 = 25 + 0. The length does not depend on the basis; it is preserved because U is unitary.</p></div>
+        </div>
+        <div class="q" id="q-3b" data-q="3b" data-type="mc" data-topic="eigenvalues of similar matrices">
+          <p><span class="q-n">Question 3.2</span>Which is true for \(A_f=UA_eU^\dagger\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The two tables consist of the same numbers</span></button><p class="why tex-later" hidden>The numbers generally change; what does not change is the eigenvalues.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Their eigenvalues are the same</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Both are always diagonal</span></button><p class="why tex-later" hidden>Diagonal only in the eigenbasis. In another basis there are off-diagonal terms.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Two different photos of the same operator. The eigenvalues, the measurement results, are the same in both.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 4 -->
+<section class="step" id="t4" data-n="4">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 4</span><span class="st"></span></p>
+    <h3>Function of an operator: first move to the easy axes</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 4"><img src="boards/t04.jpg" width="1600" height="952" loading="lazy" decoding="async" alt="Blackboard: 6.6 functions of operators and matrices, A = U diag(aₙ) U†, f(A) = U diag(f(aₙ)) U† and the example of e to the A."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The way to compute \(f(\hat A)\): go to the eigenbasis, apply f to each eigenvalue separately, come back.</p>
+      <p>The title of 6.6 is “Functions of operators and matrices”. It starts with the spectral decomposition:</p>
+      <div class="eq">\[ \overleftrightarrow{A}=\overleftrightarrow{U}\,\mathrm{diag}(a_n)\,\overleftrightarrow{U}^{\dagger} \]</div>
+      <p>The note on the right: U is the N×N table of the unitary transformation \(\hat U\), and its columns are the eigenvectors of A. Read from right to left: go to the eigenbasis with \(U^\dagger\), multiply each direction by its own eigenvalue with \(\mathrm{diag}(a_n)\), and come back with U.</p>
+      <p>Applying a function to a diagonal table is very easy; you apply it to each number separately:</p>
+      <div class="eq">\[ \mathrm{diag}(2,3)^2=\mathrm{diag}(4,9),\qquad e^{\mathrm{diag}(2,3)}=\mathrm{diag}(e^2,e^3) \]</div>
+      <p>With a non-diagonal table everything mixes when you square it. The solution is always the same:</p>
+      <div class="eq">\[ f(\hat A)=\overleftrightarrow{U}\,\mathrm{diag}\big(f(a_n)\big)\,\overleftrightarrow{U}^{\dagger},\qquad e^{\hat A}=\overleftrightarrow{U}\,\mathrm{diag}\big(e^{a_n}\big)\,\overleftrightarrow{U}^{\dagger} \]</div>
+      <p>Why is it true? When you square it the \(U^\dagger U\) in between disappears: \(A^2=UDU^\dagger\,UDU^\dagger=UD^2U^\dagger\). The same holds for every power, and \(e^{A}\) is a sum of powers.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A box sliding on an inclined plane. If you choose horizontal and vertical axes you have to split the weight, the normal force and the friction into parts, and the calculation gets messy. If you choose axes along the slope and perpendicular to it, you split only the weight once and the rest is one-dimensional motion. The eigenbasis is the “along the slope” axes of an operator: there each direction does its own job.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-4a" data-q="4a" data-type="mc" data-topic="square of a diagonal table">
+          <p><span class="q-n">Question 4.1</span>If \(A=\mathrm{diag}(1,-1)\), what is \(A^2\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{diag}(1,1)\), the identity table</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(1,-1)\)</span></button><p class="why tex-later" hidden>\((-1)^2=1\); the sign disappears.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(2,-2)\)</span></button><p class="why tex-later" hidden>Squaring is not multiplying by 2.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>On the diagonal, the square of each number: \(1^2=1\), \((-1)^2=1\).</p></div>
+        </div>
+        <div class="q" id="q-4b" data-q="4b" data-type="mc" data-topic="exponential of a diagonal table">
+          <p><span class="q-n">Question 4.2</span>If \(A=\mathrm{diag}(0,2)\), what is \(e^{A}\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(0,e^2)\)</span></button><p class="why tex-later" hidden>\(e^0=1\), not zero. Even the 0 on the diagonal becomes 1 in \(e^{A}\).</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(1,2e)\)</span></button><p class="why tex-later" hidden>\(e^2\approx7.39\), \(2e\approx5.44\). Exponentiating is not multiplying.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{diag}(1,3)\)</span></button><p class="why tex-later" hidden>This is only the first two terms of the series: \(I+A\).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{diag}(1,e^2)\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Separately for each diagonal element: \(e^0=1\) and \(e^2\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 5 -->
+<section class="step" id="t5" data-n="5">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 5</span><span class="code" title="The code in the top left corner of the board">241473</span><span class="st"></span></p>
+    <h3>Finding the same result with a Taylor series</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 5"><img src="boards/t05.jpg" width="1600" height="935" loading="lazy" decoding="async" alt="Whiteboard: the Taylor series of e to the Â, the matrix elements term by term in the eigenbasis and the diagonal result, with the note eigenbasis for Â in a red circle."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Expanding \(e^{\hat A}\) in a series and looking term by term in the eigenbasis, every term comes out diagonal; their sum is \(e^{a_n}\delta_{mn}\).</p>
+      <p>A Maclaurin series is a Taylor series around zero. We write the high school expansion \(e^x=1+x+x^2/2!+\dots\) for an operator:</p>
+      <div class="eq">\[ e^{\hat A}=\hat I+\frac{\hat A}{1!}+\frac{\hat A^2}{2!}+\frac{\hat A^3}{3!}+O(\hat A^4) \]</div>
+      <p>The red circle on the board is the key: we put the series between \(\langle a_m|\) and \(|a_n\rangle\) in the eigenbasis of \(\hat A\). Term by term:</p>
+      <ul>
+        <li>The \(\hat I\) term: \(\langle a_m|a_n\rangle=\delta_{mn}\). The arrow on the board is \(\delta_{mn}\leftrightarrow I\): the identity table.</li>
+        <li>The \(\hat A\) term: since \(\hat A|a_n\rangle=a_n|a_n\rangle\), \(\langle a_m|\hat A|a_n\rangle=a_n\delta_{mn}\).</li>
+        <li>The \(\hat A^2\) term, at the top right of the board: put \(\sum_k|a_k\rangle\langle a_k|=\hat I\) between the two \(\hat A\).</li>
+      </ul>
+      <div class="eq">\[ \langle a_m|\hat A^2|a_n\rangle=\sum_k\underbrace{\langle a_m|\hat A|a_k\rangle}_{a_k\delta_{mk}}\,\underbrace{\langle a_k|\hat A|a_n\rangle}_{a_n\delta_{kn}}=\sum_k a_ka_n\,\delta_{mk}\delta_{kn}=a_n^2\,\delta_{mn} \]</div>
+      <p>\(\delta_{kn}\) leaves only the \(k=n\) term of the sum, and \(\delta_{mn}\) remains. Every term contains \(\delta_{mn}\), so factor it out:</p>
+      <div class="eq">\[ \big(e^{\hat A}\big)_{mn}=\delta_{mn}+a_n\delta_{mn}+\frac{a_n^2}{2!}\delta_{mn}+O(a_n^3)=\delta_{mn}\Big(1+a_n+\frac{a_n^2}{2!}+O(a_n^3)\Big)=e^{a_n}\,\delta_{mn} \]</div>
+      <p>The inside of the parenthesis is exactly the series of \(e^{a_n}\); the last note on the board is “\(e^{\hat A}\) is diagonal”. The lecturer's spoken warning: this diagonality is because we chose the eigenbasis. In a general basis there are also off-diagonal terms, produced by the \(U\,\mathrm{diag}(e^{a_n})\,U^\dagger\) of the previous step. There was also a bridge sentence: so far it was finite dimensional; in infinite dimensions these tables will become functions.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Find e from the series with a calculator. Each term adds very little to the previous one:</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Term</th><th>Value</th><th>Total</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="num">1</td><td class="num">1</td></tr>
+            <tr><td>1/1!</td><td class="num">1</td><td class="num">2</td></tr>
+            <tr><td>1/2!</td><td class="num">0,5</td><td class="num">2,5</td></tr>
+            <tr><td>1/3!</td><td class="num">0,1667</td><td class="num">2,6667</td></tr>
+            <tr><td>1/4!</td><td class="num">0,0417</td><td class="num">2,7083</td></tr>
+            <tr><td>1/5!</td><td class="num">0,0083</td><td class="num">2,7167</td></tr>
+            <tr><td>1/6!</td><td class="num">0,0014</td><td class="num">2,7181</td></tr>
+          </tbody>
+        </table></div>
+        <p>The true value is e = 2.71828… In seven terms you reached the fourth decimal. The Kronecker delta \(\delta_{mn}\) is also a roll call: 1 if your name is read (m = n), 0 if someone else's is.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-5a" data-q="5a" data-type="mc" data-topic="sifting with the Kronecker delta">
+          <p><span class="q-n">Question 5.1</span>What is \(\sum_{k=1}^{3}\delta_{2k}\,x_k\) equal to?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(x_1+x_2+x_3\)</span></button><p class="why tex-later" hidden>\(\delta_{2k}\) multiplies the terms with \(k\neq2\) by zero.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(x_2\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">2</span></button><p class="why tex-later" hidden>δ selects an index; the result is the value of x at that index, not the index itself.</p></li>
+            <li><button type="button" class="opt"><span class="t">0</span></button><p class="why tex-later" hidden>The k = 2 term survives, because \(\delta_{22}=1\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The sifting trick: δ picks a single term out of the sum. In the rest of this week you will meet its continuous version \(\int f(x')\,\delta(x-x')\,dx'=f(x)\) everywhere.</p></div>
+        </div>
+        <div class="q" id="q-5b" data-q="5b" data-type="num" data-answer="7" data-tol="0.02" data-show="7.00" data-topic="the series of e">
+          <p><span class="q-n">Question 5.2</span>Estimate \(e^2\) from the series: what is \(1+2+\frac{2^2}{2!}+\frac{2^3}{3!}+\frac{2^4}{4!}\)? Two decimals are enough.</p>
+          <div class="num-row"><label class="sr" for="in-5b">Your answer</label><input id="in-5b" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>Compute the terms one by one: 1, 2, 4/2, 8/6, 16/24.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>1 + 2 + 2 + 1.33 + 0.67 = 7.00. The true value is \(e^2\approx7.39\); it gets closer as you add terms.</p></div>
+        </div>
+        <div class="q" id="q-5c" data-q="5c" data-type="mc" data-topic="off-diagonal terms in the eigenbasis">
+          <p><span class="q-n">Question 5.3</span>In the eigenbasis, what is \(\big(e^{\hat A}\big)_{12}\), an off-diagonal element?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">0</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{a_1}\)</span></button><p class="why tex-later" hidden>This is \(\big(e^{\hat A}\big)_{11}\), a diagonal element.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{a_1+a_2}\)</span></button><p class="why tex-later" hidden>In the eigenbasis the directions do not mix; \(\delta_{12}=0\) makes every term zero.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Every term of the series has the factor \(\delta_{12}=0\). In the eigenbasis everything off the diagonal is zero.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM B ===================== -->
+<header class="part" id="bolum-b">
+  <p class="k">Part B · Boards 6–11</p>
+  <h2>The position representation</h2>
+  <p class="sub">The step to infinite dimensions: the list is infinitely long and the index continuous. The sum becomes an integral, the Kronecker delta a Dirac delta, and the table a function called the “kernel”.</p>
+</header>
+
+<!-- TAHTA 6 -->
+<section class="step" id="t6" data-n="6">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 6</span><span class="st"></span></p>
+    <h3>The continuous basis and the Dirac delta</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 6"><img src="boards/t06.jpg" width="1600" height="969" loading="lazy" decoding="async" alt="Blackboard: 7 Position and momentum representations, 7.1 the position representation, x̂|x⟩ = x|x⟩, ⟨x′|x⟩ = δ(x − x′), the Dirac delta is really a distribution."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Since position is continuous, the basis vectors \(|x\rangle\) are too many to count; orthogonality is written with a Dirac delta instead of a Kronecker delta.</p>
+      <p>The title of Chapter 7 is “Position and Momentum Representations”, and the first subsection is 7.1, the position representation. Until now we could count the basis vectors: 1, 2, …, N. For position this ends; there are infinitely many points even between 0.50 m and 0.51 m. For every position value x there is a ket \(|x\rangle\):</p>
+      <div class="eq">\[ \hat x|x\rangle=x|x\rangle,\qquad \langle x'|x\rangle=\delta(x-x') \]</div>
+      <p>On the left \(\hat x\) is the measuring machine (operator), and on the right x is the number the machine gives (eigenvalue). In the inner product, \(\delta(x-x')\) takes the place of \(\delta_{mn}\). Why? In the continuous case “1 at a single point and 0 everywhere else” is useless, because in an integral the area of a single point is zero. We need something that lives at a single point and has integral 1: δ. The parenthesis on the board says this too; mathematically δ is not an ordinary function but a distribution, defined only by what it does inside an integral.</p>
+      <p>This has a price: \(\langle x|x\rangle=\delta(0)\) is infinite. So the length of \(|x\rangle\) is not 1; on its own it is not a real state but the idealization “exactly at this point”. Real states are mixtures of these.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>The height distribution of a class. You count with 10 cm bins: 4 people between 150 and 160 cm, 9 between 160 and 170. As you narrow the bins (1 cm, 1 mm) fewer people fall in each; the answer to “how many people are exactly 165.000… cm tall?” eventually becomes zero. The meaningful question becomes “how many people per centimeter?”, a density. For continuous position too we talk in terms of density rather than individual points; in this language δ means “everything gathered at a single point”.</p>
+      </aside>
+      <details class="self">
+        <summary>Explain in your own words, then open and compare: why is the Kronecker delta not enough in a continuous basis?</summary>
+        <div class="d-body tex-later"><p>The completeness relation must be \(\int dx\,|x\rangle\langle x|x'\rangle=|x'\rangle\). If \(\langle x|x'\rangle\) were 1 only at the point x = x′, the integral would sum over a single point of zero width and the result would be zero. We need an object with area 1 squeezed into a single point.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-6a" data-q="6a" data-type="mc" data-topic="difference between operator and eigenvalue">
+          <p><span class="q-n">Question 6.1</span>In the equation \(\hat x|x\rangle=x|x\rangle\), what is the difference between \(\hat x\) and x?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">There is no difference, the hat is decoration</span></button><p class="why tex-later" hidden>The hat means operator. An operator acts on a ket, while a number only multiplies.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\hat x\) is a number, x an operator</span></button><p class="why tex-later" hidden>The reverse. What acts on the ket is the one with the hat.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\hat x\) is an operator (measuring machine), x a number (the result)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The eigenvalue equation: when the machine \(\hat x\) acts on \(|x\rangle\) it gives the same ket multiplied by the number x.</p></div>
+        </div>
+        <div class="q" id="q-6b" data-q="6b" data-type="mc" data-topic="why the Dirac delta is needed">
+          <p><span class="q-n">Question 6.2</span>In a continuous basis, why can \(\langle x'|x\rangle\) not be “1 if x = x′, 0 otherwise”?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Because x can be negative</span></button><p class="why tex-later" hidden>The sign does not matter; the problem is the zero width of a single point.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">In an integral the area of a single point is zero, so completeness breaks</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Because position is a complex number</span></button><p class="why tex-later" hidden>Position is real. The problem is the width: the integral over a single point is zero.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>A bar of height 1 and width zero has zero area. To keep the area at 1 the height must go to infinity; that is δ.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 7 -->
+<section class="step" id="t7" data-n="7">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 7</span><span class="code" title="The code in the top left corner of the board">892213</span><span class="st"></span></p>
+    <h3>The Dirac delta: a box whose area stays 1</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 7"><img src="boards/t07.jpg" width="1600" height="913" loading="lazy" decoding="async" alt="Whiteboard: the definition of δ(x), a drawing of a box of area 1, the integral of the box and four properties of δ(x − x′)."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Think of δ as the limit of a box that gets narrower while its area stays 1; inside an integral it selects the value of a function at a single point, and its unit is 1/length.</p>
+      <p>The board has two definitions. The rough one: 0 at \(x\neq0\) and infinite at \(x=0\), such that the total area is 1. The concrete one is the limit of a box:</p>
+      <div class="eq">\[ \delta(x)=\lim_{\epsilon\to0}\begin{cases}\dfrac{1}{2\epsilon}, &amp; -\epsilon\lt x\lt\epsilon\\[6pt] 0, &amp; \text{otherwise}\end{cases} \]</div>
+      <p>The width of the box is \(2\epsilon\) and its height \(1/2\epsilon\). Area = width × height = 1, whatever ε is. This is the red hatched “Area = 1” on the board; the calculation on the right does the same with an integral:</p>
+      <div class="eq">\[ \int_{-\infty}^{\infty}\delta(x)\,dx=\int_{-\epsilon}^{\epsilon}\frac{1}{2\epsilon}\,dx=\frac{1}{2\epsilon}\Big[x\Big]_{-\epsilon}^{\epsilon}=1 \]</div>
+      <div class="widget" id="w-delta">
+        <p class="predict"><strong>Predict first:</strong> what happens to the height and area of the box as you shrink ε? Then drag the slider to the left.</p>
+        <svg class="wsvg" viewBox="0 0 360 210" role="img" aria-label="A box of width 2ε and height 1/(2ε)"></svg>
+        <div class="ctrl"><label for="eps">ε</label><input id="eps" type="range" min="0.05" max="1" step="0.01" value="0.5"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">The last line is the sifting property: the box takes the average of \(f(x)=x^2\) around x = 3. As ε shrinks the average goes to \(f(3)=9\).</p>
+      </div>
+      <p>The four properties on the left half of the board:</p>
+      <ol>
+        <li>\(\int\delta(x-x')\,dx'=1\). Shifting the peak to x does not change the area. The long arrow on the board shows that this comes from the definition above.</li>
+        <li>\(\int f(x')\,\delta(x-x')\,dx'=f(x)\). The sifting property: δ selects the value of f only at the point x. Think with the box: the integral is the average of f over a narrow interval, and as the interval narrows this average goes to f(x). This is what appears as “skating property” in the transcript.</li>
+        <li>\(\langle x'|x\rangle=\langle x|x'\rangle^*\), the conjugate symmetry of the inner product. From here \(\delta(x-x')=\delta(x'-x)\): δ is real (“Dirac-delta dist. is real”) and even (“evenness”). The box is also symmetric about zero.</li>
+        <li>\([\delta(x-x')]=1/\text{length}\). \(\int dx\,\delta(x)=1\) is unitless and dx is in meters; for the product to be unitless δ must be 1/meter. The lecturer asked exactly this in class, and the answer was “one over meter”. The general rule: the unit of δ is the inverse of the unit of its variable.</li>
+      </ol>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A hammer blow. In high school, impulse = force × time (\(I=F\,\Delta t\)). A hammer applies a very large force to a nail for a very short time. If the time halves the force doubles, but the impulse stays the same. The area under the force-time graph is the impulse; δ is this graph in the limit “time goes to zero, area stays 1”. By the same logic a δ written in time has the unit 1/second.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-7a" data-q="7a" data-type="num" data-answer="50" data-tol="0.01" data-show="50" data-topic="height of the δ box">
+          <p><span class="q-n">Question 7.1</span>If \(\epsilon=0.01\), what is the height of the box \(1/2\epsilon\)?</p>
+          <div class="num-row"><label class="sr" for="in-7a">Your answer</label><input id="in-7a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(2\epsilon=0.02\). Divide 1 by 0.02.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(1/0.02=50\). Width 0.02 × height 50 = 1.</p></div>
+        </div>
+        <div class="q" id="q-7b" data-q="7b" data-type="mc" data-topic="sifting property">
+          <p><span class="q-n">Question 7.2</span>What is \(\int x^2\,\delta(x-3)\,dx\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">3</span></button><p class="why tex-later" hidden>δ selects the point x = 3, but then \(f(3)=3^2\) is computed.</p></li>
+            <li><button type="button" class="opt"><span class="t">1</span></button><p class="why tex-later" hidden>This would be true if f = 1 (property 1).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">9</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(x^2\)</span></button><p class="why tex-later" hidden>The integral has been taken, so no x remains. The result is a number: the value of f at 3.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Sifting: \(\int f(x)\,\delta(x-3)\,dx=f(3)=9\). You saw it on the slider too: the average is \(9+\epsilon^2/3\) and goes to 9 as ε shrinks.</p></div>
+        </div>
+        <div class="q" id="q-7c" data-q="7c" data-type="mc" data-topic="unit of δ">
+          <p><span class="q-n">Question 7.3</span>If x is in meters, what is the unit of \(\delta(x)\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Unitless</span></button><p class="why tex-later" hidden>Then \(\int\delta\,dx\) would come out in meters rather than 1.</p></li>
+            <li><button type="button" class="opt"><span class="t">meters</span></button><p class="why tex-later" hidden>In this case the integral would be in square meters.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">1/meter</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\([\delta]\cdot[dx]=\frac{1}{\text{m}}\cdot\text{m}=1\): the integral comes out unitless.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 8 -->
+<section class="step" id="t8" data-n="8">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 8</span><span class="st"></span></p>
+    <h3>Completeness: cleverly inserting a 1</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 8"><img src="boards/t08.jpg" width="1600" height="957" loading="lazy" decoding="async" alt="Blackboard: the completeness relation Î = ∫dx |x⟩⟨x|, the unit of the kets 1/L^(1/2), the derivation of ψ(x) = ⟨x|ψ⟩ and the boxed result."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>\(\hat I=\int dx\,|x\rangle\langle x|\); inserting this 1 gives the wave function \(\psi(x)=\langle x|\psi\rangle\), the xth component of \(|\psi\rangle\).</p>
+      <p>In finite dimensions it was \(\sum_n|e_n\rangle\langle e_n|=\hat I\). In the continuous case the sum becomes an integral (the completeness relation, or resolution of identity):</p>
+      <div class="eq">\[ \hat I=\int dx\,|x\rangle\langle x| \]</div>
+      <p>The unit analysis on the right: \(\hat I\) is unitless and dx is in meters, so \(|x\rangle\langle x|\) must be 1/meter. \(|x\rangle\) and \(\langle x|\) are conjugates of each other and share the load equally: both are \(1/\sqrt{\text{meters}}\), the \(1/L^{1/2}\) on the board. Check: the unit of \(\langle x'|x\rangle=\delta\) is \(L^{-1/2}\cdot L^{-1/2}=1/L\). It holds.</p>
+      <p>The definition of the wave function \(\psi(x)=\langle x|\psi\rangle\): the component of \(|\psi\rangle\) along x, the continuous version of \(c_n=\langle e_n|\psi\rangle\). A wave function is an infinitely long list with a continuous index.</p>
+      <p>The bottom line of the board shows that this definition is consistent. Apply \(\langle x|\) from the left to \(\hat I|\psi\rangle=|\psi\rangle\) and expand the 1:</p>
+      <div class="eq">\[ \langle x|\psi\rangle=\langle x|\hat I|\psi\rangle=\int dx'\,\underbrace{\langle x|x'\rangle}_{\delta(x'-x)}\,\psi(x')=\psi(x) \]</div>
+      <p>The last step is sifting (prop. 2), and the result is the boxed formula \(\psi(x)=\langle x|\psi\rangle\). To be clear: this derives nothing new; it shows that the definitions do not contradict each other.</p>
+      <p>An important result that is not on the board: \(\int|\psi(x)|^2dx=1\). Since the unit of ψ is \(1/\sqrt{\text{meters}}\), \(|\psi|^2\) is 1/meter: probability per meter, a probability density (the Born rule).</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Unit conversion. To convert 5 m to centimeters you write \(5\text{ m}\times\frac{100\text{ cm}}{1\text{ m}}\). The value of the fraction is 1, so it does not change the result but changes its form. \(\hat I=\int dx\,|x\rangle\langle x|\) is such a 1: it opens \(|\psi\rangle\) into position components without changing it.</p>
+        <p>A second example: a bead is equally likely to be anywhere between 0 and 2 m. The density is \(|\psi|^2=\tfrac12\) (per meter), and the total is \(2\times\tfrac12=1\). The probability of finding it between 0 and 0.5 m is \(0.5\times\tfrac12=0.25\).</p>
+      </aside>
+      <details class="self">
+        <summary>Explain in your own words, then open and compare: why is \(|\psi(x)|^2\) a “probability density” rather than a “probability”?</summary>
+        <div class="d-body tex-later"><p>Its unit is 1/meter. A probability must be a unitless number; to get one you must multiply by the length of an interval, that is, take \(\int_a^b|\psi|^2dx\). The probability of being at a single point is zero; the probability of being in an interval is meaningful.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-8a" data-q="8a" data-type="mc" data-topic="unit of |x⟩">
+          <p><span class="q-n">Question 8.1</span>\(\hat I\) is unitless and dx is in meters. What is the unit of \(|x\rangle\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Unitless</span></button><p class="why tex-later" hidden>Then \(\int dx\,|x\rangle\langle x|\) would come out in meters.</p></li>
+            <li><button type="button" class="opt"><span class="t">meters</span></button><p class="why tex-later" hidden>The other way around. For the product to be unitless the ket must carry the inverse of a meter.</p></li>
+            <li><button type="button" class="opt"><span class="t">1/meter</span></button><p class="why tex-later" hidden>This is the unit of the pair \(|x\rangle\langle x|\). A single ket gets half of it.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(1/\sqrt{\text{meters}}\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(|x\rangle\langle x|\sim1/\text{m}\), split into two equal parts: \(\text{m}^{-1/2}\cdot\text{m}^{-1/2}\).</p></div>
+        </div>
+        <div class="q" id="q-8b" data-q="8b" data-type="num" data-answer="0.25" data-tol="0.005" data-show="0.25" data-topic="probability density">
+          <p><span class="q-n">Question 8.2</span>A particle is equally likely to be anywhere between 0 and 4 m. What is the probability of finding it between 1 m and 2 m?</p>
+          <div class="num-row"><label class="sr" for="in-8b">Your answer</label><input id="in-8b" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>First find the density: the total probability is 1 and the length is 4 m. Then multiply by the length of the interval.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(|\psi|^2=\tfrac14\) (per meter), interval 1 m: \(1\times\tfrac14=0.25\).</p></div>
+        </div>
+        <div class="q" id="q-8c" data-q="8c" data-type="mc" data-topic="finite dimensional counterpart of ψ(x)">
+          <p><span class="q-n">Question 8.3</span>What is the finite dimensional counterpart of \(\psi(x)=\langle x|\psi\rangle\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(A_{mn}=\langle e_m|\hat A|e_n\rangle\)</span></button><p class="why tex-later" hidden>This is the table of an operator; ψ is the components of the state.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\delta_{mn}\)</span></button><p class="why tex-later" hidden>This is the inner product of basis vectors. Its counterpart is \(\langle x'|x\rangle\).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(c_n=\langle e_n|\psi\rangle\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Both are “the component of the state along a basis direction”. x in place of n, a function in place of a list.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 9 -->
+<section class="step" id="t9" data-n="9">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 9</span><span class="code" title="The code in the top left corner of the board">892213</span><span class="st"></span></p>
+    <h3>The kernel: a continuous table</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 9"><img src="boards/t09.jpg" width="1600" height="906" loading="lazy" decoding="async" alt="Whiteboard: the definition of the operator kernel ⟨x′|Â|x⟩ = A(x′, x) and the derivation of (Âψ)(x) = ∫dx′ A(x, x′) ψ(x′)."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The table of an operator in the position basis, \(A(x,x')\), is a function (the kernel); computing \(\hat A\psi\) is the integral version of matrix multiplication.</p>
+      <p>The matrix element was \(A_{mn}=\langle e_m|\hat A|e_n\rangle\). In the position basis the definition is the same, and its name is the “operator kernel”:</p>
+      <div class="eq">\[ \langle x'|\hat A|x\rangle=A(x',x) \]</div>
+      <p>The first argument is the bra (row), the second the ket (column). The board first writes \(A(x',x)\) and below uses \(A(x,x')\); only the letters are swapped, the rule is the same. The action of the operator, the “since” lines on the board, again by inserting a 1:</p>
+      <div class="eq">\[ (\hat A\psi)(x)\equiv\langle x|\hat A|\psi\rangle=\langle x|\hat A\int dx'\,|x'\rangle\langle x'|\psi\rangle=\int dx'\,A(x,x')\,\psi(x') \]</div>
+      <p>Put them side by side: \(d_m=\sum_nA_{mn}c_n\). The sum became an integral, the table a function, the list a wave function. Its meaning: the result at point x is a weighted sum of the values of ψ at all points, with the weights given by \(A(x,x')\).</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A three-day average temperature. To smooth a weather graph, replace each day with the average of itself and its two neighbors: new(day) = (yesterday + today + tomorrow)/3. This is a kernel: weight 1/3 for yourself and your two neighbors, 0 for distant days. The “blur” filter on your phone does the same with pixels.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-9a" data-q="9a" data-type="num" data-answer="15" data-tol="0.01" data-show="15" data-topic="the kernel, a weighted average">
+          <p><span class="q-n">Question 9.1</span>The temperatures are 12° on Monday, 18° on Tuesday and 15° on Wednesday. What is the three-day average for Tuesday in degrees?</p>
+          <div class="num-row"><label class="sr" for="in-9a">Your answer</label><input id="in-9a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>(yesterday + today + tomorrow)/3.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>(12 + 18 + 15)/3 = 45/3 = 15. The weights are 1/3, 1/3, 1/3; this is the Tuesday row of the kernel.</p></div>
+        </div>
+        <div class="q" id="q-9b" data-q="9b" data-type="mc" data-topic="the kernel and matrix multiplication">
+          <p><span class="q-n">Question 9.2</span>What is the finite dimensional counterpart of the expression \((\hat A\psi)(x)=\int dx'\,A(x,x')\,\psi(x')\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(A_{mn}=A_{nm}^*\)</span></button><p class="why tex-later" hidden>This is the Hermiticity condition, not the action of the operator.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(U^\dagger U=I\)</span></button><p class="why tex-later" hidden>This is the unitarity condition.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(d_m=\sum_nA_{mn}c_n\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Multiply each weight in the row by the element in the column and add. An integral is a continuous sum.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 10 -->
+<section class="step" id="t10" data-n="10">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 10</span><span class="st"></span></p>
+    <h3>The local potential: look only at your own point</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 10"><img src="boards/t10.jpg" width="1600" height="971" loading="lazy" decoding="async" alt="Blackboard: the kernel of a local potential V(x)δ(x − x′), ⟨x|V̂|ψ⟩ = V(x)ψ(x) in the position representation and its derivation with the sifting property."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The kernel of a local potential is \(V(x)\,\delta(x-x')\); in the position representation it multiplies ψ point by point: \((\hat V\psi)(x)=V(x)\,\psi(x)\).</p>
+      <p>A potential is a function of position: \(\hat V=V(\hat x)\). Remember the rule from Boards 4–5: a function of an operator is diagonal in the eigenbasis of that operator. The eigenbasis of \(\hat x\) is \(|x\rangle\), so \(\hat V\) is diagonal in this basis too:</p>
+      <div class="eq">\[ \langle x'|\hat V|x\rangle=V(x',x)=V(x)\,\delta(x-x') \]</div>
+      <p>This is the continuous version of \(\mathrm{diag}(V)\): the table is filled only on the diagonal (x′ = x). This is also what the lecturer stressed aloud: a local potential is proportional to a Dirac delta. Compute its action:</p>
+      <div class="eq">\[ \langle x|\hat V|\psi\rangle=(\hat V\psi)(x)=\int dx'\,V(x)\,\delta(x-x')\,\psi(x')=V(x)\int dx'\,\delta(x-x')\,\psi(x')=V(x)\,\psi(x) \]</div>
+      <p>V(x) does not depend on x′, the variable of the integral, so it comes out; the remaining integral becomes ψ(x) by the sifting property (“ψ(x) from prop. 2” on the board). The result: in the position language the potential multiplies the wave function at each point by the value of V at that point.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>The photo filter “brightness × 2”: each pixel multiplies its own value by two and does not look at its neighbors. This is local. A worked example: if \(V(x)=2x\) and \(\psi(x)=x+1\), then at x = 3, \((\hat V\psi)(3)=V(3)\,\psi(3)=6\times4=24\).</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-10a" data-q="10a" data-type="num" data-answer="12" data-tol="0.01" data-show="12" data-topic="action of a local potential">
+          <p><span class="q-n">Question 10.1</span>\(V(x)=x^2\) and \(\psi(x)=5-x\). What is \((\hat V\psi)(2)\)?</p>
+          <div class="num-row"><label class="sr" for="in-10a">Your answer</label><input id="in-10a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>Local: only the values at x = 2 matter. Multiply \(V(2)\) by \(\psi(2)\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(V(2)=4\), \(\psi(2)=3\), product 12.</p></div>
+        </div>
+        <div class="q" id="q-10b" data-q="10b" data-type="mc" data-topic="local kernel = diagonal">
+          <p><span class="q-n">Question 10.2</span>What does the kernel of a local potential, \(V(x)\,\delta(x-x')\), correspond to in finite dimensions?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">A diagonal table</span></button></li>
+            <li><button type="button" class="opt"><span class="t">A table with every box filled</span></button><p class="why tex-later" hidden>δ makes everything with x ≠ x′ zero; the off-diagonal is empty.</p></li>
+            <li><button type="button" class="opt"><span class="t">A zero table</span></button><p class="why tex-later" hidden>The diagonal is filled; its values are V(x).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The continuous version of \(a_n\delta_{mn}\) is \(V(x)\,\delta(x-x')\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 11 -->
+<section class="step" id="t11" data-n="11">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 11</span><span class="code" title="The code in the top left corner of the board">892213</span><span class="st"></span></p>
+    <h3>The nonlocal potential and the most common misconception</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 11"><img src="boards/t11.jpg" width="1600" height="911" loading="lazy" decoding="async" alt="Whiteboard: the analogy of the kernel with finite dimensions, the nonlocal potential integral, a drawing of a parabola and the note that locality does not mean a small region."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>With a nonlocal operator the result at x also depends on the values of ψ at other points; locality does not mean that the potential is confined to a narrow region.</p>
+      <p>The first line of the board sets up the analogy: the kernel \(V(x',x)\) is the counterpart of the diagonal table of \(\hat A\) in its eigenbasis in finite dimensions.</p>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>The board says \(\langle m|A|n\rangle=a_nA_{mn}\); the correct form is \(a_n\delta_{mn}\). Also, in the nonlocal formula φ is written on the left and ψ on the right; they are the same function, read it as ψ.</p>
+      </aside>
+      <p>A nonlocal potential is one that also depends on a position other than x. Its kernel is filled off the diagonal too:</p>
+      <div class="eq">\[ (\hat V\psi)(x)=\int_{-\infty}^{\infty}dx'\,V(x,x')\,\psi(x') \]</div>
+      <p>This time the integral does not disappear: the result at x also depends on the values of ψ at other points. The three-day average in the previous step is exactly such an operation.</p>
+      <div class="widget">
+        <svg class="wsvg" id="w-kernel" viewBox="0 0 340 190" role="img" aria-label="On the left a local kernel filled only on the diagonal, on the right a nonlocal kernel with a band around the diagonal"></svg>
+        <p class="w-cap">If we draw the kernel like a table: row x, column x′. On the left the local kernel is filled only on the diagonal; on the right a nonlocal kernel (like the three-day average) spills around the diagonal too.</p>
+      </div>
+      <p>The most important warning of the board is on the bottom line: <strong>locality does NOT mean the potential is in a small region.</strong> The example is the harmonic oscillator, \(V(x)=\tfrac12m\omega^2x^2\). The parabola on the right and the note “parabolically expands to all x” say this: this potential spreads over all x and grows without bound. Yet it is local, because at each point it looks only at ψ at that point. The note at the bottom right: “depends only one position ⇒ is local”. Whether something is local depends on whether the kernel is diagonal, not on the shape or width of the potential.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Think of two classes. In class A everyone's grade is computed only from their own exam score: local. In class B grades are curved relative to the class average: your grade also depends on other people's scores, so it is not local.</p>
+        <p>The spring from high school physics is a good example too: the potential energy \(\tfrac12kx^2\) is defined at every position and grows with distance, but the energy at each point depends only on the position of that point. So it is local.</p>
+      </aside>
+      <details class="self">
+        <summary>Explain in your own words, then open and compare: why is \(V(x)=\tfrac12m\omega^2x^2\) local even though it spreads over all of space?</summary>
+        <div class="d-body tex-later"><p>Locality is about the shape of the kernel: \(\langle x'|\hat V|x\rangle=V(x)\,\delta(x-x')\), so the result at point x depends only on \(\psi(x)\). V being nonzero and large everywhere does not change this.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-11a" data-q="11a" data-type="mc" data-topic="the locality misconception">
+          <p><span class="q-n">Question 11.1</span>True or false: “\(V(x)=\tfrac12kx^2\) is not local because it spreads over all of space and grows without bound.”</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">True</span></button><p class="why tex-later" hidden>This is the misconception the board warns about. Locality is not about width but about looking only at that point at each point.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">False</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\((\hat V\psi)(x)=\tfrac12kx^2\,\psi(x)\): the result at x depends only on \(\psi(x)\). Local.</p></div>
+        </div>
+        <div class="q" id="q-11b" data-q="11b" data-type="mc" data-topic="a nonlocal operation">
+          <p><span class="q-n">Question 11.2</span>Which is a NONLOCAL operation?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Multiplying the brightness of every pixel by 2</span></button><p class="why tex-later" hidden>Each pixel looks only at itself: local.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Replacing each point with the average of its neighbors</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Multiplying \(\psi(x)\) by \(x^2\)</span></button><p class="why tex-later" hidden>Point by point multiplication: local.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The result also depends on the values at other points; the kernel is filled off the diagonal too.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM C ===================== -->
+<header class="part" id="bolum-c">
+  <p class="k">Part C · Boards 12–16</p>
+  <h2>The momentum representation</h2>
+  <p class="sub">The same structure in another basis. We will find what a momentum eigenstate looks like in position; in the end it turns out that the two representations are linked by a Fourier transform.</p>
+</header>
+
+<!-- TAHTA 12 -->
+<section class="step" id="t12" data-n="12">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 12</span><span class="st"></span></p>
+    <h3>The momentum basis: the same structure, different units</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 12"><img src="boards/t12.jpg" width="1600" height="943" loading="lazy" decoding="async" alt="Blackboard: 7.2 the momentum representation, p̂|p⟩ = p|p⟩, ⟨p′|p⟩ = δ(p − p′), completeness and the unit analysis of the kets with [p] = ML/T."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The \(|p\rangle\) are also a continuous basis; every formula is the same as for position, only the units change to those of momentum.</p>
+      <p>7.2, the momentum representation. Whatever we did for position we do for momentum:</p>
+      <div class="eq">\[ \hat p|p\rangle=p|p\rangle,\qquad \langle p'|p\rangle=\delta(p-p'),\qquad \hat I=\int dp\,|p\rangle\langle p| \]</div>
+      <p>Momentum \(p=mv\) has the unit kg·m/s. On the board, in the language of dimensions, \([p]=ML/T\): M mass, L length, T time (the arrows on the board). \(\hat I\) is again unitless (the “dimensionless” arrow) and the unit of dp is [p]; so \(|p\rangle\langle p|\) carries 1/[p] and each takes half:</p>
+      <div class="eq">\[ [\,|p\rangle\,]=[\,\langle p|\,]=\frac{1}{[p]^{1/2}}=\frac{T^{1/2}}{M^{1/2}L^{1/2}}=T^{1/2}M^{-1/2}L^{-1/2} \]</div>
+      <p>Check: \([\delta(p-p')]=1/[p]\). The general rule from Board 7: the unit of δ is the inverse of the unit of its variable.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A 0.5 kg ball moves at 4 m/s: \(p=0.5\times4=2\) kg·m/s. In the position basis everything was in “meters”; in the momentum basis the same formulas are in “kg·m/s”. Completeness, δ and sifting hold just the same; only the label changed.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-12a" data-q="12a" data-type="mc" data-topic="unit of δ(p − p′)">
+          <p><span class="q-n">Question 12.1</span>What is the unit of \(\delta(p-p')\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">kg·m/s</span></button><p class="why tex-later" hidden>Invert it: the unit of δ is the inverse of the unit of its variable.</p></li>
+            <li><button type="button" class="opt"><span class="t">1/m</span></button><p class="why tex-later" hidden>This is the unit of the position δ. Here the inner variable is momentum.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">s/(kg·m)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\int\delta(p)\,dp=1\) is unitless and dp is kg·m/s, so δ is s/(kg·m).</p></div>
+        </div>
+        <div class="q" id="q-12b" data-q="12b" data-type="mc" data-topic="unit of momentum completeness">
+          <p><span class="q-n">Question 12.2</span>For \(\hat I=\int dp\,|p\rangle\langle p|\) to be unitless, what must the unit of \(|p\rangle\langle p|\) be?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">1/(kg·m/s)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">kg·m/s</span></button><p class="why tex-later" hidden>Multiplying by dp would give the square of the unit, which is not unitless.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\sqrt{\text{kg·m/s}}\)</span></button><p class="why tex-later" hidden>This is the inverse of the unit of a single ket. As a pair you need 1/[p].</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\([dp]\cdot[\,|p\rangle\langle p|\,]=1\Rightarrow[\,|p\rangle\langle p|\,]=1/[p]\); each ket gets \([p]^{-1/2}\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 13 -->
+<section class="step" id="t13" data-n="13">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 13</span><span class="code" title="The code in the top left corner of the board">811622</span><span class="st"></span></p>
+    <h3>The momentum eigenstate in position: a rotating wave</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 13"><img src="boards/t13.jpg" width="1600" height="916" loading="lazy" decoding="async" alt="Whiteboard: the position representation of |p⟩, ⟨x|p⟩, the solution of the first order differential equation and the momentum wave function φ(p) = ⟨p|ψ⟩."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>\(\langle x|p\rangle\) is the solution of a simple differential equation: \(e^{ixp/\hbar}\), a rotating wave with the same magnitude everywhere.</p>
+      <p>The question on the board: what does a particle of definite momentum look like in position space, that is, what is \(\langle x|p\rangle\)? Apply \(\langle x|\) from the left to \(\hat p|p\rangle=p|p\rangle\):</p>
+      <div class="eq">\[ \langle x|\hat p|p\rangle=p\,\langle x|p\rangle \]</div>
+      <p>The arrows on the board: \(\hat p\) is the momentum operator, p is the momentum eigenvalue and a real number (“real number”). Being a number, it can come out. In the position language \(\hat p=-i\hbar\,\frac{d}{dx}\) is taken as given; we will see why at the end of the lecture, on Boards 17–18:</p>
+      <div class="eq">\[ -i\hbar\,\frac{d}{dx}\langle x|p\rangle=p\,\langle x|p\rangle \]</div>
+      <p>Multiply both sides by \(i/\hbar\). The coefficient on the left becomes \(\frac{i}{\hbar}\cdot(-i\hbar)=-i^2=1\); this is the −1 written above \(i^2\) on the board:</p>
+      <div class="eq">\[ \frac{d}{dx}\langle x|p\rangle=\frac{ip}{\hbar}\,\langle x|p\rangle \]</div>
+      <p>A function whose derivative is proportional to itself; the solution is exponential. The solution on the board, by separating variables:</p>
+      <div class="eq">\[ \int\frac{d\langle x|p\rangle}{\langle x|p\rangle}=\int\frac{i}{\hbar}\,p\,dx\;\Longrightarrow\;\ln\langle x|p\rangle=\frac{i}{\hbar}\,xp\;\Longrightarrow\;\langle x|p\rangle=e^{ixp/\hbar} \]</div>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>The integration constant was dropped. The correct form is \(\langle x|p\rangle=N\,e^{ixp/\hbar}\); the next board determines the constant N.</p>
+      </aside>
+      <p>The i in the exponent changes everything. \(e^{i\theta}=\cos\theta+i\sin\theta\) does not grow but rotates on the unit circle: \(|e^{i\theta}|=1\). So \(|\langle x|p\rangle|^2\) is the same everywhere; a particle of definite momentum is equally likely to be found anywhere. The wavelength: the phase \(xp/\hbar\) increases by \(2\pi\) over one wavelength, which gives \(\lambda=2\pi\hbar/p=h/p\) (de Broglie).</p>
+      <div class="widget">
+        <svg class="wsvg" id="w-plane" viewBox="0 0 360 180" role="img" aria-label="The real part of the plane wave is a cosine, the imaginary part a sine, and the square of its magnitude is constant everywhere"></svg>
+        <p class="w-cap">Blue: the real part \(\cos(px/\hbar)\). Dashed: the imaginary part \(\sin(px/\hbar)\). Red: \(|\langle x|p\rangle|^2\), which is 1 everywhere leaving out the prefactor.</p>
+      </div>
+      <p>The bottom line of the board defines the momentum wave function, with the same trick of inserting 1:</p>
+      <div class="eq">\[ \phi(p)\equiv\langle p|\psi\rangle=\langle p|\int dx\,|x\rangle\langle x|\psi\rangle=\int dx\,\langle p|x\rangle\,\psi(x) \]</div>
+      <p>\(\phi(p)\) are the components of the same \(|\psi\rangle\) in the momentum basis.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Bacterial growth: if the growth rate is proportional to the number of bacteria (\(dN/dt=kN\)) the solution is \(N=N_0e^{kt}\), exponential growth. When an imaginary number takes the place of k, growth turns into rotation: \(e^{ikx}\) is a point rotating on the unit circle, and its shadow is the \(\cos kx\) wave.</p>
+        <p>A sense of scale with de Broglie: a 0.1 kg ball at 10 m/s has \(\lambda=\frac{6.6\times10^{-34}}{0.1\times10}\approx6.6\times10^{-34}\) m. That is billions of times smaller than an atom, so the ball does not behave like a wave. An electron at \(10^6\) m/s: \(\lambda\approx0.7\) nm, atomic size. Electrons diffract from crystals.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-13a" data-q="13a" data-type="mc" data-topic="exponential solution">
+          <p><span class="q-n">Question 13.1</span>If \(\frac{dy}{dx}=3y\) and \(y(0)=1\), what is \(y(x)\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(3x\)</span></button><p class="why tex-later" hidden>Its derivative is 3, not \(3y\).</p></li>
+            <li><button type="button" class="opt"><span class="t">\(3e^{x}\)</span></button><p class="why tex-later" hidden>Its derivative is \(3e^x=y\), so dy/dx = y and not 3y. Moreover y(0) = 3.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(e^{3x}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(x^3\)</span></button><p class="why tex-later" hidden>Its derivative is \(3x^2\); this is not \(3y=3x^3\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\frac{d}{dx}e^{3x}=3e^{3x}=3y\) and \(e^0=1\). On Board 13, \(ip/\hbar\) takes the place of the 3.</p></div>
+        </div>
+        <div class="q" id="q-13b" data-q="13b" data-type="mc" data-topic="plane wave and the eigenvalue equation">
+          <p><span class="q-n">Question 13.2</span>What is \(-i\hbar\,\frac{d}{dx}\,e^{ikx}\) equal to?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\hbar k\,e^{ikx}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-\hbar k\,e^{ikx}\)</span></button><p class="why tex-later" hidden>\(-i\cdot i=-i^2=+1\); the sign comes out plus.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(ik\,e^{ikx}\)</span></button><p class="why tex-later" hidden>This is only the derivative. Do not forget the \(-i\hbar\) in front.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\frac{d}{dx}e^{ikx}=ik\,e^{ikx}\) and \(-i\hbar\cdot ik=\hbar k\). Putting in \(k=p/\hbar\) gives \(p\,e^{ixp/\hbar}\): the eigenvalue equation holds.</p></div>
+        </div>
+        <div class="q" id="q-13c" data-q="13c" data-type="mc" data-topic="magnitude of a plane wave">
+          <p><span class="q-n">Question 13.3</span>How does \(|e^{ixp/\hbar}|^2\) behave with x?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">It grows exponentially as x grows</span></button><p class="why tex-later" hidden>There is an i in the exponent. \(e^{i\theta}\) does not grow, it rotates.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">It is 1 everywhere, constant</span></button></li>
+            <li><button type="button" class="opt"><span class="t">It is 1 at x = 0 and goes to zero far away</span></button><p class="why tex-later" hidden>That would be the behavior of a wave packet. The magnitude of a plane wave is the same everywhere.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(|e^{i\theta}|^2=\cos^2\theta+\sin^2\theta=1\). A definite momentum means being completely spread out in position.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 14 -->
+<section class="step" id="t14" data-n="14">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 14</span><span class="st"></span></p>
+    <h3>Normalization and the Fourier transform</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of board 14"><img src="boards/t14.jpg" width="1600" height="953" loading="lazy" decoding="async" alt="Blackboard: delta normalized ⟨x|p⟩ = e^(ixp/ħ)/√(2πħ), its conjugate ⟨p|x⟩, φ(p) as a Fourier transform and ψ(x) as the inverse Fourier transform."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>With the correct prefactor \(\langle x|p\rangle=e^{ixp/\hbar}/\sqrt{2\pi\hbar}\); with this, \(\phi(p)\) and \(\psi(x)\) are Fourier transforms of each other.</p>
+      <p>The condition \(\langle p'|p\rangle=\delta(p-p')\) determines the constant N (“delta normalized form”). The result on the board:</p>
+      <div class="eq">\[ \langle x|p\rangle=\frac{1}{\sqrt{2\pi\hbar}}\,e^{ixp/\hbar}\quad\Longrightarrow\quad\langle p|x\rangle=\langle x|p\rangle^{*}=\frac{1}{\sqrt{2\pi\hbar}}\,e^{-ixp/\hbar} \]</div>
+      <p>The note under the arrow is \(\langle x|p\rangle=\langle p|x\rangle^*\): taking the conjugate flips the sign of i, so \(\langle p|x\rangle\) has a minus.</p>
+      <details class="more">
+        <summary>Where does 1/√(2πħ) come from? (Not on the board.)</summary>
+        <div class="d-body tex-later">
+          <div class="eq">\[ \langle p'|p\rangle=\int dx\,\langle p'|x\rangle\langle x|p\rangle=|N|^2\int dx\,e^{i(p-p')x/\hbar}=|N|^2\,2\pi\hbar\,\delta(p-p') \]</div>
+          <p>The last step has two pieces of information: \(\int dx\,e^{ikx}=2\pi\,\delta(k)\) and \(\delta(u/\hbar)=\hbar\,\delta(u)\). For a 1 to remain in front of δ, \(|N|^2=1/2\pi\hbar\).</p>
+        </div>
+      </details>
+      <p>Putting this into the last line of Board 13:</p>
+      <div class="eq">\[ \phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}dx\,e^{-ixp/\hbar}\,\psi(x) \]</div>
+      <p>\(\phi(p)\) is the Fourier transform of \(\psi(x)\). In the other direction \(\psi(x)\) is the inverse Fourier transform of \(\phi(p)\):</p>
+      <div class="eq">\[ \psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int_{-\infty}^{\infty}dp\,e^{+ixp/\hbar}\,\phi(p) \]</div>
+      <p>The sign rule: the forward transform contains \(\langle p|x\rangle\), with a minus sign; the inverse transform contains \(\langle x|p\rangle\), with a plus sign. This is exactly where a classmate got stuck in the lecture.</p>
+      <div class="widget" id="w-fourier">
+        <p class="predict"><strong>Predict first:</strong> if you narrow the wave packet in position (σ shrinks), what happens to the distribution in momentum? Then slide.</p>
+        <div class="w-row two">
+          <div><svg class="wsvg sx" viewBox="0 0 300 180" role="img" aria-label="Probability density in position"></svg><p class="w-cap">In position \(|\psi(x)|^2\)</p></div>
+          <div><svg class="wsvg sp" viewBox="0 0 300 180" role="img" aria-label="Probability density in momentum"></svg><p class="w-cap">In momentum \(|\phi(p)|^2\)</p></div>
+        </div>
+        <div class="ctrl"><label for="sig">Width in position σ</label><input id="sig" type="range" min="0.25" max="2" step="0.01" value="1"></div>
+        <p class="ro" aria-live="polite"></p>
+      </div>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Music. The sound wave of a chord is a complicated line in time but is really a sum of a few notes. The equalizer on your phone splits that wave into its notes, its frequencies: this is the Fourier transform. In quantum mechanics \(\psi(x)\) is the wave itself and \(\phi(p)\) tells which “notes” (momenta) it is made of. A short sound like a drum hit contains many frequencies, and a long flute note is close to a single frequency; this is what you saw on the slider.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-14a" data-q="14a" data-type="mc" data-topic="complex conjugate">
+          <p><span class="q-n">Question 14.1</span>What is the complex conjugate of \(e^{i\theta}\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(-e^{i\theta}\)</span></button><p class="why tex-later" hidden>The conjugate flips the sign of i, not of the whole number.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(e^{-i\theta}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(e^{i\theta}\)</span></button><p class="why tex-later" hidden>This is true only at θ = 0; in general the sign of i flips.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\((\cos\theta+i\sin\theta)^*=\cos\theta-i\sin\theta=e^{-i\theta}\).</p></div>
+        </div>
+        <div class="q" id="q-14b" data-q="14b" data-type="mc" data-topic="Fourier sign rule">
+          <p><span class="q-n">Question 14.2</span>In the expression \(\phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int dx\,e^{\,?\,ixp/\hbar}\,\psi(x)\), which sign replaces the question mark?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Minus</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Plus</span></button><p class="why tex-later" hidden>Plus is in the inverse transform. Here the inside has \(\langle p|x\rangle\), and that is the conjugate of \(\langle x|p\rangle\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\phi(p)=\int dx\,\langle p|x\rangle\,\psi(x)\) and \(\langle p|x\rangle\propto e^{-ixp/\hbar}\).</p></div>
+        </div>
+        <div class="q" id="q-14c" data-q="14c" data-type="mc" data-topic="relation between Δx and Δp">
+          <p><span class="q-n">Question 14.3</span>On the slider, what happens to the momentum distribution when you narrow the packet in position?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">It narrows too</span></button><p class="why tex-later" hidden>Look at the slider again: Δx·Δp stays constant, and when one shrinks the other grows.</p></li>
+            <li><button type="button" class="opt"><span class="t">Not changing</span></button><p class="why tex-later" hidden>It changes: Δp = ħ/(2Δx).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">It widens</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>For a Gaussian packet \(\Delta x\,\Delta p=\hbar/2\). This is the first appearance of the uncertainty principle; it will come separately later.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 15 -->
+<section class="step" id="t15" data-n="15">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 15</span><span class="code" title="The code in the top left corner of the board">811622</span><span class="st"></span></p>
+    <h3>Unit check: what is in the exponent must be unitless</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of Board 15"><img src="boards/t15.jpg" width="1600" height="929" loading="lazy" decoding="async" alt="Whiteboard: the series of e to the x, the derivation of ψ(x) with momentum completeness, ⟨x|p⟩ and the unit analysis for ħ."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The exponent of \(e^{ixp/\hbar}\) must be unitless, which is why ħ is there; the prefactor \(1/\sqrt{\hbar}\) carries the whole unit of \(\langle x|p\rangle\).</p>
+      <p>The top line is the derivation of the inverse transform, this time with momentum completeness:</p>
+      <div class="eq">\[ \psi(x)=\langle x|\psi\rangle=\langle x|\int dp\,|p\rangle\langle p|\psi\rangle=\int dp\,\langle x|p\rangle\,\phi(p)=\frac{1}{\sqrt{2\pi\hbar}}\int dp\,e^{ixp/\hbar}\,\phi(p) \]</div>
+      <p>The notes at the bottom of the board: \(\langle p|\psi\rangle=\phi_p\) and the normalized form of \(\langle x|p\rangle\).</p>
+      <p>The \(e^x=1+x+x^2/2+\dots\) at the top left is not decoration. If x had a unit you would be adding apples and oranges, like “1 + meters + meters²”. So the \(xp/\hbar\) in the exponent must be unitless:</p>
+      <div class="eq">\[ [xp]=L\cdot\frac{ML}{T}=\frac{ML^2}{T}=[\hbar] \]</div>
+      <p>The unit of ħ is on the bottom line of the board: energy × time. Energy is work, and work is force × distance (the \(\Delta K=W=\vec F\cdot\vec l\) on the board, the work-energy theorem):</p>
+      <div class="eq">\[ [\hbar]=[E][t]=[N][l][t]=\frac{ML}{T^2}\cdot L\cdot T=\frac{ML^2}{T} \]</div>
+      <p>Now the unit of \(\langle x|p\rangle\), from the ket units of Boards 8 and 12:</p>
+      <div class="eq">\[ [\langle x|p\rangle]=[\,\langle x|\,]\,[\,|p\rangle\,]=\frac{1}{L^{1/2}}\cdot\frac{T^{1/2}}{M^{1/2}L^{1/2}}=\frac{T^{1/2}}{M^{1/2}L}=\frac{1}{[\hbar]^{1/2}} \]</div>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>In the intermediate step on the board \(L^{1/2}\) seems to remain in the denominator. Multiplying two \(L^{-1/2}\) gives \(L^{-1}\); correct it to L, otherwise the comparison with ħ (the “compare” on the board) does not work.</p>
+        <p>The transcript seems to say “energy multiplied with frequency”; the correct form is energy × time, that is, J·s.</p>
+      </aside>
+      <p>The result, the “requires the normalization” on the board: since the exponential part is unitless, the prefactor has to carry the unit of \(1/\sqrt{\hbar}\). The \(2\pi\) comes not from the units but from the Fourier transform's own convention; the lecturer's explanation in Turkish pointed the same way.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Hunting a formula with unit analysis. What does the period of a pendulum depend on? The only way to get seconds from the string length L and gravity g is \(\sqrt{L/g}\): \(\sqrt{\text{m}/(\text{m/s}^2)}=\text{s}\). You have found the form without knowing the formula; only a unitless number like \(2\pi\) remains. The same here: the unit of \(\langle x|p\rangle\) must be \(1/\sqrt{\text{J·s}}\), and nothing other than ħ can give this unit.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 2 questions</p>
+        <div class="q" id="q-15a" data-q="15a" data-type="mc" data-topic="unit of ħ">
+          <p><span class="q-n">Question 15.1</span>What is the unit of ħ?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">J/s</span></button><p class="why tex-later" hidden>This is the unit of power (the watt).</p></li>
+            <li><button type="button" class="opt"><span class="t">J·Hz</span></button><p class="why tex-later" hidden>Hz = 1/s, so J·Hz = J/s. The “energy × frequency” in the transcript leads here but is wrong.</p></li>
+            <li><button type="button" class="opt"><span class="t">kg·m/s</span></button><p class="why tex-later" hidden>This is the unit of momentum; ħ has one more meter.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">J·s</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\([\hbar]=\text{J·s}=\text{kg·m}^2/\text{s}\).</p></div>
+        </div>
+        <div class="q" id="q-15b" data-q="15b" data-type="mc" data-topic="the exponent must be unitless">
+          <p><span class="q-n">Question 15.2</span>In the expression \(e^{ax}\), if x is in meters, what must the unit of a be?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">m</span></button><p class="why tex-later" hidden>Then the exponent would be in square meters.</p></li>
+            <li><button type="button" class="opt"><span class="t">Unitless</span></button><p class="why tex-later" hidden>Then the exponent would be in meters; the exponent of e must be unitless.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">1/m</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>ax must be unitless, that is, \([a]=1/\text{m}\). On the board \(a=ip/\hbar\), and indeed \([p/\hbar]=1/\text{m}\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 16 -->
+<section class="step" id="t16" data-n="16">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 16</span><span class="st"></span></p>
+    <h3>In the momentum language the roles swap</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of Board 16"><img src="boards/t16.jpg" width="1600" height="949" loading="lazy" decoding="async" alt="Blackboard: in the momentum representation ⟨p|p̂|ψ⟩ = pφ(p), ⟨p|x̂|ψ⟩ = iħ dφ/dp, x̂ = iħ ∂/∂p, and the two representations are linked by a unitary Fourier transform."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>In the momentum representation \(\hat p\) only multiplies by p, and \(\hat x\) becomes \(i\hbar\,\partial/\partial p\); the two representations are linked by a unitary Fourier transform.</p>
+      <p>In the momentum representation \(\hat p\) is in its own basis, so it only multiplies:</p>
+      <div class="eq">\[ \langle p|\hat p|\psi\rangle=p\,\langle p|\psi\rangle=p\,\phi(p) \]</div>
+      <p>What \(\hat V\) is in position, \(\hat p\) is in momentum: diagonal, point by point multiplication. Again the rule of Boards 4–5. \(\hat x\), on the other hand, becomes a derivative:</p>
+      <div class="eq">\[ \langle p|\hat x|\psi\rangle=i\hbar\,\frac{d\phi(p)}{dp}\qquad\Longrightarrow\qquad\hat x=i\hbar\,\frac{\partial}{\partial p} \]</div>
+      <details class="more">
+        <summary>The derivation (not on the board)</summary>
+        <div class="d-body tex-later">
+          <div class="eq">\[ \langle p|\hat x|\psi\rangle=\int dx\,\langle p|x\rangle\,x\,\psi(x)=\frac{1}{\sqrt{2\pi\hbar}}\int dx\,x\,e^{-ixp/\hbar}\,\psi(x) \]</div>
+          <p>The key point: \(x\,e^{-ixp/\hbar}=i\hbar\,\frac{\partial}{\partial p}e^{-ixp/\hbar}\). Check: \(i\hbar\cdot(-ix/\hbar)=x\). Pulling the derivative out of the integral leaves \(i\hbar\,d\phi/dp\).</p>
+        </div>
+      </details>
+      <div class="tbl"><table>
+        <thead><tr><th>Operator</th><th>In the position representation</th><th>In the momentum representation</th></tr></thead>
+        <tbody>
+          <tr><td>\(\hat x\)</td><td>Multiply by x</td><td>\(i\hbar\,\partial/\partial p\)</td></tr>
+          <tr><td>\(\hat p\)</td><td>\(-i\hbar\,\partial/\partial x\)</td><td>Multiply by p</td></tr>
+        </tbody>
+      </table></div>
+      <p>It is no accident that the signs are opposite: it makes \(\hat x\hat p-\hat p\hat x=i\hbar\) come out the same in both languages. The “but if” note on the board: if φ depends only on p, then \(\partial/\partial p\) and \(d/dp\) are the same thing; ∂ is written because φ may also depend on time.</p>
+      <p>The last sentence is the essence of the week: the position and momentum representations are linked by a unitary Fourier transform. It matches the change of basis on Board 3 exactly: \(U_{mn}=\langle f_m|e_n\rangle\) here becomes \(\langle p|x\rangle\), and \(\vec c_f=U\vec c_e\) becomes \(\phi(p)=\int dx\,\langle p|x\rangle\,\psi(x)\). Being unitary, it conserves the total probability: \(\int|\psi|^2dx=\int|\phi|^2dp\).</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Two languages. Something you say in one word in Turkish (“gurbet”) takes a whole sentence in English, and for something else it is the reverse. In the position language x is one word (multiplication) and p a long explanation (a derivative). In the momentum language it is the exact opposite. The Fourier transform is the dictionary, and in translation the meaning, the total probability, is not lost.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-16a" data-q="16a" data-type="mc" data-topic="p̂ in the momentum representation">
+          <p><span class="q-n">Question 16.1</span>In the momentum representation, what does \(\hat p\) do to \(\phi(p)\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Takes the derivative of \(-i\hbar\,d/dp\)</span></button><p class="why tex-later" hidden>The derivative is the form of p̂ in the position representation (with d/dx). In its own basis p̂ only multiplies.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Multiplies by p</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Takes the Fourier transform</span></button><p class="why tex-later" hidden>The Fourier transform changes the basis; it is not the operator itself.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\langle p|\hat p=p\,\langle p|\): in the eigenbasis the operator is diagonal.</p></div>
+        </div>
+        <div class="q" id="q-16b" data-q="16b" data-type="mc" data-topic="x̂ in the momentum representation">
+          <p><span class="q-n">Question 16.2</span>In the momentum representation, what is \(\hat x\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(i\hbar\,\partial/\partial p\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-i\hbar\,\partial/\partial p\)</span></button><p class="why tex-later" hidden>The sign is the opposite of \(\hat p\) in position: plus.</p></li>
+            <li><button type="button" class="opt"><span class="t">Multiplication by x</span></button><p class="why tex-later" hidden>This is its form in the position representation.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The roles and the sign swap: \(\hat p=-i\hbar\,\partial_x\) in position, \(\hat x=+i\hbar\,\partial_p\) in momentum.</p></div>
+        </div>
+        <div class="q" id="q-16c" data-q="16c" data-type="mc" data-topic="the Fourier transform preserves probability">
+          <p><span class="q-n">Question 16.3</span>If \(\int|\psi(x)|^2dx=1\), what is \(\int|\phi(p)|^2dp\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(2\pi\hbar\)</span></button><p class="why tex-later" hidden>The prefactor \(1/\sqrt{2\pi\hbar}\) is there exactly to remove this excess.</p></li>
+            <li><button type="button" class="opt"><span class="t">It changes with the basis</span></button><p class="why tex-later" hidden>A unitary transformation preserves length (Board 2, item 3).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">1</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The Fourier transform is unitary; the total probability is 1 in both languages (Parseval).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BÖLÜM D ===================== -->
+<header class="part" id="bolum-d">
+  <p class="k">Part D · Boards 17–18</p>
+  <h2>Translation</h2>
+  <p class="sub">Where does the \(\hat p=-i\hbar\,d/dx\) we took as given on Board 13 come from? The answer: from the shifting operation.</p>
+</header>
+
+<!-- TAHTA 17 -->
+<section class="step" id="t17" data-n="17">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 17</span><span class="code" title="The code in the top left corner of the board">811622</span><span class="st"></span></p>
+    <h3>The translation operator: shifting a graph</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of Board 17"><img src="boards/t17.jpg" width="1600" height="875" loading="lazy" decoding="async" alt="Whiteboard: 7.3 deriving the momentum operator from translations, T̂(a)ψ(x) = ψ(x − a), the expansion for small a and the Hermitian generator Ĝ."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>\(\hat T(a)\) shifts the wave function to the right by a, \(\psi(x)\to\psi(x-a)\); for small a it expands with a derivative and carries a “generator” \(\hat G\) inside.</p>
+      <p>The title of 7.3 is “Deriving the momentum operator from translations”. The definition of the translation operator:</p>
+      <div class="eq">\[ \big(\hat T(a)\psi\big)(x)=\langle x|\hat T(a)|\psi\rangle=\psi(x-a) \]</div>
+      <p>Do not be thrown by the minus sign: \(\psi(x-a)\) shifts the graph to the RIGHT by a. At the point \(x_0+a\) the new graph takes the value of the old graph at \(x_0\).</p>
+      <p>For small (infinitesimal) a, the Taylor expansion, that is, the tangent line approximation:</p>
+      <div class="eq">\[ \big(\hat T(a)\psi\big)(x)=\psi(x-a)=\psi(x)-a\,\frac{d\psi}{dx}+O(a^2)\qquad(*) \]</div>
+      <div class="widget" id="w-shift">
+        <p class="predict"><strong>Predict first:</strong> as a grows, does the tangent approximation (red ring) stay close to the true value (blue dot)? Then slide.</p>
+        <svg class="wsvg" viewBox="0 0 360 210" role="img" aria-label="Graphs of ψ(x) and ψ(x − a) shifted by a, with the true value and tangent approximation at the point x₀ = 0.5"></svg>
+        <div class="ctrl"><label for="shift-a">Shift a</label><input id="shift-a" type="range" min="0" max="1.5" step="0.05" value="0.3"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">The dashed curve is \(\psi(x)=e^{-x^2}\) and the solid curve \(\psi(x-a)\). The vertical line is \(x_0=0.5\).</p>
+      </div>
+      <p>Properties of \(\hat T(a)\): shifting does not change the total probability (unitary), it depends continuously on a, \(\hat T(0)=\hat I\), and two shifts add: \(\hat T(a)\hat T(b)=\hat T(a+b)\). Such continuous unitary families can be written as exponentials:</p>
+      <div class="eq">\[ \hat T(a)=e^{-ia\hat G/\hbar}=\hat I-a\,\frac{i}{\hbar}\,\hat G+O(a^2) \]</div>
+      <p>\(\hat G\) is called the generator. On the board “Hermitian” is in quotes, because it is not an assumption but a result: unitarity gives \(\hat G^\dagger=\hat G\). The i in the exponent is there so that \(\hat G\) comes out as an observable (Hermitian), and \(1/\hbar\) is there for the units. \(a\hat G/\hbar\) must be unitless, so \([\hat G]=[\hbar]/\text{m}=\text{kg·m/s}\). Before calculating anything we know that \(\hat G\) has the unit of momentum.</p>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>In the exponential on the board no minus sign appears, it says \(e^{(i/\hbar)a\hat G}\); the expansion has a minus. The consistent form is the one with the minus. If you started with a plus you would end up with \(\hat G=-\hat p\). The lecturer also said this pattern will become clear within a few weeks (when the same structure returns with rotations and time evolution).</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>You saw this in high school: the graph of \(y=f(x-2)\) shifts \(y=f(x)\) by 2 units to the right. The tangent approximation is familiar too: \(f(x-a)\approx f(x)-a\,f'(x)\). Example: \(f(x)=x^2\), x = 3, a = 0.1. The true value is \(f(2.9)=8.41\); the approximate value is \(9-0.1\times6=8.40\). Almost the same. On the slider you saw how the approximation breaks down as a grows.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-17a" data-q="17a" data-type="mc" data-topic="direction of a graph shift">
+          <p><span class="q-n">Question 17.1</span>Where does the graph of \(y=(x-2)^2\) shift relative to \(y=x^2\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">2 units left</span></button><p class="why tex-later" hidden>The peak is at x − 2 = 0, that is, at x = 2: to the right.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">2 units right</span></button></li>
+            <li><button type="button" class="opt"><span class="t">2 units up</span></button><p class="why tex-later" hidden>Shifting up would be \(x^2+2\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The peak moved from x = 0 to x = 2. \(\psi(x-a)\) also shifts right by a.</p></div>
+        </div>
+        <div class="q" id="q-17b" data-q="17b" data-type="num" data-answer="7.88" data-tol="0.002" data-show="7.88" data-topic="tangent approximation">
+          <p><span class="q-n">Question 17.2</span>\(f(x)=x^3\), x = 2, a = 0.01. What is \(f(x-a)\approx f(x)-a\,f'(x)\) with the tangent approximation?</p>
+          <div class="num-row"><label class="sr" for="in-17b">Your answer</label><input id="in-17b" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(f'(x)=3x^2\), which is 12 at x = 2. \(f(2)=8\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(8-0.01\times12=7.88\). The true value is \(1.99^3=7.8806\); the difference is of order \(a^2\).</p></div>
+        </div>
+        <div class="q" id="q-17c" data-q="17c" data-type="mc" data-topic="unit of the generator">
+          <p><span class="q-n">Question 17.3</span>How do we know that the unit of \(\hat G\) must be kg·m/s?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Because \(\hat G\) is Hermitian</span></button><p class="why tex-later" hidden>Hermiticity says nothing about units; it says the eigenvalues are real.</p></li>
+            <li><button type="button" class="opt"><span class="t">Because \(\hat T\) is unitary</span></button><p class="why tex-later" hidden>Unitarity brings Hermiticity, not units.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(a\hat G/\hbar\) is in the exponent and must be unitless</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\([\hat G]=[\hbar]/[a]=(\text{kg·m}^2/\text{s})/\text{m}=\text{kg·m/s}\): the unit of momentum.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TAHTA 18 -->
+<section class="step" id="t18" data-n="18">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Board 18</span><span class="st"></span></p>
+    <h3>Momentum, the generator of translation</h3>
+  </header>
+  <div class="lock" hidden><p>This board is locked for now. To open it, first finish the questions of this board: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the photo of Board 18"><img src="boards/t18.jpg" width="1600" height="962" loading="lazy" decoding="async" alt="Blackboard: using the expansion of T̂(a) in ⟨x|T̂(a)|ψ⟩, comparing (∗) and (∗∗), ⟨x|Ĝ|ψ⟩ = −iħ dψ/dx and the result Ĝ = p̂."></button>
+      <figcaption>Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Comparing two expansions of the same thing, the action of \(\hat G\) in position comes out as \(-i\hbar\,d/dx\); so \(\hat G=\hat p\), and momentum is the generator of translation.</p>
+      <p>Put the exponential expansion between \(\langle x|\) and \(|\psi\rangle\):</p>
+      <div class="eq">\[ \big(\hat T(a)\psi\big)(x)=\langle x|\,\hat I-a\,\tfrac{i}{\hbar}\,\hat G+O(a^2)\,|\psi\rangle=\psi(x)-a\,\frac{i}{\hbar}\,\langle x|\hat G|\psi\rangle+O(a^2)\qquad(**) \]</div>
+      <p>We have two expansions of the same thing, (∗) and (∗∗). They must be equal for every small a, so the coefficients of a are equal:</p>
+      <div class="eq">\[ \frac{d\psi(x)}{dx}=\frac{i}{\hbar}\,\langle x|\hat G|\psi\rangle\quad\Longrightarrow\quad\langle x|\hat G|\psi\rangle=\frac{\hbar}{i}\,\frac{d\psi}{dx}=-i\hbar\,\frac{d\psi}{dx} \]</div>
+      <p>In the last step \(1/i=-i\). This is exactly the \(\hat p\) of the position representation. The last line of the board: “So Ĝ is nothing but p̂ and p̂ is the generator of translations!”</p>
+      <p>On Board 13 we took \(\hat p=-i\hbar\,d/dx\) as given; here we saw where it comes from. This is the answer to a classmate's question in the lecture, “why do we use this like a postulate?”: the principle “momentum is the generator of translation” produces that formula. To be honest, the assumption does not vanish completely, it moves: identifying the generator with the physical momentum comes from classical physics and experiment.</p>
+      <p>Why “generator”? Many tiny shifts make one large shift:</p>
+      <div class="eq">\[ \hat T(a)=\Big[\hat T\big(\tfrac{a}{n}\big)\Big]^n\approx\Big(\hat I-\tfrac{a}{n}\,\tfrac{i}{\hbar}\,\hat p\Big)^n\;\xrightarrow{\;n\to\infty\;}\;e^{-ia\hat p/\hbar} \]</div>
+      <details class="more">
+        <summary>Three checks (not on the board)</summary>
+        <div class="d-body tex-later">
+          <ol>
+            <li>Finite translation: since \(-ia\hat p/\hbar=-a\,d/dx\), \(e^{-a\,d/dx}\psi(x)=\sum_n\frac{(-a)^n}{n!}\psi^{(n)}(x)=\psi(x-a)\). Plainly a Taylor series.</li>
+            <li>In the momentum basis: \(\hat T\) is a function of \(\hat p\), so it is diagonal in this basis: \(\hat T(a)|p\rangle=e^{-iap/\hbar}|p\rangle\).</li>
+            <li>The kernel in the position basis: \(\langle x|\hat T(a)|x'\rangle=\delta(x-a-x')\). The diagonal shifted by a; the cleanest example of the nonlocal operator of Board 11.</li>
+          </ol>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Comparing coefficients: if “\(3+5a=3+ka\) for every a”, then k = 5. In a polynomial equality the coefficients of terms of the same degree are equal; here too we equated the coefficients of a.</p>
+        <p>Compound interest is the high school version of the “generator” idea. With 100% annual interest added once a year your money doubles, added monthly it grows by a factor of \((1+\tfrac{1}{12})^{12}\approx2.613\), and added continuously by a factor of \(e\approx2.718\). Tiny steps piled up give an exponential.</p>
+      </aside>
+      <details class="self">
+        <summary>Explain in your own words, then open and compare: what does “momentum is the generator of translation” mean?</summary>
+        <div class="d-body tex-later"><p>A shift by a small a behaves like \(\hat I-a\,(i/\hbar)\,\hat p\); a large shift is these small steps piled up, \(e^{-ia\hat p/\hbar}\). So \(\hat p\) “generates” the shift. In the position language this corresponds to \(\hat p\) taking a derivative, the question “how much does ψ change when x changes a little?”.</p></div>
+      </details>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-18a" data-q="18a" data-type="mc" data-topic="1/i">
+          <p><span class="q-n">Question 18.1</span>What is \(1/i\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(i\)</span></button><p class="why tex-later" hidden>\(i\cdot i=-1\), not 1.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(-i\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(-1\)</span></button><p class="why tex-later" hidden>\(i\cdot(-1)=-i\), not 1.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\frac1i=\frac{i}{i^2}=\frac{i}{-1}=-i\). Check: \(i\cdot(-i)=-i^2=1\).</p></div>
+        </div>
+        <div class="q" id="q-18b" data-q="18b" data-type="mc" data-topic="comparing coefficients">
+          <p><span class="q-n">Question 18.2</span>What do we equate when comparing (∗) and (∗∗)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The coefficients of \(a^2\)</span></button><p class="why tex-later" hidden>Those are inside \(O(a^2)\); first order is enough.</p></li>
+            <li><button type="button" class="opt"><span class="t">The constant terms</span></button><p class="why tex-later" hidden>The constant term is already \(\psi(x)\) in both; it gives no new information.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The coefficients of a</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(-a\,\psi'(x)=-a\,\frac{i}{\hbar}\langle x|\hat G|\psi\rangle\). For it to hold for every small a, the coefficients must be equal.</p></div>
+        </div>
+        <div class="q" id="q-18c" data-q="18c" data-type="mc" data-topic="translation symmetry and conservation">
+          <p><span class="q-n">Question 18.3</span>If the energy of a system does not change when it is shifted anywhere (space is the same everywhere), what is conserved?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Momentum</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Location</span></button><p class="why tex-later" hidden>Position can change; what is conserved is the generator of the shift.</p></li>
+            <li><button type="button" class="opt"><span class="t">Nothing</span></button><p class="why tex-later" hidden>Such a symmetry always brings a conservation law (Noether).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The generator of translation is \(\hat p\). If the Hamiltonian is invariant under translation, \(\hat H\) and \(\hat p\) commute and momentum is conserved. This is the deep reason behind the conservation of momentum you learned in high school.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SON ===================== -->
+<section class="end" id="sozluk">
+  <p class="k">The week on one page</p>
+  <h2>Glossary of the week</h2>
+  <p>Everything in finite dimensions has a counterpart in the continuous case. The right column links it to the high school examples on this page.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Finite dimensional</th><th>Continuous</th><th>High school version</th></tr></thead>
+    <tbody>
+      <tr><td>\(\langle e_m|e_n\rangle=\delta_{mn}\)</td><td>\(\langle x'|x\rangle=\delta(x-x')\)</td><td>A roll call, a hammer blow</td></tr>
+      <tr><td>\(\sum_n|e_n\rangle\langle e_n|=\hat I\)</td><td>\(\int dx\,|x\rangle\langle x|=\hat I\)</td><td>The 1 in a unit conversion</td></tr>
+      <tr><td>\(c_n=\langle e_n|\psi\rangle\)</td><td>\(\psi(x)=\langle x|\psi\rangle\)</td><td>A coordinate on a map</td></tr>
+      <tr><td>\(d_m=\sum_nA_{mn}c_n\)</td><td>\(\int dx'\,A(x,x')\,\psi(x')\)</td><td>A three-day average</td></tr>
+      <tr><td>Diagonal: \(a_n\delta_{mn}\)</td><td>Local: \(V(x)\,\delta(x-x')\)</td><td>A brightness filter</td></tr>
+      <tr><td>\(U_{mn}=\langle f_m|e_n\rangle\)</td><td>\(\langle p|x\rangle=e^{-ixp/\hbar}/\sqrt{2\pi\hbar}\)</td><td>An equalizer, a dictionary between two languages</td></tr>
+      <tr><td>\(U^\dagger U=I\)</td><td>\(\int|\psi|^2dx=\int|\phi|^2dp\)</td><td>The sides of a rotating triangle</td></tr>
+      <tr><td>\(e^{A}=U\,\mathrm{diag}(e^{a_n})\,U^\dagger\)</td><td>\(\hat T(a)=e^{-ia\hat p/\hbar}\)</td><td>Shifting a graph, compound interest</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="rapor">
+  <p class="k">Did it click?</p>
+  <h2>Status report</h2>
+  <div class="report" id="rapor-icerik" aria-live="polite"></div>
+</section>
+
+<section class="end" id="ders-disi">
+  <p class="k">Outside the lecture</p>
+  <h2>Late homework rule</h2>
+  <p>At the end of the lecture the lecturer announced the late rule (the transcript is garbled; this is what can be made out): there is no late penalty on the first five homeworks. From the sixth homework on, 1 point is deducted for each late day, up to 5 points; after the fifth day the deduction stays at 5 points.</p>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <p><a href="../">← Other weeks of 601</a> · <a href="ders-notu.html">This week's written note (in Turkish) →</a> · <a href="./" hreflang="tr" lang="tr">Türkçe sürüm →</a></p>
+  <p>Your progress is stored only in this browser; on another device you start over.</p>
+  <button type="button" class="btn ghost" id="reset">Reset progress</button>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Board photo">
+  <button type="button" class="lb-close">Close</button>
+  <img alt="">
+  <p class="lb-hint">Tap the image: full size or fit to screen</p>
+</div>
+
+<script>
+document.documentElement.lang = 'en';
+(function () {
+  'use strict';
+
+  /* ---------- Kayıt ---------- */
+  var KEY = 'kbm-601-hafta6-en-v1';
+  var state = { ans: {}, strict: true };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (saved.ans && typeof saved.ans === 'object') state.ans = saved.ans;
+        if (typeof saved.strict === 'boolean') state.strict = saved.strict;
+      }
+    }
+  } catch (e) { /* depolama yoksa sayfa yine çalışır */ }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
+
+  /* ---------- MathJax: sonradan görünen parçaları sırayla dizgile ---------- */
+  var mjReady = false;
+  var pending = [];
+  var chain = Promise.resolve();
+  function typeset(list) {
+    var mj = window.MathJax;
+    if (!list.length || !mj || typeof mj.typesetPromise !== 'function') return;
+    chain = chain.then(function () { return mj.typesetPromise(list); }).catch(function () {});
+  }
+  function tex(node) {
+    if (!node) return;
+    node.classList.remove('tex-later');
+    if (mjReady) typeset([node]); else pending.push(node);
+  }
+  window.addEventListener('mathjax-ready', function () {
+    mjReady = true;
+    var list = pending;
+    pending = [];
+    typeset(list);
+  });
+
+  function fmt(v, d) { return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var qs = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var total = qs.length;
+  var links = {};
+  each('.map a[data-step]', function (a) { links[a.getAttribute('data-step')] = a; });
+
+  /* ---------- Sorular ---------- */
+  var MSG = {
+    first: 'Correct, first try.',
+    retry: 'Correct, but not on the first try. The report added this question to your review list.',
+    shown: 'Answer shown. The report added this question to your review list.'
+  };
+  function setMsg(q, text, kind) {
+    var m = q.querySelector('.msg');
+    m.textContent = text;
+    m.setAttribute('data-k', kind);
+  }
+
+  function resolve(q, status, restoring) {
+    if (q.classList.contains('done')) return;
+    q.classList.add('done');
+    q.setAttribute('data-status', status);
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (b) {
+        b.disabled = true;
+        if (b.hasAttribute('data-ok')) b.classList.add('is-right');
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      inp.disabled = true;
+      inp.classList.remove('is-wrong');
+      inp.classList.add('is-right');
+      if (status === 'shown' || !inp.value.trim()) inp.value = q.getAttribute('data-show');
+      q.querySelector('.check').disabled = true;
+    }
+    q.querySelector('.reveal').hidden = true;
+    var ex = q.querySelector('.explain');
+    ex.hidden = false;
+    tex(ex);
+    setMsg(q, MSG[status], status === 'shown' ? 'bad' : 'good');
+    state.ans[q.getAttribute('data-q')] = status;
+    if (!restoring) { save(); refresh(); }
+  }
+
+  function parseNum(str) {
+    var s = String(str || '').trim().replace(/\s+/g, '').replace(/,/g, '.').replace(/−/g, '-');
+    var frac = s.match(/^([-+]?(?:\d+\.?\d*|\.\d+))\/([-+]?(?:\d+\.?\d*|\.\d+))$/);
+    if (frac) {
+      var b = parseFloat(frac[2]);
+      return b === 0 ? NaN : parseFloat(frac[1]) / b;
+    }
+    if (!/^[-+]?(?:\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+    return parseFloat(s);
+  }
+
+  qs.forEach(function (q) {
+    q._tries = 0;
+    var reveal = q.querySelector('.reveal');
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (btn) {
+        btn.addEventListener('click', function () {
+          if (q.classList.contains('done') || btn.disabled) return;
+          if (btn.hasAttribute('data-ok')) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+          q._tries++;
+          btn.classList.add('is-wrong');
+          btn.disabled = true;
+          var why = btn.parentNode.querySelector('.why');
+          if (why) { why.hidden = false; tex(why); }
+          setMsg(q, 'Not quite. Read the note under the option, then try another one.', 'bad');
+          reveal.hidden = false;
+        });
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      var check = function () {
+        if (q.classList.contains('done')) return;
+        var v = parseNum(inp.value);
+        if (isNaN(v)) {
+          setMsg(q, 'Type a number. A decimal point or comma both work.', 'info');
+          inp.focus();
+          return;
+        }
+        var ans = parseFloat(q.getAttribute('data-answer'));
+        var tol = parseFloat(q.getAttribute('data-tol') || '0.001');
+        if (Math.abs(v - ans) <= tol + 1e-9) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+        q._tries++;
+        inp.classList.add('is-wrong');
+        var hint = q.querySelector('.hint');
+        if (hint) { hint.hidden = false; tex(hint); }
+        setMsg(q, 'Not quite, the answer is not ' + v.toLocaleString('en-US', { maximumFractionDigits: 4 }) + '. Read the hint and try again.', 'bad');
+        reveal.hidden = false;
+      };
+      q.querySelector('.check').addEventListener('click', check);
+      inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+      inp.addEventListener('input', function () { inp.classList.remove('is-wrong'); });
+    }
+    reveal.addEventListener('click', function () { resolve(q, 'shown'); });
+    var s = state.ans[q.getAttribute('data-q')];
+    if (s === 'first' || s === 'retry' || s === 'shown') resolve(q, s, true);
+  });
+
+  /* ---------- İlerleme, kilitler, rapor ---------- */
+  function stats(st) {
+    var r = { total: 0, done: 0, weak: 0 };
+    each('.q', function (q) {
+      r.total++;
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { r.done++; if (s !== 'first') r.weak++; }
+    }, st);
+    return r;
+  }
+
+  var fill = document.getElementById('fill');
+  var count = document.getElementById('count');
+  var strictBtn = document.getElementById('strict');
+
+  function setLocked(st, locked, blocker) {
+    var grid = st.querySelector('.step-grid');
+    var lock = st.querySelector('.lock');
+    if (locked) {
+      if (!grid.hidden) {
+        grid.hidden = true;
+        if (!mjReady) grid.classList.add('tex-later');
+      }
+      lock.hidden = false;
+      lock.querySelector('.lock-n').textContent = 'Board ' + blocker.getAttribute('data-n');
+      lock.querySelector('.golock').setAttribute('data-target', blocker.id);
+      st.classList.add('is-locked');
+    } else {
+      lock.hidden = true;
+      st.classList.remove('is-locked');
+      if (grid.hidden) { grid.hidden = false; tex(grid); }
+    }
+  }
+
+  function renderReport() {
+    var box = document.getElementById('rapor-icerik');
+    var done = 0, first = 0, weak = [], solid = [];
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (!s) return;
+      done++;
+      if (s === 'first') first++; else weak.push({ q: q, s: s });
+    });
+    steps.forEach(function (st) {
+      var r = stats(st);
+      if (r.done === r.total && !r.weak) solid.push(st.getAttribute('data-n'));
+    });
+    if (!done) {
+      box.innerHTML = `<p>You have not answered anything yet. Start with <a href="#t1">Board 1</a>. The report fills in as you go.</p>`;
+      return;
+    }
+    var h = `<p>You answered <strong>${done}</strong> of <strong>${total}</strong> questions and got <strong>${first}</strong> right on the first try.</p>`;
+    if (weak.length) {
+      h += `<p>Go back to these:</p><ul>` + weak.map(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        var why = w.s === 'shown' ? 'you revealed the answer' : 'not on the first try';
+        return `<li><a href="#${w.q.id}">Board ${n} · ${esc(w.q.getAttribute('data-topic'))}</a> <span class="why-tag">(${why})</span></li>`;
+      }).join('') + `</ul>`;
+      var base = weak.some(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        return n === '7' || n === '8';
+      });
+      if (base) h += `<p>Boards 7 and 8 (δ and completeness) are the foundation of this week; 9–18 are built on them. Solidify those two first.</p>`;
+    }
+    if (solid.length) h += `<p>Boards you cleared without a slip: ${solid.join(', ')}.</p>`;
+    if (done === total && !weak.length) h += `<p>Everything right on the first try. This week has settled and you are ready for the next lecture.</p>`;
+    else if (done === total) h += `<p>You finished every question. Come back to the list above in a few days. What sticks on the second look tends to last.</p>`;
+    box.innerHTML = h;
+  }
+
+  function refresh() {
+    var done = 0, first = 0;
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { done++; if (s === 'first') first++; }
+    });
+    fill.style.width = (total ? 100 * done / total : 0) + '%';
+    count.innerHTML = '<strong>' + done + '/' + total + '</strong> questions · first try ' + first;
+    var blocker = null;
+    steps.forEach(function (st) {
+      var r = stats(st);
+      var s = r.weak ? 'weak' : (r.done === r.total ? 'done' : (r.done ? 'doing' : 'todo'));
+      st.setAttribute('data-s', s);
+      st.querySelector('.st').textContent = r.done + '/' + r.total + ' questions';
+      var locked = state.strict && blocker !== null;
+      setLocked(st, locked, blocker);
+      var a = links[st.id];
+      if (a) {
+        a.setAttribute('data-s', s);
+        a.querySelector('.lk').textContent = locked ? 'locked' : '';
+      }
+      if (blocker === null && r.done < r.total) blocker = st;
+    });
+    strictBtn.setAttribute('aria-pressed', state.strict ? 'true' : 'false');
+    strictBtn.textContent = state.strict ? 'Step by step: on' : 'Step by step: off';
+    renderReport();
+  }
+
+  /* ---------- Gezinme ---------- */
+  function firstOpen(scope) {
+    var list = scope ? Array.prototype.slice.call(scope.querySelectorAll('.q')) : qs;
+    for (var i = 0; i < list.length; i++) {
+      var q = list[i];
+      if (!q.classList.contains('done') && !q.closest('.step').querySelector('.step-grid').hidden) return q;
+    }
+    return null;
+  }
+  function goTo(q) {
+    q.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    var f = q.querySelector('.opt:not(:disabled), input:not(:disabled)');
+    if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (e) {} }, reduce ? 0 : 450);
+  }
+  document.getElementById('next').addEventListener('click', function () {
+    var q = firstOpen();
+    if (q) goTo(q);
+    else document.getElementById('rapor').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
+  strictBtn.addEventListener('click', function () { state.strict = !state.strict; save(); refresh(); });
+  each('.golock', function (b) {
+    b.addEventListener('click', function () {
+      var st = document.getElementById(b.getAttribute('data-target'));
+      if (!st) return;
+      var q = firstOpen(st);
+      if (q) goTo(q); else st.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  each('.unlock-all', function (b) {
+    b.addEventListener('click', function () { state.strict = false; save(); refresh(); });
+  });
+
+  var resetBtn = document.getElementById('reset');
+  var armed = null;
+  resetBtn.addEventListener('click', function () {
+    if (!armed) {
+      resetBtn.textContent = 'Sure? Press once more';
+      armed = setTimeout(function () { armed = null; resetBtn.textContent = 'Reset progress'; }, 4000);
+      return;
+    }
+    clearTimeout(armed);
+    armed = null;
+    resetBtn.textContent = 'Reset progress';
+    state.ans = {};
+    save();
+    qs.forEach(function (q) {
+      q.classList.remove('done');
+      q.removeAttribute('data-status');
+      q._tries = 0;
+      each('.opt', function (b) { b.disabled = false; b.classList.remove('is-right', 'is-wrong'); }, q);
+      each('.why', function (w) { w.hidden = true; }, q);
+      var inp = q.querySelector('input');
+      if (inp) {
+        inp.disabled = false;
+        inp.value = '';
+        inp.classList.remove('is-right', 'is-wrong');
+        q.querySelector('.check').disabled = false;
+      }
+      q.querySelector('.explain').hidden = true;
+      q.querySelector('.reveal').hidden = true;
+      setMsg(q, '', 'info');
+    });
+    refresh();
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  each('details', function (d) {
+    d.addEventListener('toggle', function () { if (d.open) tex(d.querySelector('.d-body')); });
+  });
+
+  /* ---------- Fotoğraf görüntüleyici ---------- */
+  var lb = document.getElementById('lb');
+  var lbImg = lb.querySelector('img');
+  var lbClose = lb.querySelector('.lb-close');
+  var lastFocus = null;
+  function closeLB() {
+    lb.hidden = true;
+    lb.classList.remove('full');
+    document.documentElement.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  each('.zoom', function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lb.classList.remove('full');
+      lb.hidden = false;
+      lastFocus = btn;
+      document.documentElement.style.overflow = 'hidden';
+      lbClose.focus();
+    });
+  });
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLB(); });
+  lbImg.addEventListener('click', function () { lb.classList.toggle('full'); lb.scrollTop = 0; lb.scrollLeft = 0; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLB(); });
+
+  /* ---------- Çizimler ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function tickText(t) {
+    if (typeof t === 'object') return t.s;
+    return String(t).replace('-', '−');
+  }
+  function axes(svg, o) {
+    var X = function (x) { return o.l + (x - o.x0) / (o.x1 - o.x0) * (o.W - o.l - o.r); };
+    var Y = function (y) { return o.H - o.b - (y - o.y0) / (o.y1 - o.y0) * (o.H - o.t - o.b); };
+    (o.yt || []).forEach(function (v) {
+      el('line', { x1: o.l, x2: o.W - o.r, y1: Y(v), y2: Y(v), 'class': 'grid' }, svg);
+      el('text', { x: o.l - 6, y: Y(v) + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = tickText(v);
+    });
+    el('line', { x1: o.l, x2: o.W - o.r, y1: Y(o.y0), y2: Y(o.y0), 'class': 'ax' }, svg);
+    (o.xt || []).forEach(function (t) {
+      var v = typeof t === 'object' ? t.v : t;
+      el('line', { x1: X(v), x2: X(v), y1: Y(o.y0), y2: Y(o.y0) + 4, 'class': 'ax' }, svg);
+      el('text', { x: X(v), y: Y(o.y0) + 17, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = tickText(t);
+    });
+    if (o.xl) el('text', { x: o.W - o.r, y: o.H - 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = o.xl;
+    return { X: X, Y: Y };
+  }
+  function curve(f, a, b, X, Y, n) {
+    n = n || 240;
+    var d = '';
+    for (var i = 0; i <= n; i++) {
+      var x = a + (b - a) * i / n;
+      d += (i ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(f(x)).toFixed(1);
+    }
+    return d;
+  }
+  function area(f, a, b, X, Y) {
+    return curve(f, a, b, X, Y) + 'L' + X(b).toFixed(1) + ',' + Y(0).toFixed(1) + 'L' + X(a).toFixed(1) + ',' + Y(0).toFixed(1) + 'Z';
+  }
+
+  /* Tahta 7: δ kutusu */
+  (function () {
+    var root = document.getElementById('w-delta');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 210, l: 34, r: 14, t: 12, b: 28, x0: -1.25, x1: 1.25, y0: 0, y1: 10.6, xt: [-1, -0.5, 0, 0.5, 1], yt: [0, 2, 4, 6, 8, 10], xl: 'x' };
+    var m = axes(svg, o);
+    var rect = el('rect', { 'class': 'box' }, svg);
+    var lab = el('text', { 'class': 'tick lbl', 'text-anchor': 'middle' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var e = parseFloat(inp.value);
+      var h = 1 / (2 * e);
+      rect.setAttribute('x', m.X(-e));
+      rect.setAttribute('width', m.X(e) - m.X(-e));
+      rect.setAttribute('y', m.Y(h));
+      rect.setAttribute('height', m.Y(0) - m.Y(h));
+      lab.setAttribute('x', m.X(0));
+      lab.setAttribute('y', Math.max(m.Y(h) - 7, 12));
+      lab.textContent = 'area = 1';
+      ro.innerHTML = `<span>ε = <b>${fmt(e, 2)}</b></span><span>width 2ε = <b>${fmt(2 * e, 2)}</b></span><span>height 1/(2ε) = <b>${fmt(h, 2)}</b></span><span>area = <b>1.00</b></span><span>average of x² over [3 − ε, 3 + ε] = <b>${fmt(9 + e * e / 3, 4)}</b></span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Tahta 11: yerel ve yerel olmayan çekirdek */
+  (function () {
+    var svg = document.getElementById('w-kernel');
+    if (!svg) return;
+    var n = 8, c = 17, g = 2;
+    [{ ox: 22, band: 0, t: 'yerel' }, { ox: 186, band: 2, t: 'not local' }].forEach(function (p) {
+      el('text', { x: p.ox + (n * (c + g)) / 2, y: 14, 'text-anchor': 'middle', 'class': 'tick lbl' }, svg).textContent = p.t;
+      for (var i = 0; i < n; i++) {
+        for (var j = 0; j < n; j++) {
+          var d = Math.abs(i - j);
+          var on = d <= p.band;
+          var r = el('rect', { x: p.ox + j * (c + g), y: 22 + i * (c + g), width: c, height: c, rx: 2, 'class': on ? 'cell-on' : 'cell-off' }, svg);
+          if (on) r.setAttribute('opacity', d === 0 ? '1' : (d === 1 ? '.55' : '.25'));
+        }
+      }
+      el('text', { x: p.ox, y: 22 + n * (c + g) + 14, 'class': 'tick' }, svg).textContent = 'row x, column x′';
+    });
+  })();
+
+  /* Tahta 13: düzlem dalga */
+  (function () {
+    var svg = document.getElementById('w-plane');
+    if (!svg) return;
+    var P = Math.PI;
+    var o = { W: 360, H: 180, l: 34, r: 14, t: 10, b: 28, x0: 0, x1: 4 * P, y0: -1.3, y1: 1.3, xt: [{ v: 0, s: '0' }, { v: 2 * P, s: 'λ' }, { v: 4 * P, s: '2λ' }], yt: [-1, 0, 1], xl: 'x' };
+    var m = axes(svg, o);
+    el('path', { d: curve(function () { return 1; }, 0, 4 * P, m.X, m.Y, 2), 'class': 'curve-red' }, svg);
+    el('path', { d: curve(Math.sin, 0, 4 * P, m.X, m.Y), 'class': 'curve-alt' }, svg);
+    el('path', { d: curve(Math.cos, 0, 4 * P, m.X, m.Y), 'class': 'curve' }, svg);
+  })();
+
+  /* Tahta 14: konumda dar, momentumda geniş */
+  (function () {
+    var root = document.getElementById('w-fourier');
+    if (!root) return;
+    function gauss(x, s) { return Math.exp(-x * x / (2 * s * s)) / (Math.sqrt(2 * Math.PI) * s); }
+    function panel(svg, label) {
+      var o = { W: 300, H: 180, l: 30, r: 10, t: 10, b: 28, x0: -4, x1: 4, y0: 0, y1: 1.7, xt: [-4, -2, 0, 2, 4], yt: [0, 0.5, 1, 1.5], xl: label };
+      var m = axes(svg, o);
+      return { m: m, a: el('path', { 'class': 'area' }, svg), c: el('path', { 'class': 'curve' }, svg) };
+    }
+    var px = panel(root.querySelector('.sx'), 'x');
+    var pp = panel(root.querySelector('.sp'), 'p');
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var s = parseFloat(inp.value);
+      var sp = 1 / (2 * s);
+      var fx = function (x) { return gauss(x, s); };
+      var fp = function (p) { return gauss(p, sp); };
+      px.a.setAttribute('d', area(fx, -4, 4, px.m.X, px.m.Y));
+      px.c.setAttribute('d', curve(fx, -4, 4, px.m.X, px.m.Y));
+      pp.a.setAttribute('d', area(fp, -4, 4, pp.m.X, pp.m.Y));
+      pp.c.setAttribute('d', curve(fp, -4, 4, pp.m.X, pp.m.Y));
+      ro.innerHTML = `<span>Δx = σ = <b>${fmt(s, 2)}</b></span><span>Δp = ħ/(2σ) = <b>${fmt(sp, 2)}</b></span><span>Δx · Δp = <b>0.50 ħ</b></span><span>(with ħ = 1)</span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Tahta 17: grafik kaydırma ve teğet yaklaşımı */
+  (function () {
+    var root = document.getElementById('w-shift');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 210, l: 34, r: 14, t: 12, b: 28, x0: -3, x1: 4, y0: 0, y1: 2.1, xt: [-2, 0, 2, 4], yt: [0, 1, 2], xl: 'x' };
+    var m = axes(svg, o);
+    var psi = function (x) { return Math.exp(-x * x); };
+    var x0 = 0.5;
+    el('line', { x1: m.X(x0), x2: m.X(x0), y1: m.Y(0), y2: m.Y(2.1), 'class': 'mark' }, svg);
+    el('path', { d: curve(psi, -3, 4, m.X, m.Y), 'class': 'curve-alt' }, svg);
+    var shifted = el('path', { 'class': 'curve' }, svg);
+    var exact = el('circle', { r: 4.5, 'class': 'dot-b' }, svg);
+    var approx = el('circle', { r: 5, 'class': 'dot-r' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    var p0 = psi(x0);
+    var d0 = -2 * x0 * p0;
+    function draw() {
+      var a = parseFloat(inp.value);
+      shifted.setAttribute('d', curve(function (x) { return psi(x - a); }, -3, 4, m.X, m.Y));
+      var ex = psi(x0 - a);
+      var ap = p0 - a * d0;
+      exact.setAttribute('cx', m.X(x0));
+      exact.setAttribute('cy', m.Y(ex));
+      approx.setAttribute('cx', m.X(x0));
+      approx.setAttribute('cy', m.Y(Math.min(ap, 2.1)));
+      ro.innerHTML = `<span>a = <b>${fmt(a, 2)}</b></span><span>true ψ(x₀ − a) = <b>${fmt(ex, 3)}</b></span><span>tangent approximation ψ(x₀) − aψ′(x₀) = <b>${fmt(ap, 3)}</b></span><span>difference = <b>${fmt(Math.abs(ap - ex), 3)}</b></span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  refresh();
+})();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { ignoreHtmlClass: 'tex-later', enableMenu: false },
+  startup: {
+    pageReady: function () {
+      return MathJax.startup.defaultPageReady().then(function () {
+        window.dispatchEvent(new Event('mathjax-ready'));
+      });
+    }
+  }
+};
+</script>
+<script>
+// Sesli özet: hız seçimi ve kaldığın yer bu tarayıcıda hatırlanır.
+(function () {
+  var a = document.getElementById('ses');
+  if (!a) return;
+  var K = 'kbm-601-hafta6-ses';
+  var bs = Array.prototype.slice.call(document.querySelectorAll('.speed button'));
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) {}
+  function save() {
+    try { localStorage.setItem(K, JSON.stringify({ t: a.currentTime, r: a.playbackRate })); } catch (e) {}
+  }
+  function setRate(r) {
+    a.defaultPlaybackRate = r;
+    a.playbackRate = r;
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.r) === r)); });
+  }
+  bs.forEach(function (b) {
+    b.addEventListener('click', function () { setRate(Number(b.dataset.r)); save(); });
+  });
+  if (saved && saved.r) setRate(saved.r);
+  a.addEventListener('loadedmetadata', function () {
+    if (saved && saved.t > 5 && saved.t < a.duration - 5) a.currentTime = saved.t;
+  });
+  var last = 0;
+  a.addEventListener('timeupdate', function () {
+    if (Math.abs(a.currentTime - last) > 5) { last = a.currentTime; save(); }
+  });
+  a.addEventListener('pause', save);
+  a.addEventListener('ended', function () { a.currentTime = 0; save(); });
+})();
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</body>
+</html>

@@ -1370,7 +1370,7 @@ details[open] > summary::before { content: "−"; }
       <p>\(\langle x|n\rangle=u_n(x)\) is the eigenfunction of Board 3. The wave function is a sum of eigenfunctions weighted by \(c_n\); the translation table is the eigenfunctions themselves.</p>
       <aside class="fix">
         <span class="tag">Board note</span>
-        <p>On the board the coefficient in the momentum basis is also written as \(\psi(p)\). This does not mean putting p in place of x in the function \(\psi(x)\); it is a different function, \(\langle p|\psi\rangle\). To avoid confusion most books write \(\phi(p)\) or \(\tilde\psi(p)\). That \(\phi(p)\) is the Fourier transform of \(\psi(x)\) is the <a href="../hafta-6/#t14">topic of week 6</a>.</p>
+        <p>On the board the coefficient in the momentum basis is also written as \(\psi(p)\). This does not mean putting p in place of x in the function \(\psi(x)\); it is a different function, \(\langle p|\psi\rangle\). To avoid confusion most books write \(\phi(p)\) or \(\tilde\psi(p)\). That \(\phi(p)\) is the Fourier transform of \(\psi(x)\) is the <a href="../hafta-6/en.html#t14">topic of week 6</a>.</p>
       </aside>
       <p>5.3 Projectors and projective measurement. The projection operator (projector) onto a normalized \(|a_n\rangle\):</p>
       <div class="eq">\[ \hat P_n=|a_n\rangle\langle a_n| \]</div>
@@ -2508,7 +2508,7 @@ document.documentElement.lang = 'en';
         bars[i].t.setAttribute('y', by - h - 5);
         bars[i].t.textContent = fmt(v, 2);
       });
-      ro.innerHTML = `<span>φ = <b>${ip.value}°</b></span><span>global = <b>${ig.value}°</b></span><span>P(0) = P(1) = <b>0,50</b></span><span>P(+) = cos²(φ/2) = <b>${fmt(pp, 3)}</b></span><span>P(−) = <b>${fmt(pm, 3)}</b></span>`;
+      ro.innerHTML = `<span>φ = <b>${ip.value}°</b></span><span>global = <b>${ig.value}°</b></span><span>P(0) = P(1) = <b>0.50</b></span><span>P(+) = cos²(φ/2) = <b>${fmt(pp, 3)}</b></span><span>P(−) = <b>${fmt(pm, 3)}</b></span>`;
     }
     ip.addEventListener('input', draw);
     ig.addEventListener('input', draw);
