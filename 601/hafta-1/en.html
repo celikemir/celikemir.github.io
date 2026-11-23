@@ -2384,7 +2384,7 @@ document.documentElement.lang = 'en';
       var swatch = wlColor(l);
       var light = swatch ? `<span class="sw" style="background:${swatch}"></span>${region(l)}` : region(l);
       var cur = on ? fmt(I * l / 650, 1) : '0';
-      ro.innerHTML = `<span>λ = <b>${fmt(l, 0)} nm</b> · ${light}</span><span>foton enerjisi = <b>${fmt(E, 2)} eV</b></span><span>${NAME[mi]}: W = <b>${fmt(w, 1)} eV</b>, λ₀ = <b>${fmt(HC / w, 0)} nm</b></span>` +
+      ro.innerHTML = `<span>λ = <b>${fmt(l, 0)} nm</b> · ${light}</span><span>photon energy = <b>${fmt(E, 2)} eV</b></span><span>${NAME[mi]}: W = <b>${fmt(w, 1)} eV</b>, λ₀ = <b>${fmt(HC / w, 0)} nm</b></span>` +
         (on ? `<span>Kmax = <b>${fmt(K, 2)} eV</b>, Vs = <b>${fmt(K, 2)} V</b></span>` : `<span><b>no electrons emitted</b> (hν &lt; W)</span>`) +
         `<span>electron current (relative): <b>${cur}</b></span>`;
     }
@@ -2498,7 +2498,7 @@ document.documentElement.lang = 'en';
       if (pe * L > 3) {
         var exx = O.x + L * ex, eyy = O.y + L * ey;
         el('line', { x1: O.x, y1: O.y, x2: exx, y2: eyy, 'class': 'arr', 'marker-end': 'url(#ahck)' }, g);
-        el('text', { x: Math.min(exx + 6, 310), y: Math.min(eyy + 14, 222), 'class': 'fig-s' }, g).textContent = 'elektron, pₑ';
+        el('text', { x: Math.min(exx + 6, 310), y: Math.min(eyy + 14, 222), 'class': 'fig-s' }, g).textContent = 'electron, pₑ';
       } else {
         el('text', { x: O.x + 6, y: O.y + 18, 'class': 'fig-s' }, g).textContent = 'electron nearly at rest';
       }
@@ -2512,7 +2512,7 @@ document.documentElement.lang = 'en';
       var E = HC * 1000 / lam, E2 = HC * 1000 / lam2; /* eV, λ pm */
       var rel = 100 * dl / lam;
       var lamTxt = lam >= 1000 ? fmt(lam2 / 1000, 4) + ' nm' : fmt(lam2, 2) + ' pm';
-      ro.innerHTML = `<span>λ′ = <b>${lamTxt}</b></span><span>Δλ = <b>${fmt(dl, 2)} pm</b></span><span>Δλ/λ = <b>%${sci(rel, 2)}</b></span><span>foton: <b>${fmtE(E)} → ${fmtE(E2)}</b></span><span>elektronun kinetik enerjisi: <b>${fmtE(E - E2)}</b></span>` +
+      ro.innerHTML = `<span>λ′ = <b>${lamTxt}</b></span><span>Δλ = <b>${fmt(dl, 2)} pm</b></span><span>Δλ/λ = <b>${sci(rel, 2)}%</b></span><span>photon: <b>${fmtE(E)} → ${fmtE(E2)}</b></span><span>kinetic energy of the electron: <b>${fmtE(E - E2)}</b></span>` +
         (pe > 1e-6 ? `<span>recoil angle φ = <b>${fmt(phi, 0)}°</b></span>` : '');
     }
     iT.addEventListener('input', draw);
