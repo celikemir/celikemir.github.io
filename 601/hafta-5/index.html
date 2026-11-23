@@ -474,6 +474,27 @@ details[open] > summary::before { content: "−"; }
   <p class="lead">Ders 4. haftanın iki tahtalık özetiyle açıldı: harmonik osilatör ve Dirac notasyonu. Sonra 6. bölüm başladı. Bir baz seçince ket bir sütun vektörüne, operatör kare bir matrise, \(\hat A|\psi\rangle\) de matris çarpımına dönüşüyor. Hermitsel operatörün matrisi köşegene göre eşlenik simetrik ve özdeğerleri reel; üniter operatör iç çarpımı koruyor. Ders özdeğer problemi, spektral teorem ve baz değişimiyle bitti: koordinatlar değişiyor, fizik değişmiyor.</p>
 </header>
 
+<section class="wrap listen" aria-label="Sesli özet">
+  <div class="listen-card">
+    <div class="listen-h">
+      <span class="tag">Sesli özet</span>
+      <span class="listen-meta">Türkçe · 25 dakika</span>
+    </div>
+    <p class="listen-t">Bra-ket notasyonu ve Hermitsel operatörler</p>
+    <audio id="ses" controls preload="metadata">
+      <source src="sesli-ozet.m4a" type="audio/mp4">
+      Tarayıcın sesi burada oynatamıyor; <a href="sesli-ozet.m4a">dosyayı indir</a>.
+    </audio>
+    <div class="speed" role="group" aria-label="Oynatma hızı">
+      <span>Hız</span>
+      <button type="button" data-r="1" aria-pressed="true">1×</button>
+      <button type="button" data-r="1.25" aria-pressed="false">1,25×</button>
+      <button type="button" data-r="1.5" aria-pressed="false">1,5×</button>
+      <button type="button" data-r="2" aria-pressed="false">2×</button>
+    </div>
+  </div>
+</section>
+
 <section class="wrap intro" aria-label="Nasıl çalışılır">
   <div class="howto">
     <p class="k">Nasıl çalışılır</p>
@@ -2745,6 +2766,38 @@ window.MathJax = {
     }
   }
 };
+</script>
+<script>
+// Sesli özet: hız seçimi ve kaldığın yer bu tarayıcıda hatırlanır.
+(function () {
+  var a = document.getElementById('ses');
+  if (!a) return;
+  var K = 'kbm-601-hafta5-ses';
+  var bs = Array.prototype.slice.call(document.querySelectorAll('.speed button'));
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) {}
+  function save() {
+    try { localStorage.setItem(K, JSON.stringify({ t: a.currentTime, r: a.playbackRate })); } catch (e) {}
+  }
+  function setRate(r) {
+    a.defaultPlaybackRate = r;
+    a.playbackRate = r;
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.r) === r)); });
+  }
+  bs.forEach(function (b) {
+    b.addEventListener('click', function () { setRate(Number(b.dataset.r)); save(); });
+  });
+  if (saved && saved.r) setRate(saved.r);
+  a.addEventListener('loadedmetadata', function () {
+    if (saved && saved.t > 5 && saved.t < a.duration - 5) a.currentTime = saved.t;
+  });
+  var last = 0;
+  a.addEventListener('timeupdate', function () {
+    if (Math.abs(a.currentTime - last) > 5) { last = a.currentTime; save(); }
+  });
+  a.addEventListener('pause', save);
+  a.addEventListener('ended', function () { a.currentTime = 0; save(); });
+})();
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </body>

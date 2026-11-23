@@ -133,6 +133,19 @@ strong { font-weight: 650; }
 .tag { font-family: var(--font-hand); font-size: 25px; line-height: 1; display: block; }
 .remind .tag { color: var(--red); }
 
+/* Sesli özet */
+.listen { padding-top: 22px; }
+.listen-card { max-width: 720px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px 16px; display: grid; gap: 10px; box-shadow: var(--shadow); }
+.listen-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.listen .tag { color: var(--marker); }
+.listen-meta { font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.listen-t { font-size: 17px; font-weight: 600; line-height: 1.35; }
+.listen audio { display: block; width: 100%; height: 44px; }
+.speed { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.speed span { margin-right: 4px; }
+.speed button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; min-height: 32px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.speed button[aria-pressed="true"] { background: var(--marker); border-color: var(--marker); color: var(--marker-ink); }
+
 /* Harita */
 .map { display: grid; gap: 18px 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); padding-block: 4px 26px; }
 .map-g h2 { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
@@ -439,6 +452,27 @@ details[open] > summary::before { content: "−"; }
   <h1>Simetriden korunuma</h1>
   <p class="lead">Ders geçen haftanın üç tahtalık özetiyle açıldı. Sonra 8. bölüme geçtik: her sürekli dönüşüm \(e^{-i\varepsilon\hat G/\hbar}\) diye yazılır ve üniter olması için üreteç \(\hat G\) Hermitsel olmalı. Hamiltonyeni değiştirmeyen dönüşüm bir simetridir, şartı <span class="nw">\([\hat H,\hat G]=0\);</span> Heisenberg denklemi aynı şartın bir korunum yasası olduğunu söylüyor. Ders aktif ve pasif dönüşümle, 9. bölümün komütatör cebiriyle ve <span class="nw">\([\hat x,\hat p^n]\)'nin</span> tümevarımla ispatıyla bitti.</p>
 </header>
+
+<section class="wrap listen" aria-label="Sesli özet">
+  <div class="listen-card">
+    <div class="listen-h">
+      <span class="tag">Sesli özet</span>
+      <span class="listen-meta">Türkçe · 20 dakika</span>
+    </div>
+    <p class="listen-t">Korunum yasalarının arkasındaki kuantum simetrisi</p>
+    <audio id="ses" controls preload="metadata">
+      <source src="sesli-ozet.m4a" type="audio/mp4">
+      Tarayıcın sesi burada oynatamıyor; <a href="sesli-ozet.m4a">dosyayı indir</a>.
+    </audio>
+    <div class="speed" role="group" aria-label="Oynatma hızı">
+      <span>Hız</span>
+      <button type="button" data-r="1" aria-pressed="true">1×</button>
+      <button type="button" data-r="1.25" aria-pressed="false">1,25×</button>
+      <button type="button" data-r="1.5" aria-pressed="false">1,5×</button>
+      <button type="button" data-r="2" aria-pressed="false">2×</button>
+    </div>
+  </div>
+</section>
 
 <section class="wrap intro" aria-label="Nasıl çalışılır">
   <div class="howto">
@@ -2549,6 +2583,38 @@ window.MathJax = {
     }
   }
 };
+</script>
+<script>
+// Sesli özet: hız seçimi ve kaldığın yer bu tarayıcıda hatırlanır.
+(function () {
+  var a = document.getElementById('ses');
+  if (!a) return;
+  var K = 'kbm-601-hafta7-ses';
+  var bs = Array.prototype.slice.call(document.querySelectorAll('.speed button'));
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) {}
+  function save() {
+    try { localStorage.setItem(K, JSON.stringify({ t: a.currentTime, r: a.playbackRate })); } catch (e) {}
+  }
+  function setRate(r) {
+    a.defaultPlaybackRate = r;
+    a.playbackRate = r;
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.r) === r)); });
+  }
+  bs.forEach(function (b) {
+    b.addEventListener('click', function () { setRate(Number(b.dataset.r)); save(); });
+  });
+  if (saved && saved.r) setRate(saved.r);
+  a.addEventListener('loadedmetadata', function () {
+    if (saved && saved.t > 5 && saved.t < a.duration - 5) a.currentTime = saved.t;
+  });
+  var last = 0;
+  a.addEventListener('timeupdate', function () {
+    if (Math.abs(a.currentTime - last) > 5) { last = a.currentTime; save(); }
+  });
+  a.addEventListener('pause', save);
+  a.addEventListener('ended', function () { a.currentTime = 0; save(); });
+})();
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </body>
