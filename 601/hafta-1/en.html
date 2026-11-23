@@ -480,7 +480,7 @@ details[open] > summary::before { content: "−"; }
   </div>
   <aside class="remind">
     <span class="tag">Four lines from high school physics</span>
-    <div class="eq">\[ E=h\nu,\qquad c=\lambda\nu,\qquad F=\frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r^2},\qquad a_{\text{merkezcil}}=\frac{v^2}{r} \]</div>
+    <div class="eq">\[ E=h\nu,\qquad c=\lambda\nu,\qquad F=\frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r^2},\qquad a_{\text{centripetal}}=\frac{v^2}{r} \]</div>
     <p>This whole week is built on these four lines. Keep two numbers in your pocket: \(1\ \text{eV}=1.602\times10^{-19}\ \text{J}\) and \(hc\approx1240\ \text{eV·nm}\). Divide by the wavelength in nanometers and you get the photon energy directly in eV: 620 nm, 2 eV.</p>
   </aside>
 </section>
@@ -1146,8 +1146,8 @@ details[open] > summary::before { content: "−"; }
       <details class="more">
         <summary>The correspondence principle: classical physics returns at large n</summary>
         <div class="d-body tex-later">
-          <p>Bohr argued that the new theory should turn into classical physics where classical physics is valid, at large quantum numbers. Classically, light is expected at the orbital frequency: \(\nu_{\text{kl}}=v/2\pi r=(Z\alpha)^2m_ec^2/(2\pi\hbar\,n^3)\). According to Bohr, the frequency of the \(n+1\to n\) transition is</p>
-          <div class="eq">\[ \nu=\frac{(Z\alpha)^2m_ec^2}{4\pi\hbar}\left(\frac{1}{n^2}-\frac{1}{(n+1)^2}\right)\approx\frac{(Z\alpha)^2m_ec^2}{4\pi\hbar}\cdot\frac{2}{n^3}=\nu_{\text{kl}}\qquad(n\gg1) \]</div>
+          <p>Bohr argued that the new theory should turn into classical physics where classical physics is valid, at large quantum numbers. Classically, light is expected at the orbital frequency: \(\nu_{\text{cl}}=v/2\pi r=(Z\alpha)^2m_ec^2/(2\pi\hbar\,n^3)\). According to Bohr, the frequency of the \(n+1\to n\) transition is</p>
+          <div class="eq">\[ \nu=\frac{(Z\alpha)^2m_ec^2}{4\pi\hbar}\left(\frac{1}{n^2}-\frac{1}{(n+1)^2}\right)\approx\frac{(Z\alpha)^2m_ec^2}{4\pi\hbar}\cdot\frac{2}{n^3}=\nu_{\text{cl}}\qquad(n\gg1) \]</div>
           <p>The two coincide at large n. This principle guided Heisenberg in his 1925 breakthrough. The book also explains that when the nucleus is not treated as infinitely heavy, the reduced mass \(m_e/(1+m_e/M)\) takes the place of \(m_e\); only then do the measured shifts of the He⁺ lines match exactly.</p>
         </div>
       </details>
@@ -1431,7 +1431,7 @@ details[open] > summary::before { content: "−"; }
       <p class="gist"><span class="k">In one sentence</span>When a wave is confined to a limited region, only the wavelengths that satisfy the boundary condition survive; on a circle the condition is \(2\pi r=n\lambda\), and with \(\lambda=h/m_ev\) this is exactly \(m_evr=n\hbar\).</p>
       <p>The title of section 1.1: the Bohr atom model (old quantum condition) as a boundary condition. The rule on the board is general: if you confine a particle-wave to a finite region with boundaries, quantization comes from the boundary condition. We will see this all over quantum mechanics: the particle in a box, the particle in a well, the atom.</p>
       <p>Let us apply it to the Bohr orbit. The de Broglie wavelength of the electron is \(\lambda_{dB}=h/p=h/m_ev\). The wave travels along the circle and after one turn comes back to where it started. There the value of the wave must be single valued: it cannot take two different values at the same point. Measuring arc length with s:</p>
-      <div class="eq">\[ \psi(s)=\psi(s+2\pi r)\qquad\text{tahtada: }\ \psi(0)=\psi(2\pi r)=\psi(n\,2\pi r) \]</div>
+      <div class="eq">\[ \psi(s)=\psi(s+2\pi r)\qquad\text{on the board: }\ \psi(0)=\psi(2\pi r)=\psi(n\,2\pi r) \]</div>
       <p>This only works if a whole number of wavelengths fits around the circumference; the wave closes on itself and forms a standing wave. This is the orange drawing on the board:</p>
       <div class="eq">\[ 2\pi r=n\,\lambda_{dB}=n\,\frac{h}{m_ev}\qquad\Longrightarrow\qquad m_evr=n\,\frac{h}{2\pi}=n\hbar \]</div>
       <p>Bohr's third postulate has gone from an assumption to a result. The rest is as in Step 7: combine it with the force balance and \(E_n\propto1/n^2\) follows (“from here \(E_n\propto1/n^2\) follows etc.”).</p>
