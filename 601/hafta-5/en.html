@@ -296,9 +296,9 @@ details[open] > summary::before { content: "−"; }
 .opt.is-wrong { border-color: var(--red); background: var(--red-soft); color: var(--ink-2); }
 .opt.is-wrong::before { content: "✗"; background: var(--red); border-color: var(--red); color: var(--bg); }
 .why { font-size: 15px; color: var(--ink-2); padding-left: 50px; }
-.why::before { content: "Neden olmaz: "; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; color: var(--red); }
+.why::before { content: "Why not: "; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; color: var(--red); }
 .hint { padding-left: 0; }
-.hint::before { content: "İpucu: "; color: var(--marker); }
+.hint::before { content: "Hint: "; color: var(--marker); }
 .num-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .num-row input {
   font-family: var(--font-ui);
@@ -321,7 +321,7 @@ details[open] > summary::before { content: "−"; }
 .msg[data-k="bad"] { color: var(--red); }
 .msg[data-k="info"] { color: var(--ink-2); }
 .explain { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 16px; }
-.explain::before { content: "Açıklama"; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.explain::before { content: "Explanation"; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
 
 /* Kilit */
 .lock { border: 1.5px dashed var(--line); border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-family: var(--font-ui); font-size: 14.5px; color: var(--ink-2); }
@@ -473,6 +473,27 @@ details[open] > summary::before { content: "−"; }
   <h1>Operators, matrices and change of basis</h1>
   <p class="lead">The lecture opened with a two board summary of week 4, the harmonic oscillator and Dirac notation. Then chapter 6 began. Once you pick a basis, a ket becomes a column vector, an operator becomes a square matrix and \(\hat A|\psi\rangle\) becomes a matrix product. The matrix of a Hermitian operator is conjugate symmetric about the diagonal and its eigenvalues are real. A unitary operator preserves inner products. The lecture ended with the eigenvalue problem, the spectral theorem and change of basis. The coordinates change and the physics does not.</p>
 </header>
+
+<section class="wrap listen" aria-label="Audio summary">
+  <div class="listen-card">
+    <div class="listen-h">
+      <span class="tag">Audio summary</span>
+      <span class="listen-meta">In Turkish · 25 minutes</span>
+    </div>
+    <p class="listen-t">Bra-ket notation and Hermitian operators</p>
+    <audio id="ses" controls preload="metadata">
+      <source src="sesli-ozet.m4a" type="audio/mp4">
+      Your browser cannot play the audio here; <a href="sesli-ozet.m4a">download the file</a>.
+    </audio>
+    <div class="speed" role="group" aria-label="Playback speed">
+      <span>Speed</span>
+      <button type="button" data-r="1" aria-pressed="true">1×</button>
+      <button type="button" data-r="1.25" aria-pressed="false">1.25×</button>
+      <button type="button" data-r="1.5" aria-pressed="false">1.5×</button>
+      <button type="button" data-r="2" aria-pressed="false">2×</button>
+    </div>
+  </div>
+</section>
 
 <section class="wrap intro" aria-label="How to study">
   <div class="howto">
@@ -2745,6 +2766,38 @@ window.MathJax = {
     }
   }
 };
+</script>
+<script>
+// Audio summary: speed and position are remembered in this browser.
+(function () {
+  var a = document.getElementById('ses');
+  if (!a) return;
+  var K = 'kbm-601-hafta5-ses';
+  var bs = Array.prototype.slice.call(document.querySelectorAll('.speed button'));
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) {}
+  function save() {
+    try { localStorage.setItem(K, JSON.stringify({ t: a.currentTime, r: a.playbackRate })); } catch (e) {}
+  }
+  function setRate(r) {
+    a.defaultPlaybackRate = r;
+    a.playbackRate = r;
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.r) === r)); });
+  }
+  bs.forEach(function (b) {
+    b.addEventListener('click', function () { setRate(Number(b.dataset.r)); save(); });
+  });
+  if (saved && saved.r) setRate(saved.r);
+  a.addEventListener('loadedmetadata', function () {
+    if (saved && saved.t > 5 && saved.t < a.duration - 5) a.currentTime = saved.t;
+  });
+  var last = 0;
+  a.addEventListener('timeupdate', function () {
+    if (Math.abs(a.currentTime - last) > 5) { last = a.currentTime; save(); }
+  });
+  a.addEventListener('pause', save);
+  a.addEventListener('ended', function () { a.currentTime = 0; save(); });
+})();
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </body>
