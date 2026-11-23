@@ -1,0 +1,1638 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.crumbs .lang { font-weight: 600; }
+.kbm-crumbs .lang{font-weight:600}
+</style>
+<title>Electromagnetic Theory from Scratch</title>
+<meta name="description" content="The ground that Parts 1–4 build on: vector fields, divergence and curl, flux and the two big theorems, complex waves; then from charge to the four Maxwell…">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="./">
+<link rel="alternate" hreflang="en" href="en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<style>
+/* Layout: graph-paper masthead with a spectral rule, one serif reading column (~68ch),
+   margin notes beside it on wide screens, figures and tools on graph-paper panels. */
+:root{
+  --paper:#F7F8F6;
+  --sheet:#FCFCFB;
+  --grid:rgba(39,112,194,.085);
+  --ink:#16203A;
+  --ink-2:#4A5570;
+  --ink-3:#636C80;
+  --rule:#DCE1E7;
+  --magenta:#B8236A;
+  --blue:#2770C2;
+  --red:#B83226;
+  --mag-wash:rgba(184,35,106,.075);
+  --blue-wash:rgba(39,112,194,.085);
+  --red-wash:rgba(184,50,38,.07);
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Source Serif 4","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+    --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+    --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+    --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1522; --sheet:#151D2D; --grid:rgba(110,160,230,.075);
+  --ink:#E6EAF2; --ink-2:#A8B1C4; --ink-3:#8690A6; --rule:#28334A;
+  --magenta:#E2558F; --blue:#4C8EE0; --red:#F07A6C;
+  --mag-wash:rgba(226,85,143,.13); --blue-wash:rgba(76,142,224,.13); --red-wash:rgba(240,122,108,.12);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:1.0625rem;line-height:1.62;
+  font-optical-sizing:auto;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:var(--mag-wash)}
+a{color:var(--blue);text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+.wrap{
+  max-width:1180px;margin-inline:auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- masthead ---------- */
+.masthead{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:22px 22px;
+  border-bottom:1px solid var(--rule);
+}
+.masthead .wrap{padding-block:clamp(28px,5vw,56px) 22px;display:grid;gap:14px}
+.kicker{
+  font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-2);margin:0;display:flex;flex-wrap:wrap;gap:.35rem 1rem;
+}
+.kicker b{color:var(--magenta);font-weight:600}
+h1{
+  font-family:var(--font-display);font-weight:760;font-stretch:112%;
+  font-variation-settings:"wdth" 112;
+  font-size:clamp(2.15rem, 1.25rem + 3.8vw, 3.55rem);line-height:1.02;letter-spacing:-.018em;
+  margin:0;text-wrap:balance;max-width:20ch;
+}
+.lede{font-size:1.16rem;line-height:1.55;color:var(--ink-2);margin:0;max-width:62ch}
+.series{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.series a,.series span.item{
+  display:inline-flex;align-items:baseline;gap:.5rem;
+  font-family:var(--font-display);font-size:.88rem;font-weight:560;
+  padding:.38rem .7rem .38rem .55rem;border:1px solid var(--rule);border-radius:999px;
+  color:var(--ink-2);text-decoration:none;background:var(--paper);
+}
+.series .n{font-family:var(--font-mono);font-size:.74rem;color:var(--ink-3)}
+.series a:hover{border-color:var(--ink-3);color:var(--ink)}
+.series .is-current{border-color:var(--magenta);color:var(--ink);background:var(--mag-wash)}
+.series .is-current .n{color:var(--magenta)}
+.spectrum{height:7px;position:relative}
+.spectrum-scale{
+  position:relative;height:18px;font-family:var(--font-mono);font-size:.62rem;color:var(--ink-3);overflow:hidden;
+}
+.spectrum-scale span{position:absolute;top:3px;transform:translateX(-50%);white-space:nowrap}
+
+/* ---------- page layout ---------- */
+.layout{display:block;padding-block:28px 72px}
+.toc{
+  font-family:var(--font-display);font-size:.86rem;margin:0 0 28px;
+  display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--ink-3);
+}
+.toc .toc-title{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;width:100%;color:var(--ink-3)}
+.toc a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid var(--rule)}
+.toc a:hover{color:var(--ink);border-bottom-color:var(--magenta)}
+.prose{max-width:700px;min-width:0}
+.prose > section{padding-top:18px;margin-top:30px;border-top:1px solid var(--rule)}
+.prose > section:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.prose::after{content:"";display:block;clear:both}
+
+@media (min-width:1240px){
+  .layout{display:grid;grid-template-columns:184px minmax(0,1fr);gap:40px}
+  .toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;flex-direction:column;flex-wrap:nowrap;gap:9px;margin:0;max-height:calc(100vh - 48px);overflow-y:auto;padding-bottom:12px}
+  .toc a{border-bottom:0}
+  .toc a.on{color:var(--magenta)}
+  .prose{margin-right:300px}
+}
+
+/* ---------- type ---------- */
+.eyebrow{
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0 0 4px;
+}
+h2{
+  font-family:var(--font-display);font-weight:690;font-stretch:104%;font-variation-settings:"wdth" 104;
+  font-size:clamp(1.42rem, 1.1rem + 1.1vw, 1.75rem);line-height:1.15;letter-spacing:-.01em;
+  margin:0 0 .7rem;text-wrap:balance;scroll-margin-top:20px;
+}
+h3{font-family:var(--font-display);font-weight:650;font-size:1.1rem;line-height:1.25;margin:1.6rem 0 .4rem;text-wrap:balance}
+p{margin:.75rem 0}
+.prose ul,.prose ol{padding-left:1.25rem;margin:.6rem 0}
+.prose li{margin:.3rem 0}
+strong{font-weight:640}
+.mono{font-family:var(--font-mono);font-size:.88em}
+.en{font-style:italic;color:var(--ink-2)}
+sub,sup{line-height:0}
+
+/* ---------- math ---------- */
+mjx-container[jax="SVG"][display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%;padding:3px 0;margin:.9em 0 !important}
+mjx-container[jax="SVG"]{outline:none}
+mjx-container .cE{fill:var(--magenta);stroke:var(--magenta)}
+mjx-container .cB{fill:var(--blue);stroke:var(--blue)}
+mjx-container .cR{fill:var(--red);stroke:var(--red)}
+mjx-container .cM{fill:var(--ink-3);stroke:var(--ink-3)}
+.key{
+  border:1.5px solid var(--magenta);border-radius:28px;
+  padding:0 1.3rem;width:fit-content;max-width:100%;margin:1.1rem auto;overflow-x:auto;
+  background:var(--sheet);
+}
+.key mjx-container[jax="SVG"][display="true"]{margin:.55em 0 !important}
+.key.blue{border-color:var(--blue)}
+
+/* ---------- notes ---------- */
+.note{
+  font-size:.9rem;line-height:1.5;color:var(--ink-2);
+  background:var(--sheet);border:1px solid var(--rule);border-radius:var(--radius);
+  padding:.8rem 1rem;margin:1rem 0;
+}
+.note p{margin:.35rem 0 0}
+.note .tag{
+  display:block;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+}
+.note.fix{background:var(--red-wash);border-color:transparent}
+.note.fix .tag{color:var(--red)}
+.note.more .tag{color:var(--blue)}
+.note.tip .tag{color:var(--magenta)}
+@media (min-width:1240px){
+  .note,.note.fix{float:right;clear:right;width:262px;margin:.2rem -300px 1rem 0;background:none;border:0;border-top:1px solid var(--rule);border-radius:0;padding:.55rem 0 0}
+  .wide{margin-right:-300px;clear:right}
+}
+
+/* ---------- lists of quantities ---------- */
+.defs{display:grid;gap:10px;margin:1rem 0;padding:0}
+.defs > div{display:grid;grid-template-columns:3.2rem minmax(0,1fr);gap:4px 14px;align-items:baseline}
+.defs dt{font-size:1.15rem;text-align:center}
+.defs dd{margin:0}
+.defs dd b{font-family:var(--font-display);font-weight:640;font-size:.95rem}
+
+/* ---------- panels, figures, tools ---------- */
+figure{margin:1.4rem 0}
+.panel{
+  border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet);
+  overflow:hidden;
+}
+.graph{
+  background-color:var(--sheet);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:20px 20px;background-position:-1px -1px;
+}
+.panel-head{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;
+  padding:12px 16px 10px;border-bottom:1px solid var(--rule);background:var(--sheet);
+}
+.panel-head h3{margin:0;font-size:1rem}
+.panel-head .hint{font-family:var(--font-mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.04em}
+figcaption{
+  font-family:var(--font-display);font-size:.84rem;line-height:1.45;color:var(--ink-2);
+  padding:10px 16px 12px;border-top:1px solid var(--rule);background:var(--sheet);
+}
+figure.bare figcaption{border-top:0;padding:8px 2px 0;background:none}
+.svgbox{display:block;width:100%;height:auto}
+.scroll-x{overflow-x:auto}
+canvas.sim{display:block;width:100%;touch-action:pan-y}
+
+.controls{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;padding:12px 16px;border-top:1px solid var(--rule);background:var(--sheet)}
+.seg{display:inline-flex;flex-wrap:wrap;gap:6px}
+.seg button,.btn{
+  font-family:var(--font-display);font-size:.84rem;font-weight:560;color:var(--ink-2);
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:.32rem .75rem;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.seg button:hover,.btn:hover{border-color:var(--ink-3);color:var(--ink)}
+.seg button[aria-pressed="true"]{border-color:var(--magenta);color:var(--magenta);background:var(--mag-wash)}
+.btn.icon{display:inline-flex;align-items:center;gap:.4rem}
+.slider{display:grid;grid-template-columns:auto minmax(110px,1fr) 4.6rem;gap:10px;align-items:center;flex:1 1 260px;min-width:0}
+.slider .lbl{font-family:var(--font-mono);font-size:.78rem;color:var(--ink-2);white-space:nowrap}
+.slider output{font-family:var(--font-mono);font-size:.8rem;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--magenta);margin:0;min-width:0}
+.check{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-display);font-size:.84rem;color:var(--ink-2);cursor:pointer}
+.check input{accent-color:var(--magenta)}
+
+.readout{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;margin:0;
+  background:var(--sheet);border-top:1px solid var(--rule);
+}
+.readout > div{background:var(--sheet);padding:9px 14px 10px;min-width:0;box-shadow:0 0 0 1px var(--rule)}
+.readout dt{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.02em;color:var(--ink-3)}
+.readout dd{margin:2px 0 0;font-family:var(--font-mono);font-size:.95rem;font-variant-numeric:tabular-nums;color:var(--ink);overflow-wrap:anywhere}
+.readout dd small{font-size:.74rem;color:var(--ink-3)}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;padding:10px 16px 0;font-family:var(--font-display);font-size:.82rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid currentColor}
+.legend i.ink{border-color:var(--ink)} .legend i.mag{border-color:var(--magenta)} .legend i.blue{border-color:var(--blue)} .legend i.mut{border-color:var(--ink-3)}
+.legend i.dash{border-top-style:dashed}
+
+/* SVG chart chrome (colors from tokens, never literals) */
+.ax line,.ax path{stroke:var(--rule);stroke-width:1;fill:none}
+.ax text,.lab{fill:var(--ink-3);font-family:var(--font-mono);font-size:11px}
+.lab.ink{fill:var(--ink-2)}
+.lab.strong{fill:var(--ink);font-weight:600}
+.grid-line{stroke:var(--rule);stroke-width:1}
+.s-mag{stroke:var(--magenta);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-blue{stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.s-ink{stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.s-mut{stroke:var(--ink-3);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.s-dash{stroke-dasharray:5 5}
+.f-mag{fill:var(--magenta)} .f-blue{fill:var(--blue)} .f-ink{fill:var(--ink)} .f-mut{fill:var(--ink-3)}
+.f-sheet{fill:var(--sheet)} .f-paper{fill:var(--paper)}
+.w-mag{fill:var(--mag-wash)} .w-blue{fill:var(--blue-wash)} .w-red{fill:var(--red-wash)}
+.ring{stroke:var(--sheet);stroke-width:2}
+.ttip{
+  position:absolute;pointer-events:none;z-index:3;min-width:150px;
+  background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:8px 10px;
+  font-family:var(--font-mono);font-size:.74rem;color:var(--ink-2);box-shadow:0 6px 18px rgba(10,20,40,.12);
+}
+.ttip .row{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.ttip .row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ttip .k{display:inline-block;width:12px;border-top:2px solid var(--ink-3)}
+.ttip .k.mag{border-color:var(--magenta)} .ttip .k.blue{border-color:var(--blue)}
+.ttip .h{color:var(--ink-3);margin-bottom:3px}
+.chartwrap{position:relative}
+
+/* ---------- tables ---------- */
+.tablebox{overflow-x:auto;margin:1rem 0;border:1px solid var(--rule);border-radius:var(--radius);background:var(--sheet)}
+table.data{border-collapse:collapse;width:100%;font-size:.93rem}
+table.data th,table.data td{padding:.55rem .8rem;text-align:left;border-bottom:1px solid var(--rule);vertical-align:baseline}
+table.data tr:last-child td{border-bottom:0}
+table.data th{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.02em;color:var(--ink-3);font-weight:600}
+table.data td.num{font-family:var(--font-mono);font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;padding:0;margin:1rem 0;counter-reset:st;display:grid;gap:4px}
+ol.steps > li{counter-increment:st;display:grid;grid-template-columns:2rem minmax(0,1fr);gap:0 12px;margin:0}
+ol.steps > li::before{
+  content:counter(st);font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--red);
+  border:1px solid var(--rule);border-radius:50%;width:1.7rem;height:1.7rem;display:grid;place-items:center;margin-top:.2rem;
+  background:var(--sheet);
+}
+ol.steps > li > div{min-width:0}
+ol.steps > li p{margin:.2rem 0}
+
+/* ---------- quiz ---------- */
+.quiz details{border-top:1px solid var(--rule);padding:.15rem 0}
+.quiz details:last-of-type{border-bottom:1px solid var(--rule)}
+.quiz summary{cursor:pointer;padding:.6rem 2rem .6rem 0;list-style:none;position:relative;font-weight:560}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::after{
+  content:"+";position:absolute;right:4px;top:.45rem;font-family:var(--font-mono);font-size:1.1rem;color:var(--magenta);
+}
+.quiz details[open] summary::after{content:"−"}
+.quiz .ans{padding:0 0 .8rem;color:var(--ink-2)}
+
+/* ---------- footer ---------- */
+.foot{border-top:1px solid var(--rule);padding-block:22px 40px;font-family:var(--font-display);font-size:.84rem;color:var(--ink-3)}
+.foot p{margin:.3rem 0;max-width:80ch}
+
+@media (max-width:600px){
+  body{font-size:1.02rem}
+  .defs > div{grid-template-columns:2.6rem minmax(0,1fr)}
+  .slider{grid-template-columns:auto minmax(80px,1fr) 4.2rem;flex-basis:100%}
+  .key{padding:0 .8rem;border-radius:20px}
+}
+@media print{.toc,.controls,.series{display:none}}
+
+.next{margin-top:2.2rem;font-family:var(--font-display);font-size:.95rem}
+.next a{font-weight:600}
+.pk-bottom{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule)}
+.pk-bottom .legend{padding-bottom:6px}
+.disp-cell{min-width:0;background:var(--sheet)}
+@media (min-width:760px){
+  .pk-bottom{grid-template-columns:minmax(0,3fr) minmax(220px,2fr)}
+  .pk-read{border-top:0;border-left:1px solid var(--rule);grid-template-columns:repeat(2,minmax(0,1fr));align-content:stretch}
+}
+
+.nw{white-space:nowrap}
+
+.partmark{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 18px;align-items:center;margin:58px 0 6px;padding:18px 0 12px;border-top:2px solid var(--ink);scroll-margin-top:20px}
+.pm-letter{font-family:var(--font-display);font-weight:800;font-stretch:115%;font-variation-settings:"wdth" 115;font-size:3.3rem;line-height:.9;color:var(--magenta)}
+.pm-title{margin:0;font-family:var(--font-display);font-weight:720;font-size:1.4rem;letter-spacing:-.005em;line-height:1.2}
+.pm-sub{margin:.2rem 0 0;color:var(--ink-2);font-size:.95rem;line-height:1.4}
+.prose > .partmark + section{border-top:0;margin-top:6px;padding-top:6px}
+.thm-eqs{display:grid;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--rule);background:var(--sheet)}
+@media (min-width:760px){.thm-eqs{grid-template-columns:minmax(0,1fr) minmax(0,1fr)} .thm-eqs > div + div{border-left:1px solid var(--rule)}}
+.thm-eqs > div{padding:2px 16px 12px;min-width:0}
+.thm-eqs p{margin:0;font-size:.9rem;color:var(--ink-2)}
+.thm-eqs p.eq-cap{font-family:var(--font-mono);font-size:.72rem;color:var(--ink-3);margin-top:.7rem}
+.maxwell-t td{vertical-align:middle}
+.toc .toc-group{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--magenta);width:100%;margin-top:6px}
+@media (min-width:1240px){.toc .toc-group{margin-top:10px}}
+
+</style>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [["\\(","\\)"]], displayMath: [["\\[","\\]"]]},
+  svg: {fontCache: "global"},
+  options: {enableMenu: false}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" defer></script>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+<header class="masthead" lang="en">
+  <div class="wrap">
+    <nav class="kbm-crumbs" aria-label="Location"><a href="../../../">KBM notes</a> › <a href="../../">602</a> › <a href="../../#nanofotonik">Nanophotonics</a> › Part 0 · <a class="lang" href="./" hreflang="tr" lang="tr">Türkçe</a></nav>
+    <p class="kicker"><b>Nanophotonics</b><span>Prerequisites</span><span>Part 0 / 4</span></p>
+    <h1>Electromagnetic Theory from Scratch</h1>
+    <p class="lede">The ground that Parts 1–4 build on: vector fields, divergence and curl, flux and the two big theorems, complex waves; then from charge to the four Maxwell equations and light. For someone who has not taken an EM theory course.</p>
+    <nav class="series" aria-label="Parts of the notes">
+      <span class="item is-current" aria-current="page"><span class="n">0</span><span>EM theory from scratch</span></span>
+      <a href="../1-faz-ve-grup-hizi/en.html"><span class="n">1</span><span>Phase and group velocity</span></a>
+      <a href="../2-dalga-parcacik-ikiligi/en.html"><span class="n">2</span><span>Wave-particle duality</span></a>
+      <a href="../3-maddede-isik/en.html"><span class="n">3</span><span>Light in matter</span></a>
+      <a href="../4-maxwellden-dalga-denklemine/en.html"><span class="n">4</span><span>From Maxwell to the wave equation</span></a>
+    </nav>
+  </div>
+</header>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="spectrum-scale" aria-hidden="true"></div>
+<div class="wrap layout" lang="en">
+  <nav class="toc" aria-label="On this page">
+    <span class="toc-title">On this page</span> <a href="#nasil">What this part is for</a> <span class="toc-group">A · Mathematics</span> <a href="#vektorler">Vectors</a> <a href="#alanlar">Fields and gradient</a> <a href="#div-curl">Divergence, curl</a> <a href="#integraller">Flux and theorems</a> <a href="#ozdeslikler">Laplacian, identities</a> <a href="#kompleks">Complex waves</a> <span class="toc-group">B · Physics</span> <a href="#yuk">Charge and the E field</a> <a href="#gauss">Gauss's law</a> <a href="#potansiyel">Potential, dipole</a> <a href="#akim">Current and the B field</a> <a href="#ampere">Ampère</a> <a href="#faraday">Faraday and Lenz</a> <a href="#maxwell">The four equations</a> <a href="#isik">Light</a> <a href="#madde">A look at matter</a> <span class="toc-group">C · Reference</span> <a href="#sabitler">Constants and symbols</a> <a href="#test">Test yourself</a>
+  </nav>
+  <article class="prose">
+<section id="nasil">
+  <p class="eyebrow" lang="en">Start here</p>
+  <h2>What is this part for?</h2>
+  <p>Parts 1–4 assume you know electromagnetic theory: Maxwell's equations, divergence, curl, flux, dipoles, complex wave notation. If you did not take an EM theory course as an undergraduate, this page builds that ground from scratch. It assumes you know basic operations with derivatives, integrals and vectors; the rest is built here.</p>
+  <p>There are two parts. <strong>A</strong> builds the mathematical tools: fields, derivative operators, integrals and complex waves. <strong>B</strong> builds the physics: from charge up to the four Maxwell equations and light. The table shows where in the series each piece is used.</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>On this page</th><th>Where it is used</th></tr></thead>
+      <tbody>
+        <tr><td>Gradient, divergence, curl, Laplacian</td><td>3 and 4: all of Maxwell's equations</td></tr>
+        <tr><td>Flux, circulation, the divergence and Stokes theorems</td><td>4: integral forms</td></tr>
+        <tr><td>Complex exponential, wave equation, Fourier</td><td>1: phase and group velocity · 4: plane wave</td></tr>
+        <tr><td>Coulomb, electric field, Gauss's law, dipole</td><td>3: polarization and the D vector</td></tr>
+        <tr><td>Potential and the electronvolt</td><td>2: energy units</td></tr>
+        <tr><td>Current, magnetic field, Ampère, Faraday</td><td>3: magnetization · 4: the four equations</td></tr>
+        <tr><td>Displacement current</td><td>4: deriving the wave equation</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="note tip"><span class="tag">Reading order</span><p>Go through A quickly in one sitting; where you get stuck, play with the explorer. Read B in order, since each subsection builds on the previous one. Then continue from 1 to 4.</p></aside>
+</section>
+
+<div class="partmark" id="kisim-a"><span class="pm-letter">A</span><div><p class="pm-title">Mathematical tools</p><p class="pm-sub">Vectors, fields, derivative operators, integrals and complex waves</p></div></div>
+
+<section id="vektorler">
+  <p class="eyebrow" lang="en">Vectors</p>
+  <h2>Vectors and the two products</h2>
+  <p>In three dimensions a vector is written with unit vectors: <span class="nw">\(\vec A = A_x\hat x + A_y\hat y + A_z\hat z\),</span> with magnitude <span class="nw">\(|\vec A| = \sqrt{A_x^2+A_y^2+A_z^2}\).</span> Two products will come up constantly in physics.</p>
+  <figure class="panel">
+    <div class="graph"><svg id="vec" class="svgbox" role="img" aria-label="On the left the projection of vector b onto a, with length b times cosine theta. On the right the parallelogram spanned by a and b, with area a times b times sine theta, and the vector a cross b out of the page."></svg></div>
+    <figcaption>On the left the dot product: the share of <span class="nw">\(\vec b\)</span> along \(\vec a\). On the right the cross product: the area of the parallelogram spanned by the two vectors; the resulting vector is perpendicular to both, here out of the page.</figcaption>
+  </figure>
+  <h3>Dot product</h3>
+  \[ \vec A\cdot\vec B = A_xB_x + A_yB_y + A_zB_z = |\vec A|\,|\vec B|\cos\theta \]
+  <p>The result is a number. It measures the share of one vector along the other: zero for perpendicular vectors, largest for parallel ones. In physics work \(W = \vec F\cdot\vec d\) and flux \(\vec E\cdot d\vec a\) are calculated this way.</p>
+  <h3>Cross product</h3>
+  \[ \vec A\times\vec B = \begin{vmatrix}\hat x&amp;\hat y&amp;\hat z\\ A_x&amp;A_y&amp;A_z\\ B_x&amp;B_y&amp;B_z\end{vmatrix}, \qquad |\vec A\times\vec B| = |\vec A|\,|\vec B|\sin\theta \]
+  <p>The result is a vector, perpendicular to both. Its direction comes from the right-hand rule: as the fingers of your right hand curl from <span class="nw">\(\vec A\)</span> to <span class="nw">\(\vec B\)</span>, the thumb points along the result. Its magnitude is the area of the parallelogram spanned by the two vectors. It is zero for parallel vectors, and the order matters: <span class="nw">\(\vec B\times\vec A = -\vec A\times\vec B\).</span> In physics the magnetic force \(q\,\vec v\times\vec B\) and the curl come from this product.</p>
+</section>
+
+<section id="alanlar">
+  <p class="eyebrow" lang="en">Fields · Gradient</p>
+  <h2>Fields and the gradient</h2>
+  <p>A field is a function that assigns a value to every point of space. A <strong>scalar field</strong> assigns a number to each point: the temperature in a room \(T(x,y,z)\) or the electric potential <span class="nw">\(V\).</span> A <strong>vector field</strong> assigns a vector to each point: wind velocity, the electric field <span class="nw">\(\vec E\),</span> the magnetic field <span class="nw">\(\vec B\).</span> Electromagnetism is the language of vector fields.</p>
+  <p>The partial derivative <span class="nw">\(\partial f/\partial x\),</span> is the change of <span class="nw">\(f\)</span> only in the \(x\) direction, with the other coordinates held fixed. Collecting the three partial derivatives into a vector gives the gradient:</p>
+  <div class="key">\[ \nabla f = \frac{\partial f}{\partial x}\hat x + \frac{\partial f}{\partial y}\hat y + \frac{\partial f}{\partial z}\hat z \]</div>
+  <p>The same object as the gradient you know from optimization. Its direction is where <span class="nw">\(f\)</span> increases fastest, its magnitude the rate of increase in that direction, and it is perpendicular everywhere to the level surfaces (contour lines). The change along any direction \(\hat u\) is found with \(\nabla f\cdot\hat u\).</p>
+  <p>The \(\nabla\) (nabla) here is a vector operator: <span class="nw">\(\nabla = \hat x\,\partial_x + \hat y\,\partial_y + \hat z\,\partial_z\).</span> There are three ways to use it like a vector, and all of Maxwell's equations are written with these three:</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Operation</th><th>Applied to</th><th>Result</th><th>What it measures</th></tr></thead>
+      <tbody>
+        <tr><td>Gradient \(\nabla f\)</td><td>scalar</td><td>vector</td><td>direction and rate of fastest increase</td></tr>
+        <tr><td>Divergence \(\nabla\cdot\vec F\)</td><td>vector</td><td>scalar</td><td>net outflow from a point</td></tr>
+        <tr><td>Curl \(\nabla\times\vec F\)</td><td>vector</td><td>vector</td><td>circulation around a point</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="div-curl">
+  <p class="eyebrow" lang="en">Divergence · Curl</p>
+  <h2>Divergence and curl</h2>
+  <p>Think of a vector field as a flow of water. You can ask two questions: does water gush out of a point, and does water rotate around a point? Divergence measures the first, curl the second.</p>
+  <h3>Divergence: sources and sinks</h3>
+  <p>Put a small closed surface around the point and divide the net outward flux by the volume. The number left as the volume goes to zero is the divergence:</p>
+  \[ \nabla\cdot\vec F = \lim_{\Delta V\to 0}\frac{1}{\Delta V}\oint_S \vec F\cdot d\vec a = \frac{\partial F_x}{\partial x} + \frac{\partial F_y}{\partial y} + \frac{\partial F_z}{\partial z} \]
+  <p>If positive the point is a source, if negative a sink. Example: for \(\vec F = (x, y, z)\), <span class="nw">\(\nabla\cdot\vec F = 3\);</span> every point is a source flowing outward.</p>
+  <h3>Curl: circulation</h3>
+  <p>Put a small loop around the point, add up the field along the loop (the circulation) and divide by the loop's area. The result is the component of the curl perpendicular to the plane of the loop. In components:</p>
+  \[ \nabla\times\vec F = \begin{vmatrix}\hat x&amp;\hat y&amp;\hat z\\ \partial_x&amp;\partial_y&amp;\partial_z\\ F_x&amp;F_y&amp;F_z\end{vmatrix} \qquad \begin{aligned} (\nabla\times\vec F)_x &amp;= \partial_y F_z - \partial_z F_y \\ (\nabla\times\vec F)_y &amp;= \partial_z F_x - \partial_x F_z \\ (\nabla\times\vec F)_z &amp;= \partial_x F_y - \partial_y F_x \end{aligned} \]
+  <p>Imagine putting a small paddle wheel in the flow. If the curl is nonzero the wheel turns, with an angular velocity equal to half the curl. Example: for \(\vec F = (-y, x, 0)\), <span class="nw">\(\nabla\times\vec F = 2\hat z\).</span></p>
+  <figure class="panel wide" id="fx">
+    <div class="panel-head"><h3>Vector field explorer</h3><span class="hint">drag the loop · the wheel shows the curl, the lines on the edge show the flux</span></div>
+    <div class="graph"><canvas id="fx-c" class="sim" tabindex="0" role="img" aria-label="Two-dimensional vector field arrows, a draggable loop, lines on the loop's edge showing the normal component of the field, and a wheel turning at the center."></canvas></div>
+    <div class="controls">
+      <div class="seg" id="fx-pre" role="group" aria-label="Field">
+        <button data-v="src" aria-pressed="true">Source</button>
+        <button data-v="sink" aria-pressed="false">Sink</button>
+        <button data-v="unif" aria-pressed="false">Uniform</button>
+        <button data-v="vortex" aria-pressed="false">Vortex</button>
+        <button data-v="shear" aria-pressed="false">Shear</button>
+        <button data-v="saddle" aria-pressed="false">Saddle</button>
+        <button data-v="grad" aria-pressed="false">Gradient of a hill</button>
+        <button data-v="line" aria-pressed="false">Charged wire</button>
+        <button data-v="wire" aria-pressed="false">Current wire</button>
+      </div>
+    </div>
+    <dl class="readout">
+      <div><dt>Field F(x, y)</dt><dd id="fx-f">–</dd></div>
+      <div><dt>∇·F at the center</dt><dd id="fx-div">–</dd></div>
+      <div><dt>(∇×F)z at the center</dt><dd id="fx-curl">–</dd></div>
+      <div><dt>Net flux through the loop ∮F·n dl</dt><dd id="fx-flux">–</dd></div>
+      <div><dt>Circulation along the loop ∮F·dl</dt><dd id="fx-circ">–</dd></div>
+      <div><dt>Area of the loop</dt><dd id="fx-area">–</dd></div>
+    </dl>
+    <figcaption>The lines on the edge of the loop show the field component perpendicular to the loop: magenta outward, blue inward. The wheel at the center turns with the local curl. For a small loop, net flux ≈ divergence × area and circulation ≈ curl × area; these two lines are exactly the theorems of the next section.</figcaption>
+  </figure>
+  <p>The explorer hides three lessons. The <strong>Shear</strong> field has perfectly straight lines, yet the wheel turns, because the upper layer flows faster than the lower. The <strong>Current wire</strong> field has circular lines, yet the wheel does not turn at any point outside the wire; still, a loop enclosing the wire has circulation 2π. All the circulation comes from the singular point at the wire, and this is exactly what Ampère's law will say. In the <strong>Charged wire</strong> field the divergence is zero everywhere outside the charge, yet a loop enclosing the charge has net flux: Gauss's law.</p>
+</section>
+
+<section id="integraller">
+  <p class="eyebrow" lang="en">Line and surface integrals</p>
+  <h2>Flux, circulation and the two big theorems</h2>
+  <p>A <strong>line integral</strong> adds up the component of the field tangent to a curve along that curve: <span class="nw">\(\int_C \vec F\cdot d\vec l\).</span> In a force field this is the work done. If the curve is closed, \(\oint_C\) is written and the result is called the <strong>circulation</strong>.</p>
+  <p>A <strong>surface integral</strong> adds up the field passing through a surface: <span class="nw">\(\int_S \vec F\cdot d\vec a\).</span> Here <span class="nw">\(d\vec a = \hat n\,da\),</span> is a vector perpendicular to the surface whose magnitude is the area of the small surface element. The result is the <strong>flux</strong>: a measure of how many field lines pierce the surface. On a closed surface \(\hat n\) points outward. On an open surface the direction is tied to the sense of the boundary curve by the right-hand rule.</p>
+  <figure class="panel wide">
+    <div class="graph"><svg id="thm" class="svgbox" role="img" aria-label="On the left a closed surface containing sources, with outward surface elements. On the right an open surface with boundary curve C, small circulations on it and a normal vector."></svg></div>
+    <div class="thm-eqs">
+      <div><p class="eq-cap">The divergence (Gauss) theorem</p>\[ \int_V (\nabla\cdot\vec F)\,dV = \oint_S \vec F\cdot d\vec a \]<p>The sum of the sources inside a volume equals the net flux out of the closed surface.</p></div>
+      <div><p class="eq-cap">Stokes' theorem</p>\[ \int_S (\nabla\times\vec F)\cdot d\vec a = \oint_C \vec F\cdot d\vec l \]<p>The small circulations on the surface cancel with their neighbors, leaving the circulation along the boundary curve.</p></div>
+    </div>
+    <figcaption>The idea of the two theorems is the same: small contributions inside cancel with their neighbors, leaving only the boundary.</figcaption>
+  </figure>
+  <p>The \(\int_a^b f'(x)\,dx = f(b) - f(a)\) you know from single-variable calculus is the one-dimensional version of this idea: the sum of the derivatives inside equals the values at the boundary. We go back and forth between the differential and integral forms of Maxwell's equations with these two theorems; the “integral forms” column in Part 4 comes from here.</p>
+</section>
+
+<section id="ozdeslikler">
+  <p class="eyebrow" lang="en">Laplacian · Identities</p>
+  <h2>The Laplacian and three identities</h2>
+  <p>The divergence of the gradient is the Laplacian:</p>
+  <div class="key">\[ \nabla^2 f = \nabla\cdot(\nabla f) = \frac{\partial^2 f}{\partial x^2} + \frac{\partial^2 f}{\partial y^2} + \frac{\partial^2 f}{\partial z^2} \]</div>
+  <p>It measures how far the value at a point departs from the average of the values around it. At a peak <span class="nw">\(\nabla^2 f \lt 0\),</span> in a valley <span class="nw">\(\nabla^2 f \gt 0\).</span> A function with \(\nabla^2 f = 0\) cannot have a peak or a valley inside; every point is the average of its neighbors. In the “gradient of a hill” field of the explorer the divergence is negative on top of the hill and positive on the slopes: that divergence is <span class="nw">\(\nabla^2 f\)</span> itself.</p>
+  <p>Three identities used constantly in the series:</p>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Identity</th><th>Meaning</th><th>Where it is needed</th></tr></thead>
+      <tbody>
+        <tr><td>\(\nabla\times(\nabla f) = 0\)</td><td>gradient fields do not rotate</td><td>in electrostatics <span class="nw">\(\nabla\times\vec E = 0\),</span> so \(\vec E = -\nabla V\)</td></tr>
+        <tr><td>\(\nabla\cdot(\nabla\times\vec F) = 0\)</td><td>curl fields have no sources</td><td>charge conservation and Maxwell's correction</td></tr>
+        <tr><td>\(\nabla\times(\nabla\times\vec F) = \nabla(\nabla\cdot\vec F) - \nabla^2\vec F\)</td><td>BAC-CAB rule, vector triple product</td><td>deriving the wave equation, Part 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>One last result, the Helmholtz theorem: a vector field that vanishes at infinity is fully determined once its divergence and curl are known. This is why Maxwell's equations consist of exactly two divergence and two curl equations; they are everything needed to determine \(\vec E\) and <span class="nw">\(\vec B\)</span>.</p>
+</section>
+
+<section id="kompleks">
+  <p class="eyebrow" lang="en">Complex exponentials · Waves</p>
+  <h2>The complex exponential and the wave equation</h2>
+  <h3>Euler's formula</h3>
+  <div class="key">\[ e^{i\theta} = \cos\theta + i\sin\theta \]</div>
+  <p>\(e^{i\theta}\) is a point on the unit circle in the complex plane, at angle \(\theta\). As \(\theta\) changes the point moves around the circle; its real part is <span class="nw">\(\cos\theta\),</span> its imaginary part <span class="nw">\(\sin\theta\).</span> Multiplying a number by \(e^{i\theta}\) means rotating it by \(\theta\).</p>
+  <h3>Why do we write waves as complex?</h3>
+  <p>Because taking a derivative turns into multiplication:</p>
+  \[ \frac{\partial}{\partial x}\,e^{i(kx-\omega t)} = ik\,e^{i(kx-\omega t)}, \qquad \frac{\partial}{\partial t}\,e^{i(kx-\omega t)} = -i\omega\,e^{i(kx-\omega t)} \]
+  <p>Differential equations come down to algebra: <span class="nw">\(\partial/\partial x \to ik\),</span> <span class="nw">\(\partial/\partial t \to -i\omega\).</span> The physical field is a real number; we do the calculation in complex form and take the real part at the end: <span class="nw">\(E(x,t) = \mathrm{Re}\{E_0\,e^{i(kx-\omega t)}\} = E_0\cos(kx-\omega t)\).</span> This is safe as long as the equations are linear. The plane wave calculation in Part 4 uses exactly this step.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>Phasor and wave</h3><span class="hint">the Re axis of the complex plane is drawn vertically</span></div>
+    <div class="graph"><canvas id="ph-c" class="sim" role="img" aria-label="On the left a unit vector rotating clockwise in the complex plane, on the right a cosine wave made of the real part of the same phasor, advancing to the right."></canvas></div>
+    <div class="controls">
+      <label class="slider" for="ph-w"><span class="lbl">ω</span><input type="range" id="ph-w" min="0.5" max="3" step="0.05" value="2"><output id="ph-wo" for="ph-w">2.00</output></label>
+      <label class="slider" for="ph-k"><span class="lbl">k</span><input type="range" id="ph-k" min="0.5" max="4" step="0.05" value="2.5"><output id="ph-ko" for="ph-k">2.50</output></label>
+      <label class="check" for="ph-d"><input type="checkbox" id="ph-d"> Show ∂/∂t</label>
+      <button class="btn" id="ph-play" type="button">Pause</button>
+    </div>
+    <dl class="readout">
+      <div><dt>λ = 2π/k</dt><dd id="ph-l">–</dd></div>
+      <div><dt>T = 2π/ω</dt><dd id="ph-t">–</dd></div>
+      <div><dt>v = ω/k</dt><dd id="ph-v">–</dd></div>
+    </dl>
+    <figcaption>The vector on the left is the value of <span class="nw">\(e^{i(kx-\omega t)}\)</span> at <span class="nw">\(x = 0\)</span>; because of \(-\omega t\) it turns clockwise. The dashed line carries its real part to the left end of the wave on the right; the wave advances to the right with \(v = \omega/k\). The derivative option shows <span class="nw">\(-i\omega\,e^{i\varphi}\)</span>: taking the time derivative means turning the phasor by 90° and multiplying by ω.</figcaption>
+  </figure>
+  <h3>The wave equation</h3>
+  <p>A stretched string, sound or light: all satisfy the same equation.</p>
+  <div class="key">\[ \frac{\partial^2 u}{\partial x^2} = \frac{1}{v^2}\,\frac{\partial^2 u}{\partial t^2} \]</div>
+  <p>Its solution is surprisingly simple: for any shape \(f\), \(u(x,t) = f(x - vt)\) is a solution. Substitute it: the left side is <span class="nw">\(f''\),</span> the right side <span class="nw">\(v^2 f''/v^2 = f''\).</span> So the shape slides to the right at speed \(v\) without distortion; \(g(x+vt)\) slides to the left in the same way.</p>
+  <p>Substituting the harmonic wave \(u = A\cos(kx-\omega t)\) gives <span class="nw">\(-k^2 = -\omega^2/v^2\),</span> that is, \(\omega = vk\). This is the simplest form of the dispersion relation of Part 1.</p>
+  <h3>Superposition and Fourier</h3>
+  <p>Since the equation is linear, a sum of solutions is also a solution. Fourier's result: every reasonable shape can be written as a sum of harmonic waves at different values of \(k\):</p>
+  \[ u(x,t) = \int A(k)\,e^{i(kx-\omega(k)t)}\,dk \]
+  <p>The wave packet and group velocity of Part 1 are built on this formula: if \(\omega(k)\) is not linear, the components travel at different speeds and the packet changes shape.</p>
+</section>
+
+<div class="partmark" id="kisim-b"><span class="pm-letter">B</span><div><p class="pm-title">Electromagnetism</p><p class="pm-sub">From charge to the four Maxwell equations and light</p></div></div>
+
+<section id="yuk">
+  <p class="eyebrow" lang="en">Charge · Coulomb’s law · Electric field</p>
+  <h2>Charge, Coulomb's law and the electric field</h2>
+  <p>Electric charge comes in two kinds, plus and minus; like charges repel and opposites attract. Charge is quantized: every charge is a whole multiple of the elementary charge, \(e = 1.602\times10^{-19}\) C. And it is conserved: the total charge does not change in any process.</p>
+  <p>The force between two point charges is given by Coulomb's law:</p>
+  <div class="key">\[ \vec F = \frac{1}{4\pi\varepsilon_0}\,\frac{q_1q_2}{r^2}\,\hat r \]</div>
+  <p>\(\hat r\) is the unit vector pointing from one charge to the other, \(1/4\pi\varepsilon_0 = 8.99\times10^9\) N·m²/C². \(\varepsilon_0 = 8.854\times10^{-12}\) C²/(N·m²) is the electric permittivity of vacuum; the \(\varepsilon_r\) of Part 3 is compared with it. With more than one charge the forces add as vectors: superposition.</p>
+  <h3>The electric field</h3>
+  <p>Splitting the force into two steps is a much more powerful idea: a charge creates a field in the space around it, and another charge feels that field. The electric field is the force per unit charge on a small test charge:</p>
+  \[ \vec E = \frac{\vec F}{q}, \qquad \text{for a point charge}\quad \vec E = \frac{1}{4\pi\varepsilon_0}\,\frac{Q}{r^2}\,\hat r \]
+  <p>Its unit is N/C, equivalently V/m. Field lines start on positive charges, end on negative charges and do not cross; the density of the lines shows the strength of the field.</p>
+  <aside class="note more"><span class="tag">Scale</span><p>At the distance of the electron in hydrogen (0.053 nm) the field of the proton is about 5×10¹¹ V/m. The field of sunlight is about 900 V/m. That is a factor of 6×10⁸; ordinary light can only nudge an atom gently. This is why the response of matter to light is almost always linear. As the field approaches the atomic value, that is, in strong lasers, the nonlinear terms of Part 3 come into play.</p></aside>
+</section>
+
+<section id="gauss">
+  <p class="eyebrow" lang="en">Flux · Gauss’s law</p>
+  <h2>Electric flux and Gauss's law</h2>
+  <p>Electric flux is a measure of the field lines passing through a surface: <span class="nw">\(\Phi_E = \int_S \vec E\cdot d\vec a\).</span> Imagine a sphere of radius \(R\) centered on a point charge. The field is perpendicular to the sphere everywhere, with magnitude <span class="nw">\(Q/4\pi\varepsilon_0R^2\);</span> the area of the sphere is <span class="nw">\(4\pi R^2\).</span> Multiplying:</p>
+  \[ \oint_S \vec E\cdot d\vec a = \frac{Q}{4\pi\varepsilon_0R^2}\cdot 4\pi R^2 = \frac{Q}{\varepsilon_0} \]
+  <p>\(R\) canceled: the field falls as \(1/r^2\) while the surface grows as \(r^2\). The result depends neither on the size of the sphere nor on its shape. The field lines of charges outside a closed surface enter it at one place and leave at another; their net contribution is zero. Gauss's law:</p>
+  <div class="key">\[ \oint_S \vec E\cdot d\vec a = \frac{Q_{\text{enc}}}{\varepsilon_0} \]</div>
+  <p>Apply the divergence theorem to the left side and write the charge as an integral of the charge density: <span class="nw">\(\int_V \nabla\cdot\vec E\,dV = \int_V \rho/\varepsilon_0\,dV\).</span> Since this is true for every volume, the integrands must be equal:</p>
+  <div class="key">\[ \nabla\cdot\vec E = \frac{\rho}{\varepsilon_0} \]</div>
+  <p>This is Maxwell's first equation: charges are the sources of the electric field. In Part 3 you will see it become \(\nabla\cdot\vec D = \rho_f\) in matter.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>Gauss's law lab</h3><span class="hint">drag the charges and the dashed circle</span></div>
+    <div class="graph"><canvas id="gl-c" class="sim" tabindex="0" role="img" aria-label="Field arrows of positive and negative charges and a draggable dashed Gaussian surface; the outward and inward components of the field are marked on its edge."></canvas></div>
+    <div class="controls">
+      <div class="seg">
+        <button class="btn" id="gl-plus" type="button">add + charge</button>
+        <button class="btn" id="gl-minus" type="button">add − charge</button>
+        <button class="btn" id="gl-reset" type="button">Reset</button>
+      </div>
+      <label class="slider" for="gl-r"><span class="lbl">radius</span><input type="range" id="gl-r" min="0.15" max="0.95" step="0.01" value="0.5"><output id="gl-ro" for="gl-r">0.50</output></label>
+    </div>
+    <dl class="readout">
+      <div><dt>Charge inside the surface</dt><dd id="gl-in">–</dd></div>
+      <div><dt>Measured net flux × ε₀</dt><dd id="gl-flux">–</dd></div>
+      <div><dt>Charge outside</dt><dd id="gl-out">–</dd></div>
+    </dl>
+    <figcaption>A two-dimensional cross section: each point is an infinitely long charged wire perpendicular to the page. In this geometry Gauss's law works for a circle in exactly the same way. The flux is calculated numerically by adding the normal component of the field at 720 points on the circle. Grow the circle, shrink it, shift it: as long as the charge inside does not change the flux does not change, and charges outside add nothing.</figcaption>
+  </figure>
+  <h3>Two useful results</h3>
+  <p>In symmetric cases Gauss's law gives the field in one line. An infinite plane with surface charge density \(\sigma\) has a field on both sides of <span class="nw">\(E = \sigma/2\varepsilon_0\).</span> The fields of two parallel plates with opposite charge add between them and cancel outside: inside <span class="nw">\(E = \sigma/\varepsilon_0\),</span> and zero outside. The capacitor figure of Part 3 puts a dielectric inside this arrangement.</p>
+</section>
+
+<section id="potansiyel">
+  <p class="eyebrow" lang="en">Potential · Conductors · Dipoles</p>
+  <h2>Potential, conductors and dipoles</h2>
+  <p>In the field of static charges, if you carry a charge around a closed path the total work done is zero: <span class="nw">\(\oint\vec E\cdot d\vec l = 0\),</span> and with Stokes <span class="nw">\(\nabla\times\vec E = 0\).</span> A field with zero curl can be written as the gradient of a scalar (the first identity):</p>
+  <div class="key">\[ \vec E = -\nabla V \]</div>
+  <p>\(V\) is the electric potential: potential energy per unit charge, in volts (J/C). The minus sign says that the field points in the direction of decreasing potential. Equipotential surfaces are perpendicular to field lines.</p>
+  <aside class="note tip"><span class="tag">A bridge to Part 2</span><p>An electron passing through a potential difference of 1 V gains \(e\times 1\ \mathrm V = 1.602\times10^{-19}\) J of energy. This unit of energy is called the electronvolt. The “10 eV electron” of Part 2 means an electron accelerated through 10 V.</p></aside>
+  <p>Putting <span class="nw">\(\vec E = -\nabla V\)</span> into Gauss's law gives the Poisson equation; in a charge-free region it reduces to the Laplace equation. Both are in the table in Part 4:</p>
+  \[ \nabla^2 V = -\frac{\rho}{\varepsilon_0}, \qquad \rho = 0 \;\Rightarrow\; \nabla^2 V = 0 \]
+  <h3>Conductors</h3>
+  <p>In a metal the free electrons move as long as there is a field; they stop once the field inside is zero. In the static state, inside a conductor <span class="nw">\(\vec E = 0\),</span> the whole conductor is at one potential, excess charge is on the surface and the field outside is perpendicular to the surface. This is the “E = 0 in a metal” of Part 3.</p>
+  <h3>The dipole</h3>
+  <p>\(+q\) and \(-q\) a distance \(\vec d\) apart form a dipole. The dipole moment <span class="nw">\(\vec p = q\vec d\),</span> points from the negative charge to the positive. Since the net charge is zero its far field dies out faster than that of a point charge, as \(1/r^3\). In a uniform field a torque acts on the dipole, <span class="nw">\(\vec\tau = \vec p\times\vec E\),</span> trying to turn it parallel to the field. A neutral atom in a field itself becomes a dipole: the electron cloud is pulled one way and the nucleus the other. This is the starting point of the polarization of Part 3.</p>
+</section>
+
+<section id="akim">
+  <p class="eyebrow" lang="en">Current · Magnetic field · Lorentz force</p>
+  <h2>Current and the magnetic field</h2>
+  <p>Current is the charge passing per unit time: <span class="nw">\(I = dQ/dt\),</span> in amperes (C/s). The flow of charge in space is described by the <strong>current density</strong> \(\vec J\) (A/m²); for carriers of density \(n\), charge \(q\) and velocity \(\vec v\), <span class="nw">\(\vec J = nq\vec v\).</span> The current through a surface is <span class="nw">\(I = \int_S \vec J\cdot d\vec a\).</span></p>
+  <h3>The continuity equation</h3>
+  <p>Since charge is conserved, current flowing out of a closed surface must reduce the charge inside: <span class="nw">\(\oint_S \vec J\cdot d\vec a = -dQ_{\text{enc}}/dt\).</span> With the divergence theorem the local form is:</p>
+  <div class="key">\[ \nabla\cdot\vec J + \frac{\partial\rho}{\partial t} = 0 \]</div>
+  <h3>The Lorentz force</h3>
+  <p>Moving charges feel a magnetic force in addition to the electric field. The total force on a charge:</p>
+  <div class="key">\[ \vec F = q\big(\vec E + \vec v\times\vec B\big) \]</div>
+  <p>The magnetic force is perpendicular to the velocity, so it does no work: it changes the direction of the particle's velocity but not its magnitude, turning it on a circle or helix. The unit of <span class="nw">\(\vec B\)</span> is the tesla, T = N/(A·m). The Earth's field is about 50 µT, and that of an MRI machine 1.5–3 T.</p>
+  <h3>The source of the magnetic field: current</h3>
+  <p>Moving charges, that is, currents, produce the magnetic field. The field of a long straight wire is circles around the wire, decreasing with distance:</p>
+  \[ B = \frac{\mu_0 I}{2\pi r}, \qquad \mu_0 = 4\pi\times10^{-7}\ \mathrm{T\,m/A} \]
+  <figure class="panel">
+    <div class="graph"><svg id="wire" class="svgbox" role="img" aria-label="Cross section of a wire carrying current out of the page, with magnetic field circles around it turning counterclockwise and thinning out with distance."></svg></div>
+    <figcaption>The current flows out of the page. Point the thumb of your right hand along the current: your fingers show the sense of <span class="nw">\(\vec B\)</span>, here counterclockwise. The arrows shorten as \(1/r\).</figcaption>
+  </figure>
+  <p>In general the field is calculated with the Biot–Savart law, <span class="nw">\(d\vec B = \frac{\mu_0}{4\pi}\,\frac{I\,d\vec l\times\hat r}{r^2}\):</span> the magnetic counterpart of Coulomb's law. \(\mu_0\) is the magnetic permeability of vacuum; the \(\mu_r\) of Part 3 is compared with it.</p>
+  <h3>There is no magnetic charge</h3>
+  <p>Electric field lines start and end on charges. Magnetic field lines start nowhere; they always form closed loops. If you cut a magnet in two you get two magnets, and you cannot get a north pole alone. The mathematical statement is Maxwell's second equation:</p>
+  <div class="key">\[ \nabla\cdot\vec B = 0 \]</div>
+</section>
+
+<section id="ampere">
+  <p class="eyebrow" lang="en">Ampère’s law</p>
+  <h2>Ampère's law</h2>
+  <p>Add up the field of the wire along a circle: \(B\) is constant on the circle and tangent to it, and the length of the circle is <span class="nw">\(2\pi r\).</span> The result is <span class="nw">\(B\cdot 2\pi r = \mu_0 I\),</span> independent of the radius. The general form for steady currents:</p>
+  <div class="key">\[ \oint_C \vec B\cdot d\vec l = \mu_0 I_{\text{enc}} \]</div>
+  <p>With Stokes' theorem the differential form is <span class="nw">\(\nabla\times\vec B = \mu_0\vec J\).</span> Recall the “current wire” field of the explorer: the curl was zero outside the wire, but the circulation around a loop enclosing the wire was not. All the circulation comes from where the current flows.</p>
+  <p>Reading Gauss and Ampère side by side reveals a symmetry: charges are the divergence source of <span class="nw">\(\vec E\)</span>, and currents are the curl source of <span class="nw">\(\vec B\)</span>.</p>
+</section>
+
+<section id="faraday">
+  <p class="eyebrow" lang="en">Faraday’s law · Lenz’s rule</p>
+  <h2>Faraday induction and Lenz's rule</h2>
+  <p>The magnetic flux through a surface is <span class="nw">\(\Phi_B = \int_S \vec B\cdot d\vec a\),</span> in webers. In 1831 Faraday found that if the magnetic flux through a loop changes, an electromotive force (EMF), that is, a voltage around the loop, appears:</p>
+  <div class="key">\[ \mathcal E = \oint_C \vec E\cdot d\vec l = -\frac{d\Phi_B}{dt} \]</div>
+  <p>The flux can change in three ways: the field itself changes, the loop's area changes or the loop rotates. Generators work with the third, transformers and wireless charging with the first. The signal in an MRI machine is picked up this way too: the rotating magnetization induces a voltage in the receiver coil.</p>
+  <p>The minus sign is <strong>Lenz's rule</strong>: the magnetic field of the induced current opposes the change in flux. If it were otherwise, a small change would amplify itself and energy would appear from nothing.</p>
+  <figure class="panel wide">
+    <div class="panel-head"><h3>Induction</h3><span class="hint">loop seen from above · ⊙ out of the page, ⊗ into the page</span></div>
+    <div class="legend" aria-hidden="true"><span><i class="ink"></i><span>flux Φ</span></span><span><i class="mag"></i><span>EMF ℰ = −dΦ/dt</span></span></div>
+    <div class="graph"><canvas id="ind-c" class="sim" role="img" aria-label="A loop seen from above, a time-varying magnetic field passing through it, the direction of the current induced in the loop, and on the right a graph of flux and EMF against time."></canvas></div>
+    <div class="controls">
+      <label class="slider" for="ind-f"><span class="lbl">frequency</span><input type="range" id="ind-f" min="0.1" max="1" step="0.01" value="0.3"><output id="ind-fo" for="ind-f">0.30</output></label>
+      <button class="btn" id="ind-play" type="button">Pause</button>
+    </div>
+    <dl class="readout">
+      <div><dt>Field B (normalized)</dt><dd id="ind-b">–</dd></div>
+      <div><dt>Flux is changing</dt><dd id="ind-d">–</dd></div>
+      <div><dt>Induced current</dt><dd id="ind-i">–</dd></div>
+      <div><dt>The current's own B</dt><dd id="ind-own">–</dd></div>
+    </dl>
+    <figcaption>The EMF depends not on the value of the flux but on its rate of change: when the flux is largest the EMF is zero, and when the flux crosses zero the EMF is largest. The two curves differ by a quarter period. The current's own field is at every moment opposite to the change in flux.</figcaption>
+  </figure>
+  <p>With the loop fixed, apply Stokes' theorem: <span class="nw">\(\int_S (\nabla\times\vec E)\cdot d\vec a = -\int_S \partial\vec B/\partial t\cdot d\vec a\),</span> for every surface. The differential form is Maxwell's third equation:</p>
+  <div class="key">\[ \nabla\times\vec E = -\frac{\partial\vec B}{\partial t} \]</div>
+  <p>Its meaning is profound: a changing magnetic field creates an electric field circulating in space, even with no wire or charge there. Such a field can no longer be written as \(-\nabla V\); the electrostatic rule \(\nabla\times\vec E = 0\) was valid only in the static case.</p>
+</section>
+
+<section id="maxwell">
+  <p class="eyebrow" lang="en">Displacement current · Maxwell’s equations</p>
+  <h2>Maxwell's correction and the four equations</h2>
+  <p>There is an inconsistency in Ampère's law. Put a loop around the wire of a charging capacitor. If you choose a flat disk pierced by the wire as the surface spanned by the loop, the current \(I\) passes through it. You can also span the same loop with a bag-shaped surface passing between the plates; no current passes through that. The same loop gives two different answers.</p>
+  <figure class="panel wide">
+    <div class="graph"><svg id="cap0" class="svgbox" role="img" aria-label="A loop on the wire going to a charging capacitor; a flat disk spanning the loop catches the current through the wire, while a bag surface reaching between the plates catches only the growing electric field."></svg></div>
+    <figcaption>The same loop C, two surfaces. Conduction current passes through S₁. No charge passes through S₂, but the electric field between the plates grows. The term Maxwell added makes the two equal.</figcaption>
+  </figure>
+  <p>The problem also shows in differential form. Take the divergence of <span class="nw">\(\nabla\times\vec B = \mu_0\vec J\)</span>: the left side is always zero (the second identity), so \(\nabla\cdot\vec J = 0\) must hold. But the continuity equation says \(\nabla\cdot\vec J = -\partial\rho/\partial t\), and while charge accumulates on the plates this is not zero.</p>
+  <p>Maxwell's solution was to add a term:</p>
+  <div class="key">\[ \nabla\times\vec B = \mu_0\vec J + \mu_0\varepsilon_0\frac{\partial\vec E}{\partial t} \]</div>
+  <p>Check: take the divergence of both sides. The left side is still zero, and the right side now comes out zero as well:</p>
+  \[ \mu_0\Big(\nabla\cdot\vec J + \varepsilon_0\frac{\partial(\nabla\cdot\vec E)}{\partial t}\Big) = \mu_0\Big(\nabla\cdot\vec J + \frac{\partial\rho}{\partial t}\Big) = 0 \]
+  <p>Fully consistent with the continuity equation. In a capacitor the field between the plates is <span class="nw">\(E = \sigma/\varepsilon_0 = Q/(\varepsilon_0A)\),</span> so <span class="nw">\(\varepsilon_0\,(dE/dt)\,A = dQ/dt = I\).</span> The “displacement current” through the bag surface exactly equals the current in the wire.</p>
+  <h3>Maxwell's equations in vacuum</h3>
+  <div class="tablebox">
+    <table class="data maxwell-t">
+      <thead><tr><th></th><th>Integral</th><th>Differential</th><th>What it says</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>\(\oint_S \vec E\cdot d\vec a = Q_{\text{enc}}/\varepsilon_0\)</td><td>\(\nabla\cdot\vec E = \rho/\varepsilon_0\)</td><td>charges are the source of E</td></tr>
+        <tr><td class="num">2</td><td>\(\oint_S \vec B\cdot d\vec a = 0\)</td><td>\(\nabla\cdot\vec B = 0\)</td><td>no magnetic charge</td></tr>
+        <tr><td class="num">3</td><td>\(\oint_C \vec E\cdot d\vec l = -\dfrac{d\Phi_B}{dt}\)</td><td>\(\nabla\times\vec E = -\dfrac{\partial\vec B}{\partial t}\)</td><td>changing B creates circulating E</td></tr>
+        <tr><td class="num">4</td><td>\(\oint_C \vec B\cdot d\vec l = \mu_0 I_{\text{enc}} + \mu_0\varepsilon_0\dfrac{d\Phi_E}{dt}\)</td><td>\(\nabla\times\vec B = \mu_0\vec J + \mu_0\varepsilon_0\dfrac{\partial\vec E}{\partial t}\)</td><td>current and changing E create circulating B</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Adding the Lorentz force \(\vec F = q(\vec E + \vec v\times\vec B)\), which says what happens to charges, gives all of classical electromagnetism. Part 4 writes the same equations in matter, with \(\vec D\) and \(\vec H\).</p>
+  <figure class="panel wide">
+    <div class="graph"><svg id="map" class="svgbox" role="img" aria-label="Concept map: charge produces E and current produces B; changing B feeds E and changing E feeds B; B has no source. In empty space only the loop between E and B remains."></svg></div>
+    <figcaption>A map of the four equations. The sources on the left (charge, current) produce the fields. In the magenta loop on the right the two fields feed each other. In empty space the sources are removed and only this loop remains: light.</figcaption>
+  </figure>
+</section>
+
+<section id="isik">
+  <p class="eyebrow" lang="en">Light</p>
+  <h2>Where does light come from?</h2>
+  <p>In a region far from charge and current <span class="nw">\(\rho = 0\),</span> <span class="nw">\(\vec J = 0\).</span> Read the remaining two curl equations like a chain: a changing \(\vec B\) creates a circulating \(\vec E\), and a changing \(\vec E\) creates a circulating <span class="nw">\(\vec B\).</span> A disturbance, once started, feeds itself and spreads with no need for a source. In 1865 Maxwell calculated the speed of this wave:</p>
+  <div class="key">\[ v = \frac{1}{\sqrt{\mu_0\varepsilon_0}} = 3.00\times10^8\ \mathrm{m/s} \]</div>
+  <p>The same as the measured speed of light. The conclusion: light is an electromagnetic wave. In 1887 Hertz confirmed this by producing radio waves in the laboratory. The whole spectrum from radio to gamma rays is a solution of the same equations; only the frequency differs. The step-by-step derivation is in Part 4.</p>
+  <h3>A wave carries energy</h3>
+  <p>Energy is stored in the fields; the energy per unit volume is <span class="nw">\(u = \tfrac12\varepsilon_0E^2 + \tfrac{1}{2\mu_0}B^2\).</span> The flow of energy is given by the Poynting vector:</p>
+  <div class="key">\[ \vec S = \frac{1}{\mu_0}\,\vec E\times\vec B \qquad [\mathrm{W/m^2}] \]</div>
+  <p>In a plane wave \(\vec S\) points along the propagation direction; its time average gives the intensity, <span class="nw">\(I = \tfrac12 c\varepsilon_0E_0^2\).</span> Sunlight at the ground is about 1000 W/m², which means \(E_0 \approx 870\) V/m. The 1 mm² beam of a 1 mW laser pointer is also about 1000 W/m².</p>
+</section>
+
+<section id="madde">
+  <p class="eyebrow" lang="en">Fields in matter</p>
+  <h2>A brief look at matter</h2>
+  <p>Up to here everything was in vacuum. In matter the field polarizes and magnetizes the atoms, which produces their own bound charges and bound currents. Instead of following each atom one by one, we fold this response into two auxiliary fields:</p>
+  \[ \vec D = \varepsilon_0\vec E + \vec P, \qquad \vec H = \frac{\vec B}{\mu_0} - \vec M \]
+  <p>Maxwell's equations are then written only with the free charges and currents we control: <span class="nw">\(\nabla\cdot\vec D = \rho_f\),</span> <span class="nw">\(\nabla\times\vec H = \vec J_f + \partial\vec D/\partial t\).</span> In a linear material <span class="nw">\(\vec D = \varepsilon\vec E\),</span> \(\vec B = \mu\vec H\), and the speed of light falls to <span class="nw">\(v = 1/\sqrt{\varepsilon\mu} = c/n\)</span>. All of this is the subject of Part 3.</p>
+</section>
+
+<div class="partmark" id="kisim-c"><span class="pm-letter">C</span><div><p class="pm-title">Reference</p><p class="pm-sub">Constants, units, symbols and test</p></div></div>
+
+<section id="sabitler">
+  <p class="eyebrow" lang="en">Reference</p>
+  <h2>Constants, units and symbols</h2>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Constant</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Elementary charge \(e\)</td><td class="num">1.602×10⁻¹⁹ C</td></tr>
+        <tr><td>Vacuum permittivity \(\varepsilon_0\)</td><td class="num">8.854×10⁻¹² F/m</td></tr>
+        <tr><td>Coulomb constant \(1/4\pi\varepsilon_0\)</td><td class="num">8.988×10⁹ N·m²/C²</td></tr>
+        <tr><td>Vacuum permeability \(\mu_0\)</td><td class="num">1.257×10⁻⁶ H/m ≈ 4π×10⁻⁷</td></tr>
+        <tr><td>Speed of light \(c\)</td><td class="num">299 792 458 m/s</td></tr>
+        <tr><td>Planck constant <span class="nw">\(h\),</span> \(\hbar\)</td><td class="num">6.626×10⁻³⁴, 1.055×10⁻³⁴ J·s</td></tr>
+        <tr><td>Electron mass \(m_e\)</td><td class="num">9.109×10⁻³¹ kg</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Quantity</th><th>Symbol</th><th>SI unit</th></tr></thead>
+      <tbody>
+        <tr><td>Charge</td><td>\(Q\)</td><td class="num">C</td></tr>
+        <tr><td>Current</td><td>\(I\)</td><td class="num">A = C/s</td></tr>
+        <tr><td>Volume, surface charge density</td><td><span class="nw">\(\rho\),</span> \(\sigma\)</td><td class="num">C/m³, C/m²</td></tr>
+        <tr><td>Current density</td><td>\(\vec J\)</td><td class="num">A/m²</td></tr>
+        <tr><td>The electric field</td><td>\(\vec E\)</td><td class="num">V/m = N/C</td></tr>
+        <tr><td>Potential</td><td>\(V\)</td><td class="num">V = J/C</td></tr>
+        <tr><td>Magnetic field</td><td>\(\vec B\)</td><td class="num">T = N/(A·m)</td></tr>
+        <tr><td>Magnetic flux</td><td>\(\Phi_B\)</td><td class="num">Wb = T·m²</td></tr>
+        <tr><td>Displacement, polarization</td><td><span class="nw">\(\vec D\),</span> \(\vec P\)</td><td class="num">C/m²</td></tr>
+        <tr><td>H field, magnetization</td><td><span class="nw">\(\vec H\),</span> \(\vec M\)</td><td class="num">A/m</td></tr>
+        <tr><td>Poynting vector</td><td>\(\vec S\)</td><td class="num">W/m²</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tablebox">
+    <table class="data">
+      <thead><tr><th>Symbol</th><th>Pronunciation</th><th>Usual meaning in the series</th></tr></thead>
+      <tbody>
+        <tr><td>\(\varepsilon\)</td><td>epsilon</td><td>electric permittivity</td></tr>
+        <tr><td>\(\mu\)</td><td>mu</td><td>permeability</td></tr>
+        <tr><td><span class="nw">\(\rho\),</span> \(\sigma\)</td><td>rho, sigma</td><td>charge densities</td></tr>
+        <tr><td>\(\Phi\)</td><td>phi</td><td>flux</td></tr>
+        <tr><td><span class="nw">\(\omega\),</span> \(\nu\)</td><td>omega, nu</td><td>angular frequency, frequency</td></tr>
+        <tr><td><span class="nw">\(\lambda\),</span> <span class="nw">\(\kappa\),</span> \(\chi\)</td><td>lambda, kappa, chi</td><td>wavelength, extinction coefficient, susceptibility</td></tr>
+        <tr><td><span class="nw">\(\nabla\),</span> \(\partial\)</td><td>nabla, partial derivative (“del”)</td><td>derivative operators</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="test" class="quiz">
+  <p class="eyebrow" lang="en">Self-check</p>
+  <h2>Test yourself</h2>
+  <details><summary>For \(\vec F = (x^2, y, 0)\), what is the divergence at the point \((1, 2)\)?</summary><div class="ans"><p><span class="nw">\(\partial_x(x^2) + \partial_y(y) = 2x + 1 = 3\).</span></p></div></details>
+  <details><summary>What is the curl of the shear field <span class="nw">\(\vec F = (y, 0, 0)\)</span>, and which way does the wheel turn?</summary><div class="ans"><p><span class="nw">\((\nabla\times\vec F)_z = \partial_x F_y - \partial_y F_x = 0 - 1 = -1\).</span> The negative z direction: it turns clockwise seen from above.</p></div></details>
+  <details><summary>What is the net electric flux through a closed surface that does not enclose a charge?</summary><div class="ans"><p>Zero. The field lines of a charge outside enter the surface at one place and leave at another.</p></div></details>
+  <details><summary>What does \(\nabla\cdot\vec B = 0\) say physically?</summary><div class="ans"><p>There is no magnetic charge (monopole); magnetic field lines neither start nor end anywhere and form closed loops.</p></div></details>
+  <details><summary>What is the energy, in joules, of an electron accelerated through 10 V?</summary><div class="ans"><p>10 eV = \(10\times1.602\times10^{-19} = 1.602\times10^{-18}\) J. This is the starting value of the example in Part 2.</p></div></details>
+  <details><summary>What is B at 1 cm from a wire carrying 10 A?</summary><div class="ans">\[ B = \frac{\mu_0 I}{2\pi r} = \frac{4\pi\times10^{-7}\cdot 10}{2\pi\cdot 0.01} = 2\times10^{-4}\ \mathrm T \]<p>So 200 µT, about four times the Earth's field.</p></div></details>
+  <details><summary>Why must the term \(\varepsilon_0\,\partial\vec E/\partial t\) be added to Ampère's law?</summary><div class="ans"><p>Since the divergence of a curl is zero, the old form required \(\nabla\cdot\vec J = 0\); wherever charge accumulates (a charging capacitor) this contradicts the continuity equation. The added term restores consistency and makes light possible.</p></div></details>
+  <details><summary>What is the time derivative of <span class="nw">\(e^{i(kx-\omega t)}\)</span>?</summary><div class="ans"><p><span class="nw">\(-i\omega\,e^{i(kx-\omega t)}\).</span> The time derivative turns into multiplication by \(-i\omega\).</p></div></details>
+</section>
+
+<p class="next">Next part: <a href="../1-faz-ve-grup-hizi/en.html">Phase and group velocity →</a></p>
+  </article>
+</div>
+<footer class="wrap foot" lang="en">
+  <p class="kbm-back"><a href="../../#nanofotonik">← Nanophotonics series</a> · <a href="../../">Weeks of 602</a> · <a href="./" hreflang="tr" lang="tr">Türkçe sürüm →</a></p>
+  
+  <p>This part collects background that was not covered in the lecture; Parts 1–4 are based on the lecture notes of 25.09.2026 and 02.10.2026. Numerical constants are rounded to four significant figures.</p>
+</footer>
+<script>
+(function(){
+"use strict";
+var NF = window.NF = {};
+var root = document.documentElement;
+var tokCache = {};
+NF.tok = function(name){
+  if (tokCache[name] === undefined) tokCache[name] = getComputedStyle(root).getPropertyValue(name).trim();
+  return tokCache[name];
+};
+var themeCbs = [];
+NF.onTheme = function(cb){ themeCbs.push(cb); };
+function themeChanged(){ tokCache = {}; themeCbs.forEach(function(cb){ try{ cb(); }catch(e){} }); }
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeChanged); } catch(e){}
+try { new MutationObserver(themeChanged).observe(root, {attributes:true, attributeFilter:["data-theme","class","style"]}); } catch(e){}
+
+NF.reduceMotion = false;
+try { NF.reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+
+NF.fitCanvas = function(canvas, cssH){
+  var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  var w = Math.max(240, Math.round(canvas.parentNode.getBoundingClientRect().width));
+  var h = typeof cssH === "function" ? cssH(w) : cssH;
+  if (canvas._w !== w || canvas._h !== h || canvas._dpr !== dpr){
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    canvas.style.height = h + "px";
+    canvas._w = w; canvas._h = h; canvas._dpr = dpr;
+  }
+  var ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {ctx: ctx, w: w, h: h};
+};
+NF.onResize = function(el, cb){
+  var t = null;
+  try { new ResizeObserver(function(){ clearTimeout(t); t = setTimeout(cb, 40); }).observe(el); }
+  catch(e){ window.addEventListener("resize", cb); }
+};
+NF.whenVisible = function(el, cb){
+  try {
+    new IntersectionObserver(function(es){ es.forEach(function(e){ cb(e.isIntersecting); }); }, {rootMargin:"80px"}).observe(el);
+  } catch(e){ cb(true); }
+};
+
+var SUP = {"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+NF.sup = function(n){ return String(n).split("").map(function(c){ return SUP[c] || c; }).join(""); };
+NF.sci = function(x, d){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var e = Math.floor(Math.log10(Math.abs(x)));
+  var m = x / Math.pow(10, e);
+  if (Math.abs(m) >= 9.9995 && d <= 3) { m /= 10; e += 1; }
+  return m.toFixed(d) + "×10" + NF.sup(e);
+};
+NF.num = function(x, d){
+  if (!isFinite(x)) return "∞";
+  var a = Math.abs(x);
+  if (a !== 0 && (a >= 1e5 || a < 1e-3)) return NF.sci(x, Math.max(1, d - 1));
+  return x.toFixed(d);
+};
+NF.sig = function(x, s){
+  if (!isFinite(x)) return "∞";
+  if (x === 0) return "0";
+  var a = Math.abs(x);
+  if (a >= 1e5 || a < 1e-3) return NF.sci(x, s - 1);
+  var d = Math.max(0, s - 1 - Math.floor(Math.log10(a)));
+  return x.toFixed(d);
+};
+NF.logFrom = function(t, lo, hi){ return lo * Math.pow(hi / lo, t); };
+NF.logTo = function(v, lo, hi){ return Math.log(v / lo) / Math.log(hi / lo); };
+
+var SVGNS = "http://www.w3.org/2000/svg";
+NF.el = function(tag, attrs, parent, text){
+  var e = document.createElementNS(SVGNS, tag);
+  if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+};
+NF.path = function(pts){
+  var s = "";
+  for (var i = 0; i < pts.length; i++) s += (i ? "L" : "M") + pts[i][0].toFixed(2) + " " + pts[i][1].toFixed(2);
+  return s;
+};
+NF.clear = function(node){ while (node.firstChild) node.removeChild(node.firstChild); };
+
+/* wavelength (nm) to sRGB, Bruton's approximation with edge falloff */
+NF.wl2rgb = function(wl){
+  var r=0,g=0,b=0;
+  if (wl>=380&&wl<440){r=-(wl-440)/60;b=1}
+  else if (wl<490){g=(wl-440)/50;b=1}
+  else if (wl<510){g=1;b=-(wl-510)/20}
+  else if (wl<580){r=(wl-510)/70;g=1}
+  else if (wl<645){r=1;g=-(wl-645)/65}
+  else if (wl<=780){r=1}
+  var f = 1;
+  if (wl < 380 || wl > 780) f = 0;
+  else if (wl < 420) f = .3 + .7*(wl-380)/40;
+  else if (wl > 700) f = .3 + .7*(780-wl)/80;
+  function c(v){ return Math.round(255 * Math.pow(v * f, .8)); }
+  return [c(r), c(g), c(b)];
+};
+NF.wlName = function(wl){
+  if (wl < 380) return "ultraviolet (UV)";
+  if (wl < 450) return "mor";
+  if (wl < 495) return "mavi";
+  if (wl < 570) return "green";
+  if (wl < 590) return "yellow";
+  if (wl < 620) return "turuncu";
+  if (wl <= 750) return "red";
+  if (wl <= 1400) return "near infrared";
+  return "infrared (telecom)";
+};
+
+/* tooltip helper: rows = [{k:"mag"|"blue"|"", label:"", value:""}] */
+NF.tooltip = function(wrap){
+  var tip = document.createElement("div");
+  tip.className = "ttip"; tip.hidden = true; tip.setAttribute("role","status");
+  wrap.appendChild(tip);
+  return {
+    show: function(x, y, head, rows){
+      NF.clear(tip);
+      var h = document.createElement("div"); h.className = "h"; h.textContent = head; tip.appendChild(h);
+      rows.forEach(function(r){
+        var row = document.createElement("div"); row.className = "row";
+        var k = document.createElement("i"); k.className = "k " + (r.k || ""); row.appendChild(k);
+        var v = document.createElement("b"); v.textContent = r.value; row.appendChild(v);
+        var l = document.createElement("span"); l.textContent = r.label; row.appendChild(l);
+        tip.appendChild(row);
+      });
+      tip.hidden = false;
+      var W = wrap.clientWidth, tw = tip.offsetWidth, th = tip.offsetHeight;
+      var left = x + 14; if (left + tw > W - 4) left = x - tw - 14; if (left < 4) left = 4;
+      var top = y - th - 10; if (top < 4) top = y + 14;
+      tip.style.left = left + "px"; tip.style.top = top + "px";
+    },
+    hide: function(){ tip.hidden = true; }
+  };
+};
+
+/* spectral rule under the masthead */
+(function(){
+  var bar = document.querySelector(".spectrum");
+  if (!bar) return;
+  var stops = [];
+  for (var wl = 380; wl <= 750; wl += 10){
+    var c = NF.wl2rgb(wl);
+    stops.push("rgb(" + c.join(",") + ") " + ((wl - 380) / 370 * 100).toFixed(1) + "%");
+  }
+  bar.style.background = "linear-gradient(90deg," + stops.join(",") + ")";
+  var sc = document.querySelector(".spectrum-scale");
+  if (sc) [400,500,600,700].forEach(function(wl){
+    var s = document.createElement("span");
+    s.style.left = ((wl - 380) / 370 * 100) + "%";
+    s.textContent = wl + " nm";
+    sc.appendChild(s);
+  });
+})();
+
+/* table of contents: mark the section in view */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll(".toc a[href^='#']"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  var map = {};
+  links.forEach(function(a){ var s = document.getElementById(a.getAttribute("href").slice(1)); if (s) map[s.id] = a; });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if (e.isIntersecting){
+        links.forEach(function(a){ a.classList.remove("on"); });
+        if (map[e.target.id]) map[e.target.id].classList.add("on");
+      }
+    });
+  }, {rootMargin:"-20% 0px -70% 0px"});
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+
+/* segmented buttons: one pressed at a time */
+NF.seg = function(group, onPick){
+  var btns = Array.prototype.slice.call(group.querySelectorAll("button"));
+  btns.forEach(function(b){
+    b.addEventListener("click", function(){
+      btns.forEach(function(o){ o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      onPick(b.dataset.v, b);
+    });
+  });
+  return {
+    clear: function(){ btns.forEach(function(o){ o.setAttribute("aria-pressed","false"); }); },
+    set: function(v){ btns.forEach(function(o){ o.setAttribute("aria-pressed", o.dataset.v === v ? "true" : "false"); }); }
+  };
+};
+})();
+
+</script>
+<script>
+(function(){
+"use strict";
+var TAU = Math.PI*2;
+function $(id){ return document.getElementById(id); }
+function txt(id, s){ var e = $(id); if (e) e.textContent = s; }
+function sizeSvg(svg, H){
+  var W = Math.max(260, Math.round(svg.parentNode.getBoundingClientRect().width));
+  if (typeof H === "function") H = H(W);
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  NF.clear(svg);
+  return {W: W, H: H};
+}
+function head(svg, x, y, dir, cls, a, b){
+  a = a || 7; b = b || 3.6;
+  var p1 = [x - a*Math.cos(dir) + b*Math.sin(dir), y - a*Math.sin(dir) - b*Math.cos(dir)];
+  var p2 = [x - a*Math.cos(dir) - b*Math.sin(dir), y - a*Math.sin(dir) + b*Math.cos(dir)];
+  NF.el("polygon", {points: x + "," + y + " " + p1.join(",") + " " + p2.join(","), class: cls}, svg);
+}
+function arrow(svg, x1, y1, x2, y2, scls, fcls, w){
+  var d = Math.atan2(y2 - y1, x2 - x1);
+  NF.el("line", {x1:x1, y1:y1, x2:x2 - 5*Math.cos(d), y2:y2 - 5*Math.sin(d), class:scls, "stroke-width": w || 1.5}, svg);
+  head(svg, x2, y2, d, fcls);
+}
+function label(svg, x, y, s, cls, anchor){ return NF.el("text", {x:x, y:y, "text-anchor": anchor || "start", class: "lab " + (cls || "")}, svg, s); }
+function cArrow(ctx, x1, y1, x2, y2, w, hs){
+  var d = Math.atan2(y2 - y1, x2 - x1), L = Math.hypot(x2 - x1, y2 - y1), h = Math.min(hs || 6, L*0.5);
+  ctx.lineWidth = w;
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2 - h*0.7*Math.cos(d), y2 - h*0.7*Math.sin(d)); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - h*Math.cos(d) + h*0.5*Math.sin(d), y2 - h*Math.sin(d) - h*0.5*Math.cos(d));
+  ctx.lineTo(x2 - h*Math.cos(d) - h*0.5*Math.sin(d), y2 - h*Math.sin(d) + h*0.5*Math.cos(d));
+  ctx.closePath(); ctx.fill();
+}
+function mono(px, w){ return (w || "400") + " " + px + "px " + NF.tok("--font-mono"); }
+
+/* ---------- D1: dot and cross product ---------- */
+function drawVec(){
+  var svg = $("vec"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 560 ? 410 : 220; }), W = s.W, H = s.H, narrow = W < 560;
+  var th = 50*Math.PI/180;
+  var o1 = narrow ? [36, 170] : [32, H - 46];
+  var La = narrow ? W - 90 : W*0.36, Lb = Math.min(La*0.62, (o1[1] - 44)/Math.sin(th));
+  var A = [o1[0] + La, o1[1]], Bv = [o1[0] + Lb*Math.cos(th), o1[1] - Lb*Math.sin(th)];
+  label(svg, o1[0], narrow ? 22 : 22, "dot product · a·b = |a||b| cos θ", "ink");
+  NF.el("line", {x1:Bv[0], y1:Bv[1], x2:Bv[0], y2:o1[1], class:"s-mut s-dash", "stroke-width":1.2}, svg);
+  NF.el("line", {x1:o1[0], y1:o1[1] + 12, x2:Bv[0], y2:o1[1] + 12, class:"s-mag", "stroke-width":3}, svg);
+  label(svg, (o1[0] + Bv[0])/2, o1[1] + 30, "|b| cos θ", "strong", "middle");
+  arrow(svg, o1[0], o1[1], A[0], A[1], "s-ink", "f-ink", 2);
+  arrow(svg, o1[0], o1[1], Bv[0], Bv[1], "s-blue", "f-blue", 2);
+  label(svg, A[0] - 4, A[1] - 9, "a", "strong", "end");
+  label(svg, Bv[0] + 8, Bv[1] + 2, "b", "strong");
+  var arc = [];
+  for (var i = 0; i <= 20; i++){ var t = th*i/20; arc.push([o1[0] + 30*Math.cos(t), o1[1] - 30*Math.sin(t)]); }
+  NF.el("path", {d:NF.path(arc), class:"s-mut", "stroke-width":1}, svg);
+  label(svg, o1[0] + 36, o1[1] - 10, "θ", "strong");
+
+  var o2 = narrow ? [36, 380] : [W*0.56, H - 46];
+  var La2 = narrow ? W*0.5 : W*0.24, Lb2 = Math.min(La2*0.8, (o2[1] - (narrow ? 270 : 48))/Math.sin(th));
+  var A2 = [o2[0] + La2, o2[1]], B2 = [o2[0] + Lb2*Math.cos(th), o2[1] - Lb2*Math.sin(th)];
+  var C2 = [A2[0] + B2[0] - o2[0], A2[1] + B2[1] - o2[1]];
+  label(svg, o2[0], narrow ? 228 : 22, "cross product · |a×b| = |a||b| sin θ", "ink");
+  NF.el("path", {d:"M" + o2.join(" ") + "L" + A2.join(" ") + "L" + C2.join(" ") + "L" + B2.join(" ") + "Z", class:"w-blue"}, svg);
+  NF.el("path", {d:"M" + A2.join(" ") + "L" + C2.join(" ") + "L" + B2.join(" "), class:"s-mut s-dash", "stroke-width":1}, svg);
+  arrow(svg, o2[0], o2[1], A2[0], A2[1], "s-ink", "f-ink", 2);
+  arrow(svg, o2[0], o2[1], B2[0], B2[1], "s-blue", "f-blue", 2);
+  label(svg, A2[0] - 4, A2[1] + 16, "a", "strong", "end");
+  label(svg, B2[0] - 10, B2[1] - 4, "b", "strong", "end");
+  var mx = (o2[0] + C2[0])/2, my = (o2[1] + C2[1])/2;
+  label(svg, mx, my + 4, "alan", "ink", "middle");
+  var sx = Math.min(C2[0] + 40, W - 30), sy = Math.max(C2[1] - 4, 40);
+  NF.el("circle", {cx:sx, cy:sy, r:9, fill:"none", class:"s-mag", "stroke-width":1.6}, svg);
+  NF.el("circle", {cx:sx, cy:sy, r:2.6, class:"f-mag"}, svg);
+  label(svg, sx, sy + 26, "a×b", "strong", "middle");
+  label(svg, sx, sy + 40, "out", "", "middle");
+}
+
+/* ---------- I1: vector field explorer ---------- */
+var FIELDS = {
+  src:    {f:function(x,y){ return [x, y]; }, s:"(x, y)"},
+  sink:   {f:function(x,y){ return [-x, -y]; }, s:"(−x, −y)"},
+  unif:   {f:function(x,y){ return [1, 0.4]; }, s:"(1, 0.4)"},
+  vortex: {f:function(x,y){ return [-y, x]; }, s:"(−y, x)"},
+  shear:  {f:function(x,y){ return [y, 0]; }, s:"(y, 0)"},
+  saddle: {f:function(x,y){ return [x, -y]; }, s:"(x, −y)"},
+  grad:   {f:function(x,y){ var g = Math.exp(-2*(x*x + y*y)); return [-4*x*g, -4*y*g]; }, s:"∇f, f = e^(−2r²)", hill:true},
+  line:   {f:function(x,y){ var r2 = x*x + y*y; return [x/r2, y/r2]; }, s:"r̂/r · charged wire", sing:"q"},
+  wire:   {f:function(x,y){ var r2 = x*x + y*y; return [-y/r2, x/r2]; }, s:"φ̂/r · current wire", sing:"i"}
+};
+var fx = {key:"src", px:0.5, py:0.35, R:0.24, ang:0, raf:0, last:0, visible:true, drag:false, geom:null};
+var fxc = $("fx-c");
+function fxDiv(F, x, y){ var h = 1e-4; return (F(x+h,y)[0] - F(x-h,y)[0] + F(x,y+h)[1] - F(x,y-h)[1])/(2*h); }
+function fxCurl(F, x, y){ var h = 1e-4; return (F(x+h,y)[1] - F(x-h,y)[1] - F(x,y+h)[0] + F(x,y-h)[0])/(2*h); }
+function fxLoop(F){
+  var N = 240, fl = 0, ci = 0, dl = TAU*fx.R/N;
+  for (var i = 0; i < N; i++){
+    var a = (i + 0.5)/N*TAU, x = fx.px + fx.R*Math.cos(a), y = fx.py + fx.R*Math.sin(a), v = F(x, y);
+    fl += (v[0]*Math.cos(a) + v[1]*Math.sin(a))*dl;
+    ci += (-v[0]*Math.sin(a) + v[1]*Math.cos(a))*dl;
+  }
+  return [fl, ci];
+}
+function fxCurlNow(){
+  var fd = FIELDS[fx.key];
+  if (fd.sing && Math.hypot(fx.px, fx.py) < 0.04) return 0;
+  return fxCurl(fd.f, fx.px, fx.py);
+}
+function drawFx(){
+  var f = NF.fitCanvas(fxc, function(w){ return w < 560 ? 320 : 380; });
+  var ctx = f.ctx, w = f.w, h = f.h;
+  var S = h/2.5, cx = w/2, cy = h/2;
+  fx.geom = {S:S, cx:cx, cy:cy, w:w, h:h};
+  function X(x){ return cx + x*S; } function Y(y){ return cy - y*S; }
+  ctx.clearRect(0, 0, w, h);
+  var fd = FIELDS[fx.key], F = fd.f;
+  var ink = NF.tok("--ink"), ink3 = NF.tok("--ink-3"), mag = NF.tok("--magenta"), blue = NF.tok("--blue"), sheet = NF.tok("--sheet");
+  if (fd.hill){
+    ctx.strokeStyle = NF.tok("--rule"); ctx.lineWidth = 1.2;
+    [0.15, 0.35, 0.6, 0.85].forEach(function(lv){ var r = Math.sqrt(-Math.log(lv)/2); ctx.beginPath(); ctx.arc(cx, cy, r*S, 0, TAU); ctx.stroke(); });
+  }
+  var gp = w < 560 ? 28 : 34, pts = [], mags = [];
+  for (var gx = gp/2; gx < w; gx += gp) for (var gy = gp/2; gy < h; gy += gp){
+    var x = (gx - cx)/S, y = (cy - gy)/S;
+    if (fd.sing && Math.hypot(x, y) < 0.09) continue;
+    var v = F(x, y), m = Math.hypot(v[0], v[1]);
+    pts.push([gx, gy, v[0], v[1], m]); mags.push(m);
+  }
+  var sorted = mags.slice().sort(function(a, b){ return a - b; });
+  var ref = sorted[Math.floor(sorted.length*0.8)] || 1;
+  ctx.fillStyle = ink3; ctx.strokeStyle = ink3;
+  pts.forEach(function(p){
+    if (p[4] < 1e-9) return;
+    var L = gp*0.78*Math.min(1, Math.sqrt(p[4]/ref)), ux = p[2]/p[4], uy = -p[3]/p[4];
+    ctx.globalAlpha = 0.35 + 0.6*Math.min(1, p[4]/ref);
+    cArrow(ctx, p[0] - ux*L/2, p[1] - uy*L/2, p[0] + ux*L/2, p[1] + uy*L/2, 1.3, 5.5);
+  });
+  ctx.globalAlpha = 1;
+  if (fd.sing){
+    ctx.beginPath(); ctx.arc(cx, cy, 9, 0, TAU);
+    ctx.fillStyle = fd.sing === "q" ? mag : sheet; ctx.fill();
+    ctx.lineWidth = 1.6; ctx.strokeStyle = fd.sing === "q" ? sheet : ink; ctx.stroke();
+    if (fd.sing === "q"){ ctx.fillStyle = sheet; ctx.font = mono(13, "600"); ctx.textAlign = "center"; ctx.fillText("+", cx, cy + 4.5); }
+    else { ctx.beginPath(); ctx.arc(cx, cy, 2.6, 0, TAU); ctx.fillStyle = ink; ctx.fill(); }
+    ctx.textAlign = "left";
+  }
+  var pcx = X(fx.px), pcy = Y(fx.py), pr = fx.R*S;
+  ctx.fillStyle = NF.tok("--mag-wash"); ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.fill();
+  var maxT = 0, ticks = [];
+  for (var i = 0; i < 36; i++){
+    var a = i/36*TAU, x2 = fx.px + fx.R*Math.cos(a), y2 = fx.py + fx.R*Math.sin(a);
+    if (fd.sing && Math.hypot(x2, y2) < 0.05) continue;
+    var v2 = F(x2, y2), fn = v2[0]*Math.cos(a) + v2[1]*Math.sin(a);
+    ticks.push([a, fn]); maxT = Math.max(maxT, Math.abs(fn));
+  }
+  var tref = Math.max(ref, maxT*0.5);
+  ticks.forEach(function(t){
+    var len = Math.max(-1, Math.min(1, t[1]/tref))*16, bx = pcx + pr*Math.cos(t[0]), by = pcy - pr*Math.sin(t[0]);
+    if (Math.abs(len) < 0.6) return;
+    ctx.strokeStyle = len > 0 ? mag : blue; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx + len*Math.cos(t[0]), by - len*Math.sin(t[0])); ctx.stroke();
+  });
+  ctx.setLineDash([5, 4]); ctx.strokeStyle = mag; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
+  var cr = Math.min(pr*0.55, 18);
+  ctx.strokeStyle = blue; ctx.lineWidth = 2.4; ctx.lineCap = "round";
+  for (var b = 0; b < 4; b++){
+    var ang = -fx.ang + b*Math.PI/2;
+    ctx.beginPath(); ctx.moveTo(pcx, pcy); ctx.lineTo(pcx + cr*Math.cos(ang), pcy + cr*Math.sin(ang)); ctx.stroke();
+  }
+  ctx.lineCap = "butt";
+  ctx.beginPath(); ctx.arc(pcx, pcy, 3, 0, TAU); ctx.fillStyle = blue; ctx.fill();
+  var cu = fxCurlNow();
+  if (Math.abs(cu) > 1e-3){
+    ctx.fillStyle = NF.tok("--ink-2"); ctx.font = mono(12, "600");
+    ctx.fillText(cu > 0 ? "↺" : "↻", pcx + pr + 6, pcy - pr + 4);
+  }
+  ctx.font = mono(11); var lab = "F = " + fd.s, lw = ctx.measureText(lab).width;
+  ctx.fillStyle = NF.tok("--sheet"); ctx.globalAlpha = 0.92; ctx.fillRect(4, 4, lw + 14, 22); ctx.globalAlpha = 1;
+  ctx.fillStyle = NF.tok("--ink-2"); ctx.fillText(lab, 11, 19);
+}
+function f2(v){ var s = v.toFixed(2); return s === "-0.00" ? "0.00" : s; }
+function fxRead(){
+  var fd = FIELDS[fx.key], F = fd.f, sing = fd.sing && Math.hypot(fx.px, fx.py) < 0.04;
+  txt("fx-f", fd.s);
+  txt("fx-div", sing ? "singular point" : f2(fxDiv(F, fx.px, fx.py)));
+  txt("fx-curl", sing ? "singular point" : f2(fxCurl(F, fx.px, fx.py)));
+  var lp = fxLoop(F);
+  var inside = fd.sing && Math.hypot(fx.px, fx.py) < fx.R;
+  txt("fx-flux", f2(lp[0]) + (fd.sing === "q" && inside ? " · charge inside, 2π" : ""));
+  txt("fx-circ", f2(lp[1]) + (fd.sing === "i" && inside ? " · wire inside, 2π" : ""));
+  txt("fx-area", "π r² = " + (Math.PI*fx.R*fx.R).toFixed(3));
+}
+var fxSeg = NF.seg($("fx-pre"), function(v){ fx.key = v; fxRead(); drawFx(); fxKick(); });
+function fxLoopAnim(now){
+  fx.raf = 0;
+  var cu = fxCurlNow();
+  if (!fx.visible || NF.reduceMotion || Math.abs(cu) < 1e-3){ return; }
+  var dt = fx.last ? Math.min(0.05, (now - fx.last)/1000) : 0; fx.last = now;
+  fx.ang += 0.5*Math.max(-8, Math.min(8, cu))*dt*1.6;
+  drawFx();
+  fx.raf = requestAnimationFrame(fxLoopAnim);
+}
+function fxKick(){ if (!fx.raf && fx.visible && !NF.reduceMotion){ fx.last = 0; fx.raf = requestAnimationFrame(fxLoopAnim); } }
+NF.whenVisible(fxc, function(v){ fx.visible = v; if (v) fxKick(); });
+(function(){
+  function toMath(e){
+    var r = fxc.getBoundingClientRect(), g = fx.geom; if (!g) return null;
+    return [(e.clientX - r.left - g.cx)/g.S, (g.cy - (e.clientY - r.top))/g.S];
+  }
+  function clampP(){
+    var g = fx.geom; if (!g) return;
+    var xr = (g.w/2 - 6)/g.S, yr = (g.h/2 - 6)/g.S;
+    fx.px = Math.max(-xr, Math.min(xr, fx.px)); fx.py = Math.max(-yr, Math.min(yr, fx.py));
+  }
+  fxc.addEventListener("pointerdown", function(e){ var m = toMath(e); if (!m) return; fx.drag = true; try{ fxc.setPointerCapture(e.pointerId); }catch(_){} fx.px = m[0]; fx.py = m[1]; clampP(); fxRead(); drawFx(); fxKick(); });
+  fxc.addEventListener("pointermove", function(e){ if (!fx.drag) return; var m = toMath(e); if (!m) return; fx.px = m[0]; fx.py = m[1]; clampP(); fxRead(); drawFx(); });
+  fxc.addEventListener("pointerup", function(){ fx.drag = false; fxKick(); });
+  fxc.addEventListener("pointercancel", function(){ fx.drag = false; });
+  fxc.addEventListener("keydown", function(e){
+    var d = {ArrowLeft:[-0.05,0], ArrowRight:[0.05,0], ArrowUp:[0,0.05], ArrowDown:[0,-0.05]}[e.key];
+    if (!d) return; e.preventDefault(); fx.px += d[0]; fx.py += d[1]; clampP(); fxRead(); drawFx(); fxKick();
+  });
+  fxc.style.cursor = "crosshair";
+})();
+
+/* ---------- D2: divergence and Stokes theorems ---------- */
+function drawThm(){
+  var svg = $("thm"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 470 : 250; }), W = s.W, H = s.H, narrow = W < 600;
+  var c1 = narrow ? [W/2, 120] : [W*0.25, H/2 + 4];
+  var c2 = narrow ? [W/2, 350] : [W*0.73, H/2 + 18];
+  var R = Math.min(78, (narrow ? W : W/2)*0.26);
+  label(svg, c1[0], c1[1] - R - 26, "closed surface S, volume V", "ink", "middle");
+  function rr(t){ return R*(1 + 0.12*Math.sin(3*t) + 0.05*Math.cos(2*t)); }
+  var pts = [];
+  for (var i = 0; i <= 120; i++){ var t = i/120*TAU; pts.push([c1[0] + rr(t)*Math.cos(t), c1[1] + 0.78*rr(t)*Math.sin(t)]); }
+  NF.el("path", {d:NF.path(pts) + "Z", class:"w-blue"}, svg);
+  NF.el("path", {d:NF.path(pts) + "Z", class:"s-ink", "stroke-width":1.5}, svg);
+  for (var k = 0; k < 8; k++){
+    var t0 = k/8*TAU + 0.2, e = 0.001;
+    var x0 = c1[0] + rr(t0)*Math.cos(t0), y0 = c1[1] + 0.78*rr(t0)*Math.sin(t0);
+    var x1 = c1[0] + rr(t0 + e)*Math.cos(t0 + e), y1 = c1[1] + 0.78*rr(t0 + e)*Math.sin(t0 + e);
+    var tx = x1 - x0, ty = y1 - y0, tl = Math.hypot(tx, ty), nx = ty/tl, ny = -tx/tl;
+    arrow(svg, x0, y0, x0 + 24*nx, y0 + 24*ny, "s-mag", "f-mag", 1.8);
+    if (k === 1) label(svg, x0 + 28*nx + 4, y0 + 28*ny + 4, "da", "strong");
+  }
+  [[-0.3, -0.2], [0.25, -0.05], [-0.05, 0.28], [0.35, 0.3]].forEach(function(o){
+    NF.el("text", {x:c1[0] + o[0]*R, y:c1[1] + o[1]*R + 4, "text-anchor":"middle", class:"lab", style:"fill:var(--magenta);font-weight:600"}, svg, "+");
+  });
+  label(svg, c1[0] - 0.05*R, c1[1] - 0.05*R + 4, "V", "strong", "middle");
+  label(svg, c1[0] - R - 18, c1[1] + 4, "S", "strong", "end");
+  label(svg, c2[0], c2[1] - R - 40, "open surface S, boundary C", "ink", "middle");
+  var ry = R*0.4;
+  NF.el("ellipse", {cx:c2[0], cy:c2[1], rx:R*1.1, ry:ry, class:"w-blue"}, svg);
+  NF.el("ellipse", {cx:c2[0], cy:c2[1], rx:R*1.1, ry:ry, fill:"none", class:"s-ink", "stroke-width":1.6}, svg);
+  [0.15, 1.75, 3.35, 4.95].forEach(function(t){
+    var x = c2[0] + R*1.1*Math.cos(t), y = c2[1] + ry*Math.sin(t);
+    head(svg, x, y, Math.atan2(-ry*Math.cos(t), R*1.1*Math.sin(t)), "f-ink");
+  });
+  [[-0.45, 0.05], [0.1, -0.15], [0.5, 0.1]].forEach(function(o){
+    var ex = c2[0] + o[0]*R, ey = c2[1] + o[1]*ry*2.2, sr = 10, sy = 4, pp = [];
+    for (var q = 0; q <= 20; q++){ var a = 0.4 + (TAU - 1.0) - q/20*(TAU - 1.0); pp.push([ex + sr*Math.cos(a), ey + sy*Math.sin(a)]); }
+    NF.el("path", {d:NF.path(pp), class:"s-mag", "stroke-width":1.3}, svg);
+    var pe = pp[pp.length - 1], pb = pp[pp.length - 2];
+    head(svg, pe[0], pe[1], Math.atan2(pe[1] - pb[1], pe[0] - pb[0]), "f-mag");
+  });
+  arrow(svg, c2[0], c2[1] - 2, c2[0], c2[1] - R - 14, "s-blue", "f-blue", 2);
+  label(svg, c2[0] + 8, c2[1] - R - 12, "da", "strong");
+  label(svg, c2[0] + R*1.1 + 10, c2[1] + 4, "C", "strong");
+  label(svg, c2[0] - R*0.15, c2[1] + ry*0.75, "S", "strong", "middle");
+}
+
+/* ---------- I2: phasor and wave ---------- */
+var ph = {w:2, k:2.5, t:0, d:false, playing:!NF.reduceMotion, visible:true, raf:0, last:0};
+var phc = $("ph-c");
+function drawPh(){
+  var f = NF.fitCanvas(phc, function(w){ return w < 560 ? 400 : 250; });
+  var ctx = f.ctx, w = f.w, h = f.h, narrow = w < 560;
+  ctx.clearRect(0, 0, w, h);
+  var Rr = narrow ? 70 : Math.min(76, h*0.3);
+  var ccx = narrow ? w/2 : 34 + Rr + 28, ccy = narrow ? 18 + Rr + 30 : h/2 + 6;
+  var wx0 = narrow ? 24 : ccx + Rr + 60, wx1 = w - 18, wy = narrow ? h - 24 - Rr : ccy;
+  var ink2 = NF.tok("--ink-2"), ink3 = NF.tok("--ink-3"), rule = NF.tok("--rule"), mag = NF.tok("--magenta"), blue = NF.tok("--blue");
+  ctx.strokeStyle = rule; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(ccx, ccy, Rr, 0, TAU); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ccx, ccy - Rr - 16); ctx.lineTo(ccx, ccy + Rr + 10); ctx.moveTo(ccx - Rr - 16, ccy); ctx.lineTo(ccx + Rr + 10, ccy); ctx.stroke();
+  ctx.fillStyle = ink3; ctx.font = mono(11);
+  ctx.fillText("Re", ccx + 6, ccy - Rr - 6); ctx.fillText("Im", ccx - Rr - 26, ccy - 6);
+  var phi = -ph.w*ph.t;
+  var tipx = ccx - Math.sin(phi)*Rr, tipy = ccy - Math.cos(phi)*Rr;
+  ctx.strokeStyle = mag; ctx.fillStyle = mag; cArrow(ctx, ccx, ccy, tipx, tipy, 2.4, 9);
+  if (ph.d){
+    var dl = Rr*ph.w/3.2, dre = Math.sin(phi), dim = -Math.cos(phi);
+    ctx.strokeStyle = blue; ctx.fillStyle = blue;
+    cArrow(ctx, ccx, ccy, ccx - dim*dl, ccy - dre*dl, 2, 8);
+    ctx.font = mono(11, "600"); ctx.fillStyle = ink2;
+    ctx.fillText("−iω eⁱᵠ", ccx - dim*dl + 6, ccy - dre*dl - 4);
+  }
+  ctx.fillStyle = ink2; ctx.font = mono(11, "600");
+  ctx.fillText("eⁱᵠ", tipx + 8, tipy - 6);
+  var X = 6;
+  function WX(x){ return wx0 + x/X*(wx1 - wx0); }
+  ctx.strokeStyle = rule; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(wx0, wy); ctx.lineTo(wx1, wy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(wx0, wy - Rr - 8); ctx.lineTo(wx0, wy + Rr + 8); ctx.stroke();
+  ctx.strokeStyle = NF.tok("--ink"); ctx.lineWidth = 2; ctx.lineJoin = "round";
+  ctx.beginPath();
+  for (var i = 0; i <= 300; i++){ var x = X*i/300; ctx.lineTo(WX(x), wy - Rr*Math.cos(ph.k*x - ph.w*ph.t)); }
+  ctx.stroke();
+  var y0 = wy - Rr*Math.cos(phi);
+  if (!narrow){
+    ctx.setLineDash([4, 4]); ctx.strokeStyle = mag; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(tipx, tipy); ctx.lineTo(wx0, y0); ctx.stroke(); ctx.setLineDash([]);
+  } else {
+    ctx.setLineDash([4, 4]); ctx.strokeStyle = mag; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(tipx, tipy); ctx.lineTo(tipx, Math.min(tipy, ccy) - 4); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.beginPath(); ctx.arc(wx0, y0, 5, 0, TAU); ctx.fillStyle = mag; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = NF.tok("--sheet"); ctx.stroke();
+  ctx.fillStyle = ink3; ctx.font = mono(11);
+  ctx.fillText("u(x, t) = cos(kx − ωt)", wx0 + 10, narrow ? wy - Rr - 14 : 18);
+  ctx.fillText("x →", wx1 - 26, wy + 16);
+}
+function phRead(){
+  txt("ph-wo", ph.w.toFixed(2)); txt("ph-ko", ph.k.toFixed(2));
+  txt("ph-l", (TAU/ph.k).toFixed(2) + " birim"); txt("ph-t", (TAU/ph.w).toFixed(2) + " s"); txt("ph-v", (ph.w/ph.k).toFixed(2) + " birim/s");
+}
+function phLoop(now){
+  ph.raf = 0;
+  if (!ph.playing || !ph.visible) return;
+  var dt = ph.last ? Math.min(0.05, (now - ph.last)/1000) : 0; ph.last = now;
+  ph.t += dt; drawPh();
+  ph.raf = requestAnimationFrame(phLoop);
+}
+function phKick(){ if (!ph.raf && ph.playing && ph.visible){ ph.last = 0; ph.raf = requestAnimationFrame(phLoop); } }
+NF.whenVisible(phc, function(v){ ph.visible = v; if (v) phKick(); });
+$("ph-w").addEventListener("input", function(e){ ph.w = +e.target.value; phRead(); drawPh(); });
+$("ph-k").addEventListener("input", function(e){ ph.k = +e.target.value; phRead(); drawPh(); });
+$("ph-d").addEventListener("change", function(e){ ph.d = e.target.checked; drawPh(); });
+$("ph-play").addEventListener("click", function(){ ph.playing = !ph.playing; $("ph-play").textContent = ph.playing ? "Pause" : "Play"; if (ph.playing) phKick(); });
+if (!ph.playing){ $("ph-play").textContent = "Play"; ph.t = 0.45; }
+
+/* ---------- I3: Gauss's law lab ---------- */
+var START = [{x:-0.55, y:0.12, q:1}, {x:0.62, y:-0.3, q:-1}, {x:0.18, y:0.52, q:1}];
+var gl = {charges: START.map(function(c){ return {x:c.x, y:c.y, q:c.q}; }), cx:-0.3, cy:0.05, R:0.5, drag:null, geom:null};
+var glc = $("gl-c");
+function E(x, y){
+  var ex = 0, ey = 0;
+  gl.charges.forEach(function(c){ var dx = x - c.x, dy = y - c.y, r2 = dx*dx + dy*dy + 1e-6; ex += c.q*dx/(TAU*r2); ey += c.q*dy/(TAU*r2); });
+  return [ex, ey];
+}
+function glFlux(){
+  var N = 720, s = 0;
+  for (var i = 0; i < N; i++){
+    var a = (i + 0.5)/N*TAU, v = E(gl.cx + gl.R*Math.cos(a), gl.cy + gl.R*Math.sin(a));
+    s += (v[0]*Math.cos(a) + v[1]*Math.sin(a))*gl.R*TAU/N;
+  }
+  return s;
+}
+function glRead(){
+  var qin = 0, qout = 0, near = false;
+  gl.charges.forEach(function(c){
+    var d = Math.hypot(c.x - gl.cx, c.y - gl.cy);
+    if (Math.abs(d - gl.R) < 0.03) near = true;
+    if (d < gl.R) qin += c.q; else qout += c.q;
+  });
+  txt("gl-in", (qin > 0 ? "+" : "") + qin);
+  var fl = glFlux();
+  txt("gl-flux", near ? "charge on the circle, undefined" : (Math.abs(fl) < 0.005 ? "0.00" : fl.toFixed(2)));
+  txt("gl-out", (qout > 0 ? "+" : "") + qout);
+  txt("gl-ro", gl.R.toFixed(2));
+}
+function drawGl(){
+  var f = NF.fitCanvas(glc, function(w){ return w < 560 ? 330 : 380; });
+  var ctx = f.ctx, w = f.w, h = f.h, S = h/2.3, cx = w/2, cy = h/2;
+  gl.geom = {S:S, cx:cx, cy:cy, w:w, h:h};
+  function X(x){ return cx + x*S; } function Y(y){ return cy - y*S; }
+  ctx.clearRect(0, 0, w, h);
+  var ink = NF.tok("--ink"), ink3 = NF.tok("--ink-3"), mag = NF.tok("--magenta"), blue = NF.tok("--blue"), sheet = NF.tok("--sheet");
+  var gp = w < 560 ? 26 : 30, mref = 1/(TAU*0.35);
+  ctx.fillStyle = ink3; ctx.strokeStyle = ink3;
+  for (var gx = gp/2; gx < w; gx += gp) for (var gy = gp/2; gy < h; gy += gp){
+    var x = (gx - cx)/S, y = (cy - gy)/S, skip = false;
+    gl.charges.forEach(function(c){ if (Math.hypot(x - c.x, y - c.y) < 0.09) skip = true; });
+    if (skip) continue;
+    var v = E(x, y), m = Math.hypot(v[0], v[1]); if (m < 1e-9) continue;
+    var L = gp*0.78*Math.min(1, Math.sqrt(m/mref)), ux = v[0]/m, uy = -v[1]/m;
+    ctx.globalAlpha = 0.3 + 0.6*Math.min(1, m/mref);
+    cArrow(ctx, gx - ux*L/2, gy - uy*L/2, gx + ux*L/2, gy + uy*L/2, 1.2, 5);
+  }
+  ctx.globalAlpha = 1;
+  var pcx = X(gl.cx), pcy = Y(gl.cy), pr = gl.R*S;
+  ctx.fillStyle = NF.tok("--blue-wash"); ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.fill();
+  for (var i = 0; i < 48; i++){
+    var a = i/48*TAU, bx = gl.cx + gl.R*Math.cos(a), by = gl.cy + gl.R*Math.sin(a), near = false;
+    gl.charges.forEach(function(c){ if (Math.hypot(bx - c.x, by - c.y) < 0.06) near = true; });
+    if (near) continue;
+    var v2 = E(bx, by), fn = v2[0]*Math.cos(a) + v2[1]*Math.sin(a);
+    var len = Math.max(-1, Math.min(1, fn/mref))*18;
+    if (Math.abs(len) < 0.6) continue;
+    ctx.strokeStyle = len > 0 ? mag : blue; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(X(bx), Y(by)); ctx.lineTo(X(bx) + len*Math.cos(a), Y(by) - len*Math.sin(a)); ctx.stroke();
+  }
+  ctx.setLineDash([6, 5]); ctx.strokeStyle = ink; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.arc(pcx, pcy, pr, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
+  ctx.strokeStyle = ink3; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.moveTo(pcx - 6, pcy); ctx.lineTo(pcx + 6, pcy); ctx.moveTo(pcx, pcy - 6); ctx.lineTo(pcx, pcy + 6); ctx.stroke();
+  gl.charges.forEach(function(c){
+    var x3 = X(c.x), y3 = Y(c.y);
+    ctx.beginPath(); ctx.arc(x3, y3, 11, 0, TAU); ctx.fillStyle = c.q > 0 ? mag : blue; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = sheet; ctx.stroke();
+    ctx.fillStyle = sheet; ctx.font = mono(15, "600"); ctx.textAlign = "center";
+    ctx.fillText(c.q > 0 ? "+" : "−", x3, y3 + 5); ctx.textAlign = "left";
+  });
+  ctx.fillStyle = NF.tok("--ink-2"); ctx.font = mono(11);
+  ctx.fillText("S", pcx + pr*0.72 + 6, pcy - pr*0.72 - 4);
+}
+(function(){
+  function toMath(e){ var r = glc.getBoundingClientRect(), g = gl.geom; return [(e.clientX - r.left - g.cx)/g.S, (g.cy - (e.clientY - r.top))/g.S]; }
+  function clamp(o){ var g = gl.geom, xr = (g.w/2 - 12)/g.S, yr = (g.h/2 - 12)/g.S; o.x = Math.max(-xr, Math.min(xr, o.x)); o.y = Math.max(-yr, Math.min(yr, o.y)); }
+  glc.addEventListener("pointerdown", function(e){
+    if (!gl.geom) return;
+    var m = toMath(e), best = null, bd = 18/gl.geom.S;
+    gl.charges.forEach(function(c){ var d = Math.hypot(c.x - m[0], c.y - m[1]); if (d < bd){ bd = d; best = c; } });
+    if (best) gl.drag = {type:"q", obj:best, ox:best.x - m[0], oy:best.y - m[1]};
+    else if (Math.hypot(m[0] - gl.cx, m[1] - gl.cy) < gl.R + 0.06) gl.drag = {type:"c", ox:gl.cx - m[0], oy:gl.cy - m[1]};
+    else { gl.cx = m[0]; gl.cy = m[1]; gl.drag = {type:"c", ox:0, oy:0}; }
+    try{ glc.setPointerCapture(e.pointerId); }catch(_){}
+    glRead(); drawGl();
+  });
+  glc.addEventListener("pointermove", function(e){
+    if (!gl.drag) return;
+    var m = toMath(e);
+    if (gl.drag.type === "q"){ gl.drag.obj.x = m[0] + gl.drag.ox; gl.drag.obj.y = m[1] + gl.drag.oy; clamp(gl.drag.obj); }
+    else { var o = {x:m[0] + gl.drag.ox, y:m[1] + gl.drag.oy}; clamp(o); gl.cx = o.x; gl.cy = o.y; }
+    glRead(); drawGl();
+  });
+  function up(){ gl.drag = null; }
+  glc.addEventListener("pointerup", up); glc.addEventListener("pointercancel", up);
+  glc.addEventListener("keydown", function(e){
+    var d = {ArrowLeft:[-0.05,0], ArrowRight:[0.05,0], ArrowUp:[0,0.05], ArrowDown:[0,-0.05]}[e.key];
+    if (!d) return; e.preventDefault(); var o = {x:gl.cx + d[0], y:gl.cy + d[1]}; clamp(o); gl.cx = o.x; gl.cy = o.y; glRead(); drawGl();
+  });
+  glc.style.cursor = "grab";
+  var seed = 3;
+  function rnd(){ seed = (seed*9301 + 49297) % 233280; return seed/233280; }
+  function add(q){
+    if (gl.charges.length >= 10) return;
+    var g = gl.geom, xr = g ? (g.w/2 - 30)/g.S : 1.2;
+    gl.charges.push({x:(rnd()*2 - 1)*xr*0.9, y:(rnd()*2 - 1)*0.85, q:q});
+    glRead(); drawGl();
+  }
+  $("gl-plus").addEventListener("click", function(){ add(1); });
+  $("gl-minus").addEventListener("click", function(){ add(-1); });
+  $("gl-reset").addEventListener("click", function(){
+    gl.charges = START.map(function(c){ return {x:c.x, y:c.y, q:c.q}; }); gl.cx = -0.3; gl.cy = 0.05; gl.R = 0.5; $("gl-r").value = 0.5;
+    glRead(); drawGl();
+  });
+  $("gl-r").addEventListener("input", function(e){ gl.R = +e.target.value; glRead(); drawGl(); });
+})();
+
+/* ---------- D3: field of a straight wire ---------- */
+function drawWire(){
+  var svg = $("wire"); if (!svg) return;
+  var s = sizeSvg(svg, 260), W = s.W, H = s.H, cx = W/2, cy = H/2 + 6;
+  [32, 60, 94].forEach(function(r){
+    NF.el("circle", {cx:cx, cy:cy, r:r, fill:"none", class:"s-mut", "stroke-width":1}, svg);
+    var n = r < 40 ? 3 : r < 70 ? 5 : 7, span = 1000/(r*r);
+    for (var i = 0; i < n; i++){
+      var t0 = i/n*TAU + 0.5, pts = [];
+      for (var q = 0; q <= 12; q++){ var t = t0 + span*q/12; pts.push([cx + r*Math.cos(t), cy - r*Math.sin(t)]); }
+      NF.el("path", {d:NF.path(pts.slice(0, -1)), class:"s-blue", "stroke-width":2}, svg);
+      var pe = pts[pts.length - 1], pb = pts[pts.length - 2];
+      head(svg, pe[0], pe[1], Math.atan2(pe[1] - pb[1], pe[0] - pb[0]), "f-blue");
+    }
+  });
+  NF.el("circle", {cx:cx, cy:cy, r:10, class:"f-sheet s-ink", "stroke-width":1.8}, svg);
+  NF.el("circle", {cx:cx, cy:cy, r:3, class:"f-ink"}, svg);
+  label(svg, cx + 13, cy - 12, "I", "strong");
+  label(svg, 12, 20, "B = μ₀I / 2πr", "ink");
+  label(svg, W - 12, 20, "current out of the page ⊙", "", "end");
+}
+
+/* ---------- I4: induction ---------- */
+var ind = {f:0.3, t:0, playing:!NF.reduceMotion, visible:true, raf:0, last:0};
+var indc = $("ind-c");
+function drawInd(){
+  var fr = NF.fitCanvas(indc, function(w){ return w < 560 ? 420 : 250; });
+  var ctx = fr.ctx, w = fr.w, h = fr.h, narrow = w < 560;
+  ctx.clearRect(0, 0, w, h);
+  var ink = NF.tok("--ink"), ink2 = NF.tok("--ink-2"), ink3 = NF.tok("--ink-3"), mag = NF.tok("--magenta"), blue = NF.tok("--blue"), rule = NF.tok("--rule");
+  var om = TAU*ind.f, B = Math.sin(om*ind.t), dB = Math.cos(om*ind.t), emf = -dB;
+  var Rl = narrow ? 78 : Math.min(84, h*0.34), lcx = narrow ? w/2 : 30 + Rl + 30, lcy = narrow ? 16 + Rl + 26 : h/2 + 4;
+  var gn = Math.floor((Rl + 12)/26);
+  for (var gi = -gn; gi <= gn; gi++) for (var gj = -gn; gj <= gn; gj++){
+    var px = lcx + gi*26, py = lcy + gj*26, sz = 1.5 + 5.5*Math.abs(B);
+    ctx.strokeStyle = ink3; ctx.fillStyle = ink3; ctx.globalAlpha = 0.35 + 0.55*Math.abs(B); ctx.lineWidth = 1.3;
+    if (B >= 0){ ctx.beginPath(); ctx.arc(px, py, sz, 0, TAU); ctx.stroke(); ctx.beginPath(); ctx.arc(px, py, 1.3, 0, TAU); ctx.fill(); }
+    else { ctx.beginPath(); ctx.moveTo(px - sz*0.7, py - sz*0.7); ctx.lineTo(px + sz*0.7, py + sz*0.7); ctx.moveTo(px + sz*0.7, py - sz*0.7); ctx.lineTo(px - sz*0.7, py + sz*0.7); ctx.stroke(); }
+  }
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = ink; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.arc(lcx, lcy, Rl, 0, TAU); ctx.stroke();
+  if (Math.abs(emf) > 0.04){
+    ctx.fillStyle = mag; ctx.strokeStyle = mag; ctx.globalAlpha = 0.35 + 0.65*Math.abs(emf);
+    var ccw = emf > 0;
+    for (var i = 0; i < 4; i++){
+      var a = i/4*TAU + 0.4, x = lcx + Rl*Math.cos(a), y = lcy - Rl*Math.sin(a);
+      var tx = ccw ? -Math.sin(a) : Math.sin(a), ty = ccw ? -Math.cos(a) : Math.cos(a);
+      cArrow(ctx, x - tx*10, y - ty*10, x + tx*10, y + ty*10, 3, 11);
+    }
+    ctx.globalAlpha = 1;
+  }
+  ctx.fillStyle = ink2; ctx.font = mono(11);
+  ctx.fillText("B " + (B >= 0 ? "⊙ out" : "⊗ in"), lcx - Rl, lcy + Rl + 26);
+  var px0 = narrow ? 34 : lcx + Rl + 70, px1 = w - 16, py0 = narrow ? h - 150 : 22, py1 = narrow ? h - 30 : h - 36;
+  var pmid = (py0 + py1)/2, amp = (py1 - py0)/2 - 6, Tw = 2/ind.f;
+  ctx.strokeStyle = rule; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(px0, pmid); ctx.lineTo(px1, pmid); ctx.moveTo(px0, py0); ctx.lineTo(px0, py1); ctx.stroke();
+  function curve(fn, color, wdt){
+    ctx.strokeStyle = color; ctx.lineWidth = wdt; ctx.beginPath();
+    for (var j = 0; j <= 200; j++){ var tt = ind.t - Tw + Tw*j/200; ctx.lineTo(px0 + (px1 - px0)*j/200, pmid - amp*fn(tt)); }
+    ctx.stroke();
+  }
+  curve(function(tt){ return Math.sin(om*tt); }, ink, 2);
+  curve(function(tt){ return -Math.cos(om*tt); }, mag, 2);
+  ctx.beginPath(); ctx.arc(px1, pmid - amp*B, 4.5, 0, TAU); ctx.fillStyle = ink; ctx.fill();
+  ctx.beginPath(); ctx.arc(px1, pmid - amp*emf, 4.5, 0, TAU); ctx.fillStyle = mag; ctx.fill();
+  ctx.fillStyle = ink3; ctx.font = mono(11);
+  ctx.fillText("last two periods · now →", px0 + 6, py1 + 16);
+  txt("ind-b", (B >= 0 ? "+" : "") + B.toFixed(2) + (B >= 0 ? " · out" : " · in"));
+  txt("ind-d", Math.abs(dB) < 0.04 ? "momentarily still" : (dB > 0 ? "increasing (outward)" : "decreasing (outward)"));
+  txt("ind-i", Math.abs(emf) < 0.04 ? "practically none" : (emf > 0 ? "counterclockwise" : "clockwise"));
+  txt("ind-own", Math.abs(emf) < 0.04 ? "–" : (emf > 0 ? "⊙ out" : "⊗ in"));
+}
+function indLoop(now){
+  ind.raf = 0;
+  if (!ind.playing || !ind.visible) return;
+  var dt = ind.last ? Math.min(0.05, (now - ind.last)/1000) : 0; ind.last = now;
+  ind.t += dt; drawInd();
+  ind.raf = requestAnimationFrame(indLoop);
+}
+function indKick(){ if (!ind.raf && ind.playing && ind.visible){ ind.last = 0; ind.raf = requestAnimationFrame(indLoop); } }
+NF.whenVisible(indc, function(v){ ind.visible = v; if (v) indKick(); });
+$("ind-f").addEventListener("input", function(e){ var ph0 = ind.f*ind.t; ind.f = +e.target.value; ind.t = ph0/ind.f; txt("ind-fo", ind.f.toFixed(2)); drawInd(); });
+$("ind-play").addEventListener("click", function(){ ind.playing = !ind.playing; $("ind-play").textContent = ind.playing ? "Pause" : "Play"; if (ind.playing) indKick(); });
+if (!ind.playing){ $("ind-play").textContent = "Play"; ind.t = 0.35/ind.f*0.25; }
+
+/* ---------- D4: capacitor and the two surfaces ---------- */
+function drawCap0(){
+  var svg = $("cap0"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 300 : 250; }), W = s.W, H = s.H, narrow = W < 600;
+  var cy = H/2 + 10, xp = W*0.58, gap = 34, ph = 62, lx = W*0.24;
+  NF.el("line", {x1:14, y1:cy, x2:xp, y2:cy, class:"s-ink", "stroke-width":2.5}, svg);
+  NF.el("line", {x1:xp + gap, y1:cy, x2:W - 14, y2:cy, class:"s-ink", "stroke-width":2.5}, svg);
+  NF.el("line", {x1:xp, y1:cy - ph, x2:xp, y2:cy + ph, class:"s-ink", "stroke-width":5}, svg);
+  NF.el("line", {x1:xp + gap, y1:cy - ph, x2:xp + gap, y2:cy + ph, class:"s-ink", "stroke-width":5}, svg);
+  for (var i = -2; i <= 2; i++){
+    label(svg, xp - 9, cy + i*24 + 4, "+", "strong", "middle");
+    label(svg, xp + gap + 10, cy + i*24 + 4, "−", "strong", "middle");
+  }
+  [-36, 0, 36].forEach(function(dy){ arrow(svg, xp + 6, cy + dy, xp + gap - 6, cy + dy, "s-blue", "f-blue", 1.6); });
+  label(svg, xp + gap + 24, cy - ph + 2, "E increasing", "ink");
+  arrow(svg, 30, cy - 12, 80, cy - 12, "s-ink", "f-ink", 1.6);
+  label(svg, 34, cy - 20, "I", "strong");
+  var bag = "M" + lx + " " + (cy - 46) + "C" + (lx + 60) + " " + (cy - 110) + " " + (xp + gap/2) + " " + (cy - 96) + " " + (xp + gap/2) + " " + (cy - 40)
+          + "L" + (xp + gap/2) + " " + (cy + 40) + "C" + (xp + gap/2) + " " + (cy + 96) + " " + (lx + 60) + " " + (cy + 110) + " " + lx + " " + (cy + 46) + "Z";
+  NF.el("path", {d:bag, class:"w-mag"}, svg);
+  NF.el("path", {d:bag, fill:"none", class:"s-mag s-dash", "stroke-width":1.4}, svg);
+  NF.el("ellipse", {cx:lx, cy:cy, rx:12, ry:46, class:"w-blue"}, svg);
+  NF.el("ellipse", {cx:lx, cy:cy, rx:12, ry:46, fill:"none", class:"s-ink", "stroke-width":2}, svg);
+  label(svg, lx - 18, cy - 50, "C", "strong", "end");
+  label(svg, lx - 16, cy + 64, narrow ? "S₁" : "S₁ · flat disk, I passes", "ink", "end");
+  label(svg, (lx + xp)/2 + 10, cy - 104, narrow ? "S₂" : "S₂ · bag, no current, changing E", "ink", "middle");
+}
+
+/* ---------- D5: concept map ---------- */
+function drawMap(){
+  var svg = $("map"); if (!svg) return;
+  var s = sizeSvg(svg, function(W){ return W < 600 ? 330 : 300; }), W = s.W, H = s.H, narrow = W < 600;
+  var xl = narrow ? W*0.16 : W*0.17, xr = narrow ? W*0.62 : W*0.68, yt = H*0.28, yb = H*0.74, bw = narrow ? 64 : 92, bh = 44;
+  var oxx = narrow ? 28 : 40, rl = xr - bw/2 - oxx - (narrow ? 14 : 89), rr = xr + bw/2 + oxx + (narrow ? 14 : 62);
+  NF.el("rect", {x:rl, y:yt - bh/2 - 26, width:rr - rl, height:yb - yt + bh + 50, rx:16, class:"w-mag"}, svg);
+  NF.el("rect", {x:rl, y:yt - bh/2 - 26, width:rr - rl, height:yb - yt + bh + 50, rx:16, fill:"none", class:"s-mag s-dash", "stroke-width":1.2}, svg);
+  label(svg, xr, yt - bh/2 - 32, narrow ? "loop remaining in empty space" : "the loop remaining in empty space: light", "ink", "middle");
+  function node(x, y, big, small){
+    NF.el("rect", {x:x - bw/2, y:y - bh/2, width:bw, height:bh, rx:10, class:"f-sheet s-ink", "stroke-width":1.4}, svg);
+    NF.el("text", {x:x, y:y + 5, "text-anchor":"middle", class:"lab strong", style:"font-size:15px"}, svg, big);
+    if (small) label(svg, x, y + bh/2 + 15, small, "", "middle");
+  }
+  arrow(svg, xl + bw/2 + 4, yt, xr - bw/2 - 6, yt, "s-mut", "f-mut", 1.8);
+  arrow(svg, xl + bw/2 + 4, yb, xr - bw/2 - 6, yb, "s-mut", "f-mut", 1.8);
+  var lxm = narrow ? (xl + bw/2 + rl)/2 : (xl + xr)/2 - 20;
+  label(svg, lxm, yt - 8, narrow ? "Gauss" : "Gauss · ∇·E = ρ/ε₀", "ink", "middle");
+  label(svg, lxm, yb + 18, narrow ? "Ampère" : "Ampère · μ₀J", "ink", "middle");
+  var ox = narrow ? 28 : 40;
+  NF.el("path", {d:"M" + (xr + bw/2) + " " + (yb - 8) + "C" + (xr + bw/2 + ox) + " " + (yb - 20) + " " + (xr + bw/2 + ox) + " " + (yt + 20) + " " + (xr + bw/2 + 4) + " " + (yt + 8), class:"s-mag", "stroke-width":2}, svg);
+  head(svg, xr + bw/2 + 2, yt + 9, Math.atan2(-12, -ox), "f-mag");
+  NF.el("path", {d:"M" + (xr - bw/2) + " " + (yt + 8) + "C" + (xr - bw/2 - ox) + " " + (yt + 20) + " " + (xr - bw/2 - ox) + " " + (yb - 20) + " " + (xr - bw/2 - 4) + " " + (yb - 8), class:"s-mag", "stroke-width":2}, svg);
+  head(svg, xr - bw/2 - 2, yb - 9, Math.atan2(12, ox), "f-mag");
+  if (narrow){
+    label(svg, xr - bw/2 - ox + 12, (yt + yb)/2 - 6, "Maxwell", "strong");
+    label(svg, xr + bw/2 + ox - 12, (yt + yb)/2 + 12, "Faraday", "strong", "end");
+  } else {
+    label(svg, xr + bw/2 + ox + 6, (yt + yb)/2 - 2, "Faraday", "strong");
+    label(svg, xr + bw/2 + ox + 6, (yt + yb)/2 + 13, "−∂B/∂t", "ink");
+    label(svg, xr - bw/2 - ox - 6, (yt + yb)/2 - 2, "Maxwell", "strong", "end");
+    label(svg, xr - bw/2 - ox - 6, (yt + yb)/2 + 13, "μ₀ε₀ ∂E/∂t", "ink", "end");
+  }
+  node(xl, yt, "ρ", "charge"); node(xl, yb, "J", "current");
+  node(xr, yt, "E", ""); node(xr, yb, "B", "");
+  label(svg, xr, yb + bh/2 + 15, narrow ? "∇·B = 0" : "∇·B = 0, no source", "", "middle");
+}
+
+/* ---------- boot ---------- */
+function drawAll(){ drawVec(); drawFx(); drawThm(); drawPh(); drawGl(); drawWire(); drawInd(); drawCap0(); drawMap(); }
+fxRead(); phRead(); glRead();
+txt("ind-fo", ind.f.toFixed(2));
+drawAll();
+NF.onResize(document.querySelector(".prose"), drawAll);
+NF.onTheme(drawAll);
+fxKick();
+})();
+
+</script>
+
+</body></html>
