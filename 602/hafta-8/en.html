@@ -1,0 +1,2364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>602 Week 8 Study Notebook</title>
+<meta name="description" content="KBM 602, week 8: phase and group velocity in a waveguide, v_p·v_g = c², the zigzag picture, TE₀₀ and TM modes, TEM and hybrid modes, metal and dielectric cladding, the surface plasmon and the diffraction limit. 14 steps, high school level examples and 42 check questions.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="./">
+<link rel="alternate" hreflang="en" href="en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500..700&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap">
+<style>
+:root {
+  /* Düzen: açık tema beyaz tahta, koyu tema kara tahta. Her adımda solda yapışkan tahta fotoğrafı ya da yeniden çizim, sağda defter sayfası. */
+  --bg: #f1f4f2;
+  --surface: #ffffff;
+  --ink: #16202a;
+  --ink-2: #4b5864;
+  --line: #d4dce0;
+  --marker: #1f46a3;
+  --marker-ink: #ffffff;
+  --marker-soft: #e5ecf9;
+  --red: #b3322a;
+  --red-soft: #fbebe9;
+  --green: #276646;
+  --green-soft: #e6f1ea;
+  --grid: rgba(39, 102, 70, .14);
+  --scrim: rgba(8, 12, 10, .92);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(22, 32, 42, .05), 0 6px 18px rgba(22, 32, 42, .07);
+  --font-body: "Literata", Georgia, "Times New Roman", serif;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111d17;
+    --surface: #18271f;
+    --ink: #e6ede8;
+    --ink-2: #a1b1a7;
+    --line: #2a3d33;
+    --marker: #95b8ff;
+    --marker-ink: #0c1611;
+    --marker-soft: rgba(149, 184, 255, .13);
+    --red: #ff9384;
+    --red-soft: rgba(255, 147, 132, .12);
+    --green: #9bd7b2;
+    --green-soft: rgba(155, 215, 178, .09);
+    --grid: rgba(230, 237, 232, .07);
+    --scrim: rgba(3, 7, 5, .94);
+    --scrim-ink: #f3f6f4;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111d17;
+  --surface: #18271f;
+  --ink: #e6ede8;
+  --ink-2: #a1b1a7;
+  --line: #2a3d33;
+  --marker: #95b8ff;
+  --marker-ink: #0c1611;
+  --marker-soft: rgba(149, 184, 255, .13);
+  --red: #ff9384;
+  --red-soft: rgba(255, 147, 132, .12);
+  --green: #9bd7b2;
+  --green-soft: rgba(155, 215, 178, .09);
+  --grid: rgba(230, 237, 232, .07);
+  --scrim: rgba(3, 7, 5, .94);
+  --scrim-ink: #f3f6f4;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 22px rgba(0, 0, 0, .3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+.crumbs { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); margin-bottom: 16px; }
+.crumbs a { color: var(--marker); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 40;
+  background: var(--bg);
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--font-body); line-height: 1.2; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--marker); text-underline-offset: 3px; }
+strong { font-weight: 650; }
+:focus-visible { outline: 2.5px solid var(--marker); outline-offset: 2px; border-radius: 6px; }
+.k {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Giriş */
+.hero { padding-block: 44px 6px; }
+.eyebrow { font-family: var(--font-hand); font-size: 28px; color: var(--red); line-height: 1; }
+.hero h1 { font-size: clamp(32px, 5.2vw, 50px); font-weight: 700; letter-spacing: -.015em; margin: 10px 0 14px; max-width: 18ch; }
+.lead { font-size: 19px; color: var(--ink-2); max-width: 62ch; }
+.intro { padding-block: 26px 30px; display: grid; gap: 20px; }
+@media (min-width: 900px) { .intro { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; } }
+.howto { font-family: var(--font-ui); font-size: 15px; line-height: 1.55; }
+.howto ol { margin: 10px 0 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.remind { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; }
+.tag { font-family: var(--font-hand); font-size: 25px; line-height: 1; display: block; }
+.remind .tag { color: var(--red); }
+
+/* Harita */
+.map { display: grid; gap: 18px 28px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); padding-block: 4px 26px; }
+.map-g h2 { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+.map ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+.map a { display: flex; align-items: center; gap: 10px; padding: 5px 8px; border-radius: 8px; color: var(--ink); text-decoration: none; font-family: var(--font-ui); font-size: 14.5px; }
+.map a:hover { background: var(--surface); }
+.mn { font-family: var(--font-hand); font-size: 22px; color: var(--marker); width: 1.3em; text-align: right; line-height: 1; flex: none; }
+.lk { margin-left: auto; font-size: 12px; color: var(--ink-2); }
+.dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink-2); flex: none; opacity: .7; }
+[data-s="doing"] .dot { border-color: var(--marker); background: linear-gradient(90deg, var(--marker) 50%, transparent 50%); opacity: 1; }
+[data-s="done"] .dot { border-color: var(--green); background: var(--green); opacity: 1; }
+[data-s="weak"] .dot { border-color: var(--red); background: var(--red); opacity: 1; }
+.legend { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* İlerleme çubuğu */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); border-block: 1px solid var(--line); }
+.bar-in { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding-block: 10px; }
+.meter { flex: 1 1 140px; min-width: 100px; height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: var(--marker); transition: width .35s ease; }
+.count { font-family: var(--font-ui); font-size: 14px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.count strong { color: var(--ink); }
+.bar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--marker);
+  background: var(--marker);
+  color: var(--marker-ink);
+  cursor: pointer;
+}
+.btn.ghost { background: transparent; color: var(--marker); }
+.btn:hover:not(:disabled) { filter: brightness(1.08); }
+.btn:disabled { opacity: .45; cursor: default; }
+.linkbtn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  color: var(--marker);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+/* Bölümler ve adımlar */
+.part { padding-block: 60px 4px; scroll-margin-top: 110px; }
+.part h2 { font-size: clamp(26px, 3.6vw, 34px); font-weight: 700; margin: 6px 0 8px; }
+.part .sub { color: var(--ink-2); max-width: 62ch; }
+.step { margin-top: 44px; scroll-margin-top: 96px; }
+.step-h { border-top: 2px solid var(--ink); padding-top: 12px; margin-bottom: 18px; }
+.step-k { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.hand { font-family: var(--font-hand); font-size: 31px; color: var(--marker); line-height: 1; }
+.code { font-family: var(--font-hand); font-size: 22px; color: var(--red); line-height: 1; }
+.st { margin-left: auto; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.step[data-s="done"] .st { color: var(--green); }
+.step[data-s="weak"] .st { color: var(--red); }
+.step h3 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 650; margin-top: 4px; }
+.step-grid { display: grid; gap: 22px 36px; }
+@media (min-width: 1000px) {
+  .step-grid { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); align-items: start; }
+  .board { position: sticky; top: 92px; }
+}
+.board { margin: 0; }
+.zoom { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow); }
+.zoom img { display: block; width: 100%; height: auto; }
+.board figcaption { font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+.step-body { min-width: 0; max-width: 72ch; display: grid; gap: 14px; }
+.step-body ul, .step-body ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.gist { font-size: 18.5px; line-height: 1.55; padding: 12px 16px; border-radius: 10px; background: var(--marker-soft); }
+.gist .k { display: block; margin-bottom: 2px; }
+.eq { overflow-x: auto; overflow-y: hidden; min-width: 0; }
+.eq mjx-container[display="true"] { margin: .2em 0 !important; }
+mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.lise {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 18px 16px;
+  display: grid;
+  gap: 8px;
+  background-color: var(--green-soft);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.lise .tag { color: var(--green); }
+.fix { border: 1.5px dashed var(--red); background: var(--red-soft); border-radius: 12px; padding: 12px 16px; display: grid; gap: 6px; }
+.fix .tag { color: var(--red); }
+details { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+summary { cursor: pointer; padding: 10px 14px; font-family: var(--font-ui); font-size: 14.5px; font-weight: 600; color: var(--marker); list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "+"; display: inline-block; width: 1.2em; }
+details[open] > summary::before { content: "−"; }
+.d-body { padding: 0 14px 14px; display: grid; gap: 8px; }
+
+/* Sorular */
+.checks { display: grid; gap: 14px; margin-top: 6px; }
+.checks-h { font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); display: flex; align-items: center; gap: 10px; }
+.checks-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.q { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; box-shadow: var(--shadow); display: grid; gap: 12px; scroll-margin-top: 110px; }
+.q-n { display: inline-block; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600; color: var(--marker); letter-spacing: .05em; text-transform: uppercase; margin-right: 8px; }
+.opts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: opt; }
+.opts li { counter-increment: opt; display: grid; gap: 6px; }
+.opt {
+  width: 100%;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+}
+.opt::before {
+  content: counter(opt, upper-alpha);
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+.opt .t { min-width: 0; overflow-x: auto; }
+.opt:hover:not(:disabled) { border-color: var(--marker); }
+.opt:disabled { cursor: default; }
+.opt.is-right { border-color: var(--green); background: var(--green-soft); }
+.opt.is-right::before { content: "✓"; background: var(--green); border-color: var(--green); color: var(--bg); }
+.opt.is-wrong { border-color: var(--red); background: var(--red-soft); color: var(--ink-2); }
+.opt.is-wrong::before { content: "✗"; background: var(--red); border-color: var(--red); color: var(--bg); }
+.why { font-size: 15px; color: var(--ink-2); padding-left: 50px; }
+.why::before { content: "Why not: "; font-family: var(--font-ui); font-size: 13.5px; font-weight: 600; color: var(--red); }
+.hint { padding-left: 0; }
+.hint::before { content: "Hint: "; color: var(--marker); }
+.num-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.num-row input {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  width: 10em;
+  max-width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.num-row input.is-wrong { border-color: var(--red); }
+.num-row input.is-right { border-color: var(--green); background: var(--green-soft); }
+.msg { font-family: var(--font-ui); font-size: 14px; font-weight: 600; }
+.msg:empty { display: none; }
+.msg[data-k="good"] { color: var(--green); }
+.msg[data-k="bad"] { color: var(--red); }
+.msg[data-k="info"] { color: var(--ink-2); }
+.explain { border-top: 1px dashed var(--line); padding-top: 12px; display: grid; gap: 8px; font-size: 16px; }
+.explain::before { content: "Explanation"; font-family: var(--font-ui); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+
+/* Kilit */
+.lock { border: 1.5px dashed var(--line); border-radius: 14px; padding: 14px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-family: var(--font-ui); font-size: 14.5px; color: var(--ink-2); }
+.lock p { flex: 1 1 260px; }
+
+/* Etkileşimli çizimler */
+.widget { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; display: grid; gap: 10px; }
+.predict { font-size: 15.5px; }
+.wsvg { width: 100%; height: auto; display: block; }
+.w-row { display: grid; gap: 12px; }
+@media (min-width: 640px) { .w-row.two { grid-template-columns: 1fr 1fr; } }
+.w-cap { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.ctrl { display: flex; align-items: center; gap: 12px; font-family: var(--font-ui); font-size: 14px; }
+.ctrl label { font-weight: 600; white-space: nowrap; }
+.ctrl input[type="range"] { flex: 1; min-width: 0; accent-color: var(--marker); }
+.ro { font-family: var(--font-ui); font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.ro b { color: var(--ink); font-weight: 600; }
+.wsvg .ax { stroke: var(--ink-2); stroke-width: 1; }
+.wsvg .grid { stroke: var(--line); stroke-width: 1; }
+.wsvg .tick { fill: var(--ink-2); font-family: var(--font-ui); font-size: 11px; }
+.wsvg .axl { fill: var(--ink-2); font-family: var(--font-body); font-style: italic; font-size: 13px; }
+.wsvg .lbl { fill: var(--marker); font-weight: 600; }
+.wsvg .box { fill: var(--marker-soft); stroke: var(--marker); stroke-width: 2; }
+.wsvg .area { fill: var(--marker-soft); stroke: none; }
+.wsvg .curve { fill: none; stroke: var(--marker); stroke-width: 2.25; }
+.wsvg .curve-alt { fill: none; stroke: var(--ink-2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.wsvg .curve-red { fill: none; stroke: var(--red); stroke-width: 2; }
+.wsvg .mark { stroke: var(--red); stroke-width: 1.25; stroke-dasharray: 3 3; }
+.wsvg .dot-b { fill: var(--marker); }
+.wsvg .dot-r { fill: var(--surface); stroke: var(--red); stroke-width: 2; }
+.wsvg .cell-on { fill: var(--marker); }
+.wsvg .cell-off { fill: var(--bg); stroke: var(--line); stroke-width: 1; }
+
+/* Tablolar */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 15px; }
+.tbl th, .tbl td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tbl tr:last-child td { border-bottom: 0; }
+.tbl th { font-family: var(--font-ui); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; background: var(--bg); white-space: nowrap; }
+.tbl td.num { font-family: var(--font-ui); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Son bölümler */
+.end { padding-block: 64px 0; display: grid; gap: 14px; scroll-margin-top: 96px; }
+.end h2 { font-size: clamp(24px, 3.2vw, 30px); font-weight: 700; }
+.end > p { max-width: 68ch; }
+.report { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: grid; gap: 10px; max-width: 80ch; }
+.report ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.why-tag { font-family: var(--font-ui); font-size: 12.5px; color: var(--ink-2); }
+.foot { padding-block: 40px 56px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 20px; font-family: var(--font-ui); font-size: 13px; color: var(--ink-2); }
+
+/* Fotoğraf görüntüleyici */
+.lb { position: fixed; inset: 0; z-index: 60; background: var(--scrim); display: flex; align-items: center; justify-content: center; padding: max(56px, calc(env(safe-area-inset-top, 0px) + 56px)) max(16px, env(safe-area-inset-right, 0px)) max(44px, calc(env(safe-area-inset-bottom, 0px) + 44px)) max(16px, env(safe-area-inset-left, 0px)); }
+.lb img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; cursor: zoom-in; }
+.lb.full { display: block; overflow: auto; }
+.lb.full img { max-width: none; max-height: none; width: 1600px; cursor: zoom-out; }
+.lb-close { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); font-family: var(--font-ui); font-weight: 600; font-size: 14px; color: var(--scrim-ink); background: transparent; border: 1.5px solid var(--scrim-ink); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.lb-hint { position: fixed; left: 0; right: 0; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--font-ui); font-size: 13px; color: var(--scrim-ink); opacity: .8; }
+
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+  .hero { padding-block: 28px 4px; }
+  .lead { font-size: 17.5px; }
+  .gist { font-size: 17px; }
+  .q { padding: 14px; }
+  .why { padding-left: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* 602 Hafta 7 eklemeleri: yeniden çizilmiş tahta, şekiller, mod seçici, durum etiketleri */
+.redraw { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); padding: 14px 16px 16px; display: grid; gap: 8px; min-width: 0; }
+.redraw .tag { color: var(--marker); }
+.redraw-n { font-family: var(--font-hand); font-size: 23px; color: var(--red); line-height: 1.25; }
+.redraw .tbl table { font-size: 14px; }
+.redraw .tbl th, .redraw .tbl td { padding: 7px 10px; }
+.wsvg .cell-x { fill: var(--red-soft); stroke: var(--red); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.wsvg .cell-y { fill: var(--marker-soft); stroke: var(--marker); stroke-width: 1.5; }
+.wsvg .cell-g { fill: var(--green-soft); stroke: var(--green); stroke-width: 1.5; }
+.wsvg .fig-h { fill: var(--ink); font-family: var(--font-body); font-weight: 700; font-size: 18px; }
+.wsvg .fig-s { fill: var(--ink-2); font-family: var(--font-ui); font-size: 11.5px; }
+.wsvg .fig-r { fill: var(--red); font-family: var(--font-ui); font-size: 11.5px; font-weight: 600; }
+.wsvg .fig-g { fill: var(--green); font-family: var(--font-ui); font-size: 11.5px; font-weight: 600; }
+.wsvg .fig-w { fill: var(--surface); font-family: var(--font-ui); font-size: 11px; font-weight: 600; }
+.wsvg .wall { fill: none; stroke: var(--ink); stroke-width: 4; }
+.wsvg .wall-thin { fill: none; stroke: var(--ink); stroke-width: 3; }
+.wsvg .cond { fill: var(--ink); }
+.wsvg .ah { fill: var(--marker); }
+.wsvg .ah-k { fill: var(--ink); }
+.wsvg .arr-b { stroke: var(--marker); stroke-width: 1.8; }
+.wsvg .arr { stroke: var(--ink); stroke-width: 1.4; }
+.wsvg .cell-p { fill: var(--marker); }
+.wsvg .cell-n { fill: var(--red); }
+.seg-row { display: flex; flex-wrap: wrap; gap: 10px 24px; }
+.seg { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-ui); font-size: 14px; }
+.seg-l { font-family: var(--font-body); font-style: italic; font-size: 17px; margin-right: 6px; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.seg label { min-width: 36px; text-align: center; padding: 6px 10px; border: 1.5px solid var(--line); border-radius: 999px; cursor: pointer; background: var(--bg); color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 600; }
+.seg label:hover { border-color: var(--marker); }
+.seg input:checked + label { background: var(--marker); border-color: var(--marker); color: var(--marker-ink); }
+.seg input:focus-visible + label { outline: 2.5px solid var(--marker); outline-offset: 2px; }
+.pill { display: inline-block; font-family: var(--font-ui); font-size: 12.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--green-soft); color: var(--green); }
+.pill.no { background: var(--red-soft); color: var(--red); }
+.step-k .code { font-size: 20px; }
+.crumbs .lang { font-weight: 600; }
+</style>
+<style>
+/* 602 Hafta 8 eklemeleri */
+.howto .note { margin: 12px 0 0; color: var(--ink-2); }
+.howto .note a, .step-body a, .end a { color: var(--marker); }
+.eq.has-n .eq-n { display: none; }
+.eq.has-n.use-n .eq-w { display: none; }
+.eq.has-n.use-n .eq-n { display: block; }
+@media (max-width: 380px) { .eq mjx-container[display="true"] { font-size: 90%; } }
+.nw { white-space: nowrap; }
+.wsvg .lbl-r { fill: var(--red); font-family: var(--font-ui); font-size: 12px; font-weight: 600; }
+.wsvg .lbl-b { fill: var(--marker); font-family: var(--font-ui); font-size: 12px; font-weight: 600; }
+.wsvg .ray2 { fill: none; stroke: var(--marker); stroke-width: 1.6; opacity: .35; }
+.wsvg .band { fill: var(--ink-2); opacity: .16; }
+.wsvg .ovl { fill: var(--marker); opacity: .55; }
+.wsvg .pass { fill: var(--green-soft); stroke: var(--green); stroke-width: 1; }
+.wsvg .light { stroke: var(--ink-2); stroke-width: 1.25; stroke-dasharray: 4 3; }
+.wsvg polyline { stroke-linejoin: round; }
+.ctrl .btn { flex: none; }
+</style>
+</head>
+<body>
+<header class="wrap hero">
+  <nav class="crumbs" aria-label="Location"><a href="../../">KBM notes</a> › <a href="../">602</a> › Week 8 · <a class="lang" href="./" hreflang="tr" lang="tr">Türkçe</a></nav>
+  <p class="eyebrow">602 · Week 8 · lecture of 13 November</p>
+  <h1>Two speeds in a guide, two kinds of cladding</h1>
+  <p class="lead">Last week we found the TE modes and the cutoff frequency of a rectangular metal pipe. This week we calculated how fast the wave above cutoff travels: the crests move faster than c, the signal slower than c, and the product of the two speeds is exactly \(c^2\). Then we looked at which modes really exist (no TE₀₀, TM₀₁ or TM₁₀, and no TEM in an empty pipe). In the last part of the lecture we compared metal cladding with dielectric cladding: one squeezes light into nanometers but kills it within micrometers, the other carries it for kilometers but cannot go below about half a wavelength.</p>
+</header>
+
+<section class="wrap intro" aria-label="How to study">
+  <div class="howto">
+    <p class="k">How to study</p>
+    <ol>
+      <li>There is only one photo of the board, the summary at the start of the lecture. All the new parts are on two pages of the lecture notebook; in each step I show the relevant piece of the notebook in place of the board, and tapping it opens the whole page. Only the parts explained aloud are rebuilt from the transcript and given in the “Discussed in class” panel.</li>
+      <li>Read the “In one sentence” box first, then the explanation and the high school example. The answers to questions asked in class are inside the relevant step.</li>
+      <li>The lecturer left the derivation of the TM case for home (“Seriously do it”). I solved it from start to finish in Step 9; get to the point where you can write the “Exam pattern” skeleton at its end with the book closed.</li>
+      <li>Solve the questions at the end of the step. If you pick a wrong option you see why it is wrong. With step by step mode on, the next step opens once you finish the questions of the previous one, and the report at the very end shows what you should go back to.</li>
+    </ol>
+  </div>
+  <aside class="remind">
+    <span class="tag">Two reminders from week 7</span>
+    <div class="eq">\[ \omega^2=\omega_{mn}^2+c^2k^2,\qquad \omega_{mn}=c\pi\sqrt{\frac{m^2}{a^2}+\frac{n^2}{b^2}} \]</div>
+    <p>The dispersion relation and cutoff frequency of the guide. When \(\omega\lt\omega_{mn}\), k is imaginary and the wave decays. This week's speeds come from this relation, and the list of modes from the wall conditions: at the wall \(\partial B_z/\partial n=0\) for TE and \(E_z=0\) for TM.</p>
+  </aside>
+</section>
+
+<nav class="wrap map" aria-label="Steps">
+  <div class="map-g">
+    <h2>A · Back to the cutoff frequency</h2>
+    <ol>
+      <li><a href="#t1" data-step="t1"><span class="mn">1</span><span class="dot"></span>The summary on the board<span class="lk"></span></a></li>
+      <li><a href="#t2" data-step="t2"><span class="mn">2</span><span class="dot"></span>TE₁₀ and the dominant mode<span class="lk"></span></a></li>
+    </ol>
+    <h2 style="margin-top:16px">B · Two speeds in a guide</h2>
+    <ol>
+      <li><a href="#t3" data-step="t3"><span class="mn">3</span><span class="dot"></span>Phase velocity exceeds c<span class="lk"></span></a></li>
+      <li><a href="#t4" data-step="t4"><span class="mn">4</span><span class="dot"></span>Group velocity is below c<span class="lk"></span></a></li>
+      <li><a href="#t5" data-step="t5"><span class="mn">5</span><span class="dot"></span>The product is exactly c²<span class="lk"></span></a></li>
+      <li><a href="#t6" data-step="t6"><span class="mn">6</span><span class="dot"></span>The phase races, the signal cannot<span class="lk"></span></a></li>
+      <li><a href="#t7" data-step="t7"><span class="mn">7</span><span class="dot"></span>The zigzag path<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>C · Which modes exist?</h2>
+    <ol>
+      <li><a href="#t8" data-step="t8"><span class="mn">8</span><span class="dot"></span>TE₀₀: no wave<span class="lk"></span></a></li>
+      <li><a href="#t9" data-step="t9"><span class="mn">9</span><span class="dot"></span>TM modes (homework)<span class="lk"></span></a></li>
+      <li><a href="#t10" data-step="t10"><span class="mn">10</span><span class="dot"></span>TEM and hybrid<span class="lk"></span></a></li>
+    </ol>
+    <h2 style="margin-top:16px">D · Metal or dielectric?</h2>
+    <ol>
+      <li><a href="#t11" data-step="t11"><span class="mn">11</span><span class="dot"></span>A real metal is lossy<span class="lk"></span></a></li>
+      <li><a href="#t12" data-step="t12"><span class="mn">12</span><span class="dot"></span>The surface plasmon<span class="lk"></span></a></li>
+      <li><a href="#t13" data-step="t13"><span class="mn">13</span><span class="dot"></span>Fiber and the diffraction limit<span class="lk"></span></a></li>
+    </ol>
+  </div>
+  <div class="map-g">
+    <h2>E · Mode or quantum?</h2>
+    <ol>
+      <li><a href="#t14" data-step="t14"><span class="mn">14</span><span class="dot"></span>Modes are discrete, frequency continuous<span class="lk"></span></a></li>
+    </ol>
+    <h2 style="margin-top:16px">At the end</h2>
+    <ol>
+      <li><a href="#sinav"><span class="mn">·</span>What you should be able to write with the book closed</a></li>
+      <li><a href="#sozluk"><span class="mn">·</span>Glossary of the week</a></li>
+      <li><a href="#tahta-notlari"><span class="mn">·</span>Board and notebook notes</a></li>
+      <li><a href="#rapor"><span class="mn">·</span>Status report</a></li>
+    </ol>
+  </div>
+  <p class="legend"><span><span class="dot"></span>not started</span><span data-s="doing"><span class="dot"></span>in progress</span><span data-s="done"><span class="dot"></span>done on the first try</span><span data-s="weak"><span class="dot"></span>review</span></p>
+</nav>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div class="meter" aria-hidden="true"><span id="fill"></span></div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="bar-actions">
+      <button type="button" class="btn ghost" id="strict" aria-pressed="true">Step by step: on</button>
+      <button type="button" class="btn" id="next">Next question</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<header class="part" id="bolum-a">
+  <p class="k">Part A · Steps 1–2 · Board</p>
+  <h2>Back to the cutoff frequency</h2>
+  <p class="sub">The lecture opened with the last board of the previous week. This is the only board photo we have; the cutoff frequency of \(\mathrm{TE}_{10}\) was added on top of it.</p>
+</header>
+
+<!-- ADIM 1 -->
+<section class="step" id="t1" data-n="1">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 1</span><span class="code">Board</span><span class="st"></span></p>
+    <h3>The summary on the board: TE modes and cutoff</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the board photo"><img src="boards/tahta-1.jpg" width="940" height="732" alt="Whiteboard: top left, for TE₁₀ ω₁₀²/c² = (π/a)² and ω₁₀ = cπ/a; middle kx² + ky² + k² = ω²/c² and the expansion of k²; top right E_t = 0, B_⊥ = 0, k = k ẑ, e^(ikz), ∂Bz/∂x = 0 at x = 0; on the left a drawing of a rectangular cross section, TE and Bz = B₀ cos(mπx/a) cos(nπy/b), mn modes; below, the definition of ω_mn, k² = (ω² − ω_mn²)/c², if ω &lt; ω_mn then k is purely imaginary, e^(ikz) → e^(−αz), only ω &gt; ω_mn can propagate."></button>
+      <figcaption>This step: the middle and right of the board, the summary at the start of the lecture. Tap the photo to open it full screen.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The lecture gathered the end of last week on a single board: the TE mode \(B_z=B_0\cos(m\pi x/a)\cos(n\pi y/b)\) in a rectangular pipe, the dispersion relation of the guide \(c^2k^2=\omega^2-\omega_{mn}^2\), and no propagating wave below cutoff.</p>
+      <p>The top right corner is the starting point. Right at a metal wall, the component of the electric field parallel to the wall and the component of the magnetic field perpendicular to the wall are zero: on the board \(E_t=0\) (t for tangential; the \(E_\parallel\) of week 7) and \(B_\perp=0\). The wave travels along z, \(\vec k=k\hat z\), and all the fields carry the factor \(e^{ikz}\). In TE, \(E_z=0\), and the unknown to solve for is \(B_z\). Its wall condition is on the derivative rather than the value: at x = 0, \(\partial B_z/\partial x=0\). We saw why it is a derivative in Step 10 of week 7: the condition \(B_\perp=0\) goes through the formulas for the transverse fields to the derivative of \(B_z\).</p>
+      <p>The red \(X(x)Y(y)\) in the middle is separation of variables. The Helmholtz equation splits into two \(f''=-\kappa^2f\) equations, and the separation constants build the relation at the very top of the board:</p>
+      <div class="eq has-n"><div class="eq-w">\[ k_x^2+k_y^2+k^2=\frac{\omega^2}{c^2}\qquad\Longrightarrow\qquad k^2=\frac{\omega^2}{c^2}-\Big(\frac{m\pi}{a}\Big)^2-\Big(\frac{n\pi}{b}\Big)^2 \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}&k_x^2+k_y^2+k^2=\frac{\omega^2}{c^2}\\&k^2=\frac{\omega^2}{c^2}-\Big(\frac{m\pi}{a}\Big)^2-\Big(\frac{n\pi}{b}\Big)^2\end{aligned} \]</div></div>
+      <p>The wall conditions gave \(k_x=m\pi/a\), \(k_y=n\pi/b\); m and n are integers (“m, n are integers”). The cosines come from here too. Each pair (m, n) is a mode.</p>
+      <p>Giving a name to the two terms under the wavy line brings out the cutoff frequency:</p>
+      <div class="eq has-n"><div class="eq-w">\[ \frac{\omega_{mn}^2}{c^2}=\Big(\frac{m\pi}{a}\Big)^2+\Big(\frac{n\pi}{b}\Big)^2,\qquad k^2=\frac{1}{c^2}\big(\omega^2-\omega_{mn}^2\big) \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}\frac{\omega_{mn}^2}{c^2}&=\Big(\frac{m\pi}{a}\Big)^2+\Big(\frac{n\pi}{b}\Big)^2\\k^2&=\frac{1}{c^2}\big(\omega^2-\omega_{mn}^2\big)\end{aligned} \]</div></div>
+      <p>The red lines at the bottom state the result: if \(\omega\lt\omega_{mn}\), then \(k^2\lt0\), k is purely imaginary, and \(e^{-\alpha z}\) takes the place of \(e^{ikz}\). “Only \(\omega\gt\omega_{mn}\) can propagate.” The arrow and mark next to TE also recall that E is perpendicular to z, that is, \(E_z=0\).</p>
+      <p>This week we asked three questions on top of this table. How fast does the wave above cutoff travel (Part B)? Which (m, n) pairs are really modes (Part C)? How does a real, lossy metal spoil this picture and what is used instead (Part D)?</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>The diagonal of a box. The diagonal of a box with sides 1, 2 and 2 is \(\sqrt{1+4+4}=3\). The length of the wave vector is such a diagonal, fixed at \(\omega/c\). The more you “spend” on oscillating from wall to wall in the cross section (\(k_x\), \(k_y\)), the less remains for the z direction. As the frequency drops the diagonal shortens, and at some point nothing is left for z; that point is the cutoff frequency.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-1a" data-q="1a" data-type="mc" data-topic="TE wall condition">
+          <p><span class="q-n">Question 1.1</span>What is the wall condition for \(B_z\) in a TE mode?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(B_z\) itself is zero at the wall</span></button><p class="why tex-later" hidden>The value condition was for \(E_z\) in TM. The component of the magnetic field that must vanish is the one perpendicular to the wall; \(B_z\) is parallel to the wall.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The derivative of \(B_z\) perpendicular to the wall is zero, e.g. \(\partial B_z/\partial x=0\) at x = 0</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(E_z\) is zero at the wall</span></button><p class="why tex-later" hidden>In TE, \(E_z\) is already zero everywhere; this says nothing about \(B_z\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The condition \(B_\perp=0\) turns into \(\partial B_z/\partial n=0\) through the transverse field formulas. That is why the solution is a cosine.</p></div>
+        </div>
+        <div class="q" id="q-1b" data-q="1b" data-type="num" data-answer="4" data-tol="0.001" data-show="4" data-topic="k = √(ω²/c² − kx² − ky²)">
+          <p><span class="q-n">Question 1.2</span>In units with c = 1, \(k_x=3\), \(k_y=0\) and ω = 5. What is k?</p>
+          <div class="num-row"><label class="sr" for="in-1b">Your answer</label><input id="in-1b" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(k^2=\omega^2/c^2-k_x^2-k_y^2\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(k=\sqrt{25-9}=4\). A triangle with hypotenuse 5 and one leg 3; the other leg is 4.</p></div>
+        </div>
+        <div class="q" id="q-1c" data-q="1c" data-type="mc" data-topic="decay below cutoff">
+          <p><span class="q-n">Question 1.3</span>What happens to \(e^{ikz}\) when \(\omega\lt\omega_{mn}\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">It keeps oscillating like \(e^{i\alpha z}\)</span></button><p class="why tex-later" hidden>k is purely imaginary, \(k=i\alpha\): \(e^{i(i\alpha)z}=e^{-\alpha z}\). When the two i's multiply no oscillation is left.</p></li>
+            <li><button type="button" class="opt"><span class="t">It does not change, only its amplitude halves</span></button><p class="why tex-later" hidden>The amplitude falls exponentially along z; there is no fixed ratio.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">It decays like \(e^{-\alpha z}\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(k^2\lt0\Rightarrow k=i\alpha\), \(e^{ikz}=e^{-\alpha z}\). This is the red arrow on the board.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 2 -->
+<section class="step" id="t2" data-n="2">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 2</span><span class="code">Board</span><span class="st"></span></p>
+    <h3>TE₁₀: the lowest cutoff</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the board photo"><img src="boards/tahta-1.jpg" width="940" height="732" loading="lazy" decoding="async" alt="Top left corner of the board: TE₁₀, ω₁₀²/c² = (π/a)², ω₁₀ = cπ/a."></button>
+      <figcaption>This step: the top left corner, \(\omega_{10}\) for \(\mathrm{TE}_{10}\).</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Putting m = 1, n = 0 gives \(\omega_{10}=c\pi/a\); if you know the wide side of the cross section you can compute the cutoff frequency right away, and for a > b this is the lowest cutoff frequency of the guide.</p>
+      <p>The first minute of the lecture: “put 1 here and 0 here.” In the definition of \(\omega_{mn}\), m = 1, n = 0:</p>
+      <div class="eq">\[ \frac{\omega_{10}^2}{c^2}=\Big(\frac{\pi}{a}\Big)^2+0\qquad\Longrightarrow\qquad \omega_{10}=\frac{c\pi}{a} \]</div>
+      <p>The lecturer made a note while taking the square root: a is a positive number, so there is no need to take the negative root. Frequency here is a magnitude; \(-c\pi/a\) carries no new information.</p>
+      <p>In hertz \(f_{10}=\omega_{10}/2\pi=c/2a\). Read the other way, the cutoff wavelength is \(\lambda_c=c/f_{10}=2a\): the free-space wavelength must be shorter than twice the wide side, so at least half a wave must fit in the cross section. In the lecturer's words, if you know the dimensions of a rectangular guide you can easily compute the cutoff frequency; \(\omega_{mn}\) is just a number, a property of the geometry of the guide.</p>
+      <p>Why the lowest? \(\omega_{mn}^2\propto m^2/a^2+n^2/b^2\). For a > b, the smallest nonzero value comes from m = 1, n = 0. The cutoff of \(\mathrm{TE}_{01}\) is \(c\pi/b\), which is larger; m = n = 0 is not a mode at all (Step 8). That is why \(\mathrm{TE}_{10}\) is called the dominant mode. In the standard WR-90 guide a = 22.86 mm and \(f_{10}\approx6.56\) GHz.</p>
+      <p>After the break a classmate asked: “Which mode will we use in our work?” The lecturer's answer: the lowest modes, because their cutoff frequencies are low. In practice a guide is run in the frequency range where only \(\mathrm{TE}_{10}\) propagates; this is the single-mode operation in the last step of week 7.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A jump rope. Two people turn a rope. The easiest motion is a single arc between the two hands: the rope bulges in the middle with its ends in the hands. This is \(\mathrm{TE}_{10}\): a single half wave along the wide side, the lowest frequency. For a two-arc turn with a still middle (\(\mathrm{TE}_{20}\)) you must turn the rope twice as fast. If you shorten the rope you must turn it faster even for the same single arc; when the pipe narrows, the cutoff rises.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-2a" data-q="2a" data-type="num" data-answer="5" data-tol="0.01" data-show="5" data-topic="TE10 cutoff frequency">
+          <p><span class="q-n">Question 2.1</span>In a pipe with a wide side a = 3 cm, what is \(f_{10}\) in GHz? (c = 3 × 10⁸ m/s.)</p>
+          <div class="num-row"><label class="sr" for="in-2a">Your answer</label><input id="in-2a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(f_{10}=c/2a\), a = 0,03 m.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(3\times10^8/0.06=5\times10^9\) Hz = 5 GHz. The cutoff wavelength is 6 cm, twice the side.</p></div>
+        </div>
+        <div class="q" id="q-2b" data-q="2b" data-type="mc" data-topic="mode with the lowest cutoff">
+          <p><span class="q-n">Question 2.2</span>a = 2 cm, b = 1 cm. Which mode has the lowest cutoff frequency?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TE}_{01}\)</span></button><p class="why tex-later" hidden>\(f_{01}=c/2b=15\) GHz; twice the \(f_{10}=c/2a=7.5\) GHz.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TM}_{11}\)</span></button><p class="why tex-later" hidden>The smallest of the TMs, but \(f_{11}=f_{10}\sqrt{1+4}\approx16.8\) GHz.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\mathrm{TE}_{10}\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The lowest cutoff comes from fitting a half wave into the longest side. The long side is a, the mode is \(\mathrm{TE}_{10}\), \(f_{10}=7.5\) GHz.</p></div>
+        </div>
+        <div class="q" id="q-2c" data-q="2c" data-type="num" data-answer="2" data-tol="0.001" data-show="2" data-topic="cutoff wavelength 2a">
+          <p><span class="q-n">Question 2.3</span>For \(\mathrm{TE}_{10}\) the cutoff wavelength is \(\lambda_c=2a\). For a wave with a free-space wavelength of 4 cm to pass, how many cm must a be at least?</p>
+          <div class="num-row"><label class="sr" for="in-2c">Your answer</label><input id="in-2c" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>To pass it must have \(\lambda\lt\lambda_c=2a\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(2a\gt4\) cm, so a > 2 cm. At least half a wave must fit in the cross section.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<header class="part" id="bolum-b">
+  <p class="k">Part B · Steps 3–7 · Notebook, page 1</p>
+  <h2>Two speeds in a guide</h2>
+  <p class="sub">Two speeds come from the dispersion relation: the speed of the crests is greater than c and the speed of the packet less than c. Then we discuss why this is not a contradiction, and the picture of the wave zigzagging between the walls.</p>
+</header>
+
+<!-- ADIM 3 -->
+<section class="step" id="t3" data-n="3">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 3</span><span class="code">Notebook 1</span><span class="st"></span></p>
+    <h3>Phase velocity exceeds c</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d1-faz.jpg" data-full="boards/defter-1.jpg" width="1100" height="482" loading="lazy" decoding="async" alt="From the lecture notebook: the heading phase velocity; for TE₁₀ ω₁₀²/c² = (π/a)², ω₁₀ = cπ/a; v_p = ω/k; k² = (ω²/c²)(1 − ω_mn²/ω²); on the left v_p = c/√(1 − ω_mn²/ω²) and &quot;this is larger than c&quot;."></button>
+      <figcaption>This step: under the “phase velocity” heading and the \(v_p\) on the left. Tap it to open the whole notebook page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The phase velocity is the speed of the crests of a single-frequency wave, \(v_p=\omega/k\); in a guide \(v_p=c/\sqrt{1-\omega_{mn}^2/\omega^2}\), and it is greater than c for every propagating mode.</p>
+      <p>The lecturer's definition: phase velocity is the speed of a monochromatic, single-frequency wave. In \(e^{i(kz-\omega t)}\), following a crest means keeping the phase constant:</p>
+      <div class="eq has-n"><div class="eq-w">\[ kz-\omega t=\text{constant}\quad\Longrightarrow\quad z=\frac{\omega}{k}\,t+\text{constant}\quad\Longrightarrow\quad v_p=\frac{\omega}{k} \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}&kz-\omega t=\text{constant}\\&\Longrightarrow\ z=\frac{\omega}{k}\,t+\text{constant}\\&\Longrightarrow\ v_p=\frac{\omega}{k}\end{aligned} \]</div></div>
+      <p>In the guide we take k from the dispersion relation. The lecturer pulled \(\omega^2\) out of the parenthesis:</p>
+      <div class="eq has-n"><div class="eq-w">\[ k^2=\frac{1}{c^2}\big(\omega^2-\omega_{mn}^2\big)=\frac{\omega^2}{c^2}\Big(1-\frac{\omega_{mn}^2}{\omega^2}\Big)\quad\Longrightarrow\quad k=\frac{\omega}{c}\sqrt{1-\frac{\omega_{mn}^2}{\omega^2}} \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}k^2&=\frac{1}{c^2}\big(\omega^2-\omega_{mn}^2\big)=\frac{\omega^2}{c^2}\Big(1-\frac{\omega_{mn}^2}{\omega^2}\Big)\\k&=\frac{\omega}{c}\sqrt{1-\frac{\omega_{mn}^2}{\omega^2}}\end{aligned} \]</div></div>
+      <p>Dividing ω by this:</p>
+      <div class="eq">\[ v_p=\frac{\omega}{k}=\frac{c}{\sqrt{1-\omega_{mn}^2/\omega^2}} \]</div>
+      <p>Why is it greater than c? The argument was built step by step. Below cutoff the wave does not propagate, so we care only about \(\omega\gt\omega_{mn}\). Then \(\omega_{mn}^2/\omega^2\) is positive and less than 1; \(1-\omega_{mn}^2/\omega^2\) is between 0 and 1, and so is its square root. Dividing c by a number less than 1 gives a result greater than c. The note in the notebook: “this is larger than c”.</p>
+      <p>Both extremes were discussed in class. As ω approaches cutoff from above, the denominator goes to zero and \(v_p\to\infty\). As ω gets very large, \(\omega_{mn}^2/\omega^2\to0\) and \(v_p\to c\): at high frequency the wave barely feels the walls and travels as in free space.</p>
+      <p>One more thing: \(v_p\) depends on frequency. In free space every frequency travels at c; in a guide the crests of each frequency travel at a different speed. This is called dispersion, and here it comes from the geometry rather than a material: the pipe is empty yet still dispersive.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>The “Mexican wave” in a stadium. Everyone just stands up and sits down in place, but the wave races around the stands. If neighbors rise with less delay the wave runs even faster, faster than the world's fastest runner if you like. Yet nobody goes anywhere and nothing is carried; all that runs is a pattern. Phase velocity is the speed of such a pattern.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-3a" data-q="3a" data-type="num" data-answer="1.155" data-tol="0.01" data-show="1.15" data-topic="computing the phase velocity">
+          <p><span class="q-n">Question 3.1</span>If ω = 2\(\omega_{mn}\), what is \(v_p/c\)? (Two decimals.)</p>
+          <div class="num-row"><label class="sr" for="in-3a">Your answer</label><input id="in-3a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(1-\omega_{mn}^2/\omega^2=1-1/4=3/4\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(v_p/c=1/\sqrt{0.75}\approx1.15\). At twice the cutoff the crests are about 15% faster than c.</p></div>
+        </div>
+        <div class="q" id="q-3b" data-q="3b" data-type="mc" data-topic="phase velocity near cutoff">
+          <p><span class="q-n">Question 3.2</span>As ω approaches \(\omega_{mn}\) from above, what happens to \(v_p\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">It approaches c</span></button><p class="why tex-later" hidden>That is the extreme for very large ω.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">It grows without bound</span></button></li>
+            <li><button type="button" class="opt"><span class="t">It goes to zero</span></button><p class="why tex-later" hidden>It is the group velocity that goes to zero (Step 4). Phase velocity behaves the opposite way.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The \(\sqrt{1-\omega_{mn}^2/\omega^2}\) in the denominator goes to zero, \(v_p\to\infty\).</p></div>
+        </div>
+        <div class="q" id="q-3c" data-q="3c" data-type="mc" data-topic="source of the dispersion">
+          <p><span class="q-n">Question 3.3</span>Although the pipe is empty, what is the source of the frequency dependence of the phase velocity, that is, of the dispersion?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The air in the pipe</span></button><p class="why tex-later" hidden>Air is almost nondispersive; the same formula comes out even if the pipe is a vacuum.</p></li>
+            <li><button type="button" class="opt"><span class="t">The loss of the metal walls</span></button><p class="why tex-later" hidden>We derived the formula with ideal, lossless walls, and there is still dispersion.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Geometry: the size of the cross section sets \(\omega_{mn}\), which sets the relation between k and ω</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\omega^2=\omega_{mn}^2+c^2k^2\) is not linear, because of \(\omega_{mn}\); and \(\omega_{mn}\) comes from a and b.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 4 -->
+<section class="step" id="t4" data-n="4">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 4</span><span class="code">Notebook 1</span><span class="st"></span></p>
+    <h3>Group velocity is below c</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d1-grup.jpg" data-full="boards/defter-1.jpg" width="1100" height="340" loading="lazy" decoding="async" alt="From the lecture notebook: v_g = dω/dk = 1/(dk/dω); dk/dω = (1/c)(1/2)(ω² − ω_mn²)^(−1/2)·2ω; an intermediate line and in a circle (1/c)/(1 − ω_mn²/ω²)^(1/2); below v_g = c√(1 − ω_mn²/ω²) &lt; c."></button>
+      <figcaption>This step: the “\(v_g=d\omega/dk=1/(dk/d\omega)\)” line, the derivative on the right and the result in the circle. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The group velocity is \(v_g=d\omega/dk\); it is easier to take the derivative the other way around, through \(dk/d\omega\), and the result is \(v_g=c\sqrt{1-\omega_{mn}^2/\omega^2}\), always less than c.</p>
+      <p>The group velocity is the speed of the envelope of a wave packet made of many frequencies; its definition is \(v_g=d\omega/dk\). We have \(k(\omega)\) rather than \(\omega(k)\), so the lecturer took the derivative the other way around:</p>
+      <div class="eq">\[ v_g=\frac{d\omega}{dk}=\frac{1}{dk/d\omega} \]</div>
+      <p>\(k=\frac1c(\omega^2-\omega_{mn}^2)^{1/2}\). The chain rule: the derivative of the outer power times the derivative of the inner part, \(2\omega\).</p>
+      <div class="eq has-n"><div class="eq-w">\[ \frac{dk}{d\omega}=\frac1c\cdot\frac12\big(\omega^2-\omega_{mn}^2\big)^{-1/2}\cdot2\omega=\frac1c\,\frac{\omega}{\sqrt{\omega^2-\omega_{mn}^2}}=\frac1c\,\frac{1}{\sqrt{1-\omega_{mn}^2/\omega^2}} \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}\frac{dk}{d\omega}&=\frac1c\cdot\frac12\big(\omega^2-\omega_{mn}^2\big)^{-1/2}\cdot2\omega\\&=\frac1c\,\frac{\omega}{\sqrt{\omega^2-\omega_{mn}^2}}\\&=\frac1c\,\frac{1}{\sqrt{1-\omega_{mn}^2/\omega^2}}\end{aligned} \]</div></div>
+      <p>In the last step we divided the numerator and denominator by ω; ω went inside the root as \(\omega^2\). The lecturer showed the 2's canceling and left the rest with “do it yourselves at home”. Take the inverse:</p>
+      <div class="eq">\[ v_g=c\sqrt{1-\frac{\omega_{mn}^2}{\omega^2}}\lt c \]</div>
+      <p>The root is less than 1, and multiplying c by it gives a result less than c. The lecturer: as it should be; because of relativity no signal or energy transfer can exceed the speed of light. The extremes are the inverse of \(v_p\): near cutoff \(v_g\to0\), the wave nearly stops (we will see why in Step 7); at high frequency \(v_g\to c\).</p>
+      <div class="widget" id="w-vel">
+        <p class="predict"><strong>Predict first:</strong> at the frequency where \(v_g\) is half of c, how many c is \(v_p\)? Then find the point \(v_g=0.5c\) with the slider.</p>
+        <svg class="wsvg" viewBox="0 0 360 240" role="img" aria-label="Phase velocity and group velocity against ω/ω_mn: the phase velocity falls to c from above and the group velocity rises to c from below."></svg>
+        <div class="ctrl"><label for="wv">ω / ω<sub>mn</sub></label><input id="wv" type="range" min="1.02" max="4" step="0.005" value="1.5"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Red is \(v_p/c\), blue \(v_g/c\), and the dashed line c. Just above cutoff \(v_p\) goes off the graph.</p>
+      </div>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>The intermediate line in the notebook says \(\frac1c\,\frac{\omega}{\omega^2-\omega_{mn}^2}\); the denominator should be inside the square root: \(\frac1c\,\frac{\omega}{\sqrt{\omega^2-\omega_{mn}^2}}\). The result in the circle is correct; only the intermediate line slipped.</p>
+      </aside>
+      <details class="more">
+        <summary>A shortcut: the derivative of the dispersion relation (not in the lecture)</summary>
+        <div class="d-body tex-later">
+          <p>Take the derivative of both sides of \(\omega^2=\omega_{mn}^2+c^2k^2\): \(2\omega\,d\omega=2c^2k\,dk\). Without opening any square root:</p>
+          <div class="eq">\[ v_g=\frac{d\omega}{dk}=\frac{c^2k}{\omega} \]</div>
+          <p>Substituting k gives the same result. This form reduces the next step to one line.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Runners sometimes state their pace as “I run a kilometer in 5 minutes”. This is dt/dx; the speed is its inverse, 1/5 km/min = 12 km/h. The lecturer did the same: \(dk/d\omega\) was easy to find, and \(d\omega/dk\) is its inverse.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-4a" data-q="4a" data-type="num" data-answer="0.8" data-tol="0.001" data-show="0.8" data-topic="computing the group velocity">
+          <p><span class="q-n">Question 4.1</span>If ω = (5/3) \(\omega_{mn}\), what is \(v_g/c\)?</p>
+          <div class="num-row"><label class="sr" for="in-4a">Your answer</label><input id="in-4a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(\omega_{mn}^2/\omega^2=9/25\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(v_g/c=\sqrt{1-9/25}=\sqrt{16/25}=0.8\). The phase velocity is also \(1/0.8=1.25\) c.</p></div>
+        </div>
+        <div class="q" id="q-4b" data-q="4b" data-type="mc" data-topic="derivative dk/dω">
+          <p><span class="q-n">Question 4.2</span>If \(k=\frac1c\sqrt{\omega^2-\omega_{mn}^2}\), which one is \(dk/d\omega\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\frac1c\,\frac{\omega}{\omega^2-\omega_{mn}^2}\)</span></button><p class="why tex-later" hidden>The square root has dropped: \((\cdot)^{-1/2}\) means divided by the root. This is the slip in the intermediate line of the notebook.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(\frac1c\,\frac{\omega}{\sqrt{\omega^2-\omega_{mn}^2}}\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(c\sqrt{1-\omega_{mn}^2/\omega^2}\)</span></button><p class="why tex-later" hidden>This is \(v_g\), that is, \(d\omega/dk\). \(dk/d\omega\) is its inverse.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\frac1c\cdot\frac12(\omega^2-\omega_{mn}^2)^{-1/2}\cdot2\omega\): the 2's cancel and the root stays in the denominator.</p></div>
+        </div>
+        <div class="q" id="q-4c" data-q="4c" data-type="num" data-answer="0.572" data-tol="0.01" data-show="0.57" data-topic="WR-90 group velocity">
+          <p><span class="q-n">Question 4.3</span>In WR-90 the cutoff of \(\mathrm{TE}_{10}\) is 6.56 GHz. What is \(v_g/c\) at f = 8 GHz? (Two decimals.)</p>
+          <div class="num-row"><label class="sr" for="in-4c">Your answer</label><input id="in-4c" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(\omega_{mn}/\omega=f_c/f=6.56/8\approx0.82\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\sqrt{1-0.82^2}=\sqrt{0.328}\approx0.57\). The signal travels at about 57% of the speed of light.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 5 -->
+<section class="step" id="t5" data-n="5">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 5</span><span class="code">Notebook 1</span><span class="st"></span></p>
+    <h3>The product is exactly \(c^2\)</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d1-carpim.jpg" data-full="boards/defter-1.jpg" width="962" height="260" loading="lazy" decoding="async" alt="From the lecture notebook: v_g = dω/dk = 1/(dk/dω) = c√(1 − ω_mn²/ω²) &lt; c and below it v_p · v_g = c²."></button>
+      <figcaption>This step: the “\(v_p\cdot v_g=c^2\)” line. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>Multiplying the two formulas cancels the roots: \(v_pv_g=c^2\). However much one exceeds c, the other falls below it by the same factor; in free space both are exactly c.</p>
+      <p>The lecturer said “just multiply”:</p>
+      <div class="eq has-n"><div class="eq-w">\[ v_p\,v_g=\frac{c}{\sqrt{1-\omega_{mn}^2/\omega^2}}\cdot c\sqrt{1-\omega_{mn}^2/\omega^2}=c^2 \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}v_p\,v_g&=\frac{c}{\sqrt{1-\omega_{mn}^2/\omega^2}}\cdot c\sqrt{1-\omega_{mn}^2/\omega^2}\\&=c^2\end{aligned} \]</div></div>
+      <p>The roots cancel and a result independent of frequency, mode and size remains. One is greater than c and the other less; c is their geometric mean, \(c=\sqrt{v_pv_g}\).</p>
+      <p>Then the lecturer asked: in free space? Without walls \(\omega_{mn}=0\) and \(v_p=v_g=c\). The crests and the packet travel at the same speed, with no dispersion.</p>
+      <p>With the shortcut of Step 4 this is one line: \(v_p=\omega/k\), \(v_g=c^2k/\omega\), and multiplying gives \(c^2\). All we used is the form of the dispersion relation, \(\omega^2=\omega_{mn}^2+c^2k^2\). This form is the same for TE and TM, and for a metal pipe of circular cross section; only the value of \(\omega_{mn}\) changes. So \(v_pv_g=c^2\) holds in every hollow metal guide. If the pipe is filled with a single homogeneous material, the speed of light in the material, c/n, takes the place of c.</p>
+      <details class="more">
+        <summary>Light in a guide is like a massive particle (not in the lecture, my addition)</summary>
+        <div class="d-body tex-later">
+          <p>Multiply the dispersion relation by \(\hbar^2\), and write \(E=\hbar\omega\) and \(p=\hbar k\):</p>
+          <div class="eq has-n"><div class="eq-w">\[ (\hbar\omega)^2=(\hbar\omega_{mn})^2+(\hbar k)^2c^2\qquad\longleftrightarrow\qquad E^2=(mc^2)^2+(pc)^2 \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}&(\hbar\omega)^2=(\hbar\omega_{mn})^2+(\hbar k)^2c^2\\&\longleftrightarrow\ E^2=(mc^2)^2+(pc)^2\end{aligned} \]</div></div>
+          <p>This is exactly the relativistic energy-momentum relation of a massive particle, with effective mass \(m=\hbar\omega_{mn}/c^2\). The speed of a massive particle is \(v=pc^2/E=c^2k/\omega\): this is exactly \(v_g\). The phase velocity of its de Broglie wave is \(E/p=c^2/v\), greater than c. This is the same structure as the phase velocity, group velocity and wave-particle duality of week 1: the crests of the matter wave are faster than c, the particle itself slower than c, and their product is \(c^2\). The cutoff frequency plays the role of mass here. For the \(\mathrm{TE}_{10}\) of WR-90, \(m\approx4.8\times10^{-41}\) kg.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Rectangles of area 36 m². If the width is 9 the height is 4, if the width is 12 the height is 3, if the width is 18 the height is 2. As one grows the other shrinks, and for a square both are 6. \(v_pv_g=c^2\) is the same relation: the area is \(c^2\) and the “square” case is free space. Near cutoff the rectangle becomes very long and thin: \(v_p\) very large and \(v_g\) very small.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-5a" data-q="5a" data-type="num" data-answer="1.667" data-tol="0.01" data-show="1.67" data-topic="vp = c²/vg">
+          <p><span class="q-n">Question 5.1</span>In a mode \(v_g=0.6c\). What is \(v_p/c\)? (Two decimals.)</p>
+          <div class="num-row"><label class="sr" for="in-5a">Your answer</label><input id="in-5a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(v_p=c^2/v_g\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(1/0.6\approx1.67\). This case happens at \(\omega=1.25\,\omega_{mn}\).</p></div>
+        </div>
+        <div class="q" id="q-5b" data-q="5b" data-type="mc" data-topic="free-space limit">
+          <p><span class="q-n">Question 5.2</span>In free space (\(\omega_{mn}=0\)), what happens to \(v_p\) and \(v_g\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">Both are c</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(v_p=\infty\), \(v_g=0\)</span></button><p class="why tex-later" hidden>This is the extreme at the cutoff frequency, \(\omega=\omega_{mn}\).</p></li>
+            <li><button type="button" class="opt"><span class="t">\(v_p=c\), \(v_g=0\)</span></button><p class="why tex-later" hidden>The product must be \(c^2\); it cannot be zero.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Putting in \(\omega_{mn}=0\) makes both roots 1.</p></div>
+        </div>
+        <div class="q" id="q-5c" data-q="5c" data-type="mc" data-topic="what vp·vg = c² relies on">
+          <p><span class="q-n">Question 5.3</span>What does the result \(v_pv_g=c^2\) rely on?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The mode being TE</span></button><p class="why tex-later" hidden>The TM mode has the same dispersion relation and the same result.</p></li>
+            <li><button type="button" class="opt"><span class="t">The cross section being rectangular</span></button><p class="why tex-later" hidden>A circular metal pipe has a relation of the same form; only the values of \(\omega_{mn}\) differ.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The dispersion relation having the form \(\omega^2=\omega_{mn}^2+c^2k^2\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(v_p=\omega/k\), \(v_g=c^2k/\omega\). Both come from this form; the mode type and cross section shape only change \(\omega_{mn}\).</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 6 -->
+<section class="step" id="t6" data-n="6">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 6</span><span class="code">spoken</span><span class="st"></span></p>
+    <h3>The phase races, the signal cannot</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <span class="tag">Discussed in class</span>
+        <div class="eq">\[ v_p=\frac{c}{\sqrt{1-\omega_{mn}^2/\omega^2}}\gt c \]</div>
+        <div class="eq">\[ v_g=c\sqrt{1-\omega_{mn}^2/\omega^2}\lt c \]</div>
+        <p class="redraw-n">All the phases are faster than c. Why not the packet?</p>
+      </div>
+      <figcaption>This part was not written on the board; the lecturer's question and the class discussion are from the transcript.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>A single-frequency wave is a pattern with no beginning or end that carries nothing; a signal can be sent only by mixing frequencies, with a packet, and the envelope of the packet travels at \(v_g\), below c. The crests enter the envelope from behind and vanish at the front.</p>
+      <p>The lecturer's question: look at the individual phases; whatever the frequency, their phase velocity is greater than c. But their group, the wave packet, travels slower than c. How can this be?</p>
+      <p>The answers from the class pointed the right way: “the phase is not a physical thing, it is like an imaginary reference” and “the signal travels with the envelope”. Let us make this precise.</p>
+      <p>A single-frequency wave \(e^{i(kz-\omega t)}\) is infinitely long and the same everywhere. All the crests are identical; you cannot mark one and send news across, because nothing tells one crest from another. To put information in you must change the wave: turn it on and off, raise and lower the amplitude. A changing wave is no longer a single frequency but, by Fourier, a band of frequencies. The speed of that change, the envelope, is \(d\omega/dk\).</p>
+      <p>You can see what happens inside the packet in the plot below. A crest is marked with a red dot. Since \(v_p\gt v_g\), the crest is faster than the envelope: it enters from the back of the envelope and moves forward, and on reaching the front edge its amplitude dies away and it disappears, while new ones come in from behind. The dashed gray line is a light signal that set off at the same moment: the crest passes it, the envelope cannot.</p>
+      <div class="widget" id="w-pack">
+        <p class="predict"><strong>Predict first:</strong> as time advances, does the marked crest stay inside the envelope? Then drag the time slider to the right or press “Play”.</p>
+        <svg class="wsvg" viewBox="0 0 360 200" role="img" aria-label="A wave packet in a guide: the dashed envelope, the wave inside it, a marked crest and a reference line traveling at the speed of light."></svg>
+        <div class="ctrl"><label for="wpt">Time</label><input id="wpt" type="range" min="0" max="20" step="0.05" value="0"><button type="button" class="btn ghost" id="wpp">Play</button></div>
+        <div class="ctrl"><label for="wpw">ω / ω<sub>mn</sub></label><input id="wpw" type="range" min="1.15" max="3" step="0.01" value="1.4"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Units c = 1 and \(\omega_{mn}=1\). The blue dot is the peak of the envelope (\(v_g\)), the red dot the marked phase crest (\(v_p\)), and the dashed gray line light (c). The spreading of the packet in time is neglected in this plot.</p>
+      </div>
+      <p>Energy also travels with the envelope: in a lossless guide the ratio of the carried power to the energy per unit length comes out as exactly \(v_g\) (not in the lecture; it can be shown with the power flow and energy density in the guide). In short, what exceeds c is only a pattern; energy and information stay below c.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Scissors. As the two blades close, the point where they cross slides toward the tips, and if the angle between the blades is small this point moves much faster than the blades themselves. Imagine scissors kilometers long: the crossing point could even run faster than light. But nothing is carried at that point; at each moment a different piece of metal is crossing. A phase crest is such a crossing point.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-6a" data-q="6a" data-type="mc" data-topic="what carries information">
+          <p><span class="q-n">Question 6.1</span>What carries information and energy in a guide?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The individual phase crests</span></button><p class="why tex-later" hidden>The crests are identical, so you cannot put information on a crest. Their speed can exceed c; they cannot be carriers.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The envelope of the packet, at \(v_g\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Surface currents on the wall, at c</span></button><p class="why tex-later" hidden>The currents go along with the field; the field advances at \(v_g\).</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Information is in a change, and the change is in the envelope. The speed of the envelope is \(d\omega/dk=v_g\lt c\).</p></div>
+        </div>
+        <div class="q" id="q-6b" data-q="6b" data-type="mc" data-topic="crests inside the packet">
+          <p><span class="q-n">Question 6.2</span>Inside a packet in a guide, how do the crests move relative to the envelope?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">They stay in place along with the envelope</span></button><p class="why tex-later" hidden>That would be true if \(v_p=v_g\), that is, in free space.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">They enter from behind, move forward and vanish at the front</span></button></li>
+            <li><button type="button" class="opt"><span class="t">They enter from the front and slide backward</span></button><p class="why tex-later" hidden>This happens for waves with \(v_g\gt v_p\), e.g. capillary waves on a water surface.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(v_p\gt v_g\): the crest is faster than the envelope and passes forward through it.</p></div>
+        </div>
+        <div class="q" id="q-6c" data-q="6c" data-type="num" data-answer="44.15" data-tol="0.3" data-show="44.2" data-topic="delay in a guide">
+          <p><span class="q-n">Question 6.3</span>In WR-90 at 10 GHz, \(v_g=0.755c\). In how many ns does a signal cross a 10 m guide? (c = 3 × 10⁸ m/s, one decimal.)</p>
+          <div class="num-row"><label class="sr" for="in-6c">Your answer</label><input id="in-6c" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(t=L/v_g\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(10/(0.755\cdot3\times10^8)\approx4.42\times10^{-8}\) s = 44.2 ns. In free space it would be 33.3 ns; the guide adds about 11 ns of delay.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 7 -->
+<section class="step" id="t7" data-n="7">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 7</span><span class="code">spoken</span><span class="st"></span></p>
+    <h3>The zigzag path: a mode is two plane waves</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <span class="tag">Discussed in class, with equations</span>
+        <div class="eq has-n"><div class="eq-w">\[ \cos\Big(\frac{\pi x}{a}\Big)e^{ikz}=\tfrac12\,e^{i(\frac{\pi}{a}x+kz)}+\tfrac12\,e^{i(-\frac{\pi}{a}x+kz)} \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}&\cos\Big(\frac{\pi x}{a}\Big)e^{ikz}\\&\ =\tfrac12\,e^{i(\frac{\pi}{a}x+kz)}+\tfrac12\,e^{i(-\frac{\pi}{a}x+kz)}\end{aligned} \]</div></div>
+        <div class="eq">\[ \cos\theta=\frac{ck}{\omega}=\sqrt{1-\frac{\omega_{10}^2}{\omega^2}} \]</div>
+        <p class="redraw-n">There are x and y components, a zigzag path rather than a straight one</p>
+      </div>
+      <figcaption>The lecturer explained this aloud. The decomposition into plane waves and the angle formula are my addition.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>The \(\mathrm{TE}_{10}\) mode is the sum of two plane waves bouncing between the walls at an angle θ; each travels at c, but the advance along z is \(v_g=c\cos\theta\) and the slide of the crests along z is \(v_p=c/\cos\theta\).</p>
+      <p>In the middle of the discussion of the speeds the lecturer gave a picture: these waves also have components in the x and y directions. They do not propagate in those directions, but they have components, so they do not follow a straight path but a zigzag one. Let us verify this picture by calculation.</p>
+      <p>In \(\mathrm{TE}_{10}\), \(B_z\propto\cos(\pi x/a)\,e^{ikz}\) and the cosine is the average of two exponentials. The decomposition on the left says this: the mode is two plane waves with wave vectors \((\pm\pi/a,\,0,\,k)\), one slanted up and one down. The length of each wave vector is:</p>
+      <div class="eq">\[ \sqrt{(\pi/a)^2+k^2}=\sqrt{\omega_{10}^2/c^2+k^2}=\frac{\omega}{c} \]</div>
+      <p>This is the dispersion relation itself. So each plane wave travels at exactly c, like light in free space; all they do in the guide is bounce from wall to wall. The angle they make with the z axis:</p>
+      <div class="eq">\[ \cos\theta=\frac{k}{\omega/c}=\frac{ck}{\omega}=\sqrt{1-\frac{\omega_{10}^2}{\omega^2}} \]</div>
+      <p>The two speeds come out of this by themselves. Something moving at c on a slant advances along z at \(c\cos\theta\): this is \(v_g\). The crest lines stand slanted, and the point where a crest meets the wall slides along z at \(c/\cos\theta\): this is \(v_p\). Their product is \(c^2\), as in Step 5.</p>
+      <p>At cutoff \(\cos\theta=0\), θ = 90°: the ray bounces perpendicular from wall to wall and does not advance at all. \(v_g=0\), \(v_p=\infty\). Below cutoff there is no such angle and the wave decays. At very high frequency θ → 0; the ray is nearly parallel to the axis and both speeds approach c. This is the picture of the sentence in Step 4, “near cutoff the wave nearly stops”.</p>
+      <div class="widget" id="w-zig">
+        <p class="predict"><strong>Predict first:</strong> as you bring the frequency closer to cutoff, what happens to the angle of the ray? Then drag the slider to the left.</p>
+        <svg class="wsvg" viewBox="0 0 360 176" role="img" aria-label="Two rays zigzagging between two metal walls; the angle changes with frequency."></svg>
+        <div class="ctrl"><label for="wz">ω / ω<sub>10</sub></label><input id="wz" type="range" min="1.01" max="5" step="0.005" value="1.525"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">The vertical axis is the cross section (width a), the horizontal axis z along the guide. The dark ray is the plane wave slanted up and the light ray the one slanted down. The starting value 1.525 is about 10 GHz in WR-90.</p>
+      </div>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A billiard ball moves along the long side of the table, bouncing off the rails. The ball always moves at the same speed, but the time to reach the far end depends on the angle: if it hits the rails almost perpendicularly it hardly goes forward, and if almost parallel its whole speed goes forward. The ball's speed is c and its advance along the long side is \(v_g=c\cos\theta\).</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-7a" data-q="7a" data-type="num" data-answer="0.5" data-tol="0.001" data-show="0.5" data-topic="vg = c cos θ">
+          <p><span class="q-n">Question 7.1</span>In a mode the plane waves make an angle θ = 60° with the z axis. What is \(v_g/c\)?</p>
+          <div class="num-row"><label class="sr" for="in-7a">Your answer</label><input id="in-7a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(v_g=c\cos\theta\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\cos60^\circ=0.5\). The phase velocity is \(c/0.5=2c\).</p></div>
+        </div>
+        <div class="q" id="q-7b" data-q="7b" data-type="mc" data-topic="zigzag at cutoff">
+          <p><span class="q-n">Question 7.2</span>At the cutoff frequency, how does the zigzag ray go?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Parallel to the axis, without bouncing</span></button><p class="why tex-later" hidden>This is the very high frequency limit, θ → 0.</p></li>
+            <li><button type="button" class="opt"><span class="t">At a 45° angle</span></button><p class="why tex-later" hidden>45° happens at a particular frequency: \(\cos\theta=1/\sqrt2\), that is, \(\omega=\sqrt2\,\omega_{10}\).</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">Perpendicular to the walls; it bounces from wall to wall and does not advance</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>At cutoff k = 0, \(\cos\theta=ck/\omega=0\). θ = 90°, \(v_g=0\).</p></div>
+        </div>
+        <div class="q" id="q-7c" data-q="7c" data-type="num" data-answer="41" data-tol="0.6" data-show="41" data-topic="zigzag angle">
+          <p><span class="q-n">Question 7.3</span>In WR-90 at 10 GHz, \(\cos\theta=0.755\). What is θ in degrees? (Whole number.)</p>
+          <div class="num-row"><label class="sr" for="in-7c">Your answer</label><input id="in-7c" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(\theta=\arccos0.755\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(\arccos0.755\approx41^\circ\). The ray makes a 41° angle with the axis.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<header class="part" id="bolum-c">
+  <p class="k">Part C · Steps 8–10 · Notebook, bottom of page 1 and page 2</p>
+  <h2>Which modes really exist?</h2>
+  <p class="sub">After the break: why there is no 00 mode, the TM derivation to do at home, and which kind of wave lives in which guide.</p>
+</header>
+
+<!-- ADIM 8 -->
+<section class="step" id="t8" data-n="8">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 8</span><span class="code">Notebook 1</span><span class="st"></span></p>
+    <h3>TE₀₀: a constant field, no wave</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d1-te00.jpg" data-full="boards/defter-1.jpg" width="1100" height="215" loading="lazy" decoding="async" alt="From the lecture notebook: the &quot;2nd lecture&quot; mark; for hollow metallic guides 00 mode do not exist (TE–TM); Bz = B₀ cos(mπx/a) cos(nπy/a); Bz = B₀ → Ex, Ey, Bx, By → 0, Ez = 0, no em wave."></button>
+      <figcaption>This step: below the “2nd lecture” mark, “for hollow metallic guides 00 mode do not exist” and the two lines below it. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>For m = n = 0, \(B_z=B_0\) is constant in the cross section; all the transverse fields come from the derivative of \(B_z\), so they vanish, and in TE \(E_z\) is zero too. What remains is a constant magnetic field, which is not an electromagnetic wave.</p>
+      <p>The first topic after the break (“2nd lecture” in the notebook). The lecturer put m = n = 0 into the formula for \(B_z\): \(\cos0=1\), \(\cos0=1\), leaving \(B_z=B_0\).</p>
+      <p>Then we were asked to look at the other components. The formulas from Step 3 of week 7:</p>
+      <div class="eq has-n"><div class="eq-w">\[ E_x=\frac{i\big(k\,\partial_xE_z+\omega\,\partial_yB_z\big)}{\omega^2/c^2-k^2},\qquad E_y=\frac{i\big(k\,\partial_yE_z-\omega\,\partial_xB_z\big)}{\omega^2/c^2-k^2},\ \dots \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}E_x&=\frac{i\big(k\,\partial_xE_z+\omega\,\partial_yB_z\big)}{\omega^2/c^2-k^2}\\E_y&=\frac{i\big(k\,\partial_yE_z-\omega\,\partial_xB_z\big)}{\omega^2/c^2-k^2},\ \dots\end{aligned} \]</div></div>
+      <p>All four are defined by the derivatives of \(E_z\) and \(B_z\), not by the fields themselves. The derivative of a constant is zero, and in TE \(E_z=0\) too. The result: \(E_x=E_y=B_x=B_y=0\) and \(E_z=0\). All we have is a constant \(B_z\).</p>
+      <p>The lecturer: this is not an electromagnetic wave, only a constant B; perhaps it corresponds to DC. An electromagnetic wave needs E and B that give rise to each other and vary in time and space; here there is no E. In week 7 we reached the same result with \(\nabla\cdot\vec B=0\): \(ikB_z=0\), so either k = 0 (no propagating wave) or \(B_z=0\). Both routes lead to the same place: a hollow metal pipe has no 00 mode, for TE or for TM.</p>
+      <p>The word “DC” is a good clue. An empty metal pipe cannot carry direct current: it is a single conductor, with no separate paths for going and returning. The mode with the lowest cutoff is \(\mathrm{TE}_{10}\), and its cutoff is above zero. A mode reaching down to zero frequency needs two separate conductors: the coaxial cable and TEM in Step 10.</p>
+      <aside class="fix">
+        <span class="tag">Board note</span>
+        <p>In the notebook the second cosine is written as \(\cos(n\pi y/a)\); the side in the y direction is b, so the correct form is \(\cos(n\pi y/b)\). At m = n = 0 the result does not change, but be careful when copying the general formula.</p>
+      </aside>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>If you raised all the water in a pool by 1 cm at once there would be no wave; the water level is the same everywhere and nothing pushes anything else. A wave needs one place to be high and another low, that is, a slope. In \(\mathrm{TE}_{00}\), \(B_z\) has no slope at all in the cross section, and that slope is exactly what produces the transverse fields.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-8a" data-q="8a" data-type="mc" data-topic="why TE00 does not exist">
+          <p><span class="q-n">Question 8.1</span>In \(\mathrm{TE}_{00}\), why are the transverse fields zero?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Because \(B_0=0\) was chosen</span></button><p class="why tex-later" hidden>\(B_0\) is an arbitrary amplitude, not zero. The problem is in the shape, not the amplitude.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">They all come from the derivatives of \(B_z\), and the derivative of a constant is zero</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Because the cutoff frequency is infinite</span></button><p class="why tex-later" hidden>The formula gives \(\omega_{00}=0\). The problem is not the frequency but that the fields do not appear at all.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>In the formulas for the transverse components \(B_z\) appears only as \(\partial_xB_z\), \(\partial_yB_z\); if \(B_z\) is constant they are all zero.</p></div>
+        </div>
+        <div class="q" id="q-8b" data-q="8b" data-type="mc" data-topic="a guide carrying DC">
+          <p><span class="q-n">Question 8.2</span>Which can carry a signal down to zero frequency (DC)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">An empty rectangular metal pipe</span></button><p class="why tex-later" hidden>Its lowest cutoff is \(\mathrm{TE}_{10}\), \(f=c/2a\gt0\). Frequencies below it decay.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">A coaxial cable</span></button></li>
+            <li><button type="button" class="opt"><span class="t">An empty circular metal pipe</span></button><p class="why tex-later" hidden>That is also a single conductor; there is no TEM, and every mode has a cutoff above zero.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>There are two conductors: the inner wire and the outer shield. It has a TEM mode with zero cutoff (Step 10).</p></div>
+        </div>
+        <div class="q" id="q-8c" data-q="8c" data-type="num" data-answer="7.5" data-tol="0.05" data-show="7.5" data-topic="second lowest cutoff">
+          <p><span class="q-n">Question 8.3</span>In a pipe with cross section a = 4 cm, b = 2 cm, what is the second lowest cutoff frequency in GHz? (c = 3 × 10⁸ m/s; 00 does not count.)</p>
+          <div class="num-row"><label class="sr" for="in-8c">Your answer</label><input id="in-8c" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(f_{10}=c/2a\), \(f_{20}=c/a\), \(f_{01}=c/2b\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(f_{10}=3.75\) GHz. The next is \(f_{20}=f_{01}=7.5\) GHz; since a = 2b the two are the same.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 9 -->
+<section class="step" id="t9" data-n="9">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 9</span><span class="code">Notebook 1–2 · homework</span><span class="st"></span></p>
+    <h3>TM modes: the derivation to do at home</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d-tm.jpg" data-full="boards/defter-2.jpg" width="1000" height="418" loading="lazy" decoding="async" alt="Two pieces from the lecture notebook: on top &quot;TM transverse magnetic case, derive its derivations, do it&quot; and Ez = E₀ sin(mπx/a) sin(nπy/b); below, the start of the second page: TM, m = 0 or n = 0 modes do not exist, TM₀₁ no exist, TM₁₀ no exist, Ez = 0 ✗, Bz = 0 ✗ (the two cannot both be 0)."></button>
+      <figcaption>This step: the last lines of the first page and the start of the second, one under the other. Tap it to open the whole second page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>In TM, \(B_z=0\) and the unknown is \(E_z\); since \(E_z\) itself vanishes at the wall, a sine comes out instead of a cosine, \(E_z=E_0\sin(m\pi x/a)\sin(n\pi y/b)\). m and n are at least 1, and the cutoff frequency formula is the same as for TE.</p>
+      <p>The lecturer did not solve the TM case in class: apply the same procedure, separation of variables; the only difference is the boundary conditions, and applying them gives a different kind of solution for the electric field, with sines rather than cosines for the z components. “Do it at home. Seriously.” Here I do it from start to finish; you should be able to write the skeleton at the end with the book closed.</p>
+      <p><strong>1. What is zero, what to solve for.</strong> In TM, \(B_z=0\); the unknown is \(E_z\). The Helmholtz equation from week 7:</p>
+      <div class="eq">\[ \Big[\partial_x^2+\partial_y^2+\gamma^2\Big]E_z=0,\qquad \gamma^2\equiv\frac{\omega^2}{c^2}-k^2 \]</div>
+      <p><strong>2. Separate.</strong> Put in \(E_z=X(x)\,Y(y)\) and divide by XY:</p>
+      <div class="eq has-n"><div class="eq-w">\[ \frac{X''}{X}+\frac{Y''}{Y}=-\gamma^2\quad\Longrightarrow\quad X''=-k_x^2X,\quad Y''=-k_y^2Y,\quad k_x^2+k_y^2=\gamma^2 \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}&\frac{X''}{X}+\frac{Y''}{Y}=-\gamma^2\\&X''=-k_x^2X,\quad Y''=-k_y^2Y\\&k_x^2+k_y^2=\gamma^2\end{aligned} \]</div></div>
+      <p>If the sum of two terms, one depending only on x and the other only on y, is constant, each is separately constant.</p>
+      <p><strong>3. Boundary condition.</strong> \(E_z\) is along z and tangent to all four walls. At a metal wall \(E_\parallel=0\), so directly:</p>
+      <div class="eq">\[ E_z=0\qquad x=0,\ x=a,\ y=0,\ y=b\ \text{(the four walls)} \]</div>
+      <p>The value itself in place of the derivative condition of TE. The difference is exactly here.</p>
+      <p><strong>4. Solve.</strong> \(X=A\sin k_xx+B\cos k_xx\). \(X(0)=0\Rightarrow B=0\). \(X(a)=0\Rightarrow\sin k_xa=0\Rightarrow k_x=m\pi/a\). The same for y: \(k_y=n\pi/b\).</p>
+      <div class="eq">\[ E_z=E_0\sin\Big(\frac{m\pi x}{a}\Big)\sin\Big(\frac{n\pi y}{b}\Big)\,e^{i(kz-\omega t)} \]</div>
+      <p><strong>5. Which (m, n)?</strong> If m = 0, \(\sin0=0\) and \(E_z\) is zero everywhere; the same for n = 0. \(B_z\) is already zero; with both zero only TEM would remain, and an empty pipe has no TEM (Step 10). In the lecturer's words: in TM, m or n cannot be zero, because then \(E_z\) would be zero; \(B_z\) is also zero, and the two cannot both be zero while satisfying the boundary conditions. The result: there is no \(\mathrm{TM}_{01}\) or \(\mathrm{TM}_{10}\), and the smallest TM mode is \(\mathrm{TM}_{11}\).</p>
+      <p><strong>6. Cutoff.</strong> \(\gamma^2=(m\pi/a)^2+(n\pi/b)^2=\omega_{mn}^2/c^2\). The same formula as TE, the same dispersion relation \(c^2k^2=\omega^2-\omega_{mn}^2\); all the speeds of Part B hold for TM too. For every pair with m, n ≥ 1, \(\mathrm{TE}_{mn}\) and \(\mathrm{TM}_{mn}\) have the same cutoff; the two are degenerate.</p>
+      <p><strong>7. Transverse fields.</strong> Put \(B_z=0\) into the formulas of week 7; the denominator is \(\gamma^2=\omega_{mn}^2/c^2\):</p>
+      <div class="eq has-n"><div class="eq-w">\[ E_x=\frac{ik}{\gamma^2}\,\partial_xE_z,\quad E_y=\frac{ik}{\gamma^2}\,\partial_yE_z,\quad B_x=-\frac{i\omega}{c^2\gamma^2}\,\partial_yE_z,\quad B_y=\frac{i\omega}{c^2\gamma^2}\,\partial_xE_z \]</div><div class="eq-n" aria-hidden="true">\[ \begin{aligned}E_x&=\frac{ik}{\gamma^2}\,\partial_xE_z,&E_y&=\frac{ik}{\gamma^2}\,\partial_yE_z\\B_x&=-\frac{i\omega}{c^2\gamma^2}\,\partial_yE_z,&B_y&=\frac{i\omega}{c^2\gamma^2}\,\partial_xE_z\end{aligned} \]</div></div>
+      <p>Check: at the x = 0 wall the tangential E components are \(E_y\) and \(E_z\), and the perpendicular B component is \(B_x\). All three carry \(\sin(m\pi x/a)\) and vanish at x = 0 and x = a. At the y walls \(E_x\), \(E_z\) and \(B_y\) vanish through \(\sin(n\pi y/b)\). All the conditions are satisfied; I checked the four Maxwell equations symbolically with these fields. The transverse E points along the slope (gradient) of \(E_z\) in the cross section; these are the arrows in the plot below.</p>
+      <div class="widget" id="w-tm">
+        <p class="predict"><strong>Predict first:</strong> what do you see when you select m = 1, n = 0? Select it and look; then open \(\mathrm{TM}_{21}\).</p>
+        <div class="seg-row">
+          <div class="seg" role="radiogroup" aria-label="m">
+            <span class="seg-l">m</span>
+            <input type="radio" name="tm" id="tm0" value="0"><label for="tm0">0</label>
+            <input type="radio" name="tm" id="tm1" value="1" checked><label for="tm1">1</label>
+            <input type="radio" name="tm" id="tm2" value="2"><label for="tm2">2</label>
+            <input type="radio" name="tm" id="tm3" value="3"><label for="tm3">3</label>
+          </div>
+          <div class="seg" role="radiogroup" aria-label="n">
+            <span class="seg-l">n</span>
+            <input type="radio" name="tn" id="tn0" value="0"><label for="tn0">0</label>
+            <input type="radio" name="tn" id="tn1" value="1" checked><label for="tn1">1</label>
+            <input type="radio" name="tn" id="tn2" value="2"><label for="tn2">2</label>
+          </div>
+        </div>
+        <svg class="wsvg" viewBox="0 0 360 214" role="img" aria-label="The sign and magnitude of Ez in the cross section (color) with arrows of the transverse electric field"></svg>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">The color is \(E_z\): blue plus, red minus, depth the magnitude. The arrows are the direction of the transverse electric field (\(\vec E_\perp\propto\nabla_\perp E_z\)) at one instant. The cross section is a = 2b.</p>
+      </div>
+      <details class="more">
+        <summary>Exam pattern: the skeleton of the TM derivation</summary>
+        <div class="d-body tex-later">
+          <p>1. \(B_z=0\); Helmholtz for \(E_z\): \([\partial_x^2+\partial_y^2+\gamma^2]E_z=0\).</p>
+          <p>2. \(E_z=X(x)Y(y)\), two \(f''=-\kappa^2f\); \(k_x^2+k_y^2=\gamma^2\).</p>
+          <p>3. \(E_z\) is tangent to every wall, \(E_\parallel=0\) ⇒ \(E_z=0\) at the wall.</p>
+          <p>4. The cosine drops, the sine stays: \(k_x=m\pi/a\), \(k_y=n\pi/b\).</p>
+          <p>5. m = 0 or n = 0 ⇒ \(E_z\equiv0\) ⇒ TEM ⇒ none in an empty pipe. The smallest mode is \(\mathrm{TM}_{11}\).</p>
+          <p>6. \(\omega_{mn}\) is the same as for TE; \(c^2k^2=\omega^2-\omega_{mn}^2\).</p>
+          <p>7. Transverse fields from \(\nabla_\perp E_z\); check that \(E_y\), \(E_z\), \(B_x\) are zero at x = 0.</p>
+          <p>A common mistake: carrying the derivative condition of TE over to TM and writing a cosine. If you write a cosine, \(E_z\) is \(E_0\) at the wall and \(E_\parallel=0\) is violated.</p>
+        </div>
+      </details>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>A square drumhead. Its edges are stretched on the frame and the skin does not move at the edge. The simplest vibration is a single bump rising and falling in the middle: this is (1, 1). There can be no vibration with “a single bump in x and no change in y”, because a shape not changing in y cannot be zero at the top and bottom edges; the whole skin stays at zero. This is the absence of \(\mathrm{TM}_{10}\). The flute of week 7 (open ends, zero slope) was TE; the drumhead (fixed edges) is TM.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-9a" data-q="9a" data-type="mc" data-topic="TM wall condition">
+          <p><span class="q-n">Question 9.1</span>In TM, why is the wall condition for \(E_z\) directly \(E_z=0\)?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">It comes from the condition \(B_\perp=0\)</span></button><p class="why tex-later" hidden>In TE that condition gave the derivative condition on \(B_z\).</p></li>
+            <li><button type="button" class="opt"><span class="t">Because \(E_z\) is perpendicular to the walls</span></button><p class="why tex-later" hidden>\(E_z\) is along z; the walls are parallel to z, so \(E_z\) is tangent to every wall.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(E_z\) is tangent to every wall, and the tangential E is zero at a metal wall</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(E_\parallel=0\) applies directly to \(E_z\). What is zero is the value itself, not the derivative; that is why it is a sine.</p></div>
+        </div>
+        <div class="q" id="q-9b" data-q="9b" data-type="mc" data-topic="shape of TM21">
+          <p><span class="q-n">Question 9.2</span>In the \(\mathrm{TM}_{21}\) mode, which is the shape of \(E_z\) in the cross section?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">\(\sin(2\pi x/a)\,\sin(\pi y/b)\)</span></button></li>
+            <li><button type="button" class="opt"><span class="t">\(\cos(2\pi x/a)\,\cos(\pi y/b)\)</span></button><p class="why tex-later" hidden>A cosine is the shape of \(B_z\) in TE.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\sin(\pi x/a)\,\sin(2\pi y/b)\)</span></button><p class="why tex-later" hidden>The indices are swapped: the first index is x and the second y.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>m = 2: two half waves along x; n = 1: one half wave along y.</p></div>
+        </div>
+        <div class="q" id="q-9c" data-q="9c" data-type="num" data-answer="16.77" data-tol="0.06" data-show="16.8" data-topic="lowest TM cutoff">
+          <p><span class="q-n">Question 9.3</span>a = 2 cm, b = 1 cm. What is the cutoff frequency of the lowest TM mode in GHz? (c = 3 × 10⁸ m/s, one decimal.)</p>
+          <div class="num-row"><label class="sr" for="in-9c">Your answer</label><input id="in-9c" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>The smallest TM mode is \(\mathrm{TM}_{11}\): \(f=\frac c2\sqrt{1/a^2+1/b^2}\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(f=1.5\times10^8\sqrt{2500+10000}\) Hz, about \(1.5\times10^8\cdot111.8\) Hz ≈ 16.8 GHz. \(\mathrm{TE}_{10}\) starts at 7.5 GHz; the TMs are much higher.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 10 -->
+<section class="step" id="t10" data-n="10">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 10</span><span class="code">Notebook 2</span><span class="st"></span></p>
+    <h3>Where TEM exists, and where hybrid</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d2-modlar.jpg" data-full="boards/defter-2.jpg" width="1100" height="444" loading="lazy" decoding="async" alt="From the lecture notebook: TEM cannot be exist MHG (metallic hollow guides); TE: Ez = 0, Bz ≠ 0, MHG; TM: Ez ≠ 0, Bz = 0, MHG; TEM: Ez = 0, Bz = 0, coaxial metallic waveguides; on the right &quot;since boundaries are very lossy → fiber, dielectric cladding&quot;; below, Hybrid mode HE, EH, Ez ≠ 0, Bz ≠ 0."></button>
+      <figcaption>This step: the bottom of the second page, the list TE, TM, TEM and “Hybrid mode HE, EH”. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>A hollow metal pipe (MHG) has TE and TM but no TEM; TEM needs two separate conductors, as in a coaxial cable. In dielectric guides such as fiber most modes are hybrid: both \(E_z\) and \(B_z\) are nonzero.</p>
+      <p>At the end of the lecture the mode types were gathered in one list. As in the notebook:</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Mode</th><th>\(E_z\)</th><th>\(B_z\)</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>TE</td><td>0</td><td>≠ 0</td><td>hollow metal pipe (MHG)</td></tr>
+          <tr><td>TM</td><td>≠ 0</td><td>0</td><td>hollow metal pipe</td></tr>
+          <tr><td>TEM</td><td>0</td><td>0</td><td>coaxial cable; none in a hollow pipe</td></tr>
+          <tr><td>Hybrid (HE, EH)</td><td>≠ 0</td><td>≠ 0</td><td>fiber, dielectric cladding</td></tr>
+        </tbody>
+      </table></div>
+      <p>MHG, metallic hollow guide. We saw why an empty pipe has no TEM in Steps 6 and 7 of week 7. In TEM, \(\omega=ck\) and the transverse field is the gradient of a potential in the cross section; that potential is constant on the single-piece wall, obeys Laplace's equation in two dimensions and must stay constant inside too, so the field is zero. The lecturer's short version this week: \(E_z\) and \(B_z\) cannot both be zero while satisfying the boundary conditions.</p>
+      <p>A coaxial cable has two conductors: the inner wire and the outer shield. A potential difference can be placed between them and a field can live in the gap; TEM is possible, with zero cutoff. This is the “DC” connection of Step 8: a coaxial cable carries signals starting from zero frequency.</p>
+      <p>The lecturer added: in theory TEM is possible in a coaxial cable, but in reality the boundaries are very lossy, so the wave cannot go very far in a coax either; hence fiber and dielectric cladding. This sentence is true for optical frequencies. At radio frequencies coaxial cable carries signals for tens or hundreds of meters: antenna cables, cable TV. Loss grows with frequency; at optical frequencies a metal wall is far from ideal (Step 11).</p>
+      <p><strong>Hybrid modes.</strong> A dielectric cladding does not impose as strict a condition as a metal: the field also leaks into the cladding (decaying), and the continuity conditions at the interface tie \(E_z\) and \(B_z\) together. If one is zero the other is usually forced to be zero too, so generally both are present. In a cylindrical fiber the rotationally symmetric modes (\(\mathrm{TE}_{0m}\), \(\mathrm{TM}_{0m}\)) are still pure TE and TM, and all the others are hybrid. The fundamental mode of a fiber is \(\mathrm{HE}_{11}\); it has no cutoff and propagates at every frequency.</p>
+      <p>The lecturer said they did not remember which component dominates in HE and which in EH; the guess was that \(E_z\) dominates in one and \(H_z\) in the other. Careful: the name is given by which of the two longitudinal components contributes more to the transverse field, but sources disagree on which letter corresponds to which case; some books define it the opposite way. In the exam use the definition in the course book.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>You cannot connect a bulb to a battery with a single wire; the current needs two wires to go and come back. Direct current and the TEM wave derived from it also need two conductors: the inner wire of a coaxial cable for going and the outer shield for returning. A hollow pipe is a single conductor; it cannot light a bulb and can only carry waves of high enough frequency.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-10a" data-q="10a" data-type="mc" data-topic="TEM in an empty pipe">
+          <p><span class="q-n">Question 10.1</span>Which cannot propagate in an empty rectangular metal pipe?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TE}_{10}\)</span></button><p class="why tex-later" hidden>This is the fundamental mode of such a pipe.</p></li>
+            <li><button type="button" class="opt"><span class="t">\(\mathrm{TM}_{11}\)</span></button><p class="why tex-later" hidden>The smallest TM mode; it propagates above its cutoff.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">TEM</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>A single conductor: the potential difference needed for TEM cannot be set up.</p></div>
+        </div>
+        <div class="q" id="q-10b" data-q="10b" data-type="mc" data-topic="TEM in a coax">
+          <p><span class="q-n">Question 10.2</span>Why is TEM possible in a coaxial cable?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">There are two separate conductors, and there can be a potential difference between them</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Because it is filled with a dielectric</span></button><p class="why tex-later" hidden>It is the number of conductors that decides, not the filling; an empty coax has TEM too.</p></li>
+            <li><button type="button" class="opt"><span class="t">Because its cross section is circular</span></button><p class="why tex-later" hidden>A circular but hollow pipe has no TEM.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The potential difference between the inner wire and the outer shield allows a nonzero solution of Laplace's equation in the cross section.</p></div>
+        </div>
+        <div class="q" id="q-10c" data-q="10c" data-type="mc" data-topic="definition of a hybrid mode">
+          <p><span class="q-n">Question 10.3</span>Which defines a hybrid mode?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">\(E_z=B_z=0\)</span></button><p class="why tex-later" hidden>This is TEM.</p></li>
+            <li><button type="button" class="opt"><span class="t">Only one of \(E_z\) and \(B_z\) is zero</span></button><p class="why tex-later" hidden>This is TE or TM.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">\(E_z\neq0\) and \(B_z\neq0\)</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The last line in the notebook: HE, EH, \(E_z\neq0\), \(B_z\neq0\). Most fiber modes are like this.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<header class="part" id="bolum-d">
+  <p class="k">Part D · Steps 11–13 · Notebook, middle of page 2</p>
+  <h2>Metal or dielectric?</h2>
+  <p class="sub">A real metal is not ideal. A metal cladding squeezes light into nanometers but kills it within micrometers; a dielectric cladding carries it for kilometers but cannot go below about half a wavelength.</p>
+</header>
+
+<!-- ADIM 11 -->
+<section class="step" id="t11" data-n="11">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 11</span><span class="code">Notebook 2</span><span class="st"></span></p>
+    <h3>A real metal is lossy</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d2-metal.jpg" data-full="boards/defter-2.jpg" width="483" height="334" loading="lazy" decoding="async" alt="From the lecture notebook: a drawing titled &quot;metallic&quot;; two vertical walls, e^(ikz) between them, small waves decaying into the walls; next to it the row headings mechanism and distance."></button>
+      <figcaption>This step: the “metallic” drawing on the left: two walls, \(e^{ikz}\) between them and small waves decaying inside the walls. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>An ideal metal wall reflects a wave without loss; in a real metal the imaginary part of the refractive index dominates, the field goes a few tens of nanometers into the wall and decays, and at each reflection part of the energy goes to heat. At optical frequencies this condemns the metal guide to short distances.</p>
+      <p>Until now the walls were ideal conductors. The lecturer moved on to real metal: metals interact very strongly with electromagnetic waves, form a lossy medium, and have a very short skin depth. If you write \(e^{ikz}\) inside a metal, k is complex with a dominant imaginary part; the wave decays as soon as it enters the metal. This is the drawing in the notebook: two walls and small waves decaying inside them.</p>
+      <p>More precisely, the refractive index of a metal is \(\tilde n=n_R+i\kappa\), and in visible light \(\kappa\gg n_R\). The field decays inside the metal like \(e^{-2\pi\kappa d/\lambda}\); in the visible this means a few tens of nanometers. The skin depth of week 6 and the electron gas of week 5 are the physics behind this.</p>
+      <p>There is a subtlety. The imaginary part being dominant does not by itself mean loss: if \(\tilde n\) were purely imaginary the metal would be a perfect mirror; the field would go in a little, but all the energy would come back. What turns energy into heat is that \(n_R\) is not zero, that is, electron collisions. At normal incidence the reflectance is \(R=|(\tilde n-1)/(\tilde n+1)|^2\), and for real metals it is slightly below 1:</p>
+      <div class="tbl"><table>
+        <thead><tr><th>State</th><th>Power lost in one reflection</th></tr></thead>
+        <tbody>
+          <tr><td>Copper, 10 GHz</td><td class="num">≈ %0,03</td></tr>
+          <tr><td>Silver, visible light</td><td class="num">≈ %1</td></tr>
+          <tr><td>Gold, 600 nm</td><td class="num">≈ %10</td></tr>
+        </tbody>
+      </table></div>
+      <p>The numbers are rough values for normal incidence, by my calculation. The second factor shortening the distance is the number of bounces: as the guide gets smaller, there are more hits on the wall per unit length. In a guide a micrometer wide, light hits the wall roughly a thousand times in a millimeter; if 2% is lost at each hit, what remains after a millimeter is \(0.98^{1000}\approx2\times10^{-9}\). As the lecturer said, the inside of the guide (air) in theory absorbs nothing; the problem is the walls.</p>
+      <p><strong>Watch the frequency.</strong> The sentence “metal cladding is very lossy” is for optical frequencies. At microwave frequencies metal is nearly ideal: in a standard copper WR-90 guide the loss at 10 GHz is about 0.1 dB per meter and the skin depth is 0.66 µm. That is why radars, satellite ground stations and particle accelerators use hollow metal pipes. When the same pipe shrinks to micrometers for visible light, the reflection gets worse and the number of bounces explodes.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Two facing mirrors. At a barber's or in an elevator you see the image stretching to infinity, but the distant images get steadily dimmer, shift slightly toward green and vanish after a few dozen reflections. An ordinary mirror reflects about 90% of the light; \(0.9^{30}\approx0.04\). Light in a metal guide lives between two such mirrors.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-11a" data-q="11a" data-type="num" data-answer="0.1326" data-tol="0.006" data-show="0.13" data-topic="accumulation of reflection loss">
+          <p><span class="q-n">Question 11.1</span>At each reflection 2% of the power is lost. After 100 reflections, what fraction of the power remains? (Two decimals.)</p>
+          <div class="num-row"><label class="sr" for="in-11a">Your answer</label><input id="in-11a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>\(0.98^{100}\).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(0.98^{100}\approx0.13\). In a hundred reflections 87% of the power is gone.</p></div>
+        </div>
+        <div class="q" id="q-11b" data-q="11b" data-type="mc" data-topic="why metal cladding has a short range">
+          <p><span class="q-n">Question 11.2</span>Why is a metal-clad guide useless over long distances at optical frequencies?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Metal does not reflect light at all</span></button><p class="why tex-later" hidden>It reflects but not completely; a small part is absorbed at each reflection.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">At each reflection part of the energy turns to heat in the wall, and a small guide has very many reflections</span></button></li>
+            <li><button type="button" class="opt"><span class="t">The air inside the guide absorbs the light</span></button><p class="why tex-later" hidden>Air is nearly lossless; as the lecturer said, the inside absorbs nothing in theory, and the problem is the walls.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Small loss times many reflections: exponential decay. The distance comes down to the order of micrometers.</p></div>
+        </div>
+        <div class="q" id="q-11c" data-q="11c" data-type="mc" data-topic="a metal pipe at microwave frequencies">
+          <p><span class="q-n">Question 11.3</span>In a copper WR-90 guide at 10 GHz, what is the approximate loss over 1 meter?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">No loss at all</span></button><p class="why tex-later" hidden>The resistance of copper is not zero; there is some loss, however small.</p></li>
+            <li><button type="button" class="opt"><span class="t">About 100 dB, the signal almost completely dies</span></button><p class="why tex-later" hidden>At microwave frequencies copper is nearly an ideal mirror; with that much loss radars would not use metal pipes.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">About 0.1 dB, roughly 2% of the power</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>0.1 dB ≈ 2.3% of the power. At microwave frequencies a metal pipe easily carries signals for meters; the sentence “metal is lossy” is for optical frequencies.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 12 -->
+<section class="step" id="t12" data-n="12">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 12</span><span class="code">Notebook 2</span><span class="st"></span></p>
+    <h3>The mechanism of metal cladding: the surface plasmon</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d2-plazmon.jpg" data-full="boards/defter-2.jpg" width="399" height="716" loading="lazy" decoding="async" alt="From the lecture notebook, the metallic cladding column: surface plasmon resonance; a crossed-out value and below it ~µm; plasmonic chips; SPR sensors, biosensors; &lt; 10 nm."></button>
+      <figcaption>This step: the “metallic cladding” column on the right. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>In a metal-clad nanoguide what carries the light is not bouncing off the walls but the photon combining with the collective oscillation of the free electrons at the metal surface, the surface plasmon; this wave travels on the order of micrometers and dies out, but it can squeeze light below 10 nm.</p>
+      <p>The lecturer named the mechanism of metal cladding: the coupling of photons with surface plasmons, the interaction between them. The details will be explained later; we will see plasma modes and the plasma resonance.</p>
+      <p><strong>What is a plasmon?</strong> The lecturer's definition: a collective excitation of electrons. A metal has free electrons; these electrons can move together and form collective excitations, called plasmons. This is the electron gas of week 5: when the whole electron cloud shifts a little relative to the ions, a restoring force appears and the cloud oscillates. The frequency of this oscillation is the plasma frequency \(\omega_p\); below it the dielectric constant of the metal is negative and the metal reflects light.</p>
+      <p>A <strong>surface plasmon</strong> is this oscillation stuck to the interface between a metal and a dielectric. Its field decays exponentially away from the surface in both directions and it travels along the surface. The mixed wave that appears when it combines with light is called a surface plasmon polariton. The answer to a question in class explains this: the photon and plasmon interact, but after interacting we treat them as a single system and study the photon-plasmon structure together.</p>
+      <p><strong>Distance and confinement.</strong> The lecturer first said the propagation distance was “less than 10 nm”, then corrected it: on the order of micrometers. The “&lt; 10 nm” in the notebook is the size to which light can be squeezed. This is the real strength of metal cladding: a dielectric guide cannot put light into a region smaller than roughly λ/2 (Step 13), while plasmonic structures with the right geometry can go below 10 nm. The price comes from the same place: the more you squeeze, the larger the share of the field inside the metal and the faster it dies. Confinement and distance oppose each other.</p>
+      <p><strong>Uses.</strong> The lecturer listed short-distance jobs: nanoscale optical devices, plasmonic chips, SPR (surface plasmon resonance) sensors and biosensors. The idea of SPR: since the field of a surface plasmon clings to the surface, even a thin layer of molecules attached to the surface changes the refractive index there and shifts the angle or wavelength of the resonance. By measuring this shift you can follow molecules binding to the surface without using labels.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>If you gently push a glass of water, all the water piles up on one side, comes back and sloshes for a while. It is not individual molecules but all the water oscillating together. A plasmon is such a collective sloshing of the electron “water” in a metal. A surface plasmon is a slosh running only along the shore, at the edge of the glass.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-12a" data-q="12a" data-type="mc" data-topic="definition of a plasmon">
+          <p><span class="q-n">Question 12.1</span>What is a plasmon?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">An electron leaving an atom</span></button><p class="why tex-later" hidden>That is ionization, involving a single electron.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The collective oscillation of the free electrons in a metal</span></button></li>
+            <li><button type="button" class="opt"><span class="t">The vibration of metal atoms in the lattice</span></button><p class="why tex-later" hidden>That is a phonon, the vibration of atoms. A plasmon is of electrons.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The lecturer's definition: a collective excitation of electrons, the electron cloud in a metal moving together.</p></div>
+        </div>
+        <div class="q" id="q-12b" data-q="12b" data-type="mc" data-topic="confinement and distance">
+          <p><span class="q-n">Question 12.2</span>What is the price of confining light more tightly in a plasmonic guide?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The propagation distance gets longer</span></button><p class="why tex-later" hidden>The opposite: as the share of the field inside the metal grows, the loss grows.</p></li>
+            <li><button type="button" class="opt"><span class="t">There is no price, only manufacturing gets harder</span></button><p class="why tex-later" hidden>There is a physical tradeoff: confinement and distance oppose each other.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The propagation distance gets shorter, because a larger part of the field is inside the metal</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Tight confinement means more of the field in the lossy metal.</p></div>
+        </div>
+        <div class="q" id="q-12c" data-q="12c" data-type="mc" data-topic="SPR sensor">
+          <p><span class="q-n">Question 12.3</span>What does an SPR sensor detect?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">The shift of the resonance when a layer attached to the surface changes the refractive index</span></button></li>
+            <li><button type="button" class="opt"><span class="t">The change in the temperature of the metal</span></button><p class="why tex-later" hidden>Heating can be measured, but that is not the principle of SPR.</p></li>
+            <li><button type="button" class="opt"><span class="t">The speed of light inside the metal</span></button><p class="why tex-later" hidden>What is measured is the position of the resonance at the surface.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The field clings to the surface; a small index change at the surface shifts the resonance angle or wavelength.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADIM 13 -->
+<section class="step" id="t13" data-n="13">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 13</span><span class="code">Notebook 2</span><span class="st"></span></p>
+    <h3>Dielectric cladding: fiber and the diffraction limit</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <button type="button" class="zoom" aria-label="Enlarge the notebook page"><img src="boards/d2-tablo.jpg" data-full="boards/defter-2.jpg" width="1100" height="512" loading="lazy" decoding="async" alt="The table in the lecture notebook: columns are the metallic drawing, dielectric cladding, metallic cladding; rows are mechanism (total internal reflection; surface plasmon resonance), distance (~km; ~µm), use (optical fiber, internet comm.; plasmonic chips, SPR sensors, biosensors), diffraction limit ~λ/2; &lt; 10 nm."></button>
+      <figcaption>This step: the table in the middle of the second page, especially the middle column. Tap it to open the whole page.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>In a fiber light stays inside by total internal reflection, because the refractive index of the core is larger than that of the cladding; this reflection is lossless and the glass is very pure, so light travels for kilometers. The price: you cannot squeeze light into a region smaller than roughly λ/2, the diffraction limit.</p>
+      <p>A clean copy of the table in the notebook:</p>
+      <div class="tbl"><table>
+        <thead><tr><th></th><th>Dielectric cladding</th><th>Metal cladding</th></tr></thead>
+        <tbody>
+          <tr><td>Mechanism</td><td>total internal reflection</td><td>coupling with the surface plasmon</td></tr>
+          <tr><td>Distance</td><td>km</td><td>µm</td></tr>
+          <tr><td>Confinement</td><td>≈ λ/2, diffraction limit</td><td>&lt; 10 nm</td></tr>
+          <tr><td>Use</td><td>optical fiber, internet</td><td>plasmonic chip, SPR, biosensor</td></tr>
+        </tbody>
+      </table></div>
+      <p>The lecturer said the choice for long-haul optical communication is dielectric cladding. The mechanism is total internal reflection (TIR): the refractive index of the core is larger than that of the cladding, \(n_{core}\gt n_{clad}\), and light arriving at the interface at a shallower angle than the critical angle is reflected one hundred percent.</p>
+      <p>This is exactly the difference from metal cladding. In total internal reflection there is no reflection tax, no share lost at each bounce as with a metal wall. What remains is the absorption and scattering of the glass itself; in modern telecom fiber about 0.2 dB per kilometer at 1550 nm. That is why light can travel tens of kilometers between amplifiers.</p>
+      <p><strong>The diffraction limit.</strong> The lecturer: the measure of confinement in an optical fiber is the diffraction limit; you cannot squeeze light into a size smaller than λ/2. We can see this in this week's language. A wave fitting in a region of width w must make at least half a wave in the cross section, \(k_x\gtrsim\pi/w\). On the other hand, in a medium of index n, \(k_x^2+k_z^2=n^2\omega^2/c^2\), and for \(k_z\) to stay real, \(k_x\le n\omega/c\). Combine the two:</p>
+      <div class="eq">\[ \frac{\pi}{w}\lesssim\frac{n\omega}{c}=\frac{2\pi}{\lambda/n}\qquad\Longrightarrow\qquad w\gtrsim\frac{\lambda}{2n} \]</div>
+      <p>This is the same as the cutoff condition of \(\mathrm{TE}_{10}\) in Step 2, a > λ/2: the cutoff frequency is the form the diffraction limit takes in a metal pipe. For 1550 nm light, λ/2 = 775 nm in air and about 530 nm in silica (n ≈ 1.45). Metal can beat this limit because its dielectric constant is negative: a surface wave decaying toward both sides can form at the interface, and such a wave does not need to make half a wave in the cross section.</p>
+      <p>The table of the two claddings comes down to one sentence: dielectric cladding goes far but is wide, metal cladding is narrow but stays close.</p>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Looking up from the bottom of a pool you see the outside only within a circle overhead; outside that circle the water surface is like a silver mirror. This is total internal reflection: light coming from water to air at a shallow angle turns back. The core of a fiber uses the same mirror everywhere, and the light loses nothing at each turn.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-13a" data-q="13a" data-type="num" data-answer="516.67" data-tol="1" data-show="517" data-topic="computing the diffraction limit">
+          <p><span class="q-n">Question 13.1</span>1550 nm light is in a glass with a refractive index of 1.5. What is the diffraction limit λ/(2n) in nm? (Whole number.)</p>
+          <div class="num-row"><label class="sr" for="in-13a">Your answer</label><input id="in-13a" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>1550/(2 · 1,5).</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>≈ 517 nm. You cannot make a guide of this glass narrower than this.</p></div>
+        </div>
+        <div class="q" id="q-13b" data-q="13b" data-type="mc" data-topic="condition for total internal reflection">
+          <p><span class="q-n">Question 13.2</span>What is needed for total internal reflection?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The index of the core must be smaller than that of the cladding</span></button><p class="why tex-later" hidden>The opposite: light can be totally reflected going from high index to low index.</p></li>
+            <li><button type="button" class="opt"><span class="t">The cladding must be metal coated</span></button><p class="why tex-later" hidden>That is metal cladding, and its reflection is lossy. Total internal reflection happens between two dielectrics.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The index of the core must be larger than that of the cladding and the angle of incidence larger than the critical angle</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>\(n_{core}\gt n_{clad}\) and \(\sin\theta\gt n_{clad}/n_{core}\) (θ measured from the normal to the interface).</p></div>
+        </div>
+        <div class="q" id="q-13c" data-q="13c" data-type="mc" data-topic="cutoff = diffraction limit">
+          <p><span class="q-n">Question 13.3</span>The cutoff condition a > λ/2 of \(\mathrm{TE}_{10}\) is the form in a metal pipe of what?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">The skin depth</span></button><p class="why tex-later" hidden>The skin depth is how far the field goes into the metal; the cutoff condition is about the size of the cross section.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The diffraction limit</span></button></li>
+            <li><button type="button" class="opt"><span class="t">The plasma frequency</span></button><p class="why tex-later" hidden>The plasma frequency is a property of the metal; the cutoff comes from the size of the cross section.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>At least half a wave must fit in the cross section: w ≳ λ/2. In a fiber the same condition goes by the name of the diffraction limit.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<header class="part" id="bolum-e">
+  <p class="k">Part E · Step 14 · spoken, end of the lecture</p>
+  <h2>Mode or quantum?</h2>
+  <p class="sub">The last ten minutes of the lecture: modes are discrete, but are frequency and energy discrete too?</p>
+</header>
+
+<!-- ADIM 14 -->
+<section class="step" id="t14" data-n="14">
+  <header class="step-h">
+    <p class="step-k"><span class="hand">Step 14</span><span class="code">spoken</span><span class="st"></span></p>
+    <h3>Modes are discrete, frequency continuous</h3>
+  </header>
+  <div class="lock" hidden><p>This step is locked for now. To open it, first finish the questions of this step: <strong class="lock-n"></strong>.</p><button type="button" class="btn ghost golock">Go there</button><button type="button" class="linkbtn unlock-all">Turn off step by step mode</button></div>
+  <div class="step-grid">
+    <figure class="board">
+      <div class="redraw">
+        <span class="tag">Discussed in class</span>
+        <div class="tbl"><table>
+          <thead><tr><th>System</th><th>Relation</th></tr></thead>
+          <tbody>
+            <tr><td>Particle in a box</td><td>\(E_n=\dfrac{n^2\pi^2\hbar^2}{2mL^2}\)</td></tr>
+            <tr><td>Waveguide</td><td>\(\omega^2=\omega_{mn}^2+c^2k^2\)</td></tr>
+            <tr><td>Quantum wire</td><td>\(E=E_{mn}+\dfrac{\hbar^2k^2}{2m}\)</td></tr>
+          </tbody>
+        </table></div>
+        <p class="redraw-n">Modes are discrete, frequency continuous</p>
+      </div>
+      <figcaption>The last ten minutes of the lecture were spoken. The quantum wire row is my addition.</figcaption>
+    </figure>
+    <div class="step-body">
+      <p class="gist"><span class="k">In one sentence</span>What is discrete in a guide is the list of modes, the patterns in the cross section; frequency is not discrete. Each mode behaves like a high-pass filter passing all frequencies above its cutoff; a signal is a band of frequencies, and the band can travel in every mode whose cutoff is below it.</p>
+      <p>At the end of the lecture a classmate asked: why do these modes exist? The answer is familiar: if instead of leaving a wave free you force it to travel in a certain region, like vibrating a rope fixed at both ends, it can vibrate only in certain shapes. That is the logic of modes.</p>
+      <p>Right after that came a warning: the energy of these modes is not quantized. There is only a cutoff frequency; every frequency above it propagates and those below do not. Someone in class connected this to signal processing: signals above cutoff propagate, like a filter. Right, each mode is a high-pass filter. It is the same idea as the filters we use to suppress noise; here the passing side is above cutoff.</p>
+      <p><strong>Why is the particle in a box different?</strong> A classmate recalled the particle in a box from quantum mechanics, where the energy is quantized. The difference is that a box is closed in all three directions; the particle has no direction to move freely, and the wave number is discrete in every direction. A guide is closed in only two directions: \(k_x\) and \(k_y\) are discrete, but the z direction is open and k is continuous; ω also depends continuously on k. Quantum mechanics has an exact counterpart: an electron confined in two directions and free in one, a quantum wire. Its energy is \(E=E_{mn}+\hbar^2k^2/2m\): a discrete base (subband) plus a continuous kinetic part. The \(\omega^2=\omega_{mn}^2+c^2k^2\) in a guide has the same structure; each mode is a subband. (This comparison is mine.)</p>
+      <p>A classmate went further: if we wrote the fields with a wave function, wouldn't it be quantized at the end of the day? The answer in class: there is such a language to describe the particle form of light, photons, and you can think of the fields like a wave function; but in this course think of light as a wave, with superposition and constructive and destructive interference. Let me add this: when working with photons, what is quantized is that the energy in a given mode at a given frequency comes in packets of \(\hbar\omega\). This does not make ω discrete; frequency stays continuous.</p>
+      <p>The last question: past the cutoff, will the modes appear one by one? The answer: do not think of frequency as discrete, think of it as a band. Each frequency in the band of the signal you send can travel in every mode whose cutoff is below that frequency. The shape of the source (antenna, probe) determines how much energy goes to which mode. If several modes are excited, each travels at a different group velocity and the signal spreads; that is why single-mode operation is preferred.</p>
+      <div class="widget" id="w-band">
+        <p class="predict"><strong>Predict first:</strong> how much of a signal in the 9–15 GHz band travels single-mode in WR-90? Then bring the center to 12 and the width to 6.</p>
+        <svg class="wsvg" viewBox="0 0 360 214" role="img" aria-label="Mode cutoffs in a WR-90 guide and a signal band: each mode is a strip passing frequencies to the right of its cutoff."></svg>
+        <div class="ctrl"><label for="wbc">Center (GHz)</label><input id="wbc" type="range" min="4" max="20" step="0.05" value="10"></div>
+        <div class="ctrl"><label for="wbw">Width (GHz)</label><input id="wbw" type="range" min="0.2" max="8" step="0.05" value="2"></div>
+        <p class="ro" aria-live="polite"></p>
+        <p class="w-cap">Each strip is a mode: the left end of the strip is the cutoff frequency and the right part the passband. The gray column is the signal band; the part of the band falling on a mode's strip can travel in that mode. WR-90: a = 22.86 mm, b = 10.16 mm.</p>
+      </div>
+      <aside class="lise">
+        <span class="tag">High school example</span>
+        <p>Think of a shopping mall. The floors are discrete: ground, 1, 2; there is no “floor 1.5”. But on each floor's corridor you can walk anywhere, and your position is continuous. In a guide the floors are modes, the height of a floor is that mode's cutoff frequency, and the corridor is the z direction. A particle in a box is a staircase with no corridors: only steps.</p>
+      </aside>
+      <div class="checks">
+        <p class="checks-h">Check · 3 questions</p>
+        <div class="q" id="q-14a" data-q="14a" data-type="mc" data-topic="what is discrete in a guide">
+          <p><span class="q-n">Question 14.1</span>What is discrete in a guide?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt"><span class="t">Frequency</span></button><p class="why tex-later" hidden>Every frequency above cutoff propagates; frequency is continuous.</p></li>
+            <li><button type="button" class="opt"><span class="t">The energy carried by the wave</span></button><p class="why tex-later" hidden>It was stressed in the lecture: the energy of the modes is not quantized.</p></li>
+            <li><button type="button" class="opt" data-ok><span class="t">The wave numbers in the cross section \(k_x\), \(k_y\) and so the list of modes</span></button></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>The walls limit only the cross section: \(k_x=m\pi/a\), \(k_y=n\pi/b\). The z direction is open; k and ω are continuous.</p></div>
+        </div>
+        <div class="q" id="q-14b" data-q="14b" data-type="num" data-answer="4.11" data-tol="0.03" data-show="4.11" data-topic="single-mode band">
+          <p><span class="q-n">Question 14.2</span>In WR-90, how many GHz of a signal in the 9–15 GHz band travel only in \(\mathrm{TE}_{10}\)? (The cutoff of \(\mathrm{TE}_{20}\) is 13.11 GHz; two decimals.)</p>
+          <div class="num-row"><label class="sr" for="in-14b">Your answer</label><input id="in-14b" inputmode="decimal" autocomplete="off" placeholder="type a number"><button type="button" class="btn check">Check</button></div>
+          <p class="why hint tex-later" hidden>The single-mode region runs from 9 GHz to the cutoff of the next mode.</p>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>13.11 − 9 = 4.11 GHz. Above 13.11 GHz \(\mathrm{TE}_{20}\) joins in, and above 14.75 \(\mathrm{TE}_{01}\) too.</p></div>
+        </div>
+        <div class="q" id="q-14c" data-q="14c" data-type="mc" data-topic="difference between a box and a guide">
+          <p><span class="q-n">Question 14.3</span>In a particle in a box energy is discrete; why is frequency continuous in a guide?</p>
+          <ol class="opts">
+            <li><button type="button" class="opt" data-ok><span class="t">The guide is open in the z direction; k is continuous and ω depends continuously on k</span></button></li>
+            <li><button type="button" class="opt"><span class="t">Because light does not obey quantum mechanics</span></button><p class="why tex-later" hidden>It does, there are photons. But the photon energy being \(\hbar\omega\) does not make frequency discrete.</p></li>
+            <li><button type="button" class="opt"><span class="t">Because the guide is metal</span></button><p class="why tex-later" hidden>It is decided by geometry, not material: how many directions are closed.</p></li>
+          </ol>
+          <p class="msg" aria-live="polite"></p>
+          <button type="button" class="linkbtn reveal" hidden>Show answer</button>
+          <div class="explain tex-later" hidden><p>Two directions closed (discrete \(k_x\), \(k_y\)), one direction open (continuous k). The subbands in a quantum wire have the same structure.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SON ===================== -->
+<section class="end" id="sinav">
+  <p class="k">Exam preparation</p>
+  <h2>What you should be able to write with the book closed</h2>
+  <p>Derivations and short explanations that could come from this week. Try writing each from scratch on a blank sheet, then compare with the relevant step.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>What</th><th>Where</th><th>Check yourself</th></tr></thead>
+    <tbody>
+      <tr><td>\(\omega_{10}=c\pi/a\), \(f_{10}=c/2a\), \(\lambda_c=2a\)</td><td><a href="#t2">Step 2</a></td><td>Can you find \(f_{10}\) in your head for a = 2 cm? (7.5 GHz)</td></tr>
+      <tr><td>Deriving \(v_p\) from the dispersion relation</td><td><a href="#t3">Step 3</a></td><td>Why is it greater than c, in two sentences?</td></tr>
+      <tr><td>Deriving \(v_g\) with \(1/(dk/d\omega)\)</td><td><a href="#t4">Step 4</a></td><td>In the chain rule, did the square root stay in the denominator?</td></tr>
+      <tr><td>\(v_pv_g=c^2\) and the free-space limit</td><td><a href="#t5">Step 5</a></td><td>Shortcut: \(v_g=c^2k/\omega\).</td></tr>
+      <tr><td>The phase exceeds c, the signal cannot</td><td><a href="#t6">Step 6</a></td><td>Can you build the sentence “crests carry no information” with its reasoning?</td></tr>
+      <tr><td>Splitting \(\mathrm{TE}_{10}\) into two plane waves</td><td><a href="#t7">Step 7</a></td><td>\(\cos\theta=ck/\omega\), \(v_g=c\cos\theta\), \(v_p=c/\cos\theta\).</td></tr>
+      <tr><td>Why there is no \(\mathrm{TE}_{00}\)</td><td><a href="#t8">Step 8</a></td><td>The derivative argument and the \(\nabla\cdot\vec B=0\) argument.</td></tr>
+      <tr><td>The TM derivation from start to finish (to do at home)</td><td><a href="#t9">Step 9</a></td><td>Is the wall condition on the value or the derivative? Transverse fields and the wall check?</td></tr>
+      <tr><td>No TEM in an empty pipe, TEM in a coax</td><td><a href="#t10">Step 10</a></td><td>Why are two conductors required?</td></tr>
+      <tr><td>The table of metal and dielectric cladding</td><td><a href="#t11">Steps 11–13</a></td><td>Mechanism, distance, confinement, use: four lines.</td></tr>
+      <tr><td>Modes are discrete, frequency continuous</td><td><a href="#t14">Step 14</a></td><td>The difference from a particle in a box in one sentence.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="sozluk">
+  <p class="k">The week on one page</p>
+  <h2>Glossary of the week</h2>
+  <p>The English terms from the lecture and the high school examples from this page, on the same row.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Concept</th><th>Formula</th><th>High school version</th></tr></thead>
+    <tbody>
+      <tr><td>Dominant mode, cutoff wavelength</td><td>\(f_{10}=c/2a,\ \lambda_c=2a\)</td><td>A jump rope</td></tr>
+      <tr><td>Phase velocity</td><td>\(v_p=\omega/k=c/\sqrt{1-\omega_{mn}^2/\omega^2}\)</td><td>The stadium wave</td></tr>
+      <tr><td>Group velocity</td><td>\(v_g=d\omega/dk=c\sqrt{1-\omega_{mn}^2/\omega^2}\)</td><td>Speed = 1/(minutes/km)</td></tr>
+      <tr><td>Dispersion</td><td>\(v_pv_g=c^2\)</td><td>A rectangle of fixed area</td></tr>
+      <tr><td>Monochromatic wave, wave packet, envelope</td><td>\(e^{i(kz-\omega t)}\)</td><td>Scissors</td></tr>
+      <tr><td>Zigzag path</td><td>\(\cos\theta=ck/\omega\)</td><td>A billiard ball</td></tr>
+      <tr><td>TM mode (transverse magnetic)</td><td>\(E_z=E_0\sin\frac{m\pi x}{a}\sin\frac{n\pi y}{b}\)</td><td>A drumhead</td></tr>
+      <tr><td>Coaxial line, TEM</td><td>\(E_z=B_z=0,\ \omega_c=0\)</td><td>A two-wire circuit</td></tr>
+      <tr><td>Hybrid mode (HE, EH)</td><td>\(E_z\neq0,\ B_z\neq0\)</td><td></td></tr>
+      <tr><td>Lossy medium, skin depth</td><td>\(\tilde n=n_R+i\kappa\)</td><td>Facing mirrors</td></tr>
+      <tr><td>Plasmon, surface plasmon (polariton)</td><td>collective oscillation of electrons, \(\omega_p\)</td><td>Water in a glass</td></tr>
+      <tr><td>Total internal reflection</td><td>\(n_{core}\gt n_{clad}\)</td><td>Looking up from the bottom of a pool</td></tr>
+      <tr><td>Diffraction limit</td><td>\(w\gtrsim\lambda/2n\)</td><td></td></tr>
+      <tr><td>High-pass filter, subband</td><td>\(\omega\gt\omega_{mn}\)</td><td>Floors and corridors</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="tahta-notlari">
+  <p class="k">Comparison with the board and notebook</p>
+  <h2>Board and notebook notes</h2>
+  <p>I compared the board photo and the two notebook pages with the transcript and checked the formulas symbolically. There are no mistakes on the board. Below are two copying slips in the notebook and the points in a few sentences of the lecture that need care.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Where</th><th>In the notebook or lecture</th><th>Correct form</th></tr></thead>
+    <tbody>
+      <tr><td>Notebook 1, intermediate line of \(dk/d\omega\)</td><td>\(\frac1c\,\frac{\omega}{\omega^2-\omega_{mn}^2}\)</td><td>\(\frac1c\,\frac{\omega}{\sqrt{\omega^2-\omega_{mn}^2}}\); the result in the circle is correct</td></tr>
+      <tr><td>Notebook 1, the line \(\mathrm{TE}_{00}\)</td><td>\(\cos(n\pi y/a)\)</td><td>\(\cos(n\pi y/b)\)</td></tr>
+      <tr><td>Notebook 2, metal cladding distance</td><td>first “&lt; 10 nm”, crossed out</td><td>~µm; corrected in the lecture. 10 nm is the confinement size, not the distance</td></tr>
+      <tr><td>Notebook 2, metal cladding mechanism</td><td>surface plasmon resonance</td><td>The mechanism is the coupling of the photon with the surface plasmon; “resonance” is the measurement principle of SPR sensors</td></tr>
+      <tr><td>Lecture, metal guide and coax are “very lossy”</td><td>a general statement</td><td>True for optical frequencies; at microwave frequencies copper WR-90 ≈ 0.1 dB/m, and a coax carries RF for tens of meters</td></tr>
+      <tr><td>Lecture, HE and EH</td><td>which one is dominated by what was left open</td><td>Definitions differ between sources; use the definition in the course book</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="end" id="rapor">
+  <p class="k">Did it click?</p>
+  <h2>Status report</h2>
+  <div class="report" id="rapor-icerik" aria-live="polite"></div>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <p><a href="../">← Other weeks of 602</a> · <a href="../hafta-7/">Week 7: waveguides, modes and the cutoff frequency</a> · <a href="./" hreflang="tr" lang="tr">Türkçe sürüm →</a></p>
+  <p>Your progress is stored only in this browser; on another device you start over.</p>
+  <button type="button" class="btn ghost" id="reset">Reset progress</button>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo of the board or notebook">
+  <button type="button" class="lb-close">Close</button>
+  <img alt="">
+  <p class="lb-hint">Tap the image: full size or fit to screen</p>
+</div>
+
+<script>
+document.documentElement.lang = 'en';
+(function () {
+  'use strict';
+
+  /* ---------- Kayıt ---------- */
+  var KEY = 'kbm-602-hafta8-en-v1';
+  var state = { ans: {}, strict: true };
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) {
+      var saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object') {
+        if (saved.ans && typeof saved.ans === 'object') state.ans = saved.ans;
+        if (typeof saved.strict === 'boolean') state.strict = saved.strict;
+      }
+    }
+  } catch (e) { /* depolama yoksa sayfa yine çalışır */ }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function each(sel, fn, root) { Array.prototype.forEach.call((root || document).querySelectorAll(sel), fn); }
+
+  /* ---------- MathJax: sonradan görünen parçaları sırayla dizgile ---------- */
+  var mjReady = false;
+  var pending = [];
+  var chain = Promise.resolve();
+  function typeset(list) {
+    var mj = window.MathJax;
+    if (!list.length || !mj || typeof mj.typesetPromise !== 'function') return;
+    chain = chain.then(function () { return mj.typesetPromise(list); }).then(fitEqs).catch(function () {});
+  }
+  /* Uzun formül sütuna sığmıyorsa satırlara bölünmüş sürümünü göster */
+  function fitEqs() {
+    each('.eq.has-n', function (e) {
+      if (!e.offsetWidth) return;
+      e.classList.remove('use-n');
+      var c = e.querySelector('.eq-w mjx-container');
+      if (c && c.scrollWidth > c.clientWidth + 2) e.classList.add('use-n');
+    });
+  }
+  var fitT = null;
+  window.addEventListener('resize', function () { clearTimeout(fitT); fitT = setTimeout(fitEqs, 150); });
+  function tex(node) {
+    if (!node) return;
+    node.classList.remove('tex-later');
+    if (mjReady) typeset([node]); else pending.push(node);
+  }
+  window.addEventListener('mathjax-ready', function () {
+    mjReady = true;
+    var list = pending;
+    pending = [];
+    typeset(list);
+    fitEqs();
+  });
+
+  function fmt(v, d) { return v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var qs = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var total = qs.length;
+  var links = {};
+  each('.map a[data-step]', function (a) { links[a.getAttribute('data-step')] = a; });
+
+  /* ---------- Sorular ---------- */
+  var MSG = {
+    first: 'Correct, first try.',
+    retry: 'Correct, but not on the first try. The report added this question to your review list.',
+    shown: 'Answer shown. The report added this question to your review list.'
+  };
+  function setMsg(q, text, kind) {
+    var m = q.querySelector('.msg');
+    m.textContent = text;
+    m.setAttribute('data-k', kind);
+  }
+
+  function resolve(q, status, restoring) {
+    if (q.classList.contains('done')) return;
+    q.classList.add('done');
+    q.setAttribute('data-status', status);
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (b) {
+        b.disabled = true;
+        if (b.hasAttribute('data-ok')) b.classList.add('is-right');
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      inp.disabled = true;
+      inp.classList.remove('is-wrong');
+      inp.classList.add('is-right');
+      if (status === 'shown' || !inp.value.trim()) inp.value = q.getAttribute('data-show');
+      q.querySelector('.check').disabled = true;
+    }
+    q.querySelector('.reveal').hidden = true;
+    var ex = q.querySelector('.explain');
+    ex.hidden = false;
+    tex(ex);
+    setMsg(q, MSG[status], status === 'shown' ? 'bad' : 'good');
+    state.ans[q.getAttribute('data-q')] = status;
+    if (!restoring) { save(); refresh(); }
+  }
+
+  function parseNum(str) {
+    var s = String(str || '').trim().replace(/\s+/g, '').replace(/,/g, '.').replace(/−/g, '-');
+    var frac = s.match(/^([-+]?(?:\d+\.?\d*|\.\d+))\/([-+]?(?:\d+\.?\d*|\.\d+))$/);
+    if (frac) {
+      var b = parseFloat(frac[2]);
+      return b === 0 ? NaN : parseFloat(frac[1]) / b;
+    }
+    if (!/^[-+]?(?:\d+\.?\d*|\.\d+)$/.test(s)) return NaN;
+    return parseFloat(s);
+  }
+
+  qs.forEach(function (q) {
+    q._tries = 0;
+    var reveal = q.querySelector('.reveal');
+    if (q.getAttribute('data-type') === 'mc') {
+      each('.opt', function (btn) {
+        btn.addEventListener('click', function () {
+          if (q.classList.contains('done') || btn.disabled) return;
+          if (btn.hasAttribute('data-ok')) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+          q._tries++;
+          btn.classList.add('is-wrong');
+          btn.disabled = true;
+          var why = btn.parentNode.querySelector('.why');
+          if (why) { why.hidden = false; tex(why); }
+          setMsg(q, 'Not quite. Read the note under the option, then try another one.', 'bad');
+          reveal.hidden = false;
+        });
+      }, q);
+    } else {
+      var inp = q.querySelector('input');
+      var check = function () {
+        if (q.classList.contains('done')) return;
+        var v = parseNum(inp.value);
+        if (isNaN(v)) {
+          setMsg(q, 'Type a number. A decimal point or comma both work.', 'info');
+          inp.focus();
+          return;
+        }
+        var ans = parseFloat(q.getAttribute('data-answer'));
+        var tol = parseFloat(q.getAttribute('data-tol') || '0.001');
+        if (Math.abs(v - ans) <= tol + 1e-9) { resolve(q, q._tries ? 'retry' : 'first'); return; }
+        q._tries++;
+        inp.classList.add('is-wrong');
+        var hint = q.querySelector('.hint');
+        if (hint) { hint.hidden = false; tex(hint); }
+        setMsg(q, 'Not quite, the answer is not ' + v.toLocaleString('en-US', { maximumFractionDigits: 4 }) + '. Read the hint and try again.', 'bad');
+        reveal.hidden = false;
+      };
+      q.querySelector('.check').addEventListener('click', check);
+      inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); check(); } });
+      inp.addEventListener('input', function () { inp.classList.remove('is-wrong'); });
+    }
+    reveal.addEventListener('click', function () { resolve(q, 'shown'); });
+    var s = state.ans[q.getAttribute('data-q')];
+    if (s === 'first' || s === 'retry' || s === 'shown') resolve(q, s, true);
+  });
+
+  /* ---------- İlerleme, kilitler, rapor ---------- */
+  function stats(st) {
+    var r = { total: 0, done: 0, weak: 0 };
+    each('.q', function (q) {
+      r.total++;
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { r.done++; if (s !== 'first') r.weak++; }
+    }, st);
+    return r;
+  }
+
+  var fill = document.getElementById('fill');
+  var count = document.getElementById('count');
+  var strictBtn = document.getElementById('strict');
+
+  function setLocked(st, locked, blocker) {
+    var grid = st.querySelector('.step-grid');
+    var lock = st.querySelector('.lock');
+    if (locked) {
+      if (!grid.hidden) {
+        grid.hidden = true;
+        if (!mjReady) grid.classList.add('tex-later');
+      }
+      lock.hidden = false;
+      lock.querySelector('.lock-n').textContent = 'Step ' + blocker.getAttribute('data-n');
+      lock.querySelector('.golock').setAttribute('data-target', blocker.id);
+      st.classList.add('is-locked');
+    } else {
+      lock.hidden = true;
+      st.classList.remove('is-locked');
+      if (grid.hidden) { grid.hidden = false; tex(grid); }
+    }
+  }
+
+  function renderReport() {
+    var box = document.getElementById('rapor-icerik');
+    var done = 0, first = 0, weak = [], solid = [];
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (!s) return;
+      done++;
+      if (s === 'first') first++; else weak.push({ q: q, s: s });
+    });
+    steps.forEach(function (st) {
+      var r = stats(st);
+      if (r.done === r.total && !r.weak) solid.push(st.getAttribute('data-n'));
+    });
+    if (!done) {
+      box.innerHTML = `<p>You have not answered anything yet. Start with <a href="#t1">Step 1</a>. The report fills in as you go.</p>`;
+      return;
+    }
+    var h = `<p>You answered <strong>${done}</strong> of <strong>${total}</strong> questions and got <strong>${first}</strong> right on the first try.</p>`;
+    if (weak.length) {
+      h += `<p>Go back to these:</p><ul>` + weak.map(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        var why = w.s === 'shown' ? 'you revealed the answer' : 'not on the first try';
+        return `<li><a href="#${w.q.id}">Step ${n} · ${esc(w.q.getAttribute('data-topic'))}</a> <span class="why-tag">(${why})</span></li>`;
+      }).join('') + `</ul>`;
+      var base = weak.some(function (w) {
+        var n = w.q.closest('.step').getAttribute('data-n');
+        return n === '4' || n === '9';
+      });
+      if (base) h += `<p>Step 4 (the derivation of the group velocity) and Step 9 (the TM derivation to do at home) are the two foundations of this week: the calculations on which Part B and Part C rest. First write those two with the book closed.</p>`;
+    }
+    if (solid.length) h += `<p>Steps you cleared without a slip: ${solid.join(', ')}.</p>`;
+    if (done === total && !weak.length) h += `<p>Everything right on the first try. This week has settled and you are ready for the next lecture.</p>`;
+    else if (done === total) h += `<p>You finished every question. Come back to the list above in a few days. What sticks on the second look tends to last.</p>`;
+    box.innerHTML = h;
+    if (mjReady) typeset([box]);
+  }
+
+  function refresh() {
+    var done = 0, first = 0;
+    qs.forEach(function (q) {
+      var s = state.ans[q.getAttribute('data-q')];
+      if (s) { done++; if (s === 'first') first++; }
+    });
+    fill.style.width = (total ? 100 * done / total : 0) + '%';
+    count.innerHTML = '<strong>' + done + '/' + total + '</strong> questions · first try ' + first;
+    var blocker = null;
+    steps.forEach(function (st) {
+      var r = stats(st);
+      var s = r.weak ? 'weak' : (r.done === r.total ? 'done' : (r.done ? 'doing' : 'todo'));
+      st.setAttribute('data-s', s);
+      st.querySelector('.st').textContent = r.done + '/' + r.total + ' questions';
+      var locked = state.strict && blocker !== null;
+      setLocked(st, locked, blocker);
+      var a = links[st.id];
+      if (a) {
+        a.setAttribute('data-s', s);
+        a.querySelector('.lk').textContent = locked ? 'locked' : '';
+      }
+      if (blocker === null && r.done < r.total) blocker = st;
+    });
+    strictBtn.setAttribute('aria-pressed', state.strict ? 'true' : 'false');
+    strictBtn.textContent = state.strict ? 'Step by step: on' : 'Step by step: off';
+    renderReport();
+    if (mjReady) fitEqs();
+  }
+
+  /* ---------- Gezinme ---------- */
+  function firstOpen(scope) {
+    var list = scope ? Array.prototype.slice.call(scope.querySelectorAll('.q')) : qs;
+    for (var i = 0; i < list.length; i++) {
+      var q = list[i];
+      if (!q.classList.contains('done') && !q.closest('.step').querySelector('.step-grid').hidden) return q;
+    }
+    return null;
+  }
+  function goTo(q) {
+    q.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    var f = q.querySelector('.opt:not(:disabled), input:not(:disabled)');
+    if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (e) {} }, reduce ? 0 : 450);
+  }
+  document.getElementById('next').addEventListener('click', function () {
+    var q = firstOpen();
+    if (q) goTo(q);
+    else document.getElementById('rapor').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  });
+  strictBtn.addEventListener('click', function () { state.strict = !state.strict; save(); refresh(); });
+  each('.golock', function (b) {
+    b.addEventListener('click', function () {
+      var st = document.getElementById(b.getAttribute('data-target'));
+      if (!st) return;
+      var q = firstOpen(st);
+      if (q) goTo(q); else st.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+  each('.unlock-all', function (b) {
+    b.addEventListener('click', function () { state.strict = false; save(); refresh(); });
+  });
+
+  var resetBtn = document.getElementById('reset');
+  var armed = null;
+  resetBtn.addEventListener('click', function () {
+    if (!armed) {
+      resetBtn.textContent = 'Sure? Press once more';
+      armed = setTimeout(function () { armed = null; resetBtn.textContent = 'Reset progress'; }, 4000);
+      return;
+    }
+    clearTimeout(armed);
+    armed = null;
+    resetBtn.textContent = 'Reset progress';
+    state.ans = {};
+    save();
+    qs.forEach(function (q) {
+      q.classList.remove('done');
+      q.removeAttribute('data-status');
+      q._tries = 0;
+      each('.opt', function (b) { b.disabled = false; b.classList.remove('is-right', 'is-wrong'); }, q);
+      each('.why', function (w) { w.hidden = true; }, q);
+      var inp = q.querySelector('input');
+      if (inp) {
+        inp.disabled = false;
+        inp.value = '';
+        inp.classList.remove('is-right', 'is-wrong');
+        q.querySelector('.check').disabled = false;
+      }
+      q.querySelector('.explain').hidden = true;
+      q.querySelector('.reveal').hidden = true;
+      setMsg(q, '', 'info');
+    });
+    refresh();
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  each('details', function (d) {
+    d.addEventListener('toggle', function () { if (d.open) tex(d.querySelector('.d-body')); });
+  });
+
+  /* ---------- Fotoğraf görüntüleyici ---------- */
+  var lb = document.getElementById('lb');
+  var lbImg = lb.querySelector('img');
+  var lbClose = lb.querySelector('.lb-close');
+  var lastFocus = null;
+  function closeLB() {
+    lb.hidden = true;
+    lb.classList.remove('full');
+    document.documentElement.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  each('.zoom', function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      lbImg.src = img.getAttribute('data-full') || img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lb.classList.remove('full');
+      lb.hidden = false;
+      lastFocus = btn;
+      document.documentElement.style.overflow = 'hidden';
+      lbClose.focus();
+    });
+  });
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', function (e) { if (e.target === lb) closeLB(); });
+  lbImg.addEventListener('click', function () { lb.classList.toggle('full'); lb.scrollTop = 0; lb.scrollLeft = 0; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLB(); });
+
+  /* ---------- Çizimler ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function tickText(t) {
+    if (typeof t === 'object') return t.s;
+    return String(t).replace('-', '−');
+  }
+  function axes(svg, o) {
+    var X = function (x) { return o.l + (x - o.x0) / (o.x1 - o.x0) * (o.W - o.l - o.r); };
+    var Y = function (y) { return o.H - o.b - (y - o.y0) / (o.y1 - o.y0) * (o.H - o.t - o.b); };
+    (o.yt || []).forEach(function (v) {
+      el('line', { x1: o.l, x2: o.W - o.r, y1: Y(v), y2: Y(v), 'class': 'grid' }, svg);
+      el('text', { x: o.l - 6, y: Y(v) + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = tickText(v);
+    });
+    el('line', { x1: o.l, x2: o.W - o.r, y1: Y(o.y0), y2: Y(o.y0), 'class': 'ax' }, svg);
+    (o.xt || []).forEach(function (t) {
+      var v = typeof t === 'object' ? t.v : t;
+      el('line', { x1: X(v), x2: X(v), y1: Y(o.y0), y2: Y(o.y0) + 4, 'class': 'ax' }, svg);
+      el('text', { x: X(v), y: Y(o.y0) + 17, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = tickText(t);
+    });
+    if (o.xl) el('text', { x: o.W - o.r, y: o.H - 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = o.xl;
+    return { X: X, Y: Y };
+  }
+  function curve(f, a, b, X, Y, n) {
+    n = n || 240;
+    var d = '';
+    for (var i = 0; i <= n; i++) {
+      var x = a + (b - a) * i / n;
+      d += (i ? 'L' : 'M') + X(x).toFixed(1) + ',' + Y(f(x)).toFixed(1);
+    }
+    return d;
+  }
+  function area(f, a, b, X, Y) {
+    return curve(f, a, b, X, Y) + 'L' + X(b).toFixed(1) + ',' + Y(0).toFixed(1) + 'L' + X(a).toFixed(1) + ',' + Y(0).toFixed(1) + 'Z';
+  }
+
+  var SUB = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅' };
+  function sub(s) { return String(s).replace(/[0-5]/g, function (d) { return SUB[d]; }); }
+  var C0 = 299792458;
+
+  /* v_p, v_g etiketi: alt indis tspan ile */
+  function vlab(x, y, s, cls, parent) {
+    var t = el('text', { x: x, y: y, 'class': cls }, parent || document.querySelector('#w-vel svg'));
+    t.appendChild(document.createTextNode('v'));
+    var ts = el('tspan', { 'baseline-shift': 'sub', 'font-size': '9' }, t);
+    ts.textContent = s;
+    var t2 = el('tspan', { dx: '1' }, t);
+    t2.textContent = ' / c';
+    return t;
+  }
+
+  /* Adım 4: faz ve grup hızı */
+  (function () {
+    var root = document.getElementById('w-vel');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var o = { W: 360, H: 240, l: 40, r: 14, t: 24, b: 34, x0: 1, x1: 4, y0: 0, y1: 3, xt: [1, 2, 3, 4], yt: [0, 1, 2, 3], xl: 'ω / ωₘₙ' };
+    var m = axes(svg, o);
+    el('line', { x1: m.X(1), x2: m.X(1), y1: m.Y(0), y2: m.Y(3), 'class': 'ax' }, svg);
+    el('text', { x: 6, y: 14, 'class': 'axl' }, svg).textContent = 'v / c';
+    el('line', { x1: m.X(1), x2: m.X(4), y1: m.Y(1), y2: m.Y(1), 'class': 'curve-alt' }, svg);
+    var fvp = function (x) { return 1 / Math.sqrt(1 - 1 / (x * x)); };
+    var fvg = function (x) { return Math.sqrt(1 - 1 / (x * x)); };
+    el('path', { d: curve(fvp, 1 / Math.sqrt(8 / 9), 4, m.X, m.Y), 'class': 'curve-red' }, svg);
+    el('path', { d: curve(fvg, 1, 4, m.X, m.Y, 400), 'class': 'curve' }, svg);
+    vlab(m.X(1.2), m.Y(2.45), 'p', 'lbl-r');
+    vlab(m.X(1.55), m.Y(0.42), 'g', 'lbl-b');
+    el('text', { x: m.X(4) - 2, y: m.Y(1) - 6, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = 'c';
+    var vl = el('line', { 'class': 'mark' }, svg);
+    var dp = el('circle', { r: 4.5, 'class': 'dot-r' }, svg);
+    var dg = el('circle', { r: 4.5, 'class': 'dot-b' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var x = parseFloat(inp.value);
+      var vp = fvp(x), vg = fvg(x);
+      vl.setAttribute('x1', m.X(x)); vl.setAttribute('x2', m.X(x));
+      vl.setAttribute('y1', m.Y(0)); vl.setAttribute('y2', m.Y(3));
+      dg.setAttribute('cx', m.X(x)); dg.setAttribute('cy', m.Y(vg));
+      if (vp <= 3) { dp.removeAttribute('visibility'); dp.setAttribute('cx', m.X(x)); dp.setAttribute('cy', m.Y(vp)); }
+      else dp.setAttribute('visibility', 'hidden');
+      ro.innerHTML = `<span>ω / ω<sub>mn</sub> = <b>${fmt(x, 3)}</b></span><span>v<sub>p</sub> = <b>${fmt(vp, 3)}</b> c</span><span>v<sub>g</sub> = <b>${fmt(vg, 3)}</b> c</span><span>v<sub>p</sub> · v<sub>g</sub> = <b>${fmt(vp * vg, 3)}</b> c²</span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Adım 6: dalga paketi, tepe ve zarf */
+  (function () {
+    var root = document.getElementById('w-pack');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var L = 60, Z0 = 10, SIG = 5.5;
+    var o = { W: 360, H: 200, l: 14, r: 14, t: 14, b: 34, x0: 0, x1: L, y0: -1.25, y1: 1.25, xt: [0, 10, 20, 30, 40, 50, 60], yt: [], xl: 'z' };
+    var m = axes(svg, o);
+    el('line', { x1: m.X(0), x2: m.X(L), y1: m.Y(0), y2: m.Y(0), 'class': 'grid' }, svg);
+    var envU = el('path', { 'class': 'curve-alt' }, svg);
+    var envL = el('path', { 'class': 'curve-alt' }, svg);
+    var car = el('path', { 'class': 'curve' }, svg);
+    var light = el('line', { 'class': 'light' }, svg);
+    var lightT = el('text', { 'text-anchor': 'middle', 'class': 'tick' }, svg);
+    lightT.textContent = 'light';
+    var de = el('circle', { r: 4.5, 'class': 'dot-b' }, svg);
+    var dc = el('circle', { r: 5, 'class': 'dot-r' }, svg);
+    var it = document.getElementById('wpt');
+    var iw = document.getElementById('wpw');
+    var play = document.getElementById('wpp');
+    var ro = root.querySelector('.ro');
+    function draw() {
+      var w = parseFloat(iw.value), t = parseFloat(it.value);
+      var k = Math.sqrt(w * w - 1), vp = w / k, vg = k / w;
+      var ze = Z0 + vg * t, zc = Z0 + vp * t, zl = Z0 + t;
+      var env = function (z) { var u = (z - ze) / SIG; return Math.exp(-u * u); };
+      envU.setAttribute('d', curve(env, 0, L, m.X, m.Y, 240));
+      envL.setAttribute('d', curve(function (z) { return -env(z); }, 0, L, m.X, m.Y, 240));
+      car.setAttribute('d', curve(function (z) { return env(z) * Math.cos(k * (z - Z0) - w * t); }, 0, L, m.X, m.Y, 900));
+      if (zl <= L) {
+        light.removeAttribute('visibility'); lightT.removeAttribute('visibility');
+        light.setAttribute('x1', m.X(zl)); light.setAttribute('x2', m.X(zl));
+        light.setAttribute('y1', m.Y(-1.15)); light.setAttribute('y2', m.Y(1.1));
+        lightT.setAttribute('x', m.X(zl)); lightT.setAttribute('y', m.Y(1.12) - 2);
+      } else { light.setAttribute('visibility', 'hidden'); lightT.setAttribute('visibility', 'hidden'); }
+      de.setAttribute('cx', m.X(ze)); de.setAttribute('cy', m.Y(1));
+      if (zc <= L) { dc.removeAttribute('visibility'); dc.setAttribute('cx', m.X(zc)); dc.setAttribute('cy', m.Y(env(zc))); }
+      else dc.setAttribute('visibility', 'hidden');
+      var gone = env(zc) < 0.06;
+      var h = `<span>t = <b>${fmt(t, 1)}</b></span><span>crest traveled <b>${fmt(vp * t, 1)}</b> (v<sub>p</sub> = ${fmt(vp, 2)} c)</span><span>envelope <b>${fmt(vg * t, 1)}</b> (v<sub>g</sub> = ${fmt(vg, 2)} c)</span><span>light <b>${fmt(t, 1)}</b></span>`;
+      if (t > 0 && gone) h += `<span><b>the marked crest left the envelope and died out</b></span>`;
+      ro.innerHTML = h;
+    }
+    var raf = null, last = 0;
+    function stop() { if (raf) cancelAnimationFrame(raf); raf = null; play.textContent = 'Play'; }
+    function tick(ts) {
+      if (!last) last = ts;
+      var dt = Math.min(0.05, (ts - last) / 1000);
+      last = ts;
+      var t = parseFloat(it.value) + 3 * dt;
+      if (t >= 20) { it.value = 20; draw(); stop(); return; }
+      it.value = t;
+      draw();
+      raf = requestAnimationFrame(tick);
+    }
+    play.addEventListener('click', function () {
+      if (raf) { stop(); return; }
+      if (parseFloat(it.value) >= 19.9) it.value = 0;
+      last = 0;
+      play.textContent = 'Pause';
+      raf = requestAnimationFrame(tick);
+    });
+    it.addEventListener('input', function () { stop(); draw(); });
+    iw.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Adım 7: zikzak ışın */
+  (function () {
+    var root = document.getElementById('w-zig');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var ZL = 28, ZR = 344, YT = 36, YB = 136, A = YB - YT;
+    el('line', { x1: ZL, x2: ZR, y1: YT, y2: YT, 'class': 'wall-thin' }, svg);
+    el('line', { x1: ZL, x2: ZR, y1: YB, y2: YB, 'class': 'wall-thin' }, svg);
+    el('text', { x: ZL - 8, y: (YT + YB) / 2 + 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = 'a';
+    el('text', { x: ZR, y: YB + 26, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = 'z →';
+    el('text', { x: ZL, y: YT - 10, 'class': 'tick' }, svg).textContent = 'metal wall';
+    var r2 = el('polyline', { 'class': 'ray2' }, svg);
+    var r1 = el('polyline', { 'class': 'curve' }, svg);
+    var arc = el('path', { 'class': 'curve-alt' }, svg);
+    var th = el('text', { 'class': 'tick' }, svg);
+    var inp = root.querySelector('input');
+    var ro = root.querySelector('.ro');
+    function zig(startTop, d) {
+      var pts = [], z = ZL, y = startTop ? YT : YB, up = !startTop, n = 0;
+      pts.push(z.toFixed(1) + ',' + y.toFixed(1));
+      while (z < ZR && n < 900) {
+        var z2 = z + d, y2 = up ? YT : YB;
+        if (z2 > ZR) { var f = (ZR - z) / d; y2 = y + (y2 - y) * f; z2 = ZR; }
+        pts.push(z2.toFixed(1) + ',' + y2.toFixed(1));
+        z = z2; y = y2; up = !up; n++;
+      }
+      return pts.join(' ');
+    }
+    function draw() {
+      var x = parseFloat(inp.value);
+      var ct = Math.sqrt(1 - 1 / (x * x));
+      var theta = Math.acos(ct);
+      var d = A / Math.tan(theta); /* bir duvardan öbürüne z ilerlemesi (piksel) */
+      r1.setAttribute('points', zig(false, d));
+      r2.setAttribute('points', zig(true, d));
+      /* θ yayı: alt duvar (z ekseni) ile ilk ışın arasında */
+      var R = 26, ax = ZL + R, ay = YB;
+      var bx = ZL + R * Math.cos(theta), by = YB - R * Math.sin(theta);
+      arc.setAttribute('d', 'M' + ax.toFixed(1) + ',' + ay + ' A' + R + ',' + R + ' 0 0 0 ' + bx.toFixed(1) + ',' + by.toFixed(1));
+      th.setAttribute('x', (ZL + (R + 8) * Math.cos(theta / 2)).toFixed(1));
+      th.setAttribute('y', (YB - (R + 8) * Math.sin(theta / 2) + 4).toFixed(1));
+      th.textContent = 'θ';
+      var deg = theta * 180 / Math.PI;
+      ro.innerHTML = `<span>θ = <b>${fmt(deg, 1)}°</b></span><span>cos θ = <b>${fmt(ct, 3)}</b></span><span>v<sub>g</sub> = c cos θ = <b>${fmt(ct, 3)}</b> c</span><span>v<sub>p</sub> = c / cos θ = <b>${fmt(1 / ct, 3)}</b> c</span><span>advance in z per wall-to-wall crossing: <b>${fmt(1 / Math.tan(theta), 2)}</b> a</span>`;
+    }
+    inp.addEventListener('input', draw);
+    draw();
+  })();
+
+  /* Adım 9: TM mod şekilleri */
+  (function () {
+    var root = document.getElementById('w-tm');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var ro = root.querySelector('.ro');
+    var X0 = 44, Y0 = 16, W = 288, H = 144;
+    var NX = 36, NY = 18, cw = W / NX, ch = H / NY;
+    var defs = el('defs', {}, svg);
+    var mk = el('marker', { id: 'aht', viewBox: '0 0 10 10', refX: '8', refY: '5', markerWidth: '5', markerHeight: '5', orient: 'auto-start-reverse' }, defs);
+    el('path', { d: 'M0,0 L10,5 L0,10 z', 'class': 'ah-k' }, mk);
+    var cells = [];
+    var cellG = el('g', { 'shape-rendering': 'crispEdges' }, svg);
+    for (var j = 0; j < NY; j++) {
+      for (var i = 0; i < NX; i++) {
+        cells.push({ i: i, j: j, r: el('rect', { x: (X0 + i * cw).toFixed(2), y: (Y0 + j * ch).toFixed(2), width: cw.toFixed(2), height: ch.toFixed(2) }, cellG) });
+      }
+    }
+    el('rect', { x: X0, y: Y0, width: W, height: H, 'class': 'wall-thin' }, svg);
+    var arrows = el('g', {}, svg);
+    el('text', { x: X0, y: Y0 + H + 16, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = '0';
+    el('text', { x: X0 + W, y: Y0 + H + 16, 'text-anchor': 'middle', 'class': 'tick' }, svg).textContent = 'a';
+    el('text', { x: X0 + W / 2, y: Y0 + H + 16, 'text-anchor': 'middle', 'class': 'axl' }, svg).textContent = 'x';
+    el('text', { x: X0 - 8, y: Y0 + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = 'b';
+    el('text', { x: X0 - 8, y: Y0 + H / 2 + 4, 'text-anchor': 'end', 'class': 'axl' }, svg).textContent = 'y';
+    var cap = el('text', { x: X0 + W / 2, y: Y0 + H + 36, 'text-anchor': 'middle', 'class': 'tick lbl' }, svg);
+    function val(name) {
+      var r = root.querySelector('input[name="' + name + '"]:checked');
+      return r ? parseInt(r.value, 10) : 0;
+    }
+    function draw() {
+      var m = val('tm'), n = val('tn');
+      var zero = (m === 0 || n === 0);
+      cells.forEach(function (c) {
+        var x = (c.i + 0.5) / NX, y = 1 - (c.j + 0.5) / NY;
+        var v = Math.sin(m * Math.PI * x) * Math.sin(n * Math.PI * y);
+        c.r.setAttribute('class', v >= 0 ? 'cell-p' : 'cell-n');
+        c.r.setAttribute('fill-opacity', zero ? '0.04' : (0.08 + 0.72 * Math.abs(v)).toFixed(3));
+      });
+      while (arrows.firstChild) arrows.removeChild(arrows.firstChild);
+      if (!zero) {
+        var AX = 12, AY = 6, pts = [], mx = 0;
+        for (var j = 0; j < AY; j++) {
+          for (var i = 0; i < AX; i++) {
+            var x = (i + 0.5) / AX, y = (j + 0.5) / AY;
+            /* E_perp ∝ ∇E_z; a = 2b olduğu için y türevini 2 ile çarp */
+            var ex = m * Math.PI * Math.cos(m * Math.PI * x) * Math.sin(n * Math.PI * y);
+            var ey = 2 * n * Math.PI * Math.sin(m * Math.PI * x) * Math.cos(n * Math.PI * y);
+            var L = Math.sqrt(ex * ex + ey * ey);
+            if (L > mx) mx = L;
+            pts.push({ x: x, y: y, ex: ex, ey: ey, L: L });
+          }
+        }
+        pts.forEach(function (p) {
+          if (mx === 0 || p.L / mx < 0.08) return;
+          var s = 11 * Math.sqrt(p.L / mx) / p.L;
+          var cx = X0 + p.x * W, cy = Y0 + (1 - p.y) * H;
+          var dx = p.ex * s, dy = -p.ey * s;
+          el('line', { x1: (cx - dx).toFixed(1), y1: (cy - dy).toFixed(1), x2: (cx + dx).toFixed(1), y2: (cy + dy).toFixed(1), 'class': 'arr', 'marker-end': 'url(#aht)' }, arrows);
+        });
+      }
+      var name = 'TM' + sub(String(m) + String(n));
+      var term = function (q, v, Lb) { return ' sin(' + (q === 1 ? '' : q) + 'π' + v + '/' + Lb + ')'; };
+      cap.textContent = zero ? name + ': Ez is zero everywhere, no field' : name + '  ·  Ez = E₀' + term(m, 'x', 'a') + term(n, 'y', 'b');
+      if (zero) {
+        ro.innerHTML = `<span><b>${name}</b>: one of the indices is zero, sin 0 = 0. E<sub>z</sub> is zero everywhere and so is B<sub>z</sub>; only TEM would remain, and an empty pipe has no TEM. This is not a mode.</span>`;
+      } else {
+        var r = Math.sqrt(m * m + 4 * n * n);
+        ro.innerHTML = `<span><b>${name}</b></span><span><b>${m}</b> half waves along x, <b>${n}</b> along y</span><span>interior node lines: <b>${m - 1}</b> in x, <b>${n - 1}</b> in y</span><span>cutoff f<sub>${m}${n}</sub> / f<sub>10</sub> = √(m² + 4n²) = <b>${fmt(r, 2)}</b></span>`;
+      }
+    }
+    each('input[type="radio"]', function (r) { r.addEventListener('change', draw); }, root);
+    draw();
+  })();
+
+  /* Adım 14: mod kesimleri ve sinyal bandı */
+  (function () {
+    var root = document.getElementById('w-band');
+    if (!root) return;
+    var svg = root.querySelector('svg');
+    var a = 0.02286, b = 0.01016;
+    function fc(mm, nn) { return C0 / 2 * Math.sqrt(Math.pow(mm / a, 2) + Math.pow(nn / b, 2)) / 1e9; }
+    var modes = [
+      { lab: 'TE₁₀', f: fc(1, 0), n: 1 },
+      { lab: 'TE₂₀', f: fc(2, 0), n: 1 },
+      { lab: 'TE₀₁', f: fc(0, 1), n: 1 },
+      { lab: 'TE₁₁, TM₁₁', f: fc(1, 1), n: 2 },
+      { lab: 'TE₃₀', f: fc(3, 0), n: 1 },
+      { lab: 'TE₂₁, TM₂₁', f: fc(2, 1), n: 2 }
+    ];
+    var F0 = 4, F1 = 20;
+    var o = { W: 360, H: 214, l: 78, r: 12, t: 8, b: 38, x0: F0, x1: F1, y0: 0, y1: 6, xt: [4, 8, 12, 16, 20], yt: [], xl: 'f (GHz)' };
+    var m = axes(svg, o);
+    var bandR = el('rect', { 'class': 'band' }, svg);
+    var rowH = (o.H - o.t - o.b) / 6;
+    var ovs = [];
+    modes.forEach(function (md, i) {
+      var yc = o.t + rowH * (i + 0.5);
+      el('text', { x: o.l - 6, y: yc + 4, 'text-anchor': 'end', 'class': 'tick' }, svg).textContent = md.lab;
+      if (md.f < F1) {
+        el('rect', { x: m.X(md.f), y: yc - 7, width: m.X(F1) - m.X(md.f), height: 14, rx: 3, 'class': 'pass' }, svg);
+        el('line', { x1: m.X(md.f), x2: m.X(md.f), y1: yc - 10, y2: yc + 10, 'class': 'ax' }, svg);
+      }
+      ovs.push(el('rect', { y: yc - 7, height: 14, rx: 3, 'class': 'ovl' }, svg));
+    });
+    var ic = document.getElementById('wbc');
+    var iw = document.getElementById('wbw');
+    var ro = root.querySelector('.ro');
+    function overlap(lo, hi, p, q) { return Math.max(0, Math.min(hi, q) - Math.max(lo, p)); }
+    function draw() {
+      var c = parseFloat(ic.value), w = parseFloat(iw.value);
+      var lo = Math.max(0.1, c - w / 2), hi = c + w / 2, bw = hi - lo;
+      var dlo = Math.max(F0, lo), dhi = Math.min(F1, hi);
+      bandR.setAttribute('x', m.X(dlo)); bandR.setAttribute('width', Math.max(0, m.X(dhi) - m.X(dlo)));
+      bandR.setAttribute('y', o.t); bandR.setAttribute('height', o.H - o.t - o.b);
+      modes.forEach(function (md, i) {
+        var p = Math.max(md.f, dlo), q = dhi;
+        if (q > p) { ovs[i].removeAttribute('visibility'); ovs[i].setAttribute('x', m.X(p)); ovs[i].setAttribute('width', m.X(q) - m.X(p)); }
+        else ovs[i].setAttribute('visibility', 'hidden');
+      });
+      var f10 = modes[0].f, f2 = modes[1].f;
+      var none = overlap(lo, hi, 0, f10) / bw, single = overlap(lo, hi, f10, f2) / bw, multi = overlap(lo, hi, f2, 1e9) / bw;
+      var nTop = 0;
+      for (var mm = 0; mm <= 8; mm++) {
+        for (var nn = 0; nn <= 5; nn++) {
+          if (mm === 0 && nn === 0) continue;
+          if (fc(mm, nn) < hi) nTop += (mm > 0 && nn > 0) ? 2 : 1;
+        }
+      }
+      var pc = function (v) { return '%' + fmt(100 * v, 0); };
+      ro.innerHTML = `<span>band <b>${fmt(lo, 2)}–${fmt(hi, 2)} GHz</b></span><span>not propagating: <b>${pc(none)}</b></span><span>single-mode: <b>${pc(single)}</b> (${fmt(single * bw, 2)} GHz)</span><span>multimode: <b>${pc(multi)}</b></span><span>modes propagating at the top end: <b>${nTop}</b></span>`;
+    }
+    ic.addEventListener('input', draw);
+    iw.addEventListener('input', draw);
+    draw();
+  })();
+
+  refresh();
+})();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { ignoreHtmlClass: 'tex-later', enableMenu: false },
+  startup: {
+    pageReady: function () {
+      return MathJax.startup.defaultPageReady().then(function () {
+        window.dispatchEvent(new Event('mathjax-ready'));
+      });
+    }
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</body>
+</html>
