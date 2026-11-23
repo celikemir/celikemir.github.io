@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.crumbs .lang { font-weight: 600; }
+.kbm-crumbs .lang{font-weight:600}
+</style>
+<title>The Lorentz Oscillator Model</title>
+<meta name="description" content="A lecture deriving the dielectric function from the response of a bound electron to light. Written by comparing the board photos, a notebook page and a corrected transcript…">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="tr" href="./">
+<link rel="alternate" hreflang="en" href="en.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap">
+<style>
+/* Layout: one reading column on whiteboard-white paper, graph-paper hero like the notebook,
+   blue marker for English terms, red-pen dashed boxes for errors found on the board. */
+:root {
+  --paper: #f5f7fa;
+  --panel: #ffffff;
+  --ink: #141c26;
+  --ink-2: #4a5665;
+  --muted: #687586;
+  --rule: #d6dde6;
+  --grid: #e2e8ef;
+  --gridline: #e8edf2;
+  --axis: #b4bfcc;
+  --marker: #1d56bd;
+  --redpen: #be3129;
+  --redtint: #fdf2f1;
+  --tag: #eaeff5;
+  --band: rgba(29, 86, 189, 0.07);
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #6250d6;
+  --f-display: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-body: "Literata", Georgia, "Times New Roman", serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e131a;
+    --panel: #161d26;
+    --ink: #e3e8ee;
+    --ink-2: #a8b3c0;
+    --muted: #8590a0;
+    --rule: #29333f;
+    --grid: #19212b;
+    --gridline: #222b36;
+    --axis: #3d4957;
+    --marker: #7aa8f3;
+    --redpen: #f0817a;
+    --redtint: #24181a;
+    --tag: #1c2531;
+    --band: rgba(122, 168, 243, 0.10);
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #9085e9;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e131a;
+  --panel: #161d26;
+  --ink: #e3e8ee;
+  --ink-2: #a8b3c0;
+  --muted: #8590a0;
+  --rule: #29333f;
+  --grid: #19212b;
+  --gridline: #222b36;
+  --axis: #3d4957;
+  --marker: #7aa8f3;
+  --redpen: #f0817a;
+  --redtint: #24181a;
+  --tag: #1c2531;
+  --band: rgba(122, 168, 243, 0.10);
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #9085e9;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 17px;
+  line-height: 1.62;
+}
+.wrap {
+  box-sizing: content-box;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--marker); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible, svg:focus-visible {
+  outline: 2px solid var(--marker);
+  outline-offset: 2px;
+}
+p { margin: 0 0 1rem; }
+strong { font-weight: 600; }
+
+/* hero */
+.hero {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 22px 22px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero .wrap { padding-block: 2.6rem 2rem; }
+.eyebrow {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 0.6rem;
+}
+h1 {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 7vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.9rem;
+  text-wrap: balance;
+}
+.lede { font-size: 1.06rem; color: var(--ink-2); max-width: 38rem; }
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.4rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+}
+.chain li { display: flex; align-items: center; gap: 0.4rem; }
+.chain li span.step {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.18rem 0.5rem;
+}
+.chain li:not(:last-child)::after { content: "→"; color: var(--muted); }
+
+/* toc */
+.toc {
+  margin: 2rem 0 0.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.toc h2 {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 0.6rem;
+}
+.toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.25rem 1.5rem;
+  font-size: 0.95rem;
+}
+.toc .n { font-family: var(--f-mono); color: var(--muted); display: inline-block; min-width: 1.6rem; font-size: 0.82rem; }
+.toc a { color: var(--ink); text-decoration: none; }
+.toc a:hover { color: var(--marker); text-decoration: underline; }
+
+/* sections */
+section { padding-block: 2.2rem 0.6rem; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: 0; }
+.sec-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.8rem;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+.sec-head .num {
+  font-family: var(--f-mono);
+  font-size: 0.85rem;
+  color: var(--marker);
+  grid-row: span 2;
+}
+.sec-head h2 {
+  font-family: var(--f-display);
+  font-weight: 650;
+  font-size: 1.55rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+  min-width: 0;
+}
+.sec-head .stamp {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+  grid-column: 2;
+}
+h3 {
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 1.12rem;
+  margin: 1.6rem 0 0.5rem;
+  text-wrap: balance;
+}
+.en {
+  font-family: var(--f-mono);
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--marker);
+  letter-spacing: 0;
+}
+h2 .en, h3 .en { font-size: 0.55em; vertical-align: 0.15em; margin-left: 0.25em; display: inline-block; max-width: 100%; }
+.extra {
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.02rem 0.5rem;
+  vertical-align: 0.12em;
+  white-space: nowrap;
+}
+.eq {
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 0.4rem 0 1.1rem;
+  padding: 0.2rem 0;
+}
+mjx-container[display="true"] { margin: 0.5em 0 !important; }
+.note { font-size: 0.92rem; color: var(--ink-2); }
+
+ul.plain, ol.plain { margin: 0 0 1rem; padding-left: 1.2rem; }
+ul.plain li, ol.plain li { margin-bottom: 0.45rem; }
+
+/* red-pen error box */
+.err {
+  border: 1.5px dashed var(--redpen);
+  border-radius: 6px;
+  background: var(--redtint);
+  padding: 0.85rem 1rem 0.2rem;
+  margin: 1.2rem 0 1.4rem;
+}
+.err .label {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--redpen);
+  margin-bottom: 0.35rem;
+}
+.err p { font-size: 0.97rem; }
+
+/* tables */
+.tbl { overflow-x: auto; margin: 0.6rem 0 1.3rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-align: left;
+  padding: 0.45rem 0.7rem 0.45rem 0;
+  border-bottom: 1px solid var(--axis);
+  white-space: nowrap;
+}
+td {
+  padding: 0.5rem 0.7rem 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--f-mono); font-size: 0.85rem; }
+td .en { font-size: 0.85rem; }
+
+/* figures */
+figure { margin: 1.2rem 0 1.6rem; }
+figure .scroll { overflow-x: auto; }
+figure svg.diagram { display: block; width: 100%; max-width: 620px; height: auto; color: var(--ink); }
+figcaption { font-size: 0.88rem; color: var(--ink-2); margin-top: 0.5rem; }
+.dg-text { font-family: var(--f-mono); font-size: 12px; fill: currentColor; }
+.dg-strong { font-family: var(--f-display); font-size: 22px; font-weight: 600; fill: currentColor; }
+.dg-marker { stroke: var(--marker); }
+.dg-mass { fill: var(--panel); }
+.dg-marker-fill { fill: var(--marker); }
+.dg-marker-text { font-family: var(--f-mono); font-size: 12px; fill: var(--marker); }
+
+/* interactive lab */
+.lab {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 1rem 1rem 0.6rem;
+  margin: 1.2rem 0 1.6rem;
+}
+.lab-title { font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; margin: 0 0 0.2rem; }
+.lab-sub { font-size: 0.88rem; color: var(--ink-2); margin: 0 0 0.9rem; }
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.8rem 1.4rem;
+  margin-bottom: 0.7rem;
+}
+.ctrl label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  margin-bottom: 0.2rem;
+}
+.ctrl output { color: var(--ink); font-variant-numeric: tabular-nums; }
+.ctrl input[type="range"] { width: 100%; accent-color: var(--marker); }
+.presets { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  color: var(--ink);
+  background: var(--tag);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--marker); color: var(--marker); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-family: var(--f-mono); font-size: 0.78rem; color: var(--ink-2); margin-bottom: 0.3rem; }
+.legend span.key { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 0.4rem; }
+.key.s1 { border-color: var(--s1); }
+.key.s2 { border-color: var(--s2); }
+.key.s3 { border-color: var(--s3); }
+.chart { position: relative; margin-bottom: 0.6rem; }
+.chart svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+.chart-title { font-family: var(--f-mono); font-size: 0.78rem; color: var(--ink-2); margin: 0.6rem 0 0.2rem; }
+.grid-l { stroke: var(--gridline); stroke-width: 1; }
+.axis-l { stroke: var(--axis); stroke-width: 1; }
+.zero-l { stroke: var(--axis); stroke-width: 1.4; }
+.ref-l { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.band-r { fill: var(--band); }
+.ln { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.ln.s1 { stroke: var(--s1); }
+.ln.s2 { stroke: var(--s2); }
+.ln.s3 { stroke: var(--s3); }
+.dot { stroke: var(--panel); stroke-width: 2; }
+.dot.s1 { fill: var(--s1); }
+.dot.s2 { fill: var(--s2); }
+.dot.s3 { fill: var(--s3); }
+.cross { stroke: var(--ink-2); stroke-width: 1; }
+.tick { font-family: var(--f-mono); font-size: 11px; fill: var(--muted); }
+.axis-title { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-2); }
+.dlabel { font-family: var(--f-mono); font-size: 12px; fill: var(--ink); }
+.band-label { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-2); }
+.tip {
+  position: absolute;
+  top: 18px;
+  pointer-events: none;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  padding: 0.45rem 0.6rem;
+  font-family: var(--f-mono);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  min-width: 9.5rem;
+  z-index: 2;
+}
+.tip .head { color: var(--ink-2); margin-bottom: 0.15rem; }
+.tip .row { display: flex; align-items: center; gap: 0.45rem; }
+.tip .row b { font-weight: 500; font-variant-numeric: tabular-nums; min-width: 4.2rem; text-align: right; }
+.tip .row span.k { display: inline-block; width: 12px; border-top: 2px solid var(--muted); }
+.tip .row span.lab-name { color: var(--ink-2); }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
+  margin: 0.7rem 0 0.6rem;
+}
+.stat { border-top: 1px solid var(--rule); padding-top: 0.45rem; }
+.stat .k { font-family: var(--f-mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); }
+.stat .v { font-family: var(--f-mono); font-size: 1.02rem; font-variant-numeric: tabular-nums; }
+.stat .s { font-size: 0.78rem; color: var(--muted); }
+details.tableview { margin: 0.4rem 0 0.4rem; }
+details.tableview summary { font-family: var(--f-mono); font-size: 0.78rem; color: var(--ink-2); cursor: pointer; }
+
+/* quiz */
+.q { border-top: 1px solid var(--rule); padding: 0.9rem 0 0.4rem; }
+.q .qhead { display: flex; gap: 0.7rem; align-items: baseline; }
+.q .qn { font-family: var(--f-mono); font-size: 0.8rem; color: var(--marker); flex: none; }
+.q .lvl { font-family: var(--f-mono); font-size: 0.68rem; color: var(--muted); margin-left: auto; white-space: nowrap; }
+.q p.qt { margin: 0 0 0.5rem; min-width: 0; }
+.q details { margin: 0 0 0.6rem 1.6rem; }
+.q summary { font-family: var(--f-mono); font-size: 0.78rem; color: var(--marker); cursor: pointer; }
+.q details[open] summary { margin-bottom: 0.5rem; }
+
+footer .wrap { padding-block: 1.6rem 2.6rem; font-size: 0.85rem; color: var(--ink-2); }
+
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .sec-head h2 { font-size: 1.32rem; }
+  .q details { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] },
+  svg: { fontCache: "global" },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" async></script>
+<style>
+/* KBM sitesi: konum satırı ve geri bağlantısı (sayfanın kendi renk değişkenlerini kullanır) */
+.kbm-crumbs{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;letter-spacing:0;text-transform:none;color:var(--ink-2);margin:0 0 1rem}
+.kbm-crumbs a,.kbm-back a{color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.kbm-crumbs a{text-decoration:none}
+.kbm-crumbs a:hover{text-decoration:underline}
+.kbm-back{margin:0 0 .8rem}
+/* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
+.katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="kbm-crumbs" aria-label="Location"><a href="../../">KBM notes</a> › <a href="../">602</a> › Week 4 · <a class="lang" href="./" hreflang="tr" lang="tr">Türkçe</a></nav>
+    <p class="eyebrow">Dielectric Functions · Lecture note · 16 October 2026</p>
+    <h1>The Lorentz Oscillator Model</h1>
+    <p class="lede">A lecture deriving the dielectric function \(\varepsilon_r(\omega)\) from the response of a bound electron to light. Written by comparing the board photos, a notebook page and a corrected transcript. Blue text marks the English terms, and red dashed boxes mark mistakes on the board. Parts labeled <span class="extra">not in the lecture</span> are information added from outside the lecture.</p>
+    <ol class="chain" aria-label="Chain of the derivation">
+      <li><span class="step">equation of motion</span></li>
+      <li><span class="step">x̃(ω)</span></li>
+      <li><span class="step">p = qx̃</span></li>
+      <li><span class="step">P = (N/V)qx̃</span></li>
+      <li><span class="step">χₑ(ω)</span></li>
+      <li><span class="step">εᵣ(ω) = 1 + χₑ</span></li>
+    </ol>
+  </div>
+</header>
+
+<main class="wrap">
+
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s1"><span class="n">1</span>Which materials</a></li>
+    <li><a href="#s2"><span class="n">2</span>The classical analogy</a></li>
+    <li><a href="#s3"><span class="n">3</span>The restoring force</a></li>
+    <li><a href="#s4"><span class="n">4</span>Damping</a></li>
+    <li><a href="#s5"><span class="n">5</span>The equation of motion</a></li>
+    <li><a href="#s6"><span class="n">6</span>The solution</a></li>
+    <li><a href="#s7"><span class="n">7</span>From one electron to the material</a></li>
+    <li><a href="#s8"><span class="n">8</span>The dielectric function</a></li>
+    <li><a href="#s9"><span class="n">9</span>Reading the ε(ω) graph</a></li>
+    <li><a href="#s10"><span class="n">10</span>Real materials</a></li>
+    <li><a href="#ekA"><span class="n">A</span>Side topics from the lecture</a></li>
+    <li><a href="#ekB"><span class="n">B</span>List of mistakes</a></li>
+    <li><a href="#ekC"><span class="n">C</span>Test yourself</a></li>
+    <li><a href="#ekD"><span class="n">D</span>Glossary</a></li>
+  </ol>
+</nav>
+
+<!-- 1 -->
+<section id="s1">
+  <div class="sec-head">
+    <span class="num">1</span>
+    <h2>Which materials? <span class="en">bound charges</span></h2>
+    <span class="stamp">recording 0:00</span>
+  </div>
+  <p>The model describes bound charges (<span class="en">bound charges</span>), that is, valence electrons bound to atomic nuclei (<span class="en">valence electrons bound to atomic nuclei</span>). So it is applied to insulators (<span class="en">insulators</span>) and semiconductors (<span class="en">semiconductors</span>).</p>
+  <p>In conductors (<span class="en">conductors</span>) the conduction electrons roam freely, and for them the Drude model (<span class="en">Drude model</span>) is used. This is what appears in the transcript as "Durant" or "Durand mode".</p>
+  <p class="note"><span class="extra">not in the lecture</span> The Drude model is really the Lorentz model with the spring removed, taking \(\omega_0 = 0\). There is no force pulling the free electron to the nucleus; only the damping and the external field remain.</p>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <div class="sec-head">
+    <span class="num">2</span>
+    <h2>The classical analogy <span class="en">damped driven mass-spring oscillator</span></h2>
+    <span class="stamp">recording 0:02</span>
+  </div>
+  <p>The lecturer compares the model to a classical mass-spring-damper system (<span class="en">mass-spring-damper system</span>). The definition on the board: bound electrons are treated as a harmonic oscillator (<span class="en">harmonic oscillator</span>), as if tied to the nucleus by a spring, and the system is driven by the electromagnetic field (<span class="en">driven by the electromagnetic field</span>).</p>
+
+  <figure>
+    <div class="scroll">
+    <svg class="diagram" viewBox="0 0 560 200" role="img" aria-label="A mass tied to a wall by a spring and a damper. The spring corresponds to the Coulomb attraction, the damper to gamma, the mass to the electron, and the force arrow on the right to the electric field of the light.">
+      <defs>
+        <marker id="arrM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="dg-marker-fill"></path>
+        </marker>
+        <marker id="arrI" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+        </marker>
+      </defs>
+      <rect x="20" y="30" width="10" height="130" fill="currentColor" opacity="0.15"></rect>
+      <line x1="30" y1="30" x2="30" y2="160" stroke="currentColor" stroke-width="2"></line>
+      <line x1="20" y1="160" x2="540" y2="160" stroke="currentColor" stroke-width="1.5" opacity="0.45"></line>
+      <polyline points="30,75 60,75 70,60 85,90 100,60 115,90 130,60 145,90 160,60 175,90 185,75 230,75" fill="none" class="dg-marker" stroke-width="2" stroke-linejoin="round"></polyline>
+      <line x1="30" y1="130" x2="90" y2="130" stroke="currentColor" stroke-width="2"></line>
+      <path d="M90,116 H150 M90,144 H150 M90,116 V144" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <line x1="130" y1="121" x2="130" y2="139" stroke="currentColor" stroke-width="3"></line>
+      <line x1="130" y1="130" x2="230" y2="130" stroke="currentColor" stroke-width="2"></line>
+      <rect x="230" y="50" width="100" height="110" rx="6" class="dg-mass" stroke="currentColor" stroke-width="2"></rect>
+      <text x="280" y="104" text-anchor="middle" class="dg-strong">e⁻</text>
+      <text x="280" y="128" text-anchor="middle" class="dg-text" opacity="0.75">m</text>
+      <line x1="240" y1="12" x2="240" y2="46" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"></line>
+      <line x1="241" y1="28" x2="279" y2="28" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrI)"></line>
+      <text x="259" y="22" text-anchor="middle" class="dg-text">x</text>
+      <line x1="332" y1="105" x2="432" y2="105" class="dg-marker" stroke-width="2.5" marker-end="url(#arrM)"></line>
+      <text x="382" y="92" text-anchor="middle" class="dg-marker-text">F(t) = qE₀ cos ωt</text>
+      <text x="382" y="126" text-anchor="middle" class="dg-text">E field of the light</text>
+      <text x="125" y="48" text-anchor="middle" class="dg-text">spring ↔ Coulomb attraction</text>
+      <text x="120" y="184" text-anchor="middle" class="dg-text">damper ↔ γ</text>
+      <text x="280" y="184" text-anchor="middle" class="dg-text">mass ↔ electron</text>
+    </svg>
+    </div>
+    <figcaption>Each of the four parts corresponds to something physical in the model. x is the displacement of the electron from its equilibrium position (dashed line).</figcaption>
+  </figure>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Mechanical part</th><th>English</th><th>Its counterpart in the model</th></tr></thead>
+      <tbody>
+        <tr><td>Mass \(m\)</td><td><span class="en">mass</span></td><td>Electron</td></tr>
+        <tr><td>Spring, \(F = -kx\)</td><td><span class="en">spring, restoring force</span></td><td>Coulomb attraction between the nucleus and the valence electron</td></tr>
+        <tr><td>Damper</td><td><span class="en">damper, damping term</span></td><td>Radiation and scattering losses, \(\gamma\)</td></tr>
+        <tr><td>External force \(F(t)\)</td><td><span class="en">driving force</span></td><td>The electric field of the incoming EM wave, \(qE_0e^{-i\omega t}\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Without damping the system would oscillate forever after one push. The oscillation has to die out after the wave leaves the material, and \(\gamma\) makes that happen. The lecturer defined it as “the term that keeps the oscillations from lasting forever” (<span class="en">avoids the oscillations to last infinite time</span>).</p>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <div class="sec-head">
+    <span class="num">3</span>
+    <h2>The restoring force <span class="en">restoring force</span></h2>
+    <span class="stamp">recording 0:05</span>
+  </div>
+  <p>A spring pulls the mass back to equilibrium. In the model this job is done by the attractive Coulomb force (<span class="en">attractive Coulomb force</span>) between the nucleus and the valence electron.</p>
+  <div class="eq">\[ F_R = -kx = -m\omega_0^2 x, \qquad \omega_0 = \sqrt{k/m} \]</div>
+  <p>\(\omega_0\) is the natural frequency of the electron (<span class="en">natural frequency</span>), also called the resonant frequency (<span class="en">resonant frequency</span>). \(x\) is not the absolute position of the electron but its displacement from equilibrium (<span class="en">displacement from its equilibrium position</span>).</p>
+  <h3>How ω₀ connects to the quantum side</h3>
+  <p>Since the energy of the electron is quantized (<span class="en">quantized energy levels</span>), it can absorb only energies corresponding to differences between levels. So \(\omega_0\) cannot take every value:</p>
+  <div class="eq">\[ \hbar\omega_0 = E_f - E_i \]</div>
+  <p>Since an atom has many levels, there are many natural frequencies such as \(\omega_1, \omega_2, \dots\). For now the lecture proceeds with a single \(\omega_0\); the sum comes in Section 10.</p>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <div class="sec-head">
+    <span class="num">4</span>
+    <h2>Damping <span class="en">damping</span></h2>
+    <span class="stamp">recording 0:09 – 0:51</span>
+  </div>
+  <p>The longest part of the lecture. The lecturer lists two mechanisms of energy loss, numbered in this order on the board too.</p>
+
+  <h3>Mechanism 1: radiation <span class="en">radiation</span></h3>
+  <p>Every accelerating charge radiates energy. Electrons in an antenna emitting radio waves are the same phenomenon. The radiated power is given by the Larmor formula (<span class="en">Larmor formula</span>):</p>
+  <div class="eq">\[ \mathcal{P}_{\text{rad}} = \frac{e^2 a^2}{6\pi\varepsilon_0 c^3} \]</div>
+  <p>A radiating particle feels a recoil force in return for the energy it loses. This is called the Abraham–Lorentz force or radiation reaction force (<span class="en">Abraham–Lorentz recoil force, radiation reaction</span>). It depends on the second derivative of the velocity, the third derivative of the position:</p>
+  <div class="eq">\[ F_{\text{rad}} = +\frac{e^2}{6\pi\varepsilon_0 c^3}\,\ddot v \]</div>
+  <p>In the harmonic approximation (<span class="en">harmonic approximation</span>) \(x \propto e^{-i\omega t}\), so each derivative only multiplies by \(-i\omega\). Two derivatives bring \((-i\omega)^2 = -\omega^2\):</p>
+  <div class="eq">\[ \ddot v = -\omega^2 v \;\Rightarrow\; F_{\text{rad}} = -\frac{e^2\omega^2}{6\pi\varepsilon_0 c^3}\,v \equiv -m\gamma v \]</div>
+  <p>This is the answer to a student's question in the lecture, “why does the third derivative come out proportional to the velocity”. In a harmonic solution taking a derivative just means multiplying by a constant, so the third derivative becomes proportional to the velocity.</p>
+
+  <div class="err">
+    <span class="label">Mistake on the board · sign</span>
+    <p>The board says \(F_{\text{rad}} = -\dfrac{e^2}{6\pi\varepsilon_0 c^3}\ddot v\), with \(\ddot v \propto -\omega^2 v\) just above it. Combining the two gives a force \(+(\dots)\,v\), pushing the electron along its velocity. That would be anti-damping rather than damping. The correct form has a plus sign, as above.</p>
+  </div>
+
+  <h3>Mechanism 2: scattering <span class="en">scattering</span></h3>
+  <p>Valence electrons interact with other electrons and with phonons (<span class="en">phonons</span>). A phonon is a collective excitation of the vibrations of the crystal lattice (<span class="en">collective excitation of lattice vibrations</span>). In these interactions the energy of the electron passes to the lattice and turns into heat (<span class="en">dissipated as heat</span>).</p>
+
+  <div class="err">
+    <span class="label">Mistake in the lecture · which dominates</span>
+    <p>In the lecture and on the board radiation appears as the “first and most important” mechanism. This is not true for solids. With the lecturer's own value \(\omega_0 = 3\times10^{15}\ \mathrm{s^{-1}}\):</p>
+    <div class="eq">\[ \gamma_{\text{rad}} = \frac{e^2\omega_0^2}{6\pi\varepsilon_0 m c^3} \approx 6\times10^{7}\ \mathrm{s^{-1}} \]</div>
+    <p>The \(\gamma\) the lecturer gave for silicon is \(10^{13}\)–\(10^{14}\ \mathrm{s^{-1}}\). There are 5–6 orders of magnitude between them. In a solid the damping is set almost entirely by scattering. Radiation damping stands out in isolated atoms of a dilute gas and gives the natural linewidth (<span class="en">natural linewidth</span>). Also, \(\gamma_{\text{rad}}\) depends on \(\omega^2\), and taking a constant \(\gamma\) is valid only near resonance.</p>
+  </div>
+
+  <h3>Why −bv? The work argument</h3>
+  <p>In classical mechanics damping forces are generally taken to depend on velocity: \(F = -bv\), in this model \(b = m\gamma\). The lecturer showed why this form is right through the work done (<span class="en">work done</span>):</p>
+  <div class="eq">\[ W = \int F\,dx = \int F\,v\,dt = -b\int v^2\,dt \;&lt;\; 0 \]</div>
+  <p>\(b\) is positive and \(v^2\) is positive, so the integral is positive. The minus sign in front guarantees that the work is always negative: the electron loses energy (<span class="en">energy dissipation</span>) and never gains it. In response to a student's question: air drag in free fall is modeled with the same form (<span class="en">linear drag</span>).</p>
+
+  <h3>The unit and meaning of γ</h3>
+  <p>Since \(m\gamma v\) is a force, \(\mathrm{kg}\cdot[\gamma]\cdot\mathrm{m/s} = \mathrm{kg\cdot m/s^2}\), so:</p>
+  <div class="eq">\[ [\gamma] = \mathrm{s^{-1}}, \qquad \gamma = \frac{1}{\tau} \]</div>
+  <p>\(\gamma\) is the damping rate (<span class="en">damping rate</span>), with unit hertz. Its physical meaning is the collision frequency (<span class="en">collision frequency</span>): how many times per unit time an electron interacts with other electrons or phonons. \(\tau\) is the mean free time between two collisions (<span class="en">mean free time, relaxation time</span>). If \(\gamma\) is large the system loses its energy fast, and if small, slowly.</p>
+  <p>If only the damping term is kept, the equation is solved in one line:</p>
+  <div class="eq">\[ m\dot v = -m\gamma v \;\Rightarrow\; \frac{dv}{v} = -\gamma\,dt \;\Rightarrow\; v(t) = v_0\,e^{-\gamma t} \]</div>
+  <p>The velocity decays exponentially (<span class="en">exponential decay</span>). The larger \(\gamma\) is, the steeper the fall.</p>
+  <p>\(\gamma\) depends on the medium (<span class="en">medium-dependent</span>). In a dense medium collisions are frequent and \(\gamma\) is large. In a dilute gas collisions are rare, \(\gamma\) is small and the spectral lines are narrow.</p>
+  <div class="err">
+    <span class="label">In the transcript · gases</span>
+    <p>The transcript has the sentence “damping is very high in gases”. The truth is the opposite. A student's intuition that “γ increases as the medium gets denser” is right.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <div class="sec-head">
+    <span class="num">5</span>
+    <h2>The equation of motion <span class="en">equation of motion</span></h2>
+    <span class="stamp">recording 0:52</span>
+  </div>
+  <p>Newton's second law \(F = ma\), with three forces on the right side: the restoring force, damping and the \(F = qE\) coming from the electric field of the incoming wave.</p>
+  <div class="eq">\[ m\frac{d^2x}{dt^2} = -m\omega_0^2 x - m\gamma\frac{dx}{dt} + qE_0\,e^{-i\omega t} \]</div>
+  <p>Do not mix up the two frequencies: \(\omega\) is the frequency of the incoming EM wave, the driving frequency (<span class="en">driving frequency</span>). \(\omega_0\) is the electron's own natural frequency (<span class="en">natural frequency</span>).</p>
+  <h3>Where did the spatial part of the field go? <span class="en">dipole approximation</span></h3>
+  <p>The full form of a plane wave is \(E_0e^{i(kz-\omega t)}\), but the equation has only the time part. The lecturer explained this with scales: the electron oscillates in a region of about 0.1 nm, while the wavelength of visible light is about 500 nm.</p>
+  <div class="eq">\[ kx \sim \frac{2\pi}{500\ \text{nm}}\times 0.1\ \text{nm} \approx 1.3\times10^{-3} \;\Rightarrow\; e^{ikx} \approx 1 \]</div>
+  <p>In the region the electron sees, the field can be taken as constant in space (<span class="en">spatially uniform</span>). This is called the dipole or long-wavelength approximation (<span class="en">long-wavelength approximation</span>). The transcript says “0.1 mm”, but the board correctly says “x ∝ 0.1 nm”.</p>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <div class="sec-head">
+    <span class="num">6</span>
+    <h2>The solution <span class="en">trial solution</span></h2>
+    <span class="stamp">recording 0:59</span>
+  </div>
+  <p>A trial solution in harmonic form (<span class="en">trial solution, harmonic form</span>) is taken. \(\tilde x\) is a time-independent complex amplitude (<span class="en">complex amplitude</span>):</p>
+  <div class="eq">\[ x(t) = \tilde x\,e^{-i\omega t}, \qquad \dot x = -i\omega\,\tilde x\,e^{-i\omega t}, \qquad \ddot x = -\omega^2\,\tilde x\,e^{-i\omega t} \]</div>
+  <p>Put into the equation, the \(e^{-i\omega t}\) in every term cancels:</p>
+  <div class="eq">\[ \tilde x\left(-m\omega^2 + m\omega_0^2 - i\omega m\gamma\right) = qE_0 \]</div>
+  <div class="eq">\[ \boxed{\;\tilde x = \frac{qE_0/m}{\omega_0^2 - \omega^2 - i\omega\gamma}\;} \]</div>
+  <p>Unit check (<span class="en">dimensional analysis</span>): the denominator is \(\mathrm{s^{-2}}\) and the numerator \(qE_0/m\) is an acceleration, \(\mathrm{m/s^2}\). The ratio is in meters, so \(\tilde x\) really is a length. As noted on the board, this result is for <strong>a single valence electron</strong> (<span class="en">only one valence electron</span>).</p>
+  <h3>What the complex amplitude says <span class="extra">not in the lecture</span></h3>
+  <p>Writing \(\tilde x = |\tilde x|\,e^{i\varphi}\), the real motion is \(x(t) = |\tilde x|\cos(\omega t - \varphi)\). So the electron follows the field with a lag of \(\varphi\) (<span class="en">phase lag</span>):</p>
+  <div class="eq">\[ |\tilde x| = \frac{qE_0/m}{\sqrt{(\omega_0^2-\omega^2)^2 + \gamma^2\omega^2}}, \qquad \tan\varphi = \frac{\gamma\omega}{\omega_0^2 - \omega^2} \]</div>
+  <p>The imaginary part of the complex number carries this lag. As you will see in Section 9, this is exactly why absorption comes from the imaginary part.</p>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <div class="sec-head">
+    <span class="num">7</span>
+    <h2>From one electron to the material <span class="en">polarization density</span></h2>
+    <span class="stamp">recording 1:08</span>
+  </div>
+  <p>A dipole forms between the displaced electron and the nucleus. The dipole moment (<span class="en">dipole moment</span>) is the charge times the distance between the two charges:</p>
+  <div class="eq">\[ \mathbf p = q\,\mathbf x \]</div>
+  <p>If there are \(N\) such dipoles in a volume \(V\), the total dipole moment per unit volume is the polarization density (<span class="en">polarization density</span>):</p>
+  <div class="eq">\[ P = \frac{N}{V}\,q\tilde x = \frac{N}{V}\,\frac{q^2E_0/m}{\omega_0^2-\omega^2-i\omega\gamma} \]</div>
+  <p>\(N/V\) is the bound electron density (<span class="en">bound electron density</span>). Since \(q^2\) appears, the negative charge of the electron does not affect the result.</p>
+  <h3>The electric susceptibility <span class="en">electric susceptibility</span></h3>
+  <p>The defining relation between polarization and field is \(P = \varepsilon_0\chi_eE\). Equating the two expressions cancels \(E_0\):</p>
+  <div class="eq">\[ \frac{N}{V}\,\frac{q^2E_0/m}{\omega_0^2-\omega^2-i\omega\gamma} = \varepsilon_0\chi_eE_0 \;\Rightarrow\; \chi_e = \frac{Nq^2}{Vm\varepsilon_0}\,\frac{1}{\omega_0^2-\omega^2-i\omega\gamma} \]</div>
+  <p>To tidy up the constants, a \(\omega_0^2\) is multiplied and divided on the board:</p>
+  <div class="eq">\[ \chi_e = f\,\frac{\omega_0^2}{\omega_0^2-\omega^2-i\omega\gamma}, \qquad f = \frac{Nq^2/(Vm\varepsilon_0)}{\omega_0^2} \]</div>
+  <p>\(f\) is the oscillator strength (<span class="en">oscillator strength</span>). The question on the board is “what is the unit of f?”, and the answer is unitless (<span class="en">unitless, dimensionless</span>):</p>
+  <div class="eq">\[ \left[\frac{Nq^2}{Vm\varepsilon_0}\right] = \frac{\mathrm{m^{-3}}\,\mathrm{C^2}}{\mathrm{kg}\cdot\mathrm{C^2\,N^{-1}\,m^{-2}}} = \frac{\mathrm N}{\mathrm{kg\cdot m}} = \mathrm{s^{-2}} \]</div>
+  <p><span class="extra">not in the lecture</span> This squared frequency in the numerator has a name: the plasma frequency (<span class="en">plasma frequency</span>), \(\omega_p^2 = Nq^2/(Vm\varepsilon_0)\). So \(f = (\omega_p/\omega_0)^2\). This expression will come up again in the Drude model.</p>
+
+  <div class="err">
+    <span class="label">Inconsistency on the board · typical value of f</span>
+    <p>The board says “f: typical values 0.1–0.8 (silicon, glass, semiconductor)”. This range does not agree with the definition on the board. In silicon the atomic density is \(5\times10^{28}\ \mathrm{m^{-3}}\), with 4 valence electrons per atom, so \(N/V = 2\times10^{29}\ \mathrm{m^{-3}}\). This gives \(\omega_p \approx 2.5\times10^{16}\ \mathrm{s^{-1}}\) (\(\hbar\omega_p \approx 16.6\) eV). With the lecturer's value \(\omega_0 = 3\times10^{15}\), \(f \approx 70\). It is easy to check: \(\varepsilon_r(0) = 1 + f\), and the static value of silicon is 11.7, so with a single oscillator \(f \approx 10.7\).</p>
+    <p>The 0.1–0.8 range belongs to the quantum mechanical oscillator strength, which is defined differently:</p>
+    <div class="eq">\[ \chi_e = \frac{Ne^2}{V\varepsilon_0 m}\sum_j \frac{f_j}{\omega_j^2-\omega^2-i\gamma_j\omega}, \qquad \sum_j f_j = 1 \]</div>
+    <p>Here \(f_j\) is the “electron share” of a transition (the Thomas–Reiche–Kuhn sum rule, <span class="en">TRK sum rule</span>) and \(\omega_p^2\) stays outside. The board mixes up the two definitions. If the exam asks for a numerical \(f\), do not be surprised if the result comes out greater than 1.</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <div class="sec-head">
+    <span class="num">8</span>
+    <h2>The dielectric function <span class="en">relative permittivity</span></h2>
+    <span class="stamp">recording 1:31</span>
+  </div>
+  <p>From the definition of the electric displacement field (<span class="en">electric displacement field</span>):</p>
+  <div class="eq">\[ \mathbf D = \varepsilon_0\mathbf E + \mathbf P = \varepsilon_0\mathbf E + \varepsilon_0\chi_e\mathbf E = \varepsilon\mathbf E, \qquad \varepsilon = \varepsilon_0(1+\chi_e), \qquad \varepsilon_r = 1 + \chi_e \]</div>
+  <p>Substituting \(\chi_e\) gives a frequency-dependent relative permittivity. This is called the Lorentz dielectric function (<span class="en">Lorentz dielectric function</span>):</p>
+  <div class="eq">\[ \boxed{\;\varepsilon_r(\omega) = 1 + f\,\frac{\omega_0^2}{\omega_0^2 - \omega^2 - i\gamma\omega}\;} \]</div>
+  <p>The terms one by one: \(f\) is the oscillator strength, depending on the material and the natural frequency. \(\omega_0\) is the natural frequency, corresponding to the energy difference of a transition from the valence band to the conduction band. \(\omega\) is the frequency of the wave sent in. \(\gamma\) is the damping rate.</p>
+  <h3>Scaled parameters <span class="en">scaled parameters</span></h3>
+  <p>All three parameters are frequencies, so they are all divided by \(\omega_0\):</p>
+  <div class="eq">\[ \bar\omega = \frac{\omega}{\omega_0}, \quad \bar\gamma = \frac{\gamma}{\omega_0} \;\Rightarrow\; \varepsilon_r(\bar\omega) = 1 + \frac{f}{1-\bar\omega^2 - i\bar\gamma\bar\omega} \]</div>
+  <p>The model thus comes down to two numbers: \(f\) and \(\bar\gamma\). The lecturer's warning: the scaled \(\bar\gamma\) and the real \(\gamma\) are different things, do not mix them up.</p>
+  <p><span class="extra">not in the lecture</span> Writing the real and imaginary parts separately is useful in the exam, \(\varepsilon_r = \varepsilon_1 + i\varepsilon_2\):</p>
+  <div class="eq">\[ \varepsilon_1 = 1 + \frac{f\,(1-\bar\omega^2)}{(1-\bar\omega^2)^2 + \bar\gamma^2\bar\omega^2}, \qquad \varepsilon_2 = \frac{f\,\bar\gamma\bar\omega}{(1-\bar\omega^2)^2 + \bar\gamma^2\bar\omega^2} \]</div>
+  <h3>The numbers for silicon</h3>
+  <p>The values on the board: \(\gamma \sim 10^{13}\)–\(10^{14}\ \mathrm{s^{-1}}\), \(\omega_0 \sim 3\times10^{15}\ \mathrm{s^{-1}}\). The result is \(\bar\gamma \ll 1\), so the resonance is very sharp.</p>
+  <div class="err">
+    <span class="label">Mistake on the board · calculation</span>
+    <p>\(10^{13}/(3\times10^{15}) \approx 3\times10^{-3}\) and \(10^{14}/(3\times10^{15}) \approx 3\times10^{-2}\). The board says \(\bar\gamma \sim 10^{-1}\)–\(10^{-2}\). The conclusion does not change, but do not memorize the number.</p>
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <div class="sec-head">
+    <span class="num">9</span>
+    <h2>Reading the ε(ω) graph <span class="en">resonance, absorption</span></h2>
+    <span class="stamp">recording 1:49</span>
+  </div>
+  <p>Think of the electron as a ball tied to the nucleus by a spring, with the electric field of the light shaking the ball at frequency \(\omega\). Three different behaviors come out, depending on where the driving frequency is relative to the natural frequency. In the graph below you can change \(f\) and \(\bar\gamma\) and see all three.</p>
+
+  <div class="lab" id="lab">
+    <p class="lab-title">Single-oscillator Lorentz model</p>
+    <p class="lab-sub">Move the sliders and hover over the graph. You can also focus the graph with the keyboard and move with the ← → keys.</p>
+    <div class="controls">
+      <div class="ctrl">
+        <label for="f-in"><span>oscillator strength f</span><output id="f-out" for="f-in">1.0</output></label>
+        <input id="f-in" type="range" min="0.1" max="12" step="0.1" value="1">
+      </div>
+      <div class="ctrl">
+        <label for="g-in"><span>damping γ̄ = γ/ω₀</span><output id="g-out" for="g-in">0.100</output></label>
+        <input id="g-in" type="range" min="-2.5" max="-0.3" step="0.01" value="-1">
+      </div>
+    </div>
+    <div class="presets" role="group" aria-label="Presets">
+      <button type="button" data-f="1" data-g="0.1">Lecture example · f=1, γ̄=0.1</button>
+      <button type="button" data-f="1" data-g="0.01">Sharp resonance · γ̄=0.01</button>
+      <button type="button" data-f="10.7" data-g="0.03">Close to silicon · f=10.7, γ̄=0.03</button>
+    </div>
+
+    <div class="legend" aria-hidden="true">
+      <span><span class="key s1"></span>ε₁ = Re εᵣ · refraction</span> <span><span class="key s2"></span>ε₂ = Im εᵣ · absorption</span>
+    </div>
+    <div class="chart" id="chart-eps">
+      <svg tabindex="0" role="img" aria-label="Real and imaginary parts of the relative permittivity against ω/ω₀."></svg>
+      <div class="tip" hidden></div>
+    </div>
+    <p class="chart-title">Phase lag φ of the electron relative to the field (degrees)</p>
+    <div class="chart" id="chart-phase">
+      <svg tabindex="0" role="img" aria-label="Phase lag of the electron relative to the field against ω/ω₀."></svg>
+      <div class="tip" hidden></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">εᵣ(0) = 1 + f</div><div class="v" id="st-0">2.00</div><div class="s">static value</div></div>
+      <div class="stat"><div class="k">ε₂ peak = f/γ̄</div><div class="v" id="st-pk">10.0</div><div class="s">at ω = ω₀</div></div>
+      <div class="stat"><div class="k">point where ε₁ = 0</div><div class="v" id="st-z">1.41 ω₀</div><div class="s">≈ ω₀√(1+f)</div></div>
+      <div class="stat"><div class="k">width of the ε₂ peak</div><div class="v" id="st-w">0.100 ω₀</div><div class="s">≈ γ̄</div></div>
+    </div>
+    <details class="tableview">
+      <summary>Table view</summary>
+      <div class="tbl">
+        <table>
+          <thead><tr><th class="num">ω/ω₀</th><th class="num">ε₁</th><th class="num">ε₂</th><th class="num">n</th><th class="num">κ</th><th class="num">φ</th></tr></thead>
+          <tbody id="tv-body"></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+
+  <h3>Three regimes</h3>
+  <p><strong>ω ≪ ω₀, low frequency.</strong> The electron follows the field easily and the phase lag is near zero (<span class="en">in phase</span>). \(\varepsilon_r \approx 1 + f\), real and nearly constant, \(\varepsilon_2 \approx 0\). The material is transparent (<span class="en">transparent</span>) and only slows the light. Glass being transparent to visible light is this regime. The increase of \(\varepsilon_1\) with frequency in this region is called normal dispersion (<span class="en">normal dispersion</span>).</p>
+  <p><strong>ω ≈ ω₀, resonance.</strong> This was the question the lecturer asked in class. The real part of the denominator vanishes and only \(-i\gamma\omega\) remains. The only thing limiting the amplitude is \(\gamma\), and the phase lag is exactly 90°. The electron oscillates with the largest amplitude (<span class="en">maximum amplitude</span>), energy is transferred most efficiently, and the imaginary part dominates:</p>
+  <div class="eq">\[ \varepsilon_r(\omega_0) = 1 + \frac{f}{-i\bar\gamma} = 1 + i\,\frac{f}{\bar\gamma} \]</div>
+  <p>So at resonance \(\varepsilon_1\) is exactly 1, \(\varepsilon_2 = f/\bar\gamma\). Since \(\bar\gamma\) is small, the peak is high and narrow, with a width of about \(\bar\gamma\). As the collision rate grows the line widens and lowers. The fall of \(\varepsilon_1\) with frequency near resonance is called anomalous dispersion (<span class="en">anomalous dispersion</span>).</p>
+  <p><strong>ω ≫ ω₀, high frequency.</strong> The electron cannot keep up and oscillates 180° out of phase with the field (<span class="en">out of phase</span>). \(\chi_e\) is negative, and \(\varepsilon_r\) approaches 1 from below.</p>
+  <p>Between \(\omega_0\) and about \(\omega_0\sqrt{1+f}\), \(\varepsilon_1 &lt; 0\). In this band the wave cannot enter the material and the reflection is high (<span class="en">high reflectivity</span>). This is the shaded area in the graph.</p>
+
+  <h3>Why absorption is in the imaginary part</h3>
+  <p>A 90° lag means that the velocity of the electron is in phase with the field. When force and velocity point the same way, the field does positive work at every moment, and this energy is dissipated through \(\gamma\). The average power over a period comes only from the component of \(x\) shifted by 90° relative to the field, and that component is \(\mathrm{Im}\,\chi_e = \varepsilon_2\). The calculation is in the last question of Appendix C.</p>
+  <p><span class="extra">not in the lecture</span> The step to measured quantities is made with the complex refractive index (<span class="en">complex refractive index, extinction coefficient, absorption coefficient</span>):</p>
+  <div class="eq">\[ \tilde n = n + i\kappa = \sqrt{\varepsilon_r}, \qquad \varepsilon_1 = n^2 - \kappa^2, \qquad \varepsilon_2 = 2n\kappa, \qquad \alpha = \frac{2\omega\kappa}{c} \]</div>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <div class="sec-head">
+    <span class="num">10</span>
+    <h2>Real materials <span class="en">band structure</span></h2>
+    <span class="stamp">recording 1:39, 1:47</span>
+  </div>
+  <p>The function so far corresponds to a single natural frequency. In a real material electrons can move to many states. The lecturer showed this with a simple band diagram: the vertical axis is energy, the horizontal axis is the wave vector \(k\) (<span class="en">wave vector</span>), with symmetry points such as \(\Gamma\) and \(M\) at the bottom (<span class="en">high-symmetry points</span>).</p>
+
+  <figure>
+    <div class="scroll">
+    <svg class="diagram" viewBox="0 0 620 258" role="img" aria-label="A schematic E-k band diagram. Two filled valence bands at the bottom, two conduction bands on top, the band gap between them. Three vertical arrows show different transitions, the shortest equal to the band gap.">
+      <defs>
+        <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" class="dg-marker-fill"></path>
+        </marker>
+        <marker id="arrAx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"></path>
+        </marker>
+      </defs>
+      <line x1="50" y1="230" x2="50" y2="18" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrAx)"></line>
+      <line x1="50" y1="230" x2="530" y2="230" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrAx)"></line>
+      <text x="38" y="24" text-anchor="middle" class="dg-text">E</text>
+      <text x="540" y="234" class="dg-text">k</text>
+      <text x="280" y="248" text-anchor="middle" class="dg-text">Γ</text>
+      <text x="470" y="248" text-anchor="middle" class="dg-text">M</text>
+      <line x1="280" y1="230" x2="280" y2="226" stroke="currentColor"></line>
+      <line x1="470" y1="230" x2="470" y2="226" stroke="currentColor"></line>
+      <line x1="60" y1="115" x2="470" y2="115" stroke="currentColor" stroke-dasharray="3 4" opacity="0.5"></line>
+      <line x1="60" y1="155" x2="470" y2="155" stroke="currentColor" stroke-dasharray="3 4" opacity="0.5"></line>
+      <text x="64" y="140" class="dg-text">E<tspan baseline-shift="sub" font-size="9">g</tspan></text>
+      <path d="M90,40 Q280,120 470,40" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <path d="M90,60 Q280,170 470,60" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <path d="M90,215 Q280,95 470,215" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <path d="M90,225 Q280,140 470,225" fill="none" stroke="currentColor" stroke-width="2"></path>
+      <line x1="280" y1="154" x2="280" y2="118" class="dg-marker" stroke-width="2" marker-end="url(#arrB)"></line>
+      <text x="288" y="140" class="dg-marker-text">ω₀</text>
+      <line x1="200" y1="165" x2="200" y2="108" class="dg-marker" stroke-width="2" marker-end="url(#arrB)"></line>
+      <text x="208" y="140" class="dg-marker-text">ω₁</text>
+      <line x1="360" y1="165" x2="360" y2="76" class="dg-marker" stroke-width="2" marker-end="url(#arrB)"></line>
+      <text x="368" y="122" class="dg-marker-text">ω₂</text>
+      <text x="482" y="48" class="dg-text">conduction</text>
+      <text x="482" y="63" class="dg-text">bands</text>
+      <text x="482" y="212" class="dg-text">valence</text>
+      <text x="482" y="227" class="dg-text">bands (filled)</text>
+    </svg>
+    </div>
+    <figcaption>A schematic band diagram. Each vertical arrow is an interband transition and adds its own Lorentz term to ε. The shortest arrow is the band gap \(E_g\).</figcaption>
+  </figure>
+
+  <p>The valence bands are filled (<span class="en">filled valence bands</span>), so no transition can happen within a valence band. Above are the conduction bands (<span class="en">conduction bands</span>), and between them the forbidden region, the band gap (<span class="en">band gap, energy gap</span>). Insulators have no electrons in the conduction band to carry charge, which is why they insulate.</p>
+  <p>Each transition from the valence to the conduction band has its own natural frequency (<span class="en">interband transition</span>), so in a real material we cannot speak of a single frequency. The dielectric function is the sum over all transitions, each with its own oscillator strength:</p>
+  <div class="eq">\[ \varepsilon_r(\omega) = 1 + \sum_{j=1}^{n} f_j\,\frac{\omega_j^2}{\omega_j^2 - \omega^2 - i\gamma_j\omega} \]</div>
+  <div class="err">
+    <span class="label">Missing on the board · γ</span>
+    <p>The sum on the board has a single \(\gamma\). Each transition should have its own damping \(\gamma_j\).</p>
+  </div>
+  <p><span class="extra">not in the lecture</span> Why are the arrows vertical? The wave vector of a photon is very small compared to the size of the Brillouin zone, so \(k\) hardly changes in a transition (<span class="en">vertical (direct) transitions</span>).</p>
+  <h3>The practical result: transparency</h3>
+  <p>If the photon energy is below \(E_g\), all the terms stay in the first regime, \(\varepsilon_2 \approx 0\), and the material is transparent. Above it the transitions open up and absorption begins. For silicon:</p>
+  <div class="eq">\[ \lambda_g = \frac{hc}{E_g} \approx \frac{1240\ \text{nm·eV}}{1.12\ \text{eV}} \approx 1.1\ \mu\text{m} \]</div>
+  <p>This is why silicon is transparent above 1.1 µm and is used as an IR window and lens material. What separates an insulator from a semiconductor is the size of \(E_g\); the model is the same for both.</p>
+</section>
+
+<!-- Ek A -->
+<section id="ekA">
+  <div class="sec-head">
+    <span class="num">A</span>
+    <h2>Side topics from the lecture</h2>
+    <span class="stamp">notebook and recording</span>
+  </div>
+  <h3>From the wave equation to Helmholtz <span class="en">Helmholtz equation</span></h3>
+  <p>The notebook shows that the lecture opened with this derivation before the recording started. In a source-free medium (\(\rho = 0\), \(J = 0\), \(P = 0\), \(M = 0\)) the wave equation (<span class="en">wave equation</span>):</p>
+  <div class="eq">\[ \nabla^2\mathbf E - \mu_0\varepsilon_0\frac{\partial^2\mathbf E}{\partial t^2} = 0 \]</div>
+  <p>The fields are written in harmonic form, \(\mathbf E(\mathbf r,t) = \mathrm{Re}\{\mathbf E(\mathbf r)e^{-i\omega t}\}\). From the Faraday and Ampère–Maxwell equations:</p>
+  <div class="eq">\[ \nabla\times\mathbf E = i\omega\mathbf B, \quad \nabla\times\mathbf B = -i\omega\mu_0\varepsilon_0\mathbf E \;\Rightarrow\; \nabla^2\mathbf E + k^2\mathbf E = 0, \quad k = \frac{\omega}{c} = \frac{2\pi}{\lambda} \]</div>
+  <p>\(k\) is the wave number (<span class="en">wave number</span>), \(c = 1/\sqrt{\mu_0\varepsilon_0}\). The same equation holds for \(\mathbf B\). The note in the notebook: the equation is time independent, works in frequency space and is solved as an eigenvalue problem with the finite element method (<span class="en">finite element method, FEM</span>).</p>
+  <h3>Why the magnetic field is not in the equation</h3>
+  <p>It came up at the end of the lecture: a magnetic field does no work on a charge. Since the force is perpendicular to the velocity:</p>
+  <div class="eq">\[ \mathbf F = q\,\mathbf v\times\mathbf B \;\Rightarrow\; \mathbf F\cdot\mathbf v = 0 \]</div>
+  <p>The electric field transfers the energy. <span class="extra">not in the lecture</span> Also, in a plane wave \(|\mathbf B| = |\mathbf E|/c\), so the ratio of the magnetic force to the electric force is of order \(v/c\), which is very small for a bound electron. These are the two reasons the equation of motion has only \(qE\).</p>
+  <h3>The tunneling question <span class="en">quantum tunneling</span></h3>
+  <p>While the band diagram was being drawn, a student asked whether the electron “tunnels” across the band gap. The lecturer's answer: that is a separate phenomenon. In tunneling an electron passes to the other side of a potential barrier (<span class="en">potential barrier</span>), and the wave function comes into play. For example, if two pieces are brought within a few nanometers, an electron can pass from one to the other. Crossing the band gap, on the other hand, happens by absorbing a photon.</p>
+</section>
+
+<!-- Ek B -->
+<section id="ekB">
+  <div class="sec-head">
+    <span class="num">B</span>
+    <h2>List of mistakes</h2>
+    <span class="stamp">board and transcript</span>
+  </div>
+  <p>A summary in one table of the red boxes above and the transcript errors.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Where</th><th>Written</th><th>Correct form</th></tr></thead>
+      <tbody>
+        <tr><td>Board · Abraham–Lorentz force</td><td>\(F_{\text{rad}} = -\dfrac{e^2}{6\pi\varepsilon_0c^3}\ddot v\)</td><td>The sign is plus; otherwise you get anti-damping instead of damping</td></tr>
+        <tr><td>Board · damping mechanisms</td><td>Radiation is first and most important</td><td>Scattering dominates in solids; \(\gamma_{\text{rad}}\) is 5–6 orders of magnitude smaller</td></tr>
+        <tr><td>Board · oscillator strength</td><td>f is typically 0.1–0.8</td><td>With this definition, for silicon \(f \approx 10\). 0.1–0.8 belongs to the quantum \(f_j\)</td></tr>
+        <tr><td>Board · silicon \(\bar\gamma\)</td><td>\(10^{-1}\)–\(10^{-2}\)</td><td>\(\approx 3\times10^{-3}\)–\(3\times10^{-2}\)</td></tr>
+        <tr><td>Board · multiple oscillators</td><td>A single \(\gamma\)</td><td>A separate \(\gamma_j\) for each transition</td></tr>
+        <tr><td>Transcript 0:42 · gases</td><td>Damping is very high in gases</td><td>In gases \(\gamma\) is low and the lines are narrow</td></tr>
+        <tr><td>Transcript 0:22 · Larmor</td><td>\(c^2\)</td><td>\(c^3\), correct on the board</td></tr>
+        <tr><td>Transcript 0:58 · amplitude</td><td>0.1 mm</td><td>0.1 nm, correct on the board</td></tr>
+        <tr><td>Transcript 0:00 · model name</td><td>Durant, Durand mode</td><td>Drude model</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Ek C -->
+<section id="ekC">
+  <div class="sec-head">
+    <span class="num">C</span>
+    <h2>Test yourself</h2>
+    <span class="stamp">from easy to hard</span>
+  </div>
+  <p>Solve on paper before opening the answer. The last four questions go one step beyond what was explained in the lecture.</p>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S1</span><p class="qt">Show that \(f = Nq^2/(Vm\varepsilon_0\omega_0^2)\) is unitless. The \(Nq^2/(Vm\varepsilon_0)\) in the numerator is the square of which frequency?</p><span class="lvl">warm-up</span></div>
+    <details><summary>Answer</summary>
+      <div class="eq">\[ \frac{\mathrm{m^{-3}\,C^2}}{\mathrm{kg}\cdot\mathrm{C^2\,N^{-1}\,m^{-2}}} = \frac{\mathrm N}{\mathrm{kg\cdot m}} = \mathrm{s^{-2}} \]</div>
+      <p>This is \(\omega_p^2\), the square of the plasma frequency. Divided by \(\omega_0^2\) it is unitless: \(f = (\omega_p/\omega_0)^2\).</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S2</span><p class="qt">Why can we drop the factor \(e^{ikz}\) in the equation of motion? Justify with numbers.</p><span class="lvl">warm-up</span></div>
+    <details><summary>Answer</summary>
+      <p>The electron's region of oscillation is \(x \sim 0.1\) nm, and in visible light \(\lambda \sim 500\) nm. \(kx = 2\pi x/\lambda \approx 1.3\times10^{-3}\), so \(e^{ikx} \approx 1 + 0.0013i \approx 1\). The field is constant in space in the region the electron sees: the dipole approximation.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S3</span><p class="qt">For \(\omega \ll \omega_0\), \(\omega = \omega_0\) and \(\omega \gg \omega_0\), what is the phase difference between the displacement of the electron and the driving force \(qE\)?</p><span class="lvl">medium</span></div>
+    <details><summary>Answer</summary>
+      <p>\(\tan\varphi = \gamma\omega/(\omega_0^2 - \omega^2)\). At low frequency the denominator is positive and large, \(\varphi \to 0\). At resonance the denominator is zero, \(\varphi = 90°\). At high frequency the denominator is negative and large, \(\varphi \to 180°\).</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S4</span><p class="qt">At exact resonance, find the real and imaginary parts of \(\varepsilon_r\) in terms of \(f\) and \(\bar\gamma\).</p><span class="lvl">medium</span></div>
+    <details><summary>Answer</summary>
+      <div class="eq">\[ \bar\omega = 1:\quad \varepsilon_r = 1 + \frac{f}{-i\bar\gamma} = 1 + i\,\frac{f}{\bar\gamma} \]</div>
+      <p>\(\varepsilon_1 = 1\), \(\varepsilon_2 = f/\bar\gamma\). In the lecture example (\(f = 1\), \(\bar\gamma = 0.1\)) \(\varepsilon_2 = 10\).</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S5</span><p class="qt">In the limit \(\gamma \to 0\), at what frequency is \(\varepsilon_1\) zero? What happens to the wave between this frequency and \(\omega_0\)?</p><span class="lvl">hard</span></div>
+    <details><summary>Answer</summary>
+      <div class="eq">\[ 1 + \frac{f}{1-\bar\omega^2} = 0 \;\Rightarrow\; \bar\omega^2 = 1 + f \;\Rightarrow\; \omega = \omega_0\sqrt{1+f} \]</div>
+      <p>In the band between them \(\varepsilon_r\) is negative and real, and \(\tilde n = \sqrt{\varepsilon_r}\) is purely imaginary. The wave cannot enter the material, decays exponentially inside and is almost completely reflected (\(R \to 1\)).</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S6</span><p class="qt">Calculate the radiation damping for \(\omega_0 = 3\times10^{15}\ \mathrm{s^{-1}}\) and compare with the lecturer's \(\gamma\) for silicon. Which mechanism dominates?</p><span class="lvl">hard</span></div>
+    <details><summary>Answer</summary>
+      <div class="eq">\[ \tau_0 = \frac{e^2}{6\pi\varepsilon_0 m c^3} \approx 6.3\times10^{-24}\ \mathrm s, \qquad \gamma_{\text{rad}} = \tau_0\,\omega_0^2 \approx 5.6\times10^{7}\ \mathrm{s^{-1}} \]</div>
+      <p>In silicon \(\gamma \sim 10^{13}\)–\(10^{14}\ \mathrm{s^{-1}}\), so the radiation contribution is in the ratio \(10^{-5}\)–\(10^{-6}\). What dominates is phonon and electron scattering.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S7</span><p class="qt">The static relative permittivity of silicon is 11.7. What is \(f\) in the single-oscillator model? If you take \(N/V = 2\times10^{29}\ \mathrm{m^{-3}}\), what is \(\omega_0\) in eV?</p><span class="lvl">hard</span></div>
+    <details><summary>Answer</summary>
+      <div class="eq">\[ f = \varepsilon_r(0) - 1 \approx 10.7, \qquad \omega_p \approx 2.5\times10^{16}\ \mathrm{s^{-1}}, \qquad \omega_0 = \frac{\omega_p}{\sqrt f} \approx 7.7\times10^{15}\ \mathrm{s^{-1}} \]</div>
+      <p>\(\hbar\omega_0 \approx 5.1\) eV. The average band gap of silicon (the Penn gap, <span class="en">Penn gap</span>) is about 4.8 eV, so the single-oscillator model gives a rough but reasonable result. The \(\omega_0 = 3\times10^{15}\ \mathrm{s^{-1}}\) (≈ 2 eV) on the board is low for this material.</p>
+    </details>
+  </div>
+
+  <div class="q">
+    <div class="qhead"><span class="qn">S8</span><p class="qt">Show that the average power the field delivers to a unit volume in steady state is proportional to \(\mathrm{Im}\,\chi_e\).</p><span class="lvl">hard</span></div>
+    <details><summary>Answer</summary>
+      <p>The period average of the product of two harmonic quantities is \(\langle \mathrm{Re}(Ae^{-i\omega t})\,\mathrm{Re}(Be^{-i\omega t})\rangle = \tfrac12\mathrm{Re}(AB^*)\). The amplitude of the force is \(qE_0\) and that of the velocity \(-i\omega\tilde x\):</p>
+      <div class="eq">\[ \langle F v\rangle = \tfrac12\,\mathrm{Re}\!\left[qE_0\,(-i\omega\tilde x)^*\right] = \tfrac12\,\omega\,qE_0\,\mathrm{Im}\,\tilde x \]</div>
+      <p>Since \(q\tilde x = (V/N)\,\varepsilon_0\chi_eE_0\), multiplying by \(N/V\) gives, per unit volume:</p>
+      <div class="eq">\[ \langle \mathcal P\rangle_V = \tfrac12\,\omega\,\varepsilon_0\,\mathrm{Im}\,\chi_e\,E_0^2 = \tfrac12\,\omega\,\varepsilon_0\,\varepsilon_2\,E_0^2 \]</div>
+      <p>The real part delivers zero power on average. Only \(\varepsilon_2\) determines the absorption.</p>
+    </details>
+  </div>
+</section>
+
+<!-- Ek D -->
+<section id="ekD">
+  <div class="sec-head">
+    <span class="num">D</span>
+    <h2>Glossary</h2>
+    <span class="stamp">Turkish → English</span>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Turkish</th><th>English</th></tr></thead>
+      <tbody>
+        <tr><td>bağlı yük</td><td><span class="en">bound charge</span></td></tr>
+        <tr><td>valans elektronu</td><td><span class="en">valence electron</span></td></tr>
+        <tr><td>yalıtkan, yarı iletken, iletken</td><td><span class="en">insulator, semiconductor, conductor</span></td></tr>
+        <tr><td>sönümlü sürülen osilatör</td><td><span class="en">damped driven oscillator</span></td></tr>
+        <tr><td>geri çağırıcı kuvvet</td><td><span class="en">restoring force</span></td></tr>
+        <tr><td>doğal frekans, rezonans frekansı</td><td><span class="en">natural frequency, resonant frequency</span></td></tr>
+        <tr><td>sürücü frekans</td><td><span class="en">driving frequency</span></td></tr>
+        <tr><td>denge konumu, yer değiştirme</td><td><span class="en">equilibrium position, displacement</span></td></tr>
+        <tr><td>sönüm terimi, sönüm hızı</td><td><span class="en">damping term, damping rate</span></td></tr>
+        <tr><td>çarpışma frekansı</td><td><span class="en">collision frequency</span></td></tr>
+        <tr><td>ortalama serbest zaman</td><td><span class="en">mean free time, relaxation time</span></td></tr>
+        <tr><td>fonon</td><td><span class="en">phonon</span></td></tr>
+        <tr><td>ışıma tepki kuvveti</td><td><span class="en">radiation reaction, Abraham–Lorentz force</span></td></tr>
+        <tr><td>enerji kaybı</td><td><span class="en">energy dissipation</span></td></tr>
+        <tr><td>hareket denklemi</td><td><span class="en">equation of motion</span></td></tr>
+        <tr><td>deneme çözümü</td><td><span class="en">trial solution</span></td></tr>
+        <tr><td>dipol yaklaşımı</td><td><span class="en">dipole approximation, long-wavelength approximation</span></td></tr>
+        <tr><td>dipol momenti</td><td><span class="en">dipole moment</span></td></tr>
+        <tr><td>polarizasyon yoğunluğu</td><td><span class="en">polarization density</span></td></tr>
+        <tr><td>elektriksel alınganlık</td><td><span class="en">electric susceptibility</span></td></tr>
+        <tr><td>osilatör gücü</td><td><span class="en">oscillator strength</span></td></tr>
+        <tr><td>plazma frekansı</td><td><span class="en">plasma frequency</span></td></tr>
+        <tr><td>yer değiştirme alanı</td><td><span class="en">electric displacement field</span></td></tr>
+        <tr><td>bağıl geçirgenlik, dielektrik fonksiyon</td><td><span class="en">relative permittivity, dielectric function</span></td></tr>
+        <tr><td>faz gecikmesi</td><td><span class="en">phase lag</span></td></tr>
+        <tr><td>normal ve anormal dağınım</td><td><span class="en">normal and anomalous dispersion</span></td></tr>
+        <tr><td>kompleks kırılma indisi</td><td><span class="en">complex refractive index</span></td></tr>
+        <tr><td>sönme katsayısı, soğurma katsayısı</td><td><span class="en">extinction coefficient, absorption coefficient</span></td></tr>
+        <tr><td>bant aralığı</td><td><span class="en">band gap</span></td></tr>
+        <tr><td>valans bandı, iletim bandı</td><td><span class="en">valence band, conduction band</span></td></tr>
+        <tr><td>bantlar arası geçiş</td><td><span class="en">interband transition</span></td></tr>
+        <tr><td>dalga vektörü, dalga sayısı</td><td><span class="en">wave vector, wave number</span></td></tr>
+        <tr><td>tünelleme, potansiyel bariyeri</td><td><span class="en">tunneling, potential barrier</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+  <p class="kbm-back"><a href="../">← Other weeks of 602</a> · <a href="./" hreflang="tr" lang="tr">Türkçe sürüm →</a></p> Sources: board photos dated 16 October 2026, a notebook page and a corrected lecture transcript. The times in the section headings show the place in the recording.</div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var fIn = document.getElementById("f-in");
+  var gIn = document.getElementById("g-in");
+  var fOut = document.getElementById("f-out");
+  var gOut = document.getElementById("g-out");
+  var state = { f: 1, g: 0.1, data: null, probe: null };
+
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  function lorentz(x, f, g) {
+    var a = 1 - x * x, b = g * x, den = a * a + b * b;
+    var re = 1 + f * a / den, im = f * b / den;
+    var mod = Math.sqrt(re * re + im * im);
+    return {
+      re: re, im: im,
+      ph: Math.atan2(b, a) * 180 / Math.PI,
+      n: Math.sqrt(Math.max(0, (mod + re) / 2)),
+      k: Math.sqrt(Math.max(0, (mod - re) / 2))
+    };
+  }
+
+  function sample(f, g) {
+    var xmax = Math.max(2, Math.ceil((Math.sqrt(1 + f) + 0.45) * 2) / 2);
+    var set = {}, xs = [], i, x;
+    var N = 700;
+    for (i = 0; i <= N; i++) set[(xmax * i / N).toFixed(6)] = 1;
+    var lo = Math.max(0, 1 - 14 * g), hi = Math.min(xmax, 1 + 14 * g), step = g / 30;
+    for (x = lo; x <= hi; x += step) set[x.toFixed(6)] = 1;
+    set["1.000000"] = 1;
+    for (var key in set) xs.push(parseFloat(key));
+    xs.sort(function (a, b) { return a - b; });
+    var re = [], im = [], ph = [];
+    for (i = 0; i < xs.length; i++) {
+      var v = lorentz(xs[i], f, g);
+      re.push(v.re); im.push(v.im); ph.push(v.ph);
+    }
+    return { xs: xs, re: re, im: im, ph: ph, xmax: xmax };
+  }
+
+  function niceStep(span, count) {
+    var raw = span / count;
+    var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+    var n = raw / mag;
+    return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * mag;
+  }
+
+  function fmt(v) {
+    var a = Math.abs(v);
+    if (a >= 1000) return v.toFixed(0);
+    if (a >= 100) return v.toFixed(0);
+    if (a >= 10) return v.toFixed(1);
+    return v.toFixed(2);
+  }
+  function fmtTick(v) {
+    if (Math.abs(v) < 1e-9) return "0";
+    var a = Math.abs(v);
+    if (a >= 100 || Number.isInteger(Math.round(v * 1e6) / 1e6)) return String(Math.round(v));
+    return String(+v.toFixed(2));
+  }
+
+  function nearestIndex(xs, xv) {
+    var lo = 0, hi = xs.length - 1;
+    if (xv <= xs[0]) return 0;
+    if (xv >= xs[hi]) return hi;
+    while (hi - lo > 1) {
+      var mid = (lo + hi) >> 1;
+      if (xs[mid] < xv) lo = mid; else hi = mid;
+    }
+    return (xv - xs[lo] < xs[hi] - xv) ? lo : hi;
+  }
+
+  var charts = [
+    {
+      host: document.getElementById("chart-eps"), height: 300, yTitle: "εᵣ",
+      series: function (d) { return [{ ys: d.re, cls: "s1", label: "ε₁" }, { ys: d.im, cls: "s2", label: "ε₂" }]; },
+      neg: true, fixed: null
+    },
+    {
+      host: document.getElementById("chart-phase"), height: 170, yTitle: "φ",
+      series: function (d) { return [{ ys: d.ph, cls: "s3", label: "φ" }]; },
+      neg: false, fixed: { lo: 0, hi: 180, ticks: [0, 90, 180] }
+    }
+  ];
+
+  function draw(c) {
+    var d = state.data;
+    var svg = c.host.querySelector("svg");
+    var W = Math.max(280, Math.round(c.host.clientWidth));
+    var H = c.height;
+    var M = { l: 46, r: 14, t: 22, b: 34 };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("width", W);
+    svg.setAttribute("height", H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var pw = W - M.l - M.r, ph = H - M.t - M.b;
+    var series = c.series(d);
+    var lo, hi, ticks = [];
+    if (c.fixed) { lo = c.fixed.lo; hi = c.fixed.hi; ticks = c.fixed.ticks; }
+    else {
+      var mn = 0, mx = 0;
+      series.forEach(function (s) { s.ys.forEach(function (v) { if (v < mn) mn = v; if (v > mx) mx = v; }); });
+      var pad = (mx - mn) * 0.06; mn -= pad; mx += pad;
+      var st = niceStep(mx - mn, 5);
+      lo = Math.floor(mn / st) * st; hi = Math.ceil(mx / st) * st;
+      for (var t = lo; t <= hi + st * 1e-6; t += st) ticks.push(Math.round(t / st) * st);
+    }
+    var X = function (x) { return M.l + x / d.xmax * pw; };
+    var Y = function (y) { return M.t + (hi - y) / (hi - lo) * ph; };
+    var g = el("g", {}, svg);
+
+    if (c.neg) {
+      var start = null;
+      for (var i = 0; i < d.xs.length; i++) {
+        var isNeg = d.re[i] < 0;
+        if (isNeg && start === null) start = d.xs[i];
+        if ((!isNeg || i === d.xs.length - 1) && start !== null) {
+          var end = d.xs[i], x1 = X(start), x2 = X(end);
+          el("rect", { x: x1, y: M.t, width: Math.max(1, x2 - x1), height: ph, "class": "band-r" }, g);
+          if (x2 - x1 > 48) {
+            var bl = el("text", { x: (x1 + x2) / 2, y: M.t + 14, "text-anchor": "middle", "class": "band-label" }, g);
+            bl.textContent = "ε₁ < 0";
+          }
+          start = null;
+        }
+      }
+    }
+
+    ticks.forEach(function (t) {
+      el("line", { x1: M.l, x2: W - M.r, y1: Y(t), y2: Y(t), "class": Math.abs(t) < 1e-9 ? "zero-l" : "grid-l" }, g);
+      var tx = el("text", { x: M.l - 8, y: Y(t) + 4, "text-anchor": "end", "class": "tick" }, g);
+      tx.textContent = c.fixed ? t + "°" : fmtTick(t);
+    });
+    el("line", { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b, "class": "axis-l" }, g);
+    var xst = d.xmax <= 2.5 ? 0.5 : 1;
+    for (var xv = 0; xv <= d.xmax + 1e-9; xv += xst) {
+      el("line", { x1: X(xv), x2: X(xv), y1: H - M.b, y2: H - M.b + 4, "class": "axis-l" }, g);
+      var xt = el("text", { x: X(xv), y: H - M.b + 17, "text-anchor": "middle", "class": "tick" }, g);
+      xt.textContent = fmtTick(xv);
+    }
+    var xtitle = el("text", { x: W - M.r, y: H - 3, "text-anchor": "end", "class": "axis-title" }, g);
+    xtitle.textContent = "ω / ω₀";
+    var ytitle = el("text", { x: M.l - 8, y: M.t - 9, "text-anchor": "end", "class": "axis-title" }, g);
+    ytitle.textContent = c.yTitle;
+
+    el("line", { x1: X(1), x2: X(1), y1: M.t, y2: H - M.b, "class": "ref-l" }, g);
+    var w0 = el("text", { x: X(1) - 5, y: M.t + 14, "text-anchor": "end", "class": "band-label" }, g);
+    w0.textContent = "ω₀";
+    if (c.fixed) {
+      el("line", { x1: M.l, x2: W - M.r, y1: Y(90), y2: Y(90), "class": "ref-l" }, g);
+      var l1 = el("text", { x: M.l + 6, y: Y(0) - 7, "class": "band-label" }, g);
+      l1.textContent = "in phase";
+      var l2 = el("text", { x: W - M.r - 4, y: Y(180) + 15, "text-anchor": "end", "class": "band-label" }, g);
+      l2.textContent = "out of phase";
+    }
+
+    series.forEach(function (s) {
+      var dstr = "";
+      for (var i = 0; i < d.xs.length; i++) dstr += (i ? "L" : "M") + X(d.xs[i]).toFixed(1) + "," + Y(s.ys[i]).toFixed(1);
+      el("path", { d: dstr, "class": "ln " + s.cls }, g);
+    });
+
+    if (series.length > 1) {
+      var lx = 0.28 * d.xmax, li = nearestIndex(d.xs, lx);
+      var pos = series.map(function (s) { return { s: s, y: Y(s.ys[li]) - 8 }; });
+      if (Math.abs(pos[0].y - pos[1].y) < 16) {
+        var top = pos[0].y < pos[1].y ? pos[0] : pos[1];
+        var bot = top === pos[0] ? pos[1] : pos[0];
+        var mid = (top.y + bot.y) / 2;
+        top.y = mid - 8; bot.y = mid + 8;
+      }
+      pos.forEach(function (p) {
+        var t = el("text", { x: X(lx), y: Math.max(M.t + 10, Math.min(H - M.b - 4, p.y)), "text-anchor": "middle", "class": "dlabel" }, g);
+        t.textContent = p.s.label;
+      });
+    }
+
+    var cross = el("line", { y1: M.t, y2: H - M.b, "class": "cross", visibility: "hidden" }, svg);
+    var dots = series.map(function (s) { return el("circle", { r: 4.5, "class": "dot " + s.cls, visibility: "hidden" }, svg); });
+    var hit = el("rect", { x: M.l, y: M.t, width: pw, height: ph, fill: "transparent" }, svg);
+    c.geo = { X: X, Y: Y, W: W, M: M, cross: cross, dots: dots, series: series };
+
+    hit.addEventListener("pointermove", function (ev) {
+      var r = svg.getBoundingClientRect();
+      var px = (ev.clientX - r.left) * (W / r.width);
+      var xval = (px - M.l) / pw * d.xmax;
+      setProbe(nearestIndex(d.xs, xval), c);
+    });
+    hit.addEventListener("pointerleave", clearProbe);
+    if (!c.bound) {
+      c.bound = true;
+      svg.addEventListener("focus", function () { if (state.probe === null) setProbe(nearestIndex(state.data.xs, 1), c); });
+      svg.addEventListener("blur", clearProbe);
+      svg.addEventListener("keydown", function (ev) {
+        if (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight") return;
+        ev.preventDefault();
+        var dd = state.data, cur = state.probe === null ? nearestIndex(dd.xs, 1) : state.probe;
+        var step = dd.xmax / 100 * (ev.key === "ArrowRight" ? 1 : -1);
+        setProbe(nearestIndex(dd.xs, dd.xs[cur] + step), c);
+      });
+    }
+  }
+
+  function setProbe(i, source) {
+    state.probe = i;
+    var d = state.data, xv = d.xs[i];
+    var v = lorentz(xv, state.f, state.g);
+    charts.forEach(function (c) {
+      if (!c.geo) return;
+      var gx = c.geo.X(xv);
+      c.geo.cross.setAttribute("x1", gx); c.geo.cross.setAttribute("x2", gx);
+      c.geo.cross.setAttribute("visibility", "visible");
+      c.geo.series.forEach(function (s, k) {
+        var dot = c.geo.dots[k];
+        dot.setAttribute("cx", gx); dot.setAttribute("cy", c.geo.Y(s.ys[i]));
+        dot.setAttribute("visibility", "visible");
+      });
+      var tip = c.host.querySelector(".tip");
+      if (c === source) {
+        while (tip.firstChild) tip.removeChild(tip.firstChild);
+        var head = document.createElement("div"); head.className = "head";
+        head.textContent = "ω/ω₀ = " + xv.toFixed(3);
+        tip.appendChild(head);
+        var rows = [["s1", fmt(v.re), "ε₁"], ["s2", fmt(v.im), "ε₂"], ["", fmt(v.n), "n"], ["", fmt(v.k), "κ"], ["s3", v.ph.toFixed(1) + "°", "φ"]];
+        rows.forEach(function (r) {
+          var row = document.createElement("div"); row.className = "row";
+          var k = document.createElement("span"); k.className = "k";
+          if (r[0]) k.style.borderTopColor = "var(--" + r[0] + ")";
+          var b = document.createElement("b"); b.textContent = r[1];
+          var n = document.createElement("span"); n.className = "lab-name"; n.textContent = r[2];
+          row.appendChild(k); row.appendChild(b); row.appendChild(n);
+          tip.appendChild(row);
+        });
+        tip.hidden = false;
+        var hostW = c.host.clientWidth, scale = hostW / c.geo.W, px = gx * scale;
+        var tw = tip.offsetWidth;
+        var left = px + 12;
+        if (left + tw > hostW) left = px - tw - 12;
+        if (left < 0) left = 0;
+        tip.style.left = left + "px";
+      } else {
+        tip.hidden = true;
+      }
+    });
+  }
+
+  function clearProbe() {
+    state.probe = null;
+    charts.forEach(function (c) {
+      if (!c.geo) return;
+      c.geo.cross.setAttribute("visibility", "hidden");
+      c.geo.dots.forEach(function (dt) { dt.setAttribute("visibility", "hidden"); });
+      c.host.querySelector(".tip").hidden = true;
+    });
+  }
+
+  function stats() {
+    var d = state.data, f = state.f, g = state.g;
+    document.getElementById("st-0").textContent = fmt(1 + f);
+    document.getElementById("st-pk").textContent = fmt(f / g);
+    var i1 = nearestIndex(d.xs, 1), zero = null;
+    for (var i = i1 + 1; i < d.xs.length; i++) {
+      if (d.re[i - 1] < 0 && d.re[i] >= 0) {
+        var t = -d.re[i - 1] / (d.re[i] - d.re[i - 1]);
+        zero = d.xs[i - 1] + t * (d.xs[i] - d.xs[i - 1]);
+        break;
+      }
+    }
+    document.getElementById("st-z").textContent = zero === null ? "yok" : zero.toFixed(2) + " ω₀";
+    var mxI = 0;
+    for (i = 0; i < d.im.length; i++) if (d.im[i] > d.im[mxI]) mxI = i;
+    var half = d.im[mxI] / 2, L = mxI, R = mxI;
+    while (L > 0 && d.im[L] > half) L--;
+    while (R < d.im.length - 1 && d.im[R] > half) R++;
+    var xl = d.xs[L] + (half - d.im[L]) / (d.im[L + 1] - d.im[L]) * (d.xs[L + 1] - d.xs[L]);
+    var xr = d.xs[R - 1] + (d.im[R - 1] - half) / (d.im[R - 1] - d.im[R]) * (d.xs[R] - d.xs[R - 1]);
+    document.getElementById("st-w").textContent = (xr - xl).toFixed(3) + " ω₀";
+
+    var body = document.getElementById("tv-body");
+    while (body.firstChild) body.removeChild(body.firstChild);
+    var pts = [0, 0.5, 0.9, 1, 1.1];
+    if (zero !== null) pts.push(zero);
+    pts.push(d.xmax);
+    pts.sort(function (a, b) { return a - b; });
+    pts.forEach(function (x) {
+      var v = lorentz(x, f, g);
+      var tr = document.createElement("tr");
+      [x.toFixed(3), fmt(v.re), fmt(v.im), fmt(v.n), fmt(v.k), v.ph.toFixed(1) + "°"].forEach(function (txt) {
+        var td = document.createElement("td"); td.className = "num"; td.textContent = txt; tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+  }
+
+  function update() {
+    state.f = parseFloat(fIn.value);
+    state.g = Math.pow(10, parseFloat(gIn.value));
+    fOut.textContent = state.f.toFixed(1);
+    gOut.textContent = state.g < 0.01 ? state.g.toFixed(4) : state.g.toFixed(3);
+    state.data = sample(state.f, state.g);
+    state.probe = null;
+    charts.forEach(draw);
+    stats();
+  }
+
+  fIn.addEventListener("input", update);
+  gIn.addEventListener("input", update);
+  Array.prototype.forEach.call(document.querySelectorAll(".presets button"), function (b) {
+    b.addEventListener("click", function () {
+      fIn.value = b.getAttribute("data-f");
+      gIn.value = Math.log10(parseFloat(b.getAttribute("data-g"))).toFixed(2);
+      update();
+    });
+  });
+
+  var lastW = 0;
+  function onResize() {
+    var w = charts[0].host.clientWidth;
+    if (Math.abs(w - lastW) < 2) return;
+    lastW = w;
+    if (state.data) { state.probe = null; charts.forEach(draw); }
+  }
+  if ("ResizeObserver" in window) new ResizeObserver(onResize).observe(document.getElementById("lab"));
+  else window.addEventListener("resize", onResize);
+
+  update();
+  lastW = charts[0].host.clientWidth;
+})();
+</script>
+
+</body></html>
