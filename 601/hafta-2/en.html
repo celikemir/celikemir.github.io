@@ -2232,10 +2232,10 @@ document.documentElement.lang = 'en';
         btns.className = 'mode-b';
         var up = document.createElement('button');
         up.type = 'button'; up.className = 'mini'; up.textContent = '+';
-        up.setAttribute('aria-label', 'Mod ' + (j + 1) + ': creation operator, add one particle');
+        up.setAttribute('aria-label', 'Mode ' + (j + 1) + ': creation operator, add one particle');
         var dn = document.createElement('button');
         dn.type = 'button'; dn.className = 'mini'; dn.textContent = '−';
-        dn.setAttribute('aria-label', 'Mod ' + (j + 1) + ': annihilation operator, remove one particle');
+        dn.setAttribute('aria-label', 'Mode ' + (j + 1) + ': annihilation operator, remove one particle');
         btns.appendChild(up); btns.appendChild(dn);
         m.appendChild(pile); m.appendChild(lab); m.appendChild(btns);
         modes.appendChild(m);
@@ -2483,7 +2483,7 @@ document.documentElement.lang = 'en';
     }
     function setPlay(on) {
       playing = on;
-      playBtn.textContent = on ? 'Durdur' : 'Play';
+      playBtn.textContent = on ? 'Pause' : 'Play';
       playBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (on) { last = 0; raf = requestAnimationFrame(step); } else cancelAnimationFrame(raf);
     }
