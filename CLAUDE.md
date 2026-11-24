@@ -39,7 +39,8 @@ Aynı şey hocanın kişisel bilgileri için de geçerli: tahtada ya da sayfa me
 Kullanıcı bir haftaya ses dosyası (ör. .m4a) verirse:
 
 - Dosyayı `hafta-N/sesli-ozet.m4a` olarak koy. Adı ASCII olsun.
-- Sayfaya `601/hafta-8/index.html`'deki "Sesli özet" kartını kopyala. Kart üç parçadan oluşur: `.listen` CSS bloğu, `</header>`'dan hemen sonraki `<section class="wrap listen">` ve sayfa sonundaki küçük script. Script'teki localStorage anahtarını haftaya göre değiştir (`kbm-<ders>-haftaN-ses`); başlığı ve süreyi de güncelle (süre için `afinfo`).
+- Sayfaya `601/hafta-8/index.html`'deki "Sesli özet" kartını kopyala. Kart üç parçadan oluşur: `.listen` CSS bloğu, `</header>`'dan hemen sonraki `<section class="wrap listen">` ve sayfa sonundaki küçük script. Script'teki localStorage anahtarını haftaya göre değiştir (`kbm-<ders>-haftaN-ses`); başlığı ve süreyi de güncelle (süre için `ffprobe`). 602 sayfalarında `.tag`, `.speed` ve `.listen` başka işlere ayrıldığı için kartın `so-` önekli, sayfanın renk değişkenlerine uyan sürümü kullanılır (örnek: `602/hafta-3/index.html`). Hafta 1–2'nin sesi Nanofotonik Bölüm 1 ve 3'te durur.
+- İngilizce sürüm (`en.html`) varsa kartı oraya da koy: aynı dosya ve aynı anahtar, etiket "Audio summary", alt satır "In Turkish · N minutes".
 - Ders listesinde o haftanın `.m` satırının sonuna ekle: `<ders>/tr.html`'e " · sesli özet", `<ders>/index.html`'e " · audio summary in Turkish" (ses İngilizceyse " · audio summary").
 - Sesin içini dinleyemiyorsun. Kullanıcıya bunu söyle: hocanın adı ya da ödev çözümü geçiyorsa haber versin.
 - Haftanın yeni bir sürümü gelirse kartı ve ses dosyasını yeni sayfaya taşı, kaybolmasın.

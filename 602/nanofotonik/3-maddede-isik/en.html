@@ -357,6 +357,20 @@ window.MathJax = {
 /* KaTeX MathML çıktısında uzun blok formüller telefonda sayfayı yana kaydırmasın */
 .katex:has(> math[display="block"]){display:block;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-block:.3rem}
 </style>
+<style>
+/* Sesli özet (602 sayfalarında .tag/.speed/.listen başka işe yaradığı için so- önekli) */
+.so{padding-top:22px}
+.so-card{max-width:720px;background:var(--sheet,var(--panel,#fff));border:1px solid var(--rule,#d6dde6);border-radius:12px;padding:14px 18px 16px;display:grid;gap:10px;color:var(--ink)}
+.so-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.so-tag{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.so-meta{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;color:var(--ink-2)}
+.so-t{margin:0;font-family:var(--f-display,var(--font-display,system-ui,sans-serif));font-size:1.06rem;font-weight:600;line-height:1.35}
+.so audio{display:block;width:100%;height:44px}
+.so-speed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;color:var(--ink-2)}
+.so-speed span{margin-right:4px}
+.so-speed button{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--rule,#d6dde6);border-radius:999px;padding:4px 12px;min-height:32px;cursor:pointer;font-variant-numeric:tabular-nums}
+.so-speed button[aria-pressed="true"]{background:var(--wave,var(--marker,var(--blue,currentColor)));border-color:var(--wave,var(--marker,var(--blue,currentColor)));color:var(--paper,var(--bg,#fff))}
+</style>
 </head>
 <body>
 <header class="masthead" lang="en">
@@ -376,6 +390,28 @@ window.MathJax = {
 </header>
 <div class="spectrum" aria-hidden="true"></div>
 <div class="spectrum-scale" aria-hidden="true"></div>
+
+<section class="wrap so" aria-label="Audio summary" lang="en">
+  <div class="so-card">
+    <div class="so-h">
+      <span class="so-tag">Audio summary</span>
+      <span class="so-meta">In Turkish · 21 minutes</span>
+    </div>
+    <p class="so-t">Light’s atomic struggle inside matter</p>
+    <audio id="so-ses" controls preload="metadata">
+      <source src="sesli-ozet.m4a" type="audio/mp4">
+      Your browser cannot play the audio here; <a href="sesli-ozet.m4a">download the file</a>.
+    </audio>
+    <div class="so-speed" role="group" aria-label="Playback speed">
+      <span>Speed</span>
+      <button type="button" data-r="1" aria-pressed="true">1×</button>
+      <button type="button" data-r="1.25" aria-pressed="false">1.25×</button>
+      <button type="button" data-r="1.5" aria-pressed="false">1.5×</button>
+      <button type="button" data-r="2" aria-pressed="false">2×</button>
+    </div>
+  </div>
+</section>
+
 <div class="wrap layout" lang="en">
   <nav class="toc" aria-label="On this page">
     <span class="toc-title">On this page</span> <a href="#kirilma">Complex refractive index</a> <a href="#eps-mu">ε and μ</a> <a href="#eps12">n, κ and ε₁, ε₂</a> <a href="#gezgin">Material explorer</a> <a href="#degerler">Typical εr values</a> <a href="#surekli">Continuum</a> <a href="#dipol">Dipole and P</a> <a href="#dogrusal">D, E and χ</a> <a href="#anizotropi">Anisotropy</a> <a href="#dogrusal-olmayan">Nonlinear optics</a> <a href="#yukler">Free and bound charge</a> <a href="#manyetik">Magnetization</a> <a href="#karsilastirma">Comparison</a> <a href="#test">Test yourself</a>
@@ -1122,4 +1158,36 @@ NF.onTheme(drawAll);
 
 </script>
 
+<script>
+// Sesli özet: hız seçimi ve kaldığın yer bu tarayıcıda hatırlanır.
+(function () {
+  var a = document.getElementById('so-ses');
+  if (!a) return;
+  var K = 'kbm-602-hafta2-ses';
+  var bs = Array.prototype.slice.call(document.querySelectorAll('.so-speed button'));
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) {}
+  function save() {
+    try { localStorage.setItem(K, JSON.stringify({ t: a.currentTime, r: a.playbackRate })); } catch (e) {}
+  }
+  function setRate(r) {
+    a.defaultPlaybackRate = r;
+    a.playbackRate = r;
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.r) === r)); });
+  }
+  bs.forEach(function (b) {
+    b.addEventListener('click', function () { setRate(Number(b.dataset.r)); save(); });
+  });
+  if (saved && saved.r) setRate(saved.r);
+  a.addEventListener('loadedmetadata', function () {
+    if (saved && saved.t > 5 && saved.t < a.duration - 5) a.currentTime = saved.t;
+  });
+  var last = 0;
+  a.addEventListener('timeupdate', function () {
+    if (Math.abs(a.currentTime - last) > 5) { last = a.currentTime; save(); }
+  });
+  a.addEventListener('pause', save);
+  a.addEventListener('ended', function () { a.currentTime = 0; save(); });
+})();
+</script>
 </body></html>
