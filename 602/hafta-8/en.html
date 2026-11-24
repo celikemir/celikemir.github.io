@@ -436,6 +436,20 @@ details[open] > summary::before { content: "−"; }
 .wsvg polyline { stroke-linejoin: round; }
 .ctrl .btn { flex: none; }
 </style>
+<style>
+/* Sesli özet (602 sayfalarında .tag/.speed/.listen başka işe yaradığı için so- önekli) */
+.so{padding-top:22px}
+.so-card{max-width:720px;background:var(--sheet,var(--panel,var(--surface,#fff)));border:1px solid var(--rule,var(--line,#d6dde6));border-radius:12px;padding:14px 18px 16px;display:grid;gap:10px;color:var(--ink)}
+.so-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.so-tag{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--wave,var(--marker,var(--blue,currentColor)))}
+.so-meta{font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;color:var(--ink-2)}
+.so-t{margin:0;font-family:var(--f-display,var(--font-display,system-ui,sans-serif));font-size:1.06rem;font-weight:600;line-height:1.35}
+.so audio{display:block;width:100%;height:44px}
+.so-speed{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--f-mono,var(--font-mono,ui-monospace,Menlo,Consolas,monospace));font-size:.78rem;color:var(--ink-2)}
+.so-speed span{margin-right:4px}
+.so-speed button{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--rule,var(--line,#d6dde6));border-radius:999px;padding:4px 12px;min-height:32px;cursor:pointer;font-variant-numeric:tabular-nums}
+.so-speed button[aria-pressed="true"]{background:var(--wave,var(--marker,var(--blue,currentColor)));border-color:var(--wave,var(--marker,var(--blue,currentColor)));color:var(--paper,var(--bg,#fff))}
+</style>
 </head>
 <body>
 <header class="wrap hero">
@@ -444,6 +458,28 @@ details[open] > summary::before { content: "−"; }
   <h1>Two speeds in a guide, two kinds of cladding</h1>
   <p class="lead">Last week we found the TE modes and the cutoff frequency of a rectangular metal pipe. This week we calculated how fast the wave above cutoff travels: the crests move faster than c, the signal slower than c, and the product of the two speeds is exactly \(c^2\). Then we looked at which modes really exist (no TE₀₀, TM₀₁ or TM₁₀, and no TEM in an empty pipe). In the last part of the lecture we compared metal cladding with dielectric cladding: one squeezes light into nanometers but kills it within micrometers, the other carries it for kilometers but cannot go below about half a wavelength.</p>
 </header>
+
+<section class="wrap so" aria-label="Audio summary" lang="en">
+  <div class="so-card">
+    <div class="so-h">
+      <span class="so-tag">Audio summary</span>
+      <span class="so-meta">In Turkish · 23 minutes</span>
+    </div>
+    <p class="so-t">Patterns faster than light in waveguides</p>
+    <audio id="so-ses" controls preload="metadata">
+      <source src="sesli-ozet.m4a" type="audio/mp4">
+      Your browser cannot play the audio here; <a href="sesli-ozet.m4a">download the file</a>.
+    </audio>
+    <div class="so-speed" role="group" aria-label="Playback speed">
+      <span>Speed</span>
+      <button type="button" data-r="1" aria-pressed="true">1×</button>
+      <button type="button" data-r="1.25" aria-pressed="false">1.25×</button>
+      <button type="button" data-r="1.5" aria-pressed="false">1.5×</button>
+      <button type="button" data-r="2" aria-pressed="false">2×</button>
+    </div>
+  </div>
+</section>
+
 
 <section class="wrap intro" aria-label="How to study">
   <div class="howto">
@@ -2360,5 +2396,37 @@ window.MathJax = {
 };
 </script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<script>
+// Sesli özet: hız seçimi ve kaldığın yer bu tarayıcıda hatırlanır.
+(function () {
+  var a = document.getElementById('so-ses');
+  if (!a) return;
+  var K = 'kbm-602-hafta8-ses';
+  var bs = Array.prototype.slice.call(document.querySelectorAll('.so-speed button'));
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(K) || 'null'); } catch (e) {}
+  function save() {
+    try { localStorage.setItem(K, JSON.stringify({ t: a.currentTime, r: a.playbackRate })); } catch (e) {}
+  }
+  function setRate(r) {
+    a.defaultPlaybackRate = r;
+    a.playbackRate = r;
+    bs.forEach(function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.r) === r)); });
+  }
+  bs.forEach(function (b) {
+    b.addEventListener('click', function () { setRate(Number(b.dataset.r)); save(); });
+  });
+  if (saved && saved.r) setRate(saved.r);
+  a.addEventListener('loadedmetadata', function () {
+    if (saved && saved.t > 5 && saved.t < a.duration - 5) a.currentTime = saved.t;
+  });
+  var last = 0;
+  a.addEventListener('timeupdate', function () {
+    if (Math.abs(a.currentTime - last) > 5) { last = a.currentTime; save(); }
+  });
+  a.addEventListener('pause', save);
+  a.addEventListener('ended', function () { a.currentTime = 0; save(); });
+})();
+</script>
 </body>
 </html>
