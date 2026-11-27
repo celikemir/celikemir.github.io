@@ -28,18 +28,29 @@
     });
   }
 
+  // Aynı dosya sayfada birkaç kez geçebilir; her biri bir kez indirilip çözülür.
   function reveal(raw) {
     return aes(raw).then(function (key) {
+      var cache = {};
+      function open(path) {
+        if (!cache[path]) {
+          cache[path] = fetch(path + '.enc').then(function (r) {
+            if (!r.ok) throw new Error(r.status);
+            return r.arrayBuffer();
+          }).then(function (buf) {
+            return crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12));
+          }).then(function (plain) {
+            return URL.createObjectURL(new Blob([plain], { type: 'image/jpeg' }));
+          });
+        }
+        return cache[path];
+      }
       return Promise.all(imgs.map(function (img) {
-        return fetch(img.getAttribute('src') + '.enc').then(function (r) {
-          if (!r.ok) throw new Error(r.status);
-          return r.arrayBuffer();
-        }).then(function (buf) {
-          return crypto.subtle.decrypt({ name: 'AES-GCM', iv: new Uint8Array(buf, 0, 12) }, key, new Uint8Array(buf, 12));
-        }).then(function (plain) {
-          img.src = URL.createObjectURL(new Blob([plain], { type: 'image/jpeg' }));
-          img.setAttribute('data-tahta', 'acik');
-        });
+        var full = img.getAttribute('data-full');   // büyütünce açılan daha geniş fotoğraf (602 Hafta 8)
+        return Promise.all([
+          open(img.getAttribute('src')).then(function (u) { img.src = u; img.setAttribute('data-tahta', 'acik'); }),
+          full && /boards\//.test(full) ? open(full).then(function (u) { img.setAttribute('data-full', u); }) : null
+        ]);
       }));
     });
   }

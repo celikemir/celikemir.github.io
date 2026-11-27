@@ -34,12 +34,12 @@ Tahta fotoğraflarına tek tek bak: hoca ya da başka biri görünüyorsa kullan
 
 Aynı şey hocanın kişisel bilgileri için de geçerli: tahtada ya da sayfa metninde hocanın adı, e-postası, odası veya özgeçmişi (okulları, şu an çalıştığı yer) varsa fotoğrafta o bölgeyi bulanıklaştır, metinden ve alt metinlerden çıkar (örnek: 601 Hafta 1, t01 ve t02).
 
-## 601 tahta kilidi
+## Tahta kilidi (601 ve 602)
 
-601'in tahta fotoğrafları herkese bulanık görünür; asılları yalnızca kullanıcı şifreyle açar. Her `601/hafta-N/boards/X.jpg` bulanık kopyadır, asıl fotoğraf yanında `X.jpg.enc` olarak AES-GCM ile şifreli durur. Sayfalarda `</body>`'den önce `<script src="../../tahta.js" defer></script>` vardır. Şifre `tahta-kilit.json`'da anahtarı sarar; şifreyi yalnızca kullanıcı bilir, sen bilmezsin.
+İki dersin de tahta ve defter fotoğrafları herkese bulanık görünür; asılları yalnızca kullanıcı şifreyle açar (iki ders için aynı şifre). Her `<ders>/hafta-N/boards/X.jpg` bulanık kopyadır, asıl fotoğraf yanında `X.jpg.enc` olarak AES-GCM ile şifreli durur. Sayfalarda `</body>`'den önce `<script src="../../tahta.js" defer></script>` vardır. Şifre `tahta-kilit.json`'da anahtarı sarar; şifreyi yalnızca kullanıcı bilir, sen bilmezsin.
 
-- 601'e yeni bir hafta (ya da tahta fotoğrafı) gelince commit'ten önce `python3 tools/tahta.py kilitle 601/hafta-N` çalıştır ve sayfaya script satırını ekle. Anahtar bu bilgisayarda `~/.config/kbm-tahta/anahtar`'dadır; asılların yedeği `~/.config/kbm-tahta/asil/`'e gider.
-- 601'in asıl (bulanık olmayan) tahta fotoğrafını asla commit'leme: her `boards/*.jpg`'nin yanında `.enc` olmalı. Geçmiş 27 Kasım 2026'da bunun için temizlendi.
+- Yeni bir hafta (ya da tahta fotoğrafı) gelince commit'ten önce `python3 tools/tahta.py kilitle <ders>/hafta-N` çalıştır ve sayfaya script satırını ekle. Anahtar bu bilgisayarda `~/.config/kbm-tahta/anahtar`'dadır; asılların yedeği `~/.config/kbm-tahta/asil/`'e gider.
+- Asıl (bulanık olmayan) tahta fotoğrafını asla commit'leme: her `boards/*.jpg`'nin yanında `.enc` olmalı. Geçmiş 27 Kasım 2026'da bunun için temizlendi. `data-full` ile büyütülen geniş fotoğraf da `boards/` içinde durur ve aynı şekilde kilitlenir.
 - Şifreyi değiştirmek: kullanıcı kendi terminalinde `python3 tools/tahta.py sifre` çalıştırır, sonra `tahta-kilit.json` commit'lenir.
 
 ## Sesli özet eklemek

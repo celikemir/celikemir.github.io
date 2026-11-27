@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""601 tahta fotoğraflarını kilitler.
+"""Tahta fotoğraflarını (601, 602) kilitler.
 
 Repoda her tahta iki dosyadır:
   boards/tNN.jpg      herkesin gördüğü bulanık kopya
